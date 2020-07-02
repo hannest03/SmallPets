@@ -11,6 +11,8 @@
 
     <modules>
         <module>plugin</module>
+        <module>smallpets-core</module>
+        <module>smallpets-1.8</module>
     </modules>
 
     <name>SmallPets-Parent</name>
