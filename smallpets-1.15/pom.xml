@@ -10,15 +10,27 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>it.smallcode</groupId>
-    <artifactId>smallpets-1.8</artifactId>
-    <version>1.8</version>
+    <artifactId>smallpets-1.15</artifactId>
+    <version>1.15</version>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
     <dependencies>
 
         <dependency>
             <groupId>org.bukkit</groupId>
             <artifactId>bukkit</artifactId>
-            <version>1.8.8-R0.1-SNAPSHOT</version>
+            <version>1.15.2-R0.1-SNAPSHOT</version>
             <type>jar</type>
             <optional>true</optional>
         </dependency>

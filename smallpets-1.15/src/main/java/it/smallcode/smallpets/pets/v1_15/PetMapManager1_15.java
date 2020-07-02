@@ -1,4 +1,4 @@
-package it.smallcode.smallpets.pets.v1_8;
+package it.smallcode.smallpets.pets.v1_15;
 /*
 
 Class created by SmallCode
@@ -8,7 +8,7 @@ Class created by SmallCode
 
 import it.smallcode.smallpets.pets.PetMapManager;
 
-public class PetMapManager1_8 extends PetMapManager {
+public class PetMapManager1_15 extends PetMapManager {
 
     protected void registerPets() {
 

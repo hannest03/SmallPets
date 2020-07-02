@@ -9,7 +9,7 @@ Class created by SmallCode
 import it.smallcode.smallpets.cmds.PetCMD;
 import it.smallcode.smallpets.pets.PetManager;
 import it.smallcode.smallpets.pets.PetMapManager;
-import it.smallcode.smallpets.pets.v1_8.PetMapManager1_8;
+import it.smallcode.smallpets.pets.v1_15.PetMapManager1_15;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -55,7 +55,7 @@ public class SmallPets extends JavaPlugin {
 
         if(version.startsWith("1_8")){
 
-            petMapManager = new PetMapManager1_8();
+            petMapManager = new PetMapManager1_15();
 
         }else{
 

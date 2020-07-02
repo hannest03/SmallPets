@@ -12,7 +12,7 @@
     <modules>
         <module>plugin</module>
         <module>smallpets-core</module>
-        <module>smallpets-1.8</module>
+        <module>smallpets-1.15</module>
     </modules>
 
     <name>SmallPets-Parent</name>
