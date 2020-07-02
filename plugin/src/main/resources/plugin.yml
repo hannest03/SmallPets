@@ -1,6 +1,8 @@
 name: ${project.name}
 version: ${project.version}
 description: ${project.description}
-author: SmallCode
+author: SmallCode, Nissl
 api-version: 1.13
 main: it.smallcode.smallpets.SmallPets
+commands:
+  pet:
