@@ -27,7 +27,7 @@ public class PetManager {
 
         Pet pet = createPet(type, owner, exp);
 
-        pet.spawn();
+        pet.spawn(SmallPets.getInstance());
 
         pets.put(owner, pet);
 

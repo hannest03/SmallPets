@@ -9,6 +9,7 @@ Class created by SmallCode
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.java.JavaPlugin;
 
 public abstract class Pet {
 
@@ -31,7 +32,7 @@ public abstract class Pet {
 
     }
 
-    public abstract void spawn();
+    public abstract void spawn(JavaPlugin plugin);
 
     public abstract void move();
 

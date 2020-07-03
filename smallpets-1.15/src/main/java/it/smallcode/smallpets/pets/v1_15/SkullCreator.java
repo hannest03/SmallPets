@@ -6,20 +6,21 @@ Class created by SmallCode
 
 */
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.SkullType;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.SkullMeta;
+
+import java.util.UUID;
 
 public class SkullCreator {
 
     public static ItemStack getSkull(String texture){
 
-        ItemStack head = new ItemStack(Material.SKULL_ITEM, 1, (short) SkullType.PLAYER.ordinal());
+        ItemStack head = new ItemStack(Material.PLAYER_HEAD);
 
-        SkullMeta skullMeta = (SkullMeta) head.getItemMeta();
+        UUID hashAsId = new UUID(texture.hashCode(), texture.hashCode());
 
-
+        Bukkit.getUnsafe().modifyItemStack(head, "{SkullOwner:{Id:\"" + hashAsId + "\",Properties:{textures:[{Value:\"" + texture + "\"}]}}}");
 
         return head;
 

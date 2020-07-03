@@ -53,7 +53,7 @@ public class SmallPets extends JavaPlugin {
 
         version = version.replace(".v", "");
 
-        if(version.startsWith("1_8")){
+        if(version.startsWith("1_15")){
 
             petMapManager = new PetMapManager1_15();
 
