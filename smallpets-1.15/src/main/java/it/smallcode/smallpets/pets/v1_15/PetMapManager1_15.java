@@ -15,4 +15,5 @@ public class PetMapManager1_15 extends PetMapManager {
         petMap.put("tiger", Tiger.class);
 
     }
+
 }

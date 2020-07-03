@@ -6,7 +6,7 @@ Class created by SmallCode
 
 */
 
-import it.smallcode.smallpets.cmds.PetCMD;
+import it.smallcode.smallpets.cmds.SmallPetsCMD;
 import it.smallcode.smallpets.listener.QuitListener;
 import it.smallcode.smallpets.pets.PetManager;
 import it.smallcode.smallpets.pets.PetMapManager;
@@ -35,7 +35,7 @@ public class SmallPets extends JavaPlugin {
 
         Bukkit.getPluginManager().registerEvents(new QuitListener(), this);
 
-        Bukkit.getPluginCommand("pet").setExecutor(new PetCMD());
+        Bukkit.getPluginCommand("smallpets").setExecutor(new SmallPetsCMD());
 
         Bukkit.getConsoleSender().sendMessage(PREFIX + "Plugin initialized");
 

@@ -30,8 +30,6 @@ public class HoverArmorStand {
 
                 if(play) {
 
-                    System.out.println(minHeightCap + " | " + height + " | " + maxHeightCap);
-
                     if (height >= maxHeightCap)
                         vel = -speed;
 

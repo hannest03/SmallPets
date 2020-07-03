@@ -7,6 +7,7 @@ Class created by SmallCode
 */
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -40,7 +41,17 @@ public class FollowPlayerArmorStand {
 
                     newLoc.add(direction.multiply(speed));
 
-                    armorStand.teleport(newLoc);
+                    if(!newLoc.getChunk().isLoaded())
+                        newLoc.getChunk().load();
+
+                    if(!armorStand.getLocation().getChunk().isLoaded())
+                        armorStand.getLocation().getChunk().load();
+
+                    if(!armorStand.teleport(newLoc)){
+
+                        System.out.println(armorStand.getLocation());
+
+                    }
 
                 }
 
