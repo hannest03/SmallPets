@@ -21,28 +21,24 @@ public class FollowPlayerArmorStand {
 
     public FollowPlayerArmorStand(final ArmorStand armorStand, final double speed, Player player, Plugin plugin){
 
+        this.player = player;
+
         schedulerID = Bukkit.getScheduler().scheduleAsyncRepeatingTask(plugin, new Runnable() {
             public void run() {
 
                 if(play) {
 
-                    float yaw = player.getLocation().getYaw() - 180f;
+                    Vector goal = vectorFromLocation(player.getLocation());
 
-                    Location goal = player.getLocation().clone();
+                    goal.setY(goal.getY() + 0.75);
 
-                    goal.setY(goal.getY() + 1);
+                    Vector start = vectorFromLocation(armorStand.getLocation());
 
-                    goal = goal.multiply(3);
-
-                    goal.multiply(5);
-
-                    double distance = armorStand.getLocation().distance(goal);
-
-
+                    Vector direction = normalize(goal.subtract(start));
 
                     Location newLoc = armorStand.getLocation().clone();
 
-                    newLoc.setYaw(yaw);
+                    newLoc.add(direction.multiply(speed));
 
                     armorStand.teleport(newLoc);
 
@@ -53,15 +49,21 @@ public class FollowPlayerArmorStand {
 
     }
 
-    private Location normalize(Location loc){
+    private Vector vectorFromLocation(Location location){
 
-        return new Location(loc.getWorld(), loc.getX() / 3, loc.getY() / 3, loc.getZ() / 3);
+        return new Vector(location.getX(), location.getY(), location.getZ());
 
     }
 
-    public void toggle(){
+    private Vector normalize(Vector vec){
 
-        play = !play;
+        return new Vector(vec.getX() / vec.length(), vec.getY() / vec.length(), vec.getZ() / vec.length());
+
+    }
+
+    public void setActive(boolean active){
+
+        play = active;
 
     }
 
