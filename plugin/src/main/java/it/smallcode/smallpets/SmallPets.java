@@ -7,9 +7,13 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.cmds.SmallPetsCMD;
+import it.smallcode.smallpets.listener.InventoryClickListener;
 import it.smallcode.smallpets.listener.QuitListener;
-import it.smallcode.smallpets.pets.PetManager;
-import it.smallcode.smallpets.pets.PetMapManager;
+import it.smallcode.smallpets.manager.InventoryCache;
+import it.smallcode.smallpets.manager.InventoryManager;
+import it.smallcode.smallpets.manager.PetManager;
+import it.smallcode.smallpets.manager.PetMapManager;
+import it.smallcode.smallpets.pets.v1_15.InventoryManager1_15;
 import it.smallcode.smallpets.pets.v1_15.PetMapManager1_15;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -21,6 +25,9 @@ public class SmallPets extends JavaPlugin {
     private PetMapManager petMapManager;
     private PetManager petManager;
 
+    private InventoryManager inventoryManager;
+    private InventoryCache inventoryCache;
+
     public final String PREFIX = "§e○§6◯  SmallPets §e◆ ";
 
     @Override
@@ -28,12 +35,15 @@ public class SmallPets extends JavaPlugin {
 
         instance = this;
 
-        if(!selectPetMapManager())
+        inventoryCache = new InventoryCache();
+
+        if(!selectRightVersion())
             return;
 
         petManager = new PetManager();
 
         Bukkit.getPluginManager().registerEvents(new QuitListener(), this);
+        Bukkit.getPluginManager().registerEvents(new InventoryClickListener(), this);
 
         Bukkit.getPluginCommand("smallpets").setExecutor(new SmallPetsCMD());
 
@@ -46,9 +56,11 @@ public class SmallPets extends JavaPlugin {
 
         petManager.despawnAll();
 
+        inventoryCache.removeAll();
+
     }
 
-    private boolean selectPetMapManager(){
+    private boolean selectRightVersion(){
 
         String version = Bukkit.getServer().getClass().getPackage().getName();
 
@@ -59,6 +71,7 @@ public class SmallPets extends JavaPlugin {
         if(version.startsWith("1_15")){
 
             petMapManager = new PetMapManager1_15();
+            inventoryManager = new InventoryManager1_15(inventoryCache);
 
         }else{
 
@@ -88,4 +101,11 @@ public class SmallPets extends JavaPlugin {
 
     }
 
+    public InventoryCache getInventoryCache() {
+        return inventoryCache;
+    }
+
+    public InventoryManager getInventoryManager() {
+        return inventoryManager;
+    }
 }

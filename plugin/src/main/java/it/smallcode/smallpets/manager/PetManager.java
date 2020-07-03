@@ -1,4 +1,4 @@
-package it.smallcode.smallpets.pets;
+package it.smallcode.smallpets.manager;
 /*
 
 Class created by SmallCode
@@ -7,6 +7,10 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.SmallPets;
+import it.smallcode.smallpets.events.DespawnPetEvent;
+import it.smallcode.smallpets.events.SpawnPetEvent;
+import it.smallcode.smallpets.pets.Pet;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.Constructor;
@@ -27,9 +31,20 @@ public class PetManager {
 
         Pet pet = createPet(type, owner, exp);
 
-        pet.spawn(SmallPets.getInstance());
+        SpawnPetEvent spawnPetEvent = new SpawnPetEvent(pet, owner);
 
-        pets.put(owner, pet);
+        Bukkit.getPluginManager().callEvent(spawnPetEvent);
+
+        if(!spawnPetEvent.isCancelled()) {
+
+            if (pets.containsKey(owner))
+                despawnPet(owner);
+
+            pet.spawn(SmallPets.getInstance());
+
+            pets.put(owner, pet);
+
+        }
 
     }
 
@@ -37,9 +52,17 @@ public class PetManager {
 
         if(pets.containsKey(p)){
 
-            pets.get(p).destroy();
+            DespawnPetEvent despawnPetEvent = new DespawnPetEvent(pets.get(p), p);
 
-            pets.remove(p);
+            Bukkit.getPluginManager().callEvent(despawnPetEvent);
+
+            if(!despawnPetEvent.isCancelled()) {
+
+                pets.get(p).destroy();
+
+                pets.remove(p);
+
+            }
 
         }
 

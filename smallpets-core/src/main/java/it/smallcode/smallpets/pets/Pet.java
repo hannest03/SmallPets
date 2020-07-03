@@ -57,4 +57,8 @@ public abstract class Pet {
     public void setOwner(Player owner) {
         this.owner = owner;
     }
+
+    public ArmorStand getArmorStand() {
+        return armorStand;
+    }
 }

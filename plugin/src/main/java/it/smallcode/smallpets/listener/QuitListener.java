@@ -20,6 +20,7 @@ public class QuitListener implements Listener {
         Player p = e.getPlayer();
 
         SmallPets.getInstance().getPetManager().despawnPet(p);
+        SmallPets.getInstance().getInventoryCache().removeInventory(p);
 
     }
 

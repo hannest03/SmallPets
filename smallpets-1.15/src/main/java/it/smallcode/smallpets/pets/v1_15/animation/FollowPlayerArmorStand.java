@@ -41,17 +41,21 @@ public class FollowPlayerArmorStand {
 
                     newLoc.add(direction.multiply(speed));
 
-                    if(!newLoc.getChunk().isLoaded())
-                        newLoc.getChunk().load();
+                    try {
 
-                    if(!armorStand.getLocation().getChunk().isLoaded())
-                        armorStand.getLocation().getChunk().load();
+                        if(!newLoc.getChunk().isLoaded())
+                            newLoc.getChunk().load();
 
-                    if(!armorStand.teleport(newLoc)){
+                        if(!armorStand.getLocation().getChunk().isLoaded())
+                            armorStand.getLocation().getChunk().load();
 
-                        System.out.println(armorStand.getLocation());
+                        if(!armorStand.teleport(newLoc)){
 
-                    }
+                            player.sendMessage("Error teleporting your pet!");
+
+                        }
+
+                    }catch (Exception ex){}
 
                 }
 

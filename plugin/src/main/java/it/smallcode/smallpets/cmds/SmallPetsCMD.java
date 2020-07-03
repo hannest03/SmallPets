@@ -7,10 +7,15 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.SmallPets;
+import it.smallcode.smallpets.pets.Pet;
+import it.smallcode.smallpets.pets.v1_15.pets.Penguin;
+import it.smallcode.smallpets.pets.v1_15.pets.Tiger;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.util.ArrayList;
 
 public class SmallPetsCMD implements CommandExecutor {
 
@@ -22,9 +27,12 @@ public class SmallPetsCMD implements CommandExecutor {
 
             Player p = (Player) s;
 
-            SmallPets.getInstance().getPetManager().spawnPet("tiger", p, 0);
+            ArrayList<Pet> pets = new ArrayList<>();
 
-            p.sendMessage(SmallPets.getInstance().PREFIX + "Spawned a tiger!");
+            pets.add(new Tiger(p));
+            pets.add(new Penguin(p));
+
+            SmallPets.getInstance().getInventoryManager().openPetsMenu(pets, p);
 
         }else{
 

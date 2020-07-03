@@ -1,4 +1,4 @@
-package it.smallcode.smallpets.pets;
+package it.smallcode.smallpets.manager;
 /*
 
 Class created by SmallCode
