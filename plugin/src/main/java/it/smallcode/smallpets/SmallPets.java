@@ -13,6 +13,7 @@ import it.smallcode.smallpets.manager.InventoryCache;
 import it.smallcode.smallpets.manager.InventoryManager;
 import it.smallcode.smallpets.manager.PetManager;
 import it.smallcode.smallpets.manager.PetMapManager;
+import it.smallcode.smallpets.metrics.Metrics;
 import it.smallcode.smallpets.pets.v1_15.InventoryManager1_15;
 import it.smallcode.smallpets.pets.v1_15.PetMapManager1_15;
 import org.bukkit.Bukkit;
@@ -46,6 +47,8 @@ public class SmallPets extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new InventoryClickListener(), this);
 
         Bukkit.getPluginCommand("smallpets").setExecutor(new SmallPetsCMD());
+
+        Metrics metrics = new Metrics(this, 8071);
 
         Bukkit.getConsoleSender().sendMessage(PREFIX + "Plugin initialized");
 
