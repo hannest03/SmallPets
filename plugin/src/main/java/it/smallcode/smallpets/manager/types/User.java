@@ -196,9 +196,6 @@ public class User {
 
                 Constructor constructor = petMapManager.getPetMap().get(type).getConstructor(Player.class, Integer.class);
 
-                System.out.println("UUID: " + uuid);
-                System.out.println("UUID FROM STRING: " + UUID.fromString(uuid));
-
                 return (Pet) constructor.newInstance(Bukkit.getPlayer(UUID.fromString(uuid)), exp);
 
             } catch (NoSuchMethodException ex) {

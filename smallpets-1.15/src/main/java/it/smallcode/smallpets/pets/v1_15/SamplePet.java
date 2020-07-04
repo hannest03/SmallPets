@@ -40,27 +40,53 @@ public class SamplePet extends Pet {
 
         armorStand = createArmorStand(loc);
 
-        armorStand.getEquipment().setHelmet(getItem());
+        //Please don't ask why (╯°□°)╯︵ ┻━┻
 
-        armorStand.setCustomNameVisible(true);
-        armorStand.setCustomName("§e" + owner.getName() + "s " + getName());
+        Bukkit.getScheduler().scheduleAsyncDelayedTask(plugin, new Runnable() {
+            @Override
+            public void run() {
+                armorStand.setCustomNameVisible(true);
+            }
+        }, 1);
+
+        Bukkit.getScheduler().scheduleAsyncDelayedTask(plugin, new Runnable() {
+            @Override
+            public void run() {
+                armorStand.setCustomName("§e" + owner.getName() + "s " + getName());
+            }
+        }, 2);
+
+        Bukkit.getScheduler().scheduleAsyncDelayedTask(plugin, new Runnable() {
+            @Override
+            public void run() {
+                armorStand.setGravity(false);
+            }
+        }, 3);
+
+        Bukkit.getScheduler().scheduleAsyncDelayedTask(plugin, new Runnable() {
+            @Override
+            public void run() {
+                armorStand.setSmall(true);
+            }
+        }, 4);
+
+        Bukkit.getScheduler().scheduleAsyncDelayedTask(plugin, new Runnable() {
+            @Override
+            public void run() {
+                armorStand.setInvulnerable(true);
+            }
+        }, 5);
+
+        armorStand.getEquipment().setHelmet(getItem());
 
         Bukkit.getScheduler().scheduleAsyncDelayedTask(plugin, new Runnable() {
             @Override
             public void run() {
 
                 armorStand.setVisible(false);
-                armorStand.setGravity(false);
-
-                armorStand.setSmall(true);
-
-                armorStand.getEquipment().setHelmet(getItem());
-
-                armorStand.setCustomNameVisible(true);
-                armorStand.setCustomName("§e" + owner.getName() + "s " + getName());
 
             }
-        }, 1);
+        }, 6);
 
         initAnimations(plugin);
 
@@ -152,11 +178,6 @@ public class SamplePet extends Pet {
     protected ArmorStand createArmorStand(Location loc){
 
         ArmorStand armorStand = (ArmorStand) loc.getWorld().spawnEntity(loc, EntityType.ARMOR_STAND);
-
-        armorStand.setVisible(true);
-        armorStand.setGravity(false);
-
-        armorStand.setSmall(true);
 
         return armorStand;
 
