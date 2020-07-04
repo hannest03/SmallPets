@@ -8,6 +8,7 @@ Class created by SmallCode
 
 import it.smallcode.smallpets.cmds.SmallPetsCMD;
 import it.smallcode.smallpets.cmds.SmallPetsTestCMD;
+import it.smallcode.smallpets.listener.WorldChangeListener;
 import it.smallcode.smallpets.listener.InventoryClickListener;
 import it.smallcode.smallpets.listener.JoinListener;
 import it.smallcode.smallpets.listener.QuitListener;
@@ -17,7 +18,6 @@ import it.smallcode.smallpets.pets.v1_15.InventoryManager1_15;
 import it.smallcode.smallpets.pets.v1_15.PetMapManager1_15;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class SmallPets extends JavaPlugin {
@@ -47,6 +47,7 @@ public class SmallPets extends JavaPlugin {
 
         Bukkit.getPluginManager().registerEvents(new JoinListener(), this);
         Bukkit.getPluginManager().registerEvents(new QuitListener(), this);
+        Bukkit.getPluginManager().registerEvents(new WorldChangeListener(), this);
         Bukkit.getPluginManager().registerEvents(new InventoryClickListener(), this);
 
         Bukkit.getPluginCommand("smallpetstest").setExecutor(new SmallPetsTestCMD());
