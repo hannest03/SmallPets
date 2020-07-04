@@ -8,10 +8,7 @@ Class created by SmallCode
 
 import it.smallcode.smallpets.cmds.SmallPetsCMD;
 import it.smallcode.smallpets.cmds.SmallPetsTestCMD;
-import it.smallcode.smallpets.listener.WorldChangeListener;
-import it.smallcode.smallpets.listener.InventoryClickListener;
-import it.smallcode.smallpets.listener.JoinListener;
-import it.smallcode.smallpets.listener.QuitListener;
+import it.smallcode.smallpets.listener.*;
 import it.smallcode.smallpets.manager.*;
 import it.smallcode.smallpets.metrics.Metrics;
 import it.smallcode.smallpets.pets.v1_15.InventoryManager1_15;
@@ -49,6 +46,7 @@ public class SmallPets extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new QuitListener(), this);
         Bukkit.getPluginManager().registerEvents(new WorldChangeListener(), this);
         Bukkit.getPluginManager().registerEvents(new InventoryClickListener(), this);
+        Bukkit.getPluginManager().registerEvents(new ArmorStandInteractListener(), this);
 
         Bukkit.getPluginCommand("smallpetstest").setExecutor(new SmallPetsTestCMD());
         Bukkit.getPluginCommand("smallpets").setExecutor(new SmallPetsCMD());
