@@ -8,6 +8,7 @@ Class created by SmallCode
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -24,7 +25,7 @@ public class FollowPlayerArmorStand {
 
         this.player = player;
 
-        schedulerID = Bukkit.getScheduler().scheduleAsyncRepeatingTask(plugin, new Runnable() {
+        schedulerID = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
             public void run() {
 
                 if(play) {
@@ -49,13 +50,9 @@ public class FollowPlayerArmorStand {
                         if(!armorStand.getLocation().getChunk().isLoaded())
                             armorStand.getLocation().getChunk().load();
 
-                        if(!armorStand.teleport(newLoc)){
+                        armorStand.teleport(newLoc);
 
-                            player.sendMessage("Error teleporting your pet!");
-
-                        }
-
-                    }catch (Exception ex){}
+                    }catch (Exception ex){ ex.printStackTrace(); }
 
                 }
 

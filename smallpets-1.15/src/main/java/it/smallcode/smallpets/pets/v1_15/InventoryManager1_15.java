@@ -47,7 +47,11 @@ public class InventoryManager1_15 extends InventoryManager {
                 ArrayList<String> lore = new ArrayList();
 
                 lore.add("");
-                lore.add("§6CLICK TO SUMMON");
+
+                if(pet.getArmorStand() != null && pet.getArmorStand().isValid())
+                    lore.add("§cCLICK TO DESELECT");
+                else
+                    lore.add("§6CLICK TO SELECT");
 
                 itemMeta.setLore(lore);
 

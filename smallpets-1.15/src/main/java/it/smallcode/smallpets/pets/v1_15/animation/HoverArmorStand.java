@@ -8,6 +8,7 @@ Class created by SmallCode
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.plugin.Plugin;
 
@@ -44,12 +45,15 @@ public class HoverArmorStand {
 
                     try {
 
+                        if(!armorStand.getLocation().getChunk().isLoaded())
+                            armorStand.getLocation().getChunk().load();
+
                         if(!newLoc.getChunk().isLoaded())
                             newLoc.getChunk().load();
 
                         armorStand.teleport(newLoc);
 
-                    }catch (Exception ex){}
+                    }catch (Exception ex){ ex.printStackTrace(); }
 
                 }
 

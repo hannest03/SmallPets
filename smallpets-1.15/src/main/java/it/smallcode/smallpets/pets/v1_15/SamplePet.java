@@ -12,6 +12,7 @@ import it.smallcode.smallpets.pets.v1_15.animation.HoverArmorStand;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
+import org.bukkit.World;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -92,7 +93,7 @@ public class SamplePet extends Pet {
 
     }
 
-    protected void initAnimations(Plugin plugin){
+    protected void initAnimations(JavaPlugin plugin){
 
         followPlayerArmorStand = new FollowPlayerArmorStand(armorStand, 0.5, owner, plugin);
         followPlayerArmorStand.setActive(false);
@@ -133,11 +134,14 @@ public class SamplePet extends Pet {
 
                     armorStand.teleport(loc);
 
-                }catch (Exception ex){}
+                }catch (Exception ex){ ex.printStackTrace(); }
 
                 Location particleLoc = loc.clone();
 
                 particleLoc.setY(particleLoc.getY() + 0.7);
+
+                if(!particleLoc.getChunk().isLoaded())
+                    particleLoc.getChunk().load();
 
                 particleLoc.getWorld().spawnParticle(Particle.VILLAGER_HAPPY, particleLoc, 1);
 
