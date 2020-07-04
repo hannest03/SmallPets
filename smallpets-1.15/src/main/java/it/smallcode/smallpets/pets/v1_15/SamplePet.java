@@ -33,7 +33,36 @@ public class SamplePet extends Pet {
 
     public void spawn(JavaPlugin plugin) {
 
+        Location loc = owner.getLocation().clone();
 
+        loc.setX(loc.getX() - 1);
+        loc.setY(loc.getY() + 0.75);
+
+        armorStand = createArmorStand(loc);
+
+        armorStand.getEquipment().setHelmet(getItem());
+
+        armorStand.setCustomNameVisible(true);
+        armorStand.setCustomName("§e" + owner.getName() + "s " + getName());
+
+        Bukkit.getScheduler().scheduleAsyncDelayedTask(plugin, new Runnable() {
+            @Override
+            public void run() {
+
+                armorStand.setVisible(false);
+                armorStand.setGravity(false);
+
+                armorStand.setSmall(true);
+
+                armorStand.getEquipment().setHelmet(getItem());
+
+                armorStand.setCustomNameVisible(true);
+                armorStand.setCustomName("§e" + owner.getName() + "s " + getName());
+
+            }
+        }, 1);
+
+        initAnimations(plugin);
 
     }
 
@@ -124,7 +153,7 @@ public class SamplePet extends Pet {
 
         ArmorStand armorStand = (ArmorStand) loc.getWorld().spawnEntity(loc, EntityType.ARMOR_STAND);
 
-        armorStand.setVisible(false);
+        armorStand.setVisible(true);
         armorStand.setGravity(false);
 
         armorStand.setSmall(true);

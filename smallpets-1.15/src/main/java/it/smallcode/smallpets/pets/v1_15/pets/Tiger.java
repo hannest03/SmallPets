@@ -8,11 +8,9 @@ Class created by SmallCode
 
 import it.smallcode.smallpets.pets.v1_15.SamplePet;
 import it.smallcode.smallpets.pets.v1_15.SkullCreator;
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.plugin.java.JavaPlugin;
 
 public class Tiger extends SamplePet {
 
@@ -22,26 +20,6 @@ public class Tiger extends SamplePet {
 
     public Tiger(Player owner) {
         this(owner, 0);
-    }
-
-    public void spawn(JavaPlugin plugin) {
-
-        Location loc = owner.getLocation().clone();
-
-        loc.setX(loc.getX() - 1);
-        loc.setY(loc.getY() + 0.75);
-
-        armorStand = createArmorStand(loc);
-
-        armorStand.setHelmet(getItem());
-
-        armorStand.setCustomNameVisible(true);
-        armorStand.setCustomName("§e" + owner.getName() + "s tiger");
-
-        armorStand.setAI(false);
-
-        initAnimations(plugin);
-
     }
 
     public ItemStack getItem() {
