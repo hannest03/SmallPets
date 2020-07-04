@@ -42,7 +42,14 @@ public class HoverArmorStand {
 
                     newLoc.setY(newLoc.getY() + vel);
 
-                    armorStand.teleport(newLoc);
+                    try {
+
+                        if(!newLoc.getChunk().isLoaded())
+                            newLoc.getChunk().load();
+
+                        armorStand.teleport(newLoc);
+
+                    }catch (Exception ex){}
 
                 }
 
