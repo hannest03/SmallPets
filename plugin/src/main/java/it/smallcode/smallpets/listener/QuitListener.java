@@ -7,6 +7,7 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.SmallPets;
+import it.smallcode.smallpets.manager.types.User;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -19,7 +20,11 @@ public class QuitListener implements Listener {
 
         Player p = e.getPlayer();
 
-        SmallPets.getInstance().getPetManager().despawnPet(p);
+        User user = SmallPets.getInstance().getUserManager().getUser(p.getUniqueId().toString());
+
+        if(user != null)
+            user.despawnSelected();
+
         SmallPets.getInstance().getInventoryCache().removeInventory(p);
 
     }

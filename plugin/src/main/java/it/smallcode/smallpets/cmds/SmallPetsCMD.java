@@ -7,6 +7,7 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.SmallPets;
+import it.smallcode.smallpets.manager.types.User;
 import it.smallcode.smallpets.pets.Pet;
 import it.smallcode.smallpets.pets.v1_15.pets.Penguin;
 import it.smallcode.smallpets.pets.v1_15.pets.Tiger;
@@ -15,7 +16,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class SmallPetsCMD implements CommandExecutor {
 
@@ -27,12 +28,19 @@ public class SmallPetsCMD implements CommandExecutor {
 
             Player p = (Player) s;
 
-            ArrayList<Pet> pets = new ArrayList<>();
+            User user = SmallPets.getInstance().getUserManager().getUser(p.getUniqueId().toString());
 
-            pets.add(new Tiger(p));
-            pets.add(new Penguin(p));
+            if(user != null) {
 
-            SmallPets.getInstance().getInventoryManager().openPetsMenu(pets, p);
+                List<Pet> pets =user.getPets();
+
+                SmallPets.getInstance().getInventoryManager().openPetsMenu(pets, p);
+
+            }else{
+
+                p.sendMessage(SmallPets.getInstance().PREFIX + "Your user data couldn't be found!");
+
+            }
 
         }else{
 

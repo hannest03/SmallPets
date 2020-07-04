@@ -9,7 +9,7 @@ Class created by SmallCode
 import it.smallcode.smallpets.pets.Pet;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public abstract class InventoryManager {
 
@@ -21,6 +21,6 @@ public abstract class InventoryManager {
 
     }
 
-    public abstract void openPetsMenu(ArrayList<Pet> pets, Player p);
+    public abstract void openPetsMenu(List<Pet> pets, Player p);
 
 }

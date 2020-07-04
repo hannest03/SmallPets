@@ -16,6 +16,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class InventoryManager1_15 extends InventoryManager {
 
@@ -25,7 +26,7 @@ public class InventoryManager1_15 extends InventoryManager {
     }
 
     @Override
-    public void openPetsMenu(ArrayList<Pet> pets, Player p) {
+    public void openPetsMenu(List<Pet> pets, Player p) {
 
         Inventory inventory = inventoryCache.getInventory(p);
 
@@ -39,11 +40,9 @@ public class InventoryManager1_15 extends InventoryManager {
 
             if(itemStack != null) {
 
-                String type = itemStack.getItemMeta().getDisplayName();
-
                 ItemMeta itemMeta = itemStack.getItemMeta();
 
-                itemMeta.setDisplayName("§e" + p.getName() + "s " + type);
+                itemMeta.setDisplayName("§e" + p.getName() + "s " + pet.getName());
 
                 ArrayList<String> lore = new ArrayList();
 

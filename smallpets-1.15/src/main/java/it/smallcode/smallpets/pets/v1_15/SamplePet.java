@@ -133,4 +133,9 @@ public class SamplePet extends Pet {
 
     }
 
+    @Override
+    public String getName() {
+        return null;
+    }
+
 }

@@ -58,4 +58,11 @@ public class Tiger extends SamplePet {
 
     }
 
+    @Override
+    public String getName() {
+
+        return "tiger";
+
+    }
+
 }

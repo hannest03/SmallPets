@@ -58,4 +58,11 @@ public class Penguin extends SamplePet {
 
     }
 
+    @Override
+    public String getName() {
+
+        return "penguin";
+
+    }
+
 }

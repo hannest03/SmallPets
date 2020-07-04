@@ -7,8 +7,8 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.SmallPets;
+import it.smallcode.smallpets.manager.types.User;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -30,7 +30,10 @@ public class InventoryClickListener implements Listener {
 
                     String type = nameSplit[nameSplit.length - 1];
 
-                    SmallPets.getInstance().getPetManager().spawnPet(type, (Player) e.getWhoClicked(), 0);
+                    User user = SmallPets.getInstance().getUserManager().getUser(e.getWhoClicked().getUniqueId().toString());
+
+                    if(user != null)
+                        user.setSelected(user.getPetFromType(type));
 
                     e.getWhoClicked().closeInventory();
 

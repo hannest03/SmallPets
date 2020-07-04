@@ -20,6 +20,10 @@ public abstract class PetMapManager {
 
     }
 
+    public HashMap<String, Class> getPetMap() {
+        return petMap;
+    }
+
     protected abstract void registerPets();
 
 }

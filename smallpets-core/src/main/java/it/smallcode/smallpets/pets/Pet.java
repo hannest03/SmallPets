@@ -32,6 +32,8 @@ public abstract class Pet {
 
     }
 
+    public abstract String getName();
+
     public abstract void spawn(JavaPlugin plugin);
 
     public abstract void move();
@@ -61,4 +63,5 @@ public abstract class Pet {
     public ArmorStand getArmorStand() {
         return armorStand;
     }
+
 }
