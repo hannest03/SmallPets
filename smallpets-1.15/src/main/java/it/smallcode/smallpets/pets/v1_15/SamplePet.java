@@ -123,7 +123,17 @@ public class SamplePet extends Pet {
 
                 loc.setYaw((float) angle);
 
-                armorStand.teleport(loc);
+                try {
+
+                    if(!loc.getChunk().isLoaded())
+                        loc.getChunk().load();
+
+                    if(!armorStand.getLocation().getChunk().isLoaded())
+                        armorStand.getLocation().getChunk().load();
+
+                    armorStand.teleport(loc);
+
+                }catch (Exception ex){}
 
                 Location particleLoc = loc.clone();
 
