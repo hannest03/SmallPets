@@ -28,7 +28,7 @@ public class Tiger extends SamplePet {
 
         ItemMeta skullMeta = skull.getItemMeta();
 
-        skullMeta.setDisplayName("tiger");
+        skullMeta.setDisplayName(getName());
 
         skull.setItemMeta(skullMeta);
 

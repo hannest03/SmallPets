@@ -9,6 +9,8 @@ Class created by SmallCode
 import it.smallcode.smallpets.SmallPets;
 import it.smallcode.smallpets.manager.types.User;
 import org.bukkit.Material;
+import org.bukkit.Sound;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -26,18 +28,35 @@ public class InventoryClickListener implements Listener {
 
                 if (e.getCurrentItem().getType() != Material.BLACK_STAINED_GLASS_PANE) {
 
+                    Player p = (Player) e.getWhoClicked();
+
                     String[] nameSplit = e.getCurrentItem().getItemMeta().getDisplayName().split(" ");
 
                     String type = nameSplit[nameSplit.length - 1];
 
-                    User user = SmallPets.getInstance().getUserManager().getUser(e.getWhoClicked().getUniqueId().toString());
+                    User user = SmallPets.getInstance().getUserManager().getUser(p.getUniqueId().toString());
 
-                    if(user != null)
-                        user.setSelected(user.getPetFromType(type));
+                    if(user != null) {
 
-                    e.getWhoClicked().closeInventory();
+                        if (user.getSelected() != null && user.getSelected().getName().equals(type)) {
 
-                    e.getWhoClicked().sendMessage(SmallPets.getInstance().PREFIX + "Your pet was summoned");
+                            user.setSelected(null);
+
+                            e.getWhoClicked().sendMessage(SmallPets.getInstance().PREFIX + "Your pet was despawned");
+
+                        } else {
+
+                            user.setSelected(user.getPetFromType(type));
+
+                            e.getWhoClicked().sendMessage(SmallPets.getInstance().PREFIX + "Your pet was summoned");
+
+                        }
+
+                    }
+
+                    p.playSound(p.getLocation(), Sound.ENTITY_PLAYER_BURP, 1,1 );
+
+                    p.closeInventory();
 
                 }
 

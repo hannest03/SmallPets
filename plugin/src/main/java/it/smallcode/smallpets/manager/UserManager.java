@@ -124,29 +124,33 @@ public class UserManager {
 
             if(SmallPets.getInstance().getPetMapManager().getPetMap().containsKey(type)){
 
-                try {
+                if(user.getPetFromType(type) == null) {
 
-                    Constructor constructor = SmallPets.getInstance().getPetMapManager().getPetMap().get(type).getConstructor(Player.class, Integer.class);
+                    try {
 
-                    Pet pet = (Pet) constructor.newInstance(Bukkit.getPlayer(UUID.fromString(uuid)), 0);
+                        Constructor constructor = SmallPets.getInstance().getPetMapManager().getPetMap().get(type).getConstructor(Player.class, Integer.class);
 
-                    user.getPets().add(pet);
+                        Pet pet = (Pet) constructor.newInstance(Bukkit.getPlayer(UUID.fromString(uuid)), 0);
 
-                } catch (NoSuchMethodException ex) {
+                        user.getPets().add(pet);
 
-                    ex.printStackTrace();
+                    } catch (NoSuchMethodException ex) {
 
-                } catch (IllegalAccessException ex) {
+                        ex.printStackTrace();
 
-                    ex.printStackTrace();
+                    } catch (IllegalAccessException ex) {
 
-                } catch (InstantiationException ex) {
+                        ex.printStackTrace();
 
-                    ex.printStackTrace();
+                    } catch (InstantiationException ex) {
 
-                } catch (InvocationTargetException ex) {
+                        ex.printStackTrace();
 
-                    ex.printStackTrace();
+                    } catch (InvocationTargetException ex) {
+
+                        ex.printStackTrace();
+
+                    }
 
                 }
 
