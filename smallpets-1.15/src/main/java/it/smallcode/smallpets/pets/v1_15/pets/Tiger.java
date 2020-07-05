@@ -14,12 +14,12 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public class Tiger extends SamplePet {
 
-    public Tiger(Player owner, Integer xp) {
+    public Tiger(Player owner, Long xp) {
         super(owner, xp);
     }
 
     public Tiger(Player owner) {
-        this(owner, 0);
+        this(owner, 0L);
     }
 
     public ItemStack getItem() {

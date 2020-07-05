@@ -14,18 +14,20 @@ import org.bukkit.plugin.java.JavaPlugin;
 public abstract class Pet {
 
     private static final double minLevel = 1;
-    private static final double maxLevel = 100;
-    private static final double xpToLevelTwo = 1000;
+    private static final double maxLevel = 101;
+    private static final double xpToLevelTwo = 500;
 
     private final double tach;
 
-    protected int xp = 0;
+    protected long xp = 0;
 
     protected ArmorStand armorStand;
 
     protected Player owner;
 
-    public Pet(Player owner, Integer xp) {
+    private static final String[] levelColors = {"§7", "§2", "§a", "§e", "§6", "§c", "§4", "§d", "§b", "§f"};
+
+    public Pet(Player owner, Long xp) {
 
         this.owner = owner;
         this.xp = xp;
@@ -36,9 +38,11 @@ public abstract class Pet {
 
     public Pet(Player owner) {
 
-        this(owner, 0);
+        this(owner, 0L);
 
     }
+
+    public abstract void giveExp(int exp, JavaPlugin plugin);
 
     public abstract String getName();
 
@@ -58,23 +62,34 @@ public abstract class Pet {
 
     }
 
-    public int getExpForLevel(int level){
+    public long getExpForLevel(int level){
 
         return (int) (Math.log(((level) - maxLevel) / -(maxLevel - minLevel)) / -tach);
 
     }
 
-    public int getExpForNextLevel(){
+    public long getExpForNextLevel(){
 
         return getExpForLevel(getLevel()+1);
 
     }
 
-    public int getXp() {
+    public String getLevelColor(){
+
+        int index = getLevel() / 10;
+
+        if(levelColors.length <= index)
+            return "";
+
+        return levelColors[index];
+
+    }
+
+    public long getXp() {
         return xp;
     }
 
-    public void setXp(int xp) {
+    public void setXp(long xp) {
         this.xp = xp;
     }
 

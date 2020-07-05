@@ -16,12 +16,12 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public class Penguin extends SamplePet {
 
-    public Penguin(Player owner, Integer xp) {
+    public Penguin(Player owner, Long xp) {
         super(owner, xp);
     }
 
     public Penguin(Player owner) {
-        this(owner, 0);
+        this(owner, 0L);
     }
 
     public ItemStack getItem() {

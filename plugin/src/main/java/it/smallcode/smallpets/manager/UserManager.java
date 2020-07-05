@@ -128,9 +128,9 @@ public class UserManager {
 
                     try {
 
-                        Constructor constructor = SmallPets.getInstance().getPetMapManager().getPetMap().get(type).getConstructor(Player.class, Integer.class);
+                        Constructor constructor = SmallPets.getInstance().getPetMapManager().getPetMap().get(type).getConstructor(Player.class, Long.class);
 
-                        Pet pet = (Pet) constructor.newInstance(Bukkit.getPlayer(UUID.fromString(uuid)), 0);
+                        Pet pet = (Pet) constructor.newInstance(Bukkit.getPlayer(UUID.fromString(uuid)), 0L);
 
                         user.getPets().add(pet);
 

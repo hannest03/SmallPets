@@ -58,8 +58,6 @@ public class SmallPetsCMD implements CommandExecutor {
 
                             if (p.hasPermission("smallpets.admin.givepet") || p.hasPermission("smallpets.admin.*")) {
 
-                                System.out.println(args[2]);
-
                                 if (Bukkit.getPlayer(args[2]) != null && Bukkit.getPlayer(args[2]).isOnline()) {
 
                                     SmallPets.getInstance().getUserManager().giveUserPet(args[3], Bukkit.getPlayer(args[2]).getUniqueId().toString());

@@ -178,7 +178,7 @@ public class User {
         Map<String, Object> data = new HashMap<>();
 
         data.put("type", pet.getName());
-        data.put("exp", pet.getXp());
+        data.put("exp", String.valueOf(pet.getXp()));
 
         return data;
 
@@ -188,13 +188,13 @@ public class User {
 
         String type = (String) data.get("type");
 
-        int exp = (int) data.get("exp");
+        long exp = Long.valueOf((String) data.get("exp"));
 
         if(petMapManager.getPetMap().containsKey(type)){
 
             try {
 
-                Constructor constructor = petMapManager.getPetMap().get(type).getConstructor(Player.class, Integer.class);
+                Constructor constructor = petMapManager.getPetMap().get(type).getConstructor(Player.class, Long.class);
 
                 return (Pet) constructor.newInstance(Bukkit.getPlayer(UUID.fromString(uuid)), exp);
 

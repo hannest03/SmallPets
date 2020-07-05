@@ -6,6 +6,7 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.events.PetLevelUpEvent;
 import it.smallcode.smallpets.pets.Pet;
 import it.smallcode.smallpets.pets.v1_15.animation.FollowPlayerArmorStand;
 import it.smallcode.smallpets.pets.v1_15.animation.HoverArmorStand;
@@ -22,7 +23,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class SamplePet extends Pet {
 
 
-    public SamplePet(Player owner, Integer xp) {
+    public SamplePet(Player owner, Long xp) {
         super(owner, xp);
     }
 
@@ -53,7 +54,7 @@ public class SamplePet extends Pet {
         Bukkit.getScheduler().scheduleAsyncDelayedTask(plugin, new Runnable() {
             @Override
             public void run() {
-                armorStand.setCustomName("§8[§c" + getLevel() + "§8] §7" + owner.getName() + "s " + getName());
+                armorStand.setCustomName("§8[" + getLevelColor() + getLevel() + "§8] §7" + owner.getName() + "s " + getName());
             }
         }, 2);
 
@@ -184,13 +185,16 @@ public class SamplePet extends Pet {
 
         int level = getLevel();
 
-        this.xp += exp;
+        if(level != 100)
+            this.xp += exp;
 
         if(level < getLevel()){
 
             //LEVEL UP
 
-            armorStand.setCustomName("§8[§c" + getLevel() + "§8] §7" + owner.getName() + "s " + getName());
+            Bukkit.getPluginManager().callEvent(new PetLevelUpEvent(this));
+
+            armorStand.setCustomName("§8[" + getLevelColor() + getLevel() + "§8] §7" + owner.getName() + "s " + getName());
 
             if(getLevel() == 100)
                 levelOnehundretAnimation = new LevelOnehundretAnimation(this, armorStand, plugin);

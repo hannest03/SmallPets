@@ -47,6 +47,7 @@ public class SmallPets extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new WorldChangeListener(), this);
         Bukkit.getPluginManager().registerEvents(new InventoryClickListener(), this);
         Bukkit.getPluginManager().registerEvents(new ArmorStandInteractListener(), this);
+        Bukkit.getPluginManager().registerEvents(new PetLevelUpListener(), this);
 
         Bukkit.getPluginCommand("smallpetstest").setExecutor(new SmallPetsTestCMD());
         Bukkit.getPluginCommand("smallpets").setExecutor(new SmallPetsCMD());

@@ -7,6 +7,7 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.SmallPets;
+import it.smallcode.smallpets.manager.types.User;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -22,7 +23,29 @@ public class SmallPetsTestCMD implements CommandExecutor {
 
             Player p = (Player) s;
 
-            SmallPets.getInstance().getUserManager().giveUserPet("tiger", p.getUniqueId().toString());
+            if(args.length == 1){
+
+                User user = SmallPets.getInstance().getUserManager().getUser(p.getUniqueId().toString());
+
+                if(user != null){
+
+                    try{
+
+                        user.getSelected().giveExp(Integer.valueOf(args[0]), SmallPets.getInstance());
+
+                    }catch (Exception ex){
+
+                        p.sendMessage(SmallPets.getInstance().PREFIX + "Please enter an integer");
+
+                    }
+
+                }
+
+            }else{
+
+                s.sendMessage(SmallPets.getInstance().PREFIX + "/smallpetstest <exp>");
+
+            }
 
         }else{
 
