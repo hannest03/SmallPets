@@ -13,6 +13,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public abstract class Pet {
 
+    private static final double minLevel = 1;
+    private static final double maxLevel = 100;
+    private static final double xpToLevelTwo = 1000;
+
+    private final double tach;
+
     protected int xp = 0;
 
     protected ArmorStand armorStand;
@@ -23,6 +29,8 @@ public abstract class Pet {
 
         this.owner = owner;
         this.xp = xp;
+
+        tach = -(Math.log(((getLevel() +1) - maxLevel) / -(maxLevel - minLevel)) / xpToLevelTwo);
 
     }
 
@@ -43,6 +51,24 @@ public abstract class Pet {
     public abstract ItemStack getItem();
 
     public abstract void destroy();
+
+    public int getLevel(){
+
+        return (int) (maxLevel - (maxLevel - minLevel) * Math.pow(Math.E, -tach * xp));
+
+    }
+
+    public int getExpForLevel(int level){
+
+        return (int) (Math.log(((level) - maxLevel) / -(maxLevel - minLevel)) / -tach);
+
+    }
+
+    public int getExpForNextLevel(){
+
+        return getExpForLevel(getLevel()+1);
+
+    }
 
     public int getXp() {
         return xp;

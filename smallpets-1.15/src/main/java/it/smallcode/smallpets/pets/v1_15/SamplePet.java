@@ -9,10 +9,10 @@ Class created by SmallCode
 import it.smallcode.smallpets.pets.Pet;
 import it.smallcode.smallpets.pets.v1_15.animation.FollowPlayerArmorStand;
 import it.smallcode.smallpets.pets.v1_15.animation.HoverArmorStand;
+import it.smallcode.smallpets.pets.v1_15.animation.LevelOnehundretAnimation;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
-import org.bukkit.World;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -28,6 +28,7 @@ public class SamplePet extends Pet {
 
     private FollowPlayerArmorStand followPlayerArmorStand;
     private HoverArmorStand hoverArmorStand;
+    private LevelOnehundretAnimation levelOnehundretAnimation;
 
     private int rotateID;
 
@@ -52,7 +53,7 @@ public class SamplePet extends Pet {
         Bukkit.getScheduler().scheduleAsyncDelayedTask(plugin, new Runnable() {
             @Override
             public void run() {
-                armorStand.setCustomName("§e" + owner.getName() + "s " + getName());
+                armorStand.setCustomName("§8[§c" + getLevel() + "§8] §7" + owner.getName() + "s " + getName());
             }
         }, 2);
 
@@ -99,6 +100,9 @@ public class SamplePet extends Pet {
 
         hoverArmorStand = new HoverArmorStand(armorStand, 0.025, 0.2, -0.5, plugin);
         hoverArmorStand.setActive(false);
+
+        if(getLevel() == 100)
+            levelOnehundretAnimation = new LevelOnehundretAnimation(this, armorStand, plugin);
 
         rotateID = Bukkit.getScheduler().scheduleAsyncRepeatingTask(plugin, new Runnable() {
             @Override
@@ -176,12 +180,34 @@ public class SamplePet extends Pet {
 
     }
 
+    public void giveExp(int exp, JavaPlugin plugin){
+
+        int level = getLevel();
+
+        this.xp += exp;
+
+        if(level < getLevel()){
+
+            //LEVEL UP
+
+            armorStand.setCustomName("§8[§c" + getLevel() + "§8] §7" + owner.getName() + "s " + getName());
+
+            if(getLevel() == 100)
+                levelOnehundretAnimation = new LevelOnehundretAnimation(this, armorStand, plugin);
+
+        }
+
+    }
+
     public void destroy() {
 
         Bukkit.getScheduler().cancelTask(rotateID);
 
         followPlayerArmorStand.cancel();
         hoverArmorStand.cancel();
+
+        if(levelOnehundretAnimation != null)
+            levelOnehundretAnimation.cancel();
 
         if(armorStand != null)
             armorStand.remove();
