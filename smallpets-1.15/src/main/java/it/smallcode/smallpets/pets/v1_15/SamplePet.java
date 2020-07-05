@@ -18,6 +18,7 @@ import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -186,12 +187,6 @@ public class SamplePet extends Pet {
 
     }
 
-    public ItemStack getItem() {
-
-        return null;
-
-    }
-
     public void giveExp(int exp, JavaPlugin plugin){
 
         int level = getLevel();
@@ -229,6 +224,21 @@ public class SamplePet extends Pet {
 
     }
 
+    @Override
+    public ItemStack getItem() {
+        return null;
+    }
+
+    @Override
+    public void registerRecipe(Plugin plugin) {
+
+    }
+
+    @Override
+    public ItemStack getUnlockItem(Plugin plugin) {
+        return null;
+    }
+
     protected ArmorStand createArmorStand(Location loc){
 
         ArmorStand armorStand = (ArmorStand) loc.getWorld().spawnEntity(loc, EntityType.ARMOR_STAND);
@@ -237,7 +247,6 @@ public class SamplePet extends Pet {
 
     }
 
-    @Override
     public String getName() {
         return null;
     }

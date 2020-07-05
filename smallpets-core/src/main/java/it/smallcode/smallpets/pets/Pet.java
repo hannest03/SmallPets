@@ -9,6 +9,7 @@ Class created by SmallCode
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -109,6 +110,20 @@ public abstract class Pet {
 
     /**
      *
+     * Despawns the pet
+     *
+     */
+
+    public abstract void destroy();
+
+    /**
+     *
+     * Registers the crafting recipe
+     *
+     */
+
+    /**
+     *
      * Returns the pet head
      *
      * @return the head
@@ -116,13 +131,17 @@ public abstract class Pet {
 
     public abstract ItemStack getItem();
 
+    public abstract void registerRecipe(Plugin plugin);
+
     /**
      *
-     * Despawns the pet
+     * Returns the item to unlock the tiger
      *
+     * @param plugin - the plugin
+     * @return the item to unlock the tiger
      */
 
-    public abstract void destroy();
+    public abstract ItemStack getUnlockItem(Plugin plugin);
 
     /**
      *

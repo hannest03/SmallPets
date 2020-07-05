@@ -8,9 +8,17 @@ Class created by SmallCode
 
 import it.smallcode.smallpets.pets.v1_15.SamplePet;
 import it.smallcode.smallpets.pets.v1_15.SkullCreator;
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataType;
+import org.bukkit.plugin.Plugin;
+
+import java.util.ArrayList;
 
 public class Monkey extends SamplePet {
 
@@ -33,6 +41,55 @@ public class Monkey extends SamplePet {
         skull.setItemMeta(skullMeta);
 
         return skull;
+
+    }
+
+    @Override
+    public void registerRecipe(Plugin plugin) {
+
+        ItemStack item = getUnlockItem(plugin);
+
+        NamespacedKey key = new NamespacedKey(plugin, "pet_monkey");
+
+        ShapedRecipe recipe = new ShapedRecipe(key, item);
+
+        recipe.shape(" L ", "CLC", " L ");
+
+        recipe.setIngredient('C', Material.COCOA_BEANS);
+        recipe.setIngredient('L', Material.LEATHER);
+
+        Bukkit.addRecipe(recipe);
+
+    }
+
+    /**
+     *
+     * Returns the item to unlock the tiger
+     *
+     * @param plugin - the plugin
+     * @return the item to unlock the tiger
+     */
+    @Override
+    public ItemStack getUnlockItem(Plugin plugin){
+
+        ItemStack item = getItem();
+
+        ItemMeta itemMeta = item.getItemMeta();
+
+        itemMeta.setDisplayName("§6Monkey");
+
+        ArrayList<String> lore = new ArrayList<>();
+
+        lore.add("");
+        lore.add("§6RIGHT CLICK TO UNLOCK");
+
+        itemMeta.setLore(lore);
+
+        itemMeta.getPersistentDataContainer().set(new NamespacedKey(plugin, "pet"), PersistentDataType.STRING, getName());
+
+        item.setItemMeta(itemMeta);
+
+        return item;
 
     }
 

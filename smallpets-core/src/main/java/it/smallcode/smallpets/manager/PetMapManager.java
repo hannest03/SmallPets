@@ -6,6 +6,8 @@ Class created by SmallCode
 
 */
 
+import org.bukkit.plugin.Plugin;
+
 import java.util.HashMap;
 
 /**
@@ -50,5 +52,13 @@ public abstract class PetMapManager {
      */
 
     protected abstract void registerPets();
+
+    /**
+     *
+     * Registers all crafting recipes
+     *
+     */
+
+    public abstract void registerCraftingRecipe(Plugin plugin);
 
 }

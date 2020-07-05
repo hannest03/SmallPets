@@ -13,6 +13,7 @@ import it.smallcode.smallpets.manager.*;
 import it.smallcode.smallpets.metrics.Metrics;
 import it.smallcode.smallpets.pets.v1_15.InventoryManager1_15;
 import it.smallcode.smallpets.pets.v1_15.PetMapManager1_15;
+import jdk.nashorn.internal.ir.Block;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -56,6 +57,8 @@ public class SmallPets extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new ArmorStandInteractListener(), this);
         Bukkit.getPluginManager().registerEvents(new PetLevelUpListener(), this);
         Bukkit.getPluginManager().registerEvents(new GiveExpListener(), this);
+        Bukkit.getPluginManager().registerEvents(new UnlockListener(), this);
+        Bukkit.getPluginManager().registerEvents(new BlockPlaceListener(), this);
 
         //Registering all commands
 
@@ -73,6 +76,12 @@ public class SmallPets extends JavaPlugin {
             userManager.loadUser(all.getUniqueId().toString(), petMapManager);
 
         }
+
+        Bukkit.getConsoleSender().sendMessage(PREFIX + "Registering crafting recipes...");
+
+        petMapManager.registerCraftingRecipe(this);
+
+        Bukkit.getConsoleSender().sendMessage(PREFIX + "Registered crafting recipes!");
 
         Bukkit.getConsoleSender().sendMessage(PREFIX + "Plugin initialized");
 
