@@ -14,9 +14,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
-import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -25,16 +23,34 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ *
+ * The user manager is being used to load, save and keep track of all the users
+ *
+ */
 public class UserManager {
 
     private ArrayList<User> users;
 
+    /**
+     *
+     * Creates a user manager object
+     *
+     */
     public UserManager(){
 
         users = new ArrayList<>();
 
     }
 
+    /**
+     *
+     * Loads a user from his file,<br>
+     * if the file doesn't exist a new user will be created
+     *
+     * @param uuid - the uuid of the player which should be loaded
+     * @param petMapManager - the petMapManager to check if the pet is registered
+     */
     public void loadUser(String uuid, PetMapManager petMapManager){
 
         if(!alreadyLoaded(uuid)) {
@@ -62,6 +78,13 @@ public class UserManager {
 
     }
 
+    /**
+     *
+     * Checks if the user is already loaded
+     *
+     * @param uuid - the uuid of the user
+     * @return returns true if the player already was loaded
+     */
     private boolean alreadyLoaded(String uuid){
 
         Optional<User> result = users.stream().filter(user -> user.getUuid().equals(uuid)).findFirst();
@@ -73,6 +96,11 @@ public class UserManager {
 
     }
 
+    /**
+     *
+     * Saves all loaded users to their file
+     *
+     */
     public void saveUsers(){
 
         if(!new File(SmallPets.getInstance().getDataFolder().getPath() + "/users").exists())
@@ -116,7 +144,15 @@ public class UserManager {
 
     }
 
-    public void giveUserPet(String type, String uuid){
+    /**
+     *
+     * Gives a player a pet
+     *
+     * @param type - the type of the pet
+     * @param uuid - the uuid of the player
+     * @return the boolean is true if the pet was successfully added to the player,<br> if the player already had the pet or there was an error false will be returned
+     */
+    public boolean giveUserPet(String type, String uuid){
 
         User user = getUser(uuid);
 
@@ -133,6 +169,8 @@ public class UserManager {
                         Pet pet = (Pet) constructor.newInstance(Bukkit.getPlayer(UUID.fromString(uuid)), 0L);
 
                         user.getPets().add(pet);
+
+                        return true;
 
                     } catch (NoSuchMethodException ex) {
 
@@ -158,7 +196,15 @@ public class UserManager {
 
         }
 
+        return false;
+
     }
+
+    /**
+     *
+     * Despawnes all the pets from the loaded users
+     *
+     */
 
     public void despawnPets(){
 
@@ -169,6 +215,14 @@ public class UserManager {
         }
 
     }
+
+    /**
+     *
+     * Returns the user
+     *
+     * @param uuid - the uuid of the player
+     * @return returns the player, if the player wasn't loaded or couldn't be found it returns null
+     */
 
     public User getUser(String uuid){
 

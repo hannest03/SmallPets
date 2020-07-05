@@ -18,6 +18,11 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
+/**
+ *
+ * In the user object all the data of a player is being stored
+ *
+ */
 public class User {
 
     private String uuid;
@@ -26,15 +31,24 @@ public class User {
 
     private List<Pet> pets;
 
+    /**
+     *
+     * Creates an user object
+     *
+     */
+
     public User(){
 
-        this.uuid = null;
-
-        this.selected = null;
-
-        this.pets = new ArrayList<>();
+        this(null);
 
     }
+
+    /**
+     *
+     * Creates an user object
+     *
+     * @param uuid - the uuid of the user
+     */
 
     public User(String uuid){
 
@@ -45,6 +59,15 @@ public class User {
         this.pets = new ArrayList<>();
 
     }
+
+    /**
+     *
+     * Creates an user object
+     *
+     * @param uuid - the uuid of the user
+     * @param data - a map with the data of the user
+     * @param petMapManager - the petMapManager with all the registered pets
+     */
 
     public User(String uuid, Map<String, Object> data, PetMapManager petMapManager){
 
@@ -64,6 +87,14 @@ public class User {
 
     }
 
+    /**
+     *
+     * Returns the pet of the user.<br>
+     * If the pet couldn't be found the method returns null;
+     *
+     * @param type - the type of the pet
+     * @return - returns the pet
+     */
     public Pet getPetFromType(String type){
 
         Optional<Pet> result = pets.stream().filter(p -> p.getName().equals(type)).findFirst();
@@ -74,6 +105,12 @@ public class User {
             return null;
 
     }
+
+    /**
+     *
+     * Spawns the selected pet if one was selected.
+     *
+     */
 
     public void spawnSelected(){
 
@@ -95,6 +132,12 @@ public class User {
 
     }
 
+    /**
+     *
+     * Despawns the selected pet if one was selected.
+     *
+     */
+
     public void despawnSelected(){
 
         if(selected != null){
@@ -115,25 +158,68 @@ public class User {
 
     }
 
+    /**
+     *
+     * Returns the uuid of the User
+     *
+     * @return the uuid
+     */
+
     public String getUuid() {
         return uuid;
     }
+
+    /**
+     *
+     * Sets the uuid of the user
+     *
+     * @param uuid - the new uuid
+     */
 
     public void setUuid(String uuid) {
         this.uuid = uuid;
     }
 
+    /**
+     *
+     * Returns a list with all the pets of the user
+     *
+     * @return the list with the pets
+     */
+
     public List<Pet> getPets() {
         return pets;
     }
+
+    /**
+     *
+     * Sets the list of pets of the user
+     *
+     * @param pets - the new pets list
+     */
 
     public void setPets(List<Pet> pets) {
         this.pets = pets;
     }
 
+    /**
+     *
+     * Returns the selected pet if one was selected,<br>
+     * else the method will return <b>null</b>;
+     *
+     * @return the selected pet
+     */
+
     public Pet getSelected() {
         return selected;
     }
+
+    /**
+     *
+     * Sets the selected pet, despawns the old pet and spawns the new selected pet.
+     *
+     * @param selected - the new selected pet
+     */
 
     public void setSelected(Pet selected) {
 
@@ -144,6 +230,13 @@ public class User {
         spawnSelected();
 
     }
+
+    /**
+     *
+     * Serializes the data of the user into a map so that it can be stored.
+     *
+     * @return the serialized data in a map
+     */
 
     public Map<String, Object> serialize(){
 
@@ -173,6 +266,14 @@ public class User {
 
     }
 
+    /**
+     *
+     * Serializes the data of the pet into a map so that it can be stored.
+     *
+     * @param pet - the pet
+     * @return - the serialized data in a map
+     */
+
     private Map<String, Object> serializePet(Pet pet){
 
         Map<String, Object> data = new HashMap<>();
@@ -183,6 +284,16 @@ public class User {
         return data;
 
     }
+
+    /**
+     *
+     * Unserializes the data of a pet
+     *
+     * @param data - the data
+     * @param petMapManager - the petMapManager with all the registered pettypes
+     * @param uuid - the uuid of the player
+     * @return - the unserialized pet
+     */
 
     private Pet unserializePet(Map<String, Object> data, PetMapManager petMapManager, String uuid){
 

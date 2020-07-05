@@ -12,15 +12,35 @@ import org.bukkit.inventory.Inventory;
 
 import java.util.HashMap;
 
+/**
+ *
+ * The inventory cache keeps track of the inventories of a player
+ *
+ */
 public class InventoryCache {
 
     private HashMap<Player, Inventory> inventoryHashMap;
+
+    /**
+     *
+     * Creates a inventory cache object
+     *
+     */
 
     public InventoryCache(){
 
         inventoryHashMap = new HashMap<>();
 
     }
+
+    /**
+     *
+     * Gets the inventory of a player,
+     * when the inventory doesn't exist already it will be created
+     *
+     * @param p - the player
+     * @return the inventory
+     */
 
     public Inventory getInventory(Player p){
 
@@ -36,12 +56,25 @@ public class InventoryCache {
 
     }
 
+    /**
+     *
+     * Removes the inventory of a player
+     *
+     * @param p - the player
+     */
+
     public void removeInventory(Player p){
 
         if(inventoryHashMap.containsKey(p))
             inventoryHashMap.remove(p);
 
     }
+
+    /**
+     *
+     * Removes all the inventories created by this object
+     *
+     */
 
     public void removeAll(){
 

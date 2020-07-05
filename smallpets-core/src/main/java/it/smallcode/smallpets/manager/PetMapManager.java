@@ -8,9 +8,21 @@ Class created by SmallCode
 
 import java.util.HashMap;
 
+/**
+ *
+ * The petMapManager keeps track of all the pets available in each version
+ *
+ */
+
 public abstract class PetMapManager {
 
     protected HashMap<String, Class> petMap;
+
+    /**
+     *
+     * Creates an PetMapManager
+     *
+     */
 
     public PetMapManager(){
 
@@ -20,9 +32,22 @@ public abstract class PetMapManager {
 
     }
 
+    /**
+     *
+     * Returns the petMap
+     *
+     * @return the petMap
+     */
+
     public HashMap<String, Class> getPetMap() {
         return petMap;
     }
+
+    /**
+     *
+     * Registers all the pets of a version
+     *
+     */
 
     protected abstract void registerPets();
 

@@ -14,6 +14,13 @@ import java.util.UUID;
 
 public class SkullCreator {
 
+    /**
+     *
+     * Returns a player head with custom texture
+     *
+     * @param texture - the new texture
+     * @return the player head with custom texture
+     */
     public static ItemStack getSkull(String texture){
 
         ItemStack head = new ItemStack(Material.PLAYER_HEAD);

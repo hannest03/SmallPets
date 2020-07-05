@@ -42,6 +42,8 @@ public class SmallPets extends JavaPlugin {
 
         userManager = new UserManager();
 
+        //Registering all listeners
+
         Bukkit.getPluginManager().registerEvents(new JoinListener(), this);
         Bukkit.getPluginManager().registerEvents(new QuitListener(), this);
         Bukkit.getPluginManager().registerEvents(new WorldChangeListener(), this);
@@ -49,10 +51,16 @@ public class SmallPets extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new ArmorStandInteractListener(), this);
         Bukkit.getPluginManager().registerEvents(new PetLevelUpListener(), this);
 
+        //Registering all commands
+
         Bukkit.getPluginCommand("smallpetstest").setExecutor(new SmallPetsTestCMD());
         Bukkit.getPluginCommand("smallpets").setExecutor(new SmallPetsCMD());
 
+        //Registering bStats
+
         Metrics metrics = new Metrics(this, 8071);
+
+        //Loading the users which are online
 
         for(Player all : Bukkit.getOnlinePlayers()){
 
@@ -74,6 +82,12 @@ public class SmallPets extends JavaPlugin {
 
     }
 
+    /**
+     *
+     * Selects the right version for the server
+     *
+     * @return a boolean if the right version was found
+     */
     private boolean selectRightVersion(){
 
         String version = Bukkit.getServer().getClass().getPackage().getName();

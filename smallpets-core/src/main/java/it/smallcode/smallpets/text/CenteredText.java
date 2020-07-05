@@ -19,7 +19,7 @@ public class CenteredText {
         boolean isBold = false;
 
         for(char c : message.toCharArray()){
-            if(c == '§'){
+            if(c == '\u00A7'){
                 previousCode = true;
                 continue;
             }else if(previousCode == true){

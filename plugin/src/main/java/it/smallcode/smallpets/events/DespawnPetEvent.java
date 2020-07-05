@@ -12,6 +12,12 @@ import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
+/**
+ *
+ * This event is being called when a pet is about to being despawned
+ *
+ */
+
 public class DespawnPetEvent extends Event implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
@@ -21,14 +27,36 @@ public class DespawnPetEvent extends Event implements Cancellable {
 
     private boolean cancelled = false;
 
+    /**
+     *
+     * Creates a spawn pet event
+     *
+     * @param pet - the pet
+     * @param owner - the owner of the pet
+     */
+
     public DespawnPetEvent(Pet pet, Player owner) {
         this.pet = pet;
         this.owner = owner;
     }
 
+    /**
+     *
+     * Returns the pet
+     *
+     * @return the pet
+     */
+
     public Pet getPet() {
         return pet;
     }
+
+    /**
+     *
+     * Returns the owner of the pet
+     *
+     * @return the owner
+     */
 
     public Player getOwner() {
         return owner;

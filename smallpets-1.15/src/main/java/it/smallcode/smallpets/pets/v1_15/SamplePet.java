@@ -20,9 +20,20 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
+/**
+ *
+ * The foundation of all pets in the 1.15 version
+ *
+ */
 public class SamplePet extends Pet {
 
-
+    /**
+     *
+     * Creates a pet
+     *
+     * @param owner - the pet owner
+     * @param xp - the xp
+     */
     public SamplePet(Player owner, Long xp) {
         super(owner, xp);
     }
@@ -42,7 +53,7 @@ public class SamplePet extends Pet {
 
         armorStand = createArmorStand(loc);
 
-        //Please don't ask why (╯°□°)╯︵ ┻━┻
+        //Please don't ask why
 
         Bukkit.getScheduler().scheduleAsyncDelayedTask(plugin, new Runnable() {
             @Override

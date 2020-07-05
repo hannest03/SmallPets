@@ -12,6 +12,12 @@ import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
+/**
+ *
+ * This event is being called when the pet is about to change the world
+ *
+ */
+
 public class PetChangeWorldEvent extends Event implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
@@ -21,14 +27,36 @@ public class PetChangeWorldEvent extends Event implements Cancellable {
 
     private boolean cancelled = false;
 
+    /**
+     *
+     * Creates a pet change world event
+     *
+     * @param pet - the pet
+     * @param owner - the owner of the pet
+     */
+
     public PetChangeWorldEvent(Pet pet, Player owner) {
         this.pet = pet;
         this.owner = owner;
     }
 
+    /**
+     *
+     * Returns the pet
+     *
+     * @return the pet
+     */
+
     public Pet getPet() {
         return pet;
     }
+
+    /**
+     *
+     * Returns the owner of the pet
+     *
+     * @return the owner
+     */
 
     public Player getOwner() {
         return owner;
