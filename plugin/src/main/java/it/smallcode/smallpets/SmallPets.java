@@ -14,6 +14,7 @@ import it.smallcode.smallpets.metrics.Metrics;
 import it.smallcode.smallpets.pets.v1_15.InventoryManager1_15;
 import it.smallcode.smallpets.pets.v1_15.PetMapManager1_15;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -30,10 +31,14 @@ public class SmallPets extends JavaPlugin {
 
     public final String PREFIX = "§e○§6◯  SmallPets §e◆ ";
 
+    private double xpMultiplier;
+
     @Override
     public void onEnable() {
 
         instance = this;
+
+        this.loadConfig();
 
         inventoryCache = new InventoryCache();
 
@@ -50,6 +55,7 @@ public class SmallPets extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new InventoryClickListener(), this);
         Bukkit.getPluginManager().registerEvents(new ArmorStandInteractListener(), this);
         Bukkit.getPluginManager().registerEvents(new PetLevelUpListener(), this);
+        Bukkit.getPluginManager().registerEvents(new GiveExpListener(), this);
 
         //Registering all commands
 
@@ -79,6 +85,21 @@ public class SmallPets extends JavaPlugin {
         userManager.saveUsers();
 
         inventoryCache.removeAll();
+
+    }
+
+    public void loadConfig(){
+
+        FileConfiguration cfg = this.getConfig();
+
+        cfg.addDefault("xpMultiplier", 1D);
+
+        getConfig().options().copyDefaults(true);
+
+        saveConfig();
+        reloadConfig();
+
+        this.xpMultiplier = cfg.getDouble("xpMultiplier");
 
     }
 
@@ -133,5 +154,9 @@ public class SmallPets extends JavaPlugin {
 
     public UserManager getUserManager() {
         return userManager;
+    }
+
+    public double getXpMultiplier() {
+        return xpMultiplier;
     }
 }
