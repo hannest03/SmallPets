@@ -13,6 +13,7 @@
         <module>plugin</module>
         <module>smallpets-core</module>
         <module>smallpets-1.15</module>
+        <module>smallpets-1.16</module>
     </modules>
 
     <name>SmallPets-Parent</name>

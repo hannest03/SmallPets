@@ -7,13 +7,13 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.cmds.SmallPetsCMD;
-import it.smallcode.smallpets.cmds.SmallPetsTestCMD;
 import it.smallcode.smallpets.listener.*;
 import it.smallcode.smallpets.manager.*;
 import it.smallcode.smallpets.metrics.Metrics;
 import it.smallcode.smallpets.pets.v1_15.InventoryManager1_15;
 import it.smallcode.smallpets.pets.v1_15.PetMapManager1_15;
-import jdk.nashorn.internal.ir.Block;
+import it.smallcode.smallpets.pets.v1_16.InventoryManager1_16;
+import it.smallcode.smallpets.pets.v1_16.PetMapManager1_16;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -62,7 +62,6 @@ public class SmallPets extends JavaPlugin {
 
         //Registering all commands
 
-        Bukkit.getPluginCommand("smallpetstest").setExecutor(new SmallPetsTestCMD());
         Bukkit.getPluginCommand("smallpets").setExecutor(new SmallPetsCMD());
 
         //Registering bStats
@@ -126,10 +125,15 @@ public class SmallPets extends JavaPlugin {
 
         version = version.replace(".v", "");
 
-        if(version.startsWith("1_15")){
+        if(version.startsWith("1_15") || version.startsWith("1_14")){
 
             petMapManager = new PetMapManager1_15();
             inventoryManager = new InventoryManager1_15(inventoryCache);
+
+        }else if(version.startsWith("1_16")){
+
+            petMapManager = new PetMapManager1_16();
+            inventoryManager = new InventoryManager1_16(inventoryCache);
 
         }else{
 

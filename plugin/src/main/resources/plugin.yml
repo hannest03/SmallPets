@@ -5,5 +5,4 @@ author: SmallCode, Nissl
 api-version: 1.13
 main: it.smallcode.smallpets.SmallPets
 commands:
-  smallpetstest:
   smallpets:
