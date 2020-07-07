@@ -26,7 +26,7 @@ public class HoverArmorStand {
 
         vel = speed;
 
-        schedulerID = Bukkit.getScheduler().scheduleAsyncRepeatingTask(plugin, new Runnable() {
+        schedulerID = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
             public void run() {
 
                 if(play) {

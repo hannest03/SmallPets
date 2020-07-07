@@ -82,7 +82,11 @@ public class InventoryManager1_15 extends InventoryManager {
 
             lore.add("");
 
-            String progressBar = generateFinishedProgressbar(pet);
+            lore.add(pet.getAbility());
+
+            lore.add("");
+
+            String progressBar = CenteredText.sendCenteredMessage(generateFinishedProgressbar(pet), ChatColor.stripColor(pet.getAbility()).length());
 
             if(pet.getLevel() != 100)
                 lore.add("  " + CenteredText.sendCenteredMessage(pet.getLevelColor() + pet.getLevel(), ChatColor.stripColor(progressBar).length()));

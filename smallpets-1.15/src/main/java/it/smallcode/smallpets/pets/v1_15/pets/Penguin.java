@@ -9,7 +9,6 @@ Class created by SmallCode
 import it.smallcode.smallpets.pets.v1_15.SamplePet;
 import it.smallcode.smallpets.pets.v1_15.SkullCreator;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
@@ -22,6 +21,8 @@ import org.bukkit.plugin.Plugin;
 import java.util.ArrayList;
 
 public class Penguin extends SamplePet {
+
+    public static final float maxSwimmingMultiplier = 0.25F;
 
     public Penguin(Player owner, Long xp) {
         super(owner, xp);
@@ -91,6 +92,12 @@ public class Penguin extends SamplePet {
         item.setItemMeta(itemMeta);
 
         return item;
+
+    }
+
+    @Override
+    public String getAbility() {
+        return "§7Makes you swim faster";
 
     }
 

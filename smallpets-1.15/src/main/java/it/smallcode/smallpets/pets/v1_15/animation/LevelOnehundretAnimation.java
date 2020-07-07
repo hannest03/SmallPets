@@ -37,7 +37,7 @@ public class LevelOnehundretAnimation {
         colors.add("§d");
         colors.add("§5");
 
-        schedulerID = Bukkit.getScheduler().scheduleAsyncRepeatingTask(plugin, new Runnable() {
+        schedulerID = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
             public void run() {
 
                 int last = counter -1;

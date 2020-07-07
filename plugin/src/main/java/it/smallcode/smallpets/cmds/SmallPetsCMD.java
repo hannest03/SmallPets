@@ -24,11 +24,11 @@ public class SmallPetsCMD implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender s, Command c, String label, String[] args) {
 
-        if (s instanceof Player) {
+        if (args.length == 0) {
 
-            Player p = (Player) s;
+            if (s instanceof Player) {
 
-            if (args.length == 0) {
+                Player p = (Player) s;
 
                 User user = SmallPets.getInstance().getUserManager().getUser(p.getUniqueId().toString());
 
@@ -46,49 +46,55 @@ public class SmallPetsCMD implements CommandExecutor {
 
                 }
 
-                return false;
+            } else {
 
-            } else if (args.length == 4) {
+                s.sendMessage(SmallPets.getInstance().PREFIX + "This command is only for players");
 
-                if (args[0].equalsIgnoreCase("admin")) {
+            }
 
-                    if (p.hasPermission("smallpets.admin")) {
+            return false;
 
-                        if (args[1].equalsIgnoreCase("givepet")) {
+        } else if (args.length == 4) {
 
-                            if (p.hasPermission("smallpets.admin.givepet") || p.hasPermission("smallpets.admin.*")) {
+            if (args[0].equalsIgnoreCase("admin")) {
 
-                                if (Bukkit.getPlayer(args[2]) != null && Bukkit.getPlayer(args[2]).isOnline()) {
+                if (s.hasPermission("smallpets.admin")) {
 
-                                    SmallPets.getInstance().getUserManager().giveUserPet(args[3], Bukkit.getPlayer(args[2]).getUniqueId().toString());
+                    if (args[1].equalsIgnoreCase("givepet")) {
 
-                                    p.sendMessage(SmallPets.getInstance().PREFIX + "Gave the " + args[3] + " pet to " + args[2] + "!");
+                        if (s.hasPermission("smallpets.admin.givepet") || s.hasPermission("smallpets.admin.*")) {
 
-                                    return false;
+                            if (Bukkit.getPlayer(args[2]) != null && Bukkit.getPlayer(args[2]).isOnline()) {
 
-                                } else {
+                                SmallPets.getInstance().getUserManager().giveUserPet(args[3], Bukkit.getPlayer(args[2]).getUniqueId().toString());
 
-                                    p.sendMessage(SmallPets.getInstance().PREFIX + "The player isn't online!");
+                                s.sendMessage(SmallPets.getInstance().PREFIX + "Gave the " + args[3] + " pet to " + args[2] + "!");
 
-                                    return false;
-
-                                }
+                                return false;
 
                             } else {
 
-                                p.sendMessage(SmallPets.getInstance().PREFIX + "You haven't got the permission to do that!");
+                                s.sendMessage(SmallPets.getInstance().PREFIX + "The player isn't online!");
 
                                 return false;
 
                             }
 
+                        } else {
+
+                            s.sendMessage(SmallPets.getInstance().PREFIX + "You haven't got the permission to do that!");
+
+                            return false;
+
                         }
 
-                    } else {
-
-                        p.sendMessage(SmallPets.getInstance().PREFIX + "You haven't got the permission to do that!");
-
                     }
+
+                } else {
+
+                    s.sendMessage(SmallPets.getInstance().PREFIX + "You haven't got the permission to do that!");
+
+                    return false;
 
                 }
 
@@ -97,12 +103,9 @@ public class SmallPetsCMD implements CommandExecutor {
             s.sendMessage(SmallPets.getInstance().PREFIX + "/smallpets");
             s.sendMessage(SmallPets.getInstance().PREFIX + "/smallpets admin givepet <user> <type>");
 
-        } else {
-
-            s.sendMessage(SmallPets.getInstance().PREFIX + "This command is only for players");
-
         }
 
         return false;
+
     }
 }

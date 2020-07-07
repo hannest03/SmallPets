@@ -117,7 +117,7 @@ public class SamplePet extends Pet {
         if(getLevel() == 100)
             levelOnehundretAnimation = new LevelOnehundretAnimation(this, armorStand, plugin);
 
-        rotateID = Bukkit.getScheduler().scheduleAsyncRepeatingTask(plugin, new Runnable() {
+        rotateID = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
             @Override
             public void run() {
 
@@ -237,6 +237,11 @@ public class SamplePet extends Pet {
     @Override
     public ItemStack getUnlockItem(Plugin plugin) {
         return null;
+    }
+
+    @Override
+    public String getAbility() {
+        return "";
     }
 
     protected ArmorStand createArmorStand(Location loc){

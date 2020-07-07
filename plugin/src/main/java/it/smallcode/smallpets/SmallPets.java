@@ -59,6 +59,7 @@ public class SmallPets extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new GiveExpListener(), this);
         Bukkit.getPluginManager().registerEvents(new UnlockListener(), this);
         Bukkit.getPluginManager().registerEvents(new BlockPlaceListener(), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerMoveListener(), this);
 
         //Registering all commands
 
