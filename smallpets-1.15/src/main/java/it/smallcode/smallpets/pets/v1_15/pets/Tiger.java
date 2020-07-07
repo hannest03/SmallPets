@@ -6,7 +6,6 @@ Class created by SmallCode
 
 */
 
-import it.smallcode.smallpets.pets.Pet;
 import it.smallcode.smallpets.pets.v1_15.SamplePet;
 import it.smallcode.smallpets.pets.v1_15.SkullCreator;
 import org.bukkit.Bukkit;
@@ -22,6 +21,8 @@ import org.bukkit.plugin.Plugin;
 import java.util.ArrayList;
 
 public class Tiger extends SamplePet {
+
+    public static final float maxDamageMultiplier = 0.15F;
 
     public Tiger(Player owner, Long xp) {
         super(owner, xp);
@@ -94,6 +95,13 @@ public class Tiger extends SamplePet {
         item.setItemMeta(itemMeta);
 
         return item;
+
+    }
+
+    @Override
+    public String getAbility() {
+
+        return "§c+" + (int) ((maxDamageMultiplier / 100D * getLevel() * 100) * 100) / 100D + "%§7 more damage";
 
     }
 

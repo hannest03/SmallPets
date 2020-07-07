@@ -97,6 +97,7 @@ public class Penguin extends SamplePet {
 
     @Override
     public String getAbility() {
+
         return "§7Makes you swim faster";
 
     }
