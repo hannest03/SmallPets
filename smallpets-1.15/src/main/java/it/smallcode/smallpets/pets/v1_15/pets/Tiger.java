@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 public class Tiger extends SamplePet {
 
-    public static final float maxDamageMultiplier = 0.15F;
+    public static final float MAXDAMAGEMULTIPLIER = 0.15F;
 
     public Tiger(Player owner, Long xp) {
         super(owner, xp);
@@ -101,7 +101,7 @@ public class Tiger extends SamplePet {
     @Override
     public String getAbility() {
 
-        return "§c+" + (int) ((maxDamageMultiplier / 100D * getLevel() * 100) * 100) / 100D + "%§7 more damage";
+        return "§c+" + (int) ((MAXDAMAGEMULTIPLIER / 100D * getLevel() * 100) * 100) / 100D + "%§7 more damage";
 
     }
 

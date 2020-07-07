@@ -22,6 +22,8 @@ import java.util.ArrayList;
 
 public class Monkey extends SamplePet {
 
+    public static double MAXJUMPHEIGHT = 0.05;
+
     public Monkey(Player owner, Long xp) {
         super(owner, xp);
     }
@@ -90,6 +92,13 @@ public class Monkey extends SamplePet {
         item.setItemMeta(itemMeta);
 
         return item;
+
+    }
+
+    @Override
+    public String getAbility() {
+
+        return "§c+" + (int) (((MAXJUMPHEIGHT / 100D) * getLevel() * 100D) * 100D) / 100D  + "%§7 jump height";
 
     }
 

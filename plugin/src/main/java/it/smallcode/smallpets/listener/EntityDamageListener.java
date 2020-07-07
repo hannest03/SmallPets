@@ -32,7 +32,7 @@ public class EntityDamageListener implements Listener {
 
                     if(user.getSelected() != null && user.getSelected().getName().equals("tiger")){
 
-                        e.setDamage(e.getDamage() * ((Tiger.maxDamageMultiplier / 100D) * user.getSelected().getLevel() + 1));
+                        e.setDamage(e.getDamage() * ((Tiger.MAXDAMAGEMULTIPLIER / 100D) * user.getSelected().getLevel() + 1));
 
                     }
 

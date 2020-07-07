@@ -23,7 +23,7 @@ public class PetMapManager1_16 extends PetMapManager {
 
 
     @Override
-    protected void registerPets() {
+    public void registerPets() {
 
         petMap.put("tiger", Tiger.class);
         petMap.put("penguin", Penguin.class);

@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 public class Penguin extends SamplePet {
 
-    public static final float maxSwimmingMultiplier = 0.25F;
+    public static final float MAXSWIMMINGSPEED = 0.25F;
 
     public Penguin(Player owner, Long xp) {
         super(owner, xp);

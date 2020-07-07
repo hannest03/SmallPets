@@ -30,8 +30,6 @@ public abstract class PetMapManager {
 
         petMap = new HashMap<String, Class>();
 
-        registerPets();
-
     }
 
     /**
@@ -51,7 +49,7 @@ public abstract class PetMapManager {
      *
      */
 
-    protected abstract void registerPets();
+    public abstract void registerPets();
 
     /**
      *

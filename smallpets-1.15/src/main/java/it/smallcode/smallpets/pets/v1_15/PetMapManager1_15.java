@@ -21,7 +21,7 @@ import java.util.function.Consumer;
 
 public class PetMapManager1_15 extends PetMapManager {
 
-    protected void registerPets() {
+    public void registerPets() {
 
         petMap.put("tiger", Tiger.class);
         petMap.put("penguin", Penguin.class);

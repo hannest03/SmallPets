@@ -46,6 +46,12 @@ public class SmallPets extends JavaPlugin {
         if(!selectRightVersion())
             return;
 
+        Bukkit.getConsoleSender().sendMessage(PREFIX + "Registering pets...");
+
+        petMapManager.registerPets();
+
+        Bukkit.getConsoleSender().sendMessage(PREFIX + "Registered pets");
+
         userManager = new UserManager();
 
         //Registering all listeners
@@ -146,6 +152,8 @@ public class SmallPets extends JavaPlugin {
             return false;
 
         }
+
+        Bukkit.getConsoleSender().sendMessage(PREFIX + "Loaded version " + version + "!");
 
         return true;
 
