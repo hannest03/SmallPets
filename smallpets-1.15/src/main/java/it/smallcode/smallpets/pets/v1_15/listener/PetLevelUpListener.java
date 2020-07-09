@@ -1,4 +1,4 @@
-package it.smallcode.smallpets.listener;
+package it.smallcode.smallpets.pets.v1_15.listener;
 /*
 
 Class created by SmallCode
@@ -7,6 +7,8 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.events.PetLevelUpEvent;
+import it.smallcode.smallpets.manager.PetMapManager;
+import it.smallcode.smallpets.manager.UserManager;
 import it.smallcode.smallpets.text.CenteredText;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;

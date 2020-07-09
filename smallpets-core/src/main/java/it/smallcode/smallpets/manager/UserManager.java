@@ -6,13 +6,13 @@ Class created by SmallCode
 
 */
 
-import it.smallcode.smallpets.SmallPets;
 import it.smallcode.smallpets.manager.types.User;
 import it.smallcode.smallpets.pets.Pet;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,6 +30,10 @@ import java.util.UUID;
  */
 public class UserManager {
 
+    private JavaPlugin plugin;
+
+    private PetMapManager petMapManager;
+
     private ArrayList<User> users;
 
     /**
@@ -37,7 +41,11 @@ public class UserManager {
      * Creates a user manager object
      *
      */
-    public UserManager(){
+    public UserManager(JavaPlugin plugin, PetMapManager petMapManager){
+
+        this.plugin = plugin;
+
+        this.petMapManager = petMapManager;
 
         users = new ArrayList<>();
 
@@ -55,14 +63,14 @@ public class UserManager {
 
         if(!alreadyLoaded(uuid)) {
 
-            if (!new File(SmallPets.getInstance().getDataFolder().getPath() + "/users").exists())
-                new File(SmallPets.getInstance().getDataFolder().getPath() + "/users").mkdirs();
+            if (!new File(plugin.getDataFolder().getPath() + "/users").exists())
+                new File(plugin.getDataFolder().getPath() + "/users").mkdirs();
 
-            File userFile = new File(SmallPets.getInstance().getDataFolder().getPath() + "/users", uuid + ".yml");
+            File userFile = new File(plugin.getDataFolder().getPath() + "/users", uuid + ".yml");
 
             if (!userFile.exists()) {
 
-                users.add(new User(uuid));
+                users.add(new User(uuid, plugin));
 
             } else {
 
@@ -70,7 +78,7 @@ public class UserManager {
 
                 Map<String, Object> data = cfg.getValues(true);
 
-                users.add(new User(userFile.getName().replaceFirst("[.][^.]+$", ""), data, SmallPets.getInstance().getPetMapManager()));
+                users.add(new User(userFile.getName().replaceFirst("[.][^.]+$", ""), data, petMapManager, plugin));
 
             }
 
@@ -103,12 +111,12 @@ public class UserManager {
      */
     public void saveUsers(){
 
-        if(!new File(SmallPets.getInstance().getDataFolder().getPath() + "/users").exists())
-            new File(SmallPets.getInstance().getDataFolder().getPath() + "/users").mkdirs();
+        if(!new File(plugin.getDataFolder().getPath() + "/users").exists())
+            new File(plugin.getDataFolder().getPath() + "/users").mkdirs();
 
         for(User user : users){
 
-            File userFile = new File(SmallPets.getInstance().getDataFolder().getPath() + "/users", user.getUuid() + ".yml");
+            File userFile = new File(plugin.getDataFolder().getPath() + "/users", user.getUuid() + ".yml");
 
             if(!userFile.exists()) {
 
@@ -158,13 +166,13 @@ public class UserManager {
 
         if(user != null){
 
-            if(SmallPets.getInstance().getPetMapManager().getPetMap().containsKey(type)){
+            if(petMapManager.getPetMap().containsKey(type)){
 
                 if(user.getPetFromType(type) == null) {
 
                     try {
 
-                        Constructor constructor = SmallPets.getInstance().getPetMapManager().getPetMap().get(type).getConstructor(Player.class, Long.class);
+                        Constructor constructor = petMapManager.getPetMap().get(type).getConstructor(Player.class, Long.class);
 
                         Pet pet = (Pet) constructor.newInstance(Bukkit.getPlayer(UUID.fromString(uuid)), 0L);
 

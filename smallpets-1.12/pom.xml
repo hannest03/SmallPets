@@ -10,8 +10,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>it.smallcode</groupId>
-    <artifactId>smallpets-core</artifactId>
-    <version>core</version>
+    <artifactId>smallpets-1.12</artifactId>
+    <version>1.12</version>
+
+
     <build>
         <plugins>
             <plugin>
@@ -27,23 +29,27 @@
 
     <dependencies>
 
-        <!--This adds the Bukkit API artifact to the build -->
-        <!-- Do not include this in the pom.xml file if the Spigot API is already added -->
         <dependency>
-            <groupId>org.bukkit</groupId>
-            <artifactId>bukkit</artifactId>
-            <version>1.15.2-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
+            <groupId>it.smallcode</groupId>
+            <artifactId>smallpets-1.15</artifactId>
+            <version>1.15</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
         <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>2.8.6</version>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot-api</artifactId>
+            <version>1.12.2-R0.1-SNAPSHOT</version>
+            <type>jar</type>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>it.smallcode</groupId>
+            <artifactId>smallpets-core</artifactId>
+            <version>core</version>
+            <type>jar</type>
         </dependency>
 
     </dependencies>
-
 
 </project>

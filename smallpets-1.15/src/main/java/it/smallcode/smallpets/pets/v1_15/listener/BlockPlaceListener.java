@@ -1,4 +1,4 @@
-package it.smallcode.smallpets.listener;
+package it.smallcode.smallpets.pets.v1_15.listener;
 /*
 
 Class created by SmallCode
@@ -6,7 +6,6 @@ Class created by SmallCode
 
 */
 
-import it.smallcode.smallpets.SmallPets;
 import org.bukkit.NamespacedKey;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,8 +13,17 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
+import org.bukkit.plugin.java.JavaPlugin;
 
 public class BlockPlaceListener implements Listener {
+
+    private JavaPlugin plugin;
+
+    public BlockPlaceListener(JavaPlugin plugin){
+
+        this.plugin = plugin;
+
+    }
 
     @EventHandler
     public void onPlace(BlockPlaceEvent e){
@@ -30,7 +38,7 @@ public class BlockPlaceListener implements Listener {
 
                 if(itemMeta.getPersistentDataContainer() != null){
 
-                    NamespacedKey key = new NamespacedKey(SmallPets.getInstance(), "pet");
+                    NamespacedKey key = new NamespacedKey(plugin, "pet");
 
                     if(itemMeta.getPersistentDataContainer().has(key, PersistentDataType.STRING)){
 

@@ -1,4 +1,4 @@
-package it.smallcode.smallpets.listener;
+package it.smallcode.smallpets.pets.v1_15.listener;
 /*
 
 Class created by SmallCode
@@ -6,15 +6,32 @@ Class created by SmallCode
 
 */
 
-import it.smallcode.smallpets.SmallPets;
+import it.smallcode.smallpets.manager.UserManager;
 import it.smallcode.smallpets.manager.types.User;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.plugin.java.JavaPlugin;
 
 public class GiveExpListener implements Listener {
+
+    private JavaPlugin plugin;
+
+    private UserManager userManager;
+
+    private double xpMultiplier;
+
+    public GiveExpListener(JavaPlugin plugin, UserManager userManager, double xpMultiplier){
+
+        this.plugin = plugin;
+
+        this.userManager = userManager;
+
+        this.xpMultiplier = xpMultiplier;
+
+    }
 
     @EventHandler
     public void onEntityKill(EntityDeathEvent e){
@@ -23,13 +40,13 @@ public class GiveExpListener implements Listener {
 
         if(p != null) {
 
-            User user = SmallPets.getInstance().getUserManager().getUser(p.getUniqueId().toString());
+            User user = userManager.getUser(p.getUniqueId().toString());
 
             if (user != null) {
 
                 if (user.getSelected() != null) {
 
-                    user.getSelected().giveExp((int) (e.getDroppedExp() * 3 * SmallPets.getInstance().getXpMultiplier()), SmallPets.getInstance());
+                    user.getSelected().giveExp((int) (e.getDroppedExp() * 3 * xpMultiplier), plugin);
 
                 }
 
@@ -44,13 +61,13 @@ public class GiveExpListener implements Listener {
 
         Player p = e.getPlayer();
 
-        User user = SmallPets.getInstance().getUserManager().getUser(p.getUniqueId().toString());
+        User user = userManager.getUser(p.getUniqueId().toString());
 
         if(user != null){
 
             if(user.getSelected() != null){
 
-                user.getSelected().giveExp((int) (e.getExpToDrop() * 3 * SmallPets.getInstance().getXpMultiplier()), SmallPets.getInstance());
+                user.getSelected().giveExp((int) (e.getExpToDrop() * 3 * xpMultiplier), plugin);
 
             }
 

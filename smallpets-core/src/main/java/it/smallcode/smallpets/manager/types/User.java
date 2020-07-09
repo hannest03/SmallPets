@@ -6,13 +6,14 @@ Class created by SmallCode
 
 */
 
-import it.smallcode.smallpets.SmallPets;
 import it.smallcode.smallpets.events.DespawnPetEvent;
 import it.smallcode.smallpets.events.SpawnPetEvent;
 import it.smallcode.smallpets.manager.PetMapManager;
 import it.smallcode.smallpets.pets.Pet;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -24,6 +25,8 @@ import java.util.*;
  *
  */
 public class User {
+
+    private JavaPlugin plugin;
 
     private String uuid;
 
@@ -37,9 +40,9 @@ public class User {
      *
      */
 
-    public User(){
+    public User(JavaPlugin plugin){
 
-        this(null);
+        this(null, plugin);
 
     }
 
@@ -50,7 +53,9 @@ public class User {
      * @param uuid - the uuid of the user
      */
 
-    public User(String uuid){
+    public User(String uuid, JavaPlugin plugin){
+
+        this.plugin = plugin;
 
         this.uuid = uuid;
 
@@ -69,7 +74,9 @@ public class User {
      * @param petMapManager - the petMapManager with all the registered pets
      */
 
-    public User(String uuid, Map<String, Object> data, PetMapManager petMapManager){
+    public User(String uuid, Map<String, Object> data, PetMapManager petMapManager, JavaPlugin plugin){
+
+        this.plugin = plugin;
 
         this.uuid = uuid;
 
@@ -124,7 +131,7 @@ public class User {
 
             if(!spawnPetEvent.isCancelled()) {
 
-                selected.spawn(SmallPets.getInstance());
+                selected.spawn(plugin);
 
             }
 

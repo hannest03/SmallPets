@@ -1,4 +1,4 @@
-package it.smallcode.smallpets.listener;
+package it.smallcode.smallpets.pets.v1_15.listener;
 /*
 
 Class created by SmallCode
@@ -6,7 +6,7 @@ Class created by SmallCode
 
 */
 
-import it.smallcode.smallpets.SmallPets;
+import it.smallcode.smallpets.manager.UserManager;
 import it.smallcode.smallpets.manager.types.User;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -16,6 +16,18 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
 public class InventoryClickListener implements Listener {
+
+    private UserManager userManager;
+
+    private String prefix;
+
+    public InventoryClickListener(UserManager userManager, String prefix){
+
+        this.userManager = userManager;
+
+        this.prefix = prefix;
+
+    }
 
     @EventHandler
     public void onClick(InventoryClickEvent e){
@@ -34,7 +46,7 @@ public class InventoryClickListener implements Listener {
 
                     String type = nameSplit[nameSplit.length - 1];
 
-                    User user = SmallPets.getInstance().getUserManager().getUser(p.getUniqueId().toString());
+                    User user = userManager.getUser(p.getUniqueId().toString());
 
                     if(user != null) {
 
@@ -42,13 +54,13 @@ public class InventoryClickListener implements Listener {
 
                             user.setSelected(null);
 
-                            e.getWhoClicked().sendMessage(SmallPets.getInstance().PREFIX + "Your pet was despawned");
+                            e.getWhoClicked().sendMessage(prefix + "Your pet was despawned");
 
                         } else {
 
                             user.setSelected(user.getPetFromType(type));
 
-                            e.getWhoClicked().sendMessage(SmallPets.getInstance().PREFIX + "Your pet was summoned");
+                            e.getWhoClicked().sendMessage(prefix + "Your pet was summoned");
 
                         }
 

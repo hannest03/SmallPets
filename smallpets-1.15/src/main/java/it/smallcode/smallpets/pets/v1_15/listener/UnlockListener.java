@@ -1,4 +1,4 @@
-package it.smallcode.smallpets.listener;
+package it.smallcode.smallpets.pets.v1_15.listener;
 /*
 
 Class created by SmallCode
@@ -6,7 +6,7 @@ Class created by SmallCode
 
 */
 
-import it.smallcode.smallpets.SmallPets;
+import it.smallcode.smallpets.manager.InventoryCache;
 import it.smallcode.smallpets.manager.UserManager;
 import org.bukkit.NamespacedKey;
 import org.bukkit.event.EventHandler;
@@ -16,8 +16,23 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
+import org.bukkit.plugin.java.JavaPlugin;
 
 public class UnlockListener implements Listener {
+
+    private JavaPlugin plugin;
+
+    private UserManager userManager;
+    private String prefix;
+
+    public UnlockListener(JavaPlugin plugin, UserManager userManager, String prefix){
+
+        this.plugin = plugin;
+
+        this.userManager = userManager;
+        this.prefix = prefix;
+
+    }
 
     @EventHandler
     public void onInteract(PlayerInteractEvent e){
@@ -34,17 +49,17 @@ public class UnlockListener implements Listener {
 
                     if(itemMeta.getPersistentDataContainer() != null){
 
-                        NamespacedKey key = new NamespacedKey(SmallPets.getInstance(), "pet");
+                        NamespacedKey key = new NamespacedKey(plugin, "pet");
 
                         if(itemMeta.getPersistentDataContainer().has(key, PersistentDataType.STRING)){
 
                             String type = item.getItemMeta().getPersistentDataContainer().get(key, PersistentDataType.STRING);
 
-                            if(SmallPets.getInstance().getUserManager().giveUserPet(type, e.getPlayer().getUniqueId().toString())){
+                            if(userManager.giveUserPet(type, e.getPlayer().getUniqueId().toString())){
 
                                 e.getItem().setAmount(e.getItem().getAmount() -1);
 
-                                e.getPlayer().sendMessage(SmallPets.getInstance().PREFIX + "Unlocked " + type + " pet!");
+                                e.getPlayer().sendMessage(prefix + "Unlocked " + type + " pet!");
 
                             }
 

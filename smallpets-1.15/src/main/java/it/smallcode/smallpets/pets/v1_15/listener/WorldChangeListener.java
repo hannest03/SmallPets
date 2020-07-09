@@ -1,4 +1,4 @@
-package it.smallcode.smallpets.listener;
+package it.smallcode.smallpets.pets.v1_15.listener;
 /*
 
 Class created by SmallCode
@@ -6,8 +6,8 @@ Class created by SmallCode
 
 */
 
-import it.smallcode.smallpets.SmallPets;
 import it.smallcode.smallpets.events.PetChangeWorldEvent;
+import it.smallcode.smallpets.manager.UserManager;
 import it.smallcode.smallpets.manager.types.User;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -18,10 +18,18 @@ import org.bukkit.event.player.PlayerChangedWorldEvent;
 
 public class WorldChangeListener implements Listener {
 
+    private UserManager userManager;
+
+    public WorldChangeListener(UserManager userManager){
+
+        this.userManager = userManager;
+
+    }
+
     @EventHandler
     public void onWorldChange(PlayerChangedWorldEvent e){
 
-        User user = SmallPets.getInstance().getUserManager().getUser(e.getPlayer().getUniqueId().toString());
+        User user = userManager.getUser(e.getPlayer().getUniqueId().toString());
 
         if(user != null){
 

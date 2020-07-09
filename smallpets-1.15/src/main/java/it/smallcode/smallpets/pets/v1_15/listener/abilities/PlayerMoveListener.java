@@ -1,4 +1,4 @@
-package it.smallcode.smallpets.listener;
+package it.smallcode.smallpets.pets.v1_15.listener.abilities;
 /*
 
 Class created by SmallCode
@@ -6,7 +6,7 @@ Class created by SmallCode
 
 */
 
-import it.smallcode.smallpets.SmallPets;
+import it.smallcode.smallpets.manager.UserManager;
 import it.smallcode.smallpets.manager.types.User;
 import it.smallcode.smallpets.pets.v1_15.pets.Monkey;
 import it.smallcode.smallpets.pets.v1_15.pets.Penguin;
@@ -21,12 +21,20 @@ import org.bukkit.util.Vector;
 
 public class PlayerMoveListener implements Listener {
 
+    private UserManager userManager;
+
+    public PlayerMoveListener(UserManager userManager){
+
+        this.userManager = userManager;
+
+    }
+
     @EventHandler
     public void onMove(PlayerMoveEvent e){
 
         Player p = e.getPlayer();
 
-        User user = SmallPets.getInstance().getUserManager().getUser(e.getPlayer().getUniqueId().toString());
+        User user = userManager.getUser(e.getPlayer().getUniqueId().toString());
 
         if(user != null){
             if(user.getSelected() != null){

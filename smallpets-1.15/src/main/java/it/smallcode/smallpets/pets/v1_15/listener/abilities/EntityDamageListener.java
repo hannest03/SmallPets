@@ -1,4 +1,4 @@
-package it.smallcode.smallpets.listener;
+package it.smallcode.smallpets.pets.v1_15.listener.abilities;
 /*
 
 Class created by SmallCode
@@ -6,9 +6,9 @@ Class created by SmallCode
 
 */
 
-import it.smallcode.smallpets.SmallPets;
+import it.smallcode.smallpets.manager.UserManager;
 import it.smallcode.smallpets.manager.types.User;
-import it.smallcode.smallpets.pets.v1_16.pets.Tiger;
+import it.smallcode.smallpets.pets.v1_15.pets.Tiger;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -16,6 +16,14 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 
 public class EntityDamageListener implements Listener {
+
+    private UserManager userManager;
+
+    public EntityDamageListener(UserManager userManager){
+
+        this.userManager = userManager;
+
+    }
 
     @EventHandler
     public void onDamage(EntityDamageByEntityEvent e){
@@ -26,7 +34,7 @@ public class EntityDamageListener implements Listener {
 
                 Player p = (Player) e.getDamager();
 
-                User user = SmallPets.getInstance().getUserManager().getUser(p.getUniqueId().toString());
+                User user = userManager.getUser(p.getUniqueId().toString());
 
                 if(user != null){
 
