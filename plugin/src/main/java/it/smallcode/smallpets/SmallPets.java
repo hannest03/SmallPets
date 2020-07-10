@@ -14,6 +14,9 @@ import it.smallcode.smallpets.metrics.Metrics;
 import it.smallcode.smallpets.v1_12.InventoryManager1_12;
 import it.smallcode.smallpets.v1_12.ListenerManager1_12;
 import it.smallcode.smallpets.v1_12.PetMapManager1_12;
+import it.smallcode.smallpets.v1_13.InventoryManager1_13;
+import it.smallcode.smallpets.v1_13.ListenerManager1_13;
+import it.smallcode.smallpets.v1_13.PetMapManager1_13;
 import it.smallcode.smallpets.v1_15.InventoryManager1_15;
 import it.smallcode.smallpets.v1_15.ListenerManager1_15;
 import it.smallcode.smallpets.v1_15.PetMapManager1_15;
@@ -142,6 +145,13 @@ public class SmallPets extends JavaPlugin {
             inventoryManager = new InventoryManager1_12(inventoryCache);
             userManager = new UserManager(this, petMapManager);
             listenerManager = new ListenerManager1_12(this, getUserManager(), getPetMapManager(), getInventoryCache(), PREFIX, xpMultiplier);
+
+        }else if(version.startsWith("1_13")){
+
+            petMapManager = new PetMapManager1_13();
+            inventoryManager = new InventoryManager1_13(inventoryCache);
+            userManager = new UserManager(this, petMapManager);
+            listenerManager = new ListenerManager1_13(this, getUserManager(), getPetMapManager(), getInventoryCache(), PREFIX, xpMultiplier);
 
         }else if(version.startsWith("1_15") || version.startsWith("1_14")){
 
