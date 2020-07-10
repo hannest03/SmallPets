@@ -28,9 +28,16 @@
     <dependencies>
 
         <dependency>
-            <groupId>org.bukkit</groupId>
-            <artifactId>bukkit</artifactId>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot</artifactId>
             <version>1.15.2-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.comphenix.protocol</groupId>
+            <artifactId>ProtocolLib</artifactId>
+            <version>4.5.0</version>
             <scope>provided</scope>
         </dependency>
 
@@ -39,6 +46,7 @@
             <artifactId>smallpets-core</artifactId>
             <version>core</version>
             <type>jar</type>
+
         </dependency>
 
     </dependencies>

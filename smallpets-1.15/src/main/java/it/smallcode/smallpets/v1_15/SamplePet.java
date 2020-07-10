@@ -6,6 +6,15 @@ Class created by SmallCode
 
 */
 
+import com.comphenix.packetwrapper.WrapperPlayServerEntityEquipment;
+import com.comphenix.packetwrapper.WrapperPlayServerEntityMetadata;
+import com.comphenix.packetwrapper.WrapperPlayServerSpawnEntity;
+import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.events.PacketContainer;
+import com.comphenix.protocol.wrappers.EnumWrappers;
+import com.comphenix.protocol.wrappers.WrappedDataWatcher;
+import com.comphenix.protocol.wrappers.WrappedWatchableObject;
+import io.netty.buffer.ByteBuf;
 import it.smallcode.smallpets.events.PetLevelUpEvent;
 import it.smallcode.smallpets.pets.Pet;
 import it.smallcode.smallpets.v1_15.animation.FollowPlayerArmorStand;
@@ -13,6 +22,7 @@ import it.smallcode.smallpets.v1_15.animation.HoverArmorStand;
 import it.smallcode.smallpets.v1_15.animation.LevelOnehundretAnimation;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
@@ -21,12 +31,19 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.lang.reflect.InvocationTargetException;
+import java.sql.Wrapper;
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  *
  * The foundation of all pets in the 1.15 version
  *
  */
 public class SamplePet extends Pet {
+
+    private static List<Integer> entityIDs = new LinkedList<>();
 
     /**
      *
@@ -45,12 +62,93 @@ public class SamplePet extends Pet {
 
     private int rotateID;
 
+    private int entityID = -1;
+
     public void spawn(JavaPlugin plugin) {
 
         Location loc = owner.getLocation().clone();
 
         loc.setX(loc.getX() - 1);
         loc.setY(loc.getY() + 0.75);
+
+        spawnPackets(loc);
+
+    }
+
+    private void spawnPackets(Location loc){
+
+        do{
+
+            entityID = (int) (Math.random() * 10000);
+
+        }while(entityIDs.contains(entityID) && entityID >= 0);
+
+        WrapperPlayServerSpawnEntity spawnEntityPacket = new WrapperPlayServerSpawnEntity();
+
+        spawnEntityPacket.setEntityID(entityID);
+        spawnEntityPacket.setType(EntityType.ARMOR_STAND);
+
+        spawnEntityPacket.setX(loc.getX());
+        spawnEntityPacket.setY(loc.getY());
+        spawnEntityPacket.setZ(loc.getZ());
+
+        sendPacket(spawnEntityPacket.getHandle());
+
+        WrapperPlayServerEntityEquipment entityEquipmentPacket = new WrapperPlayServerEntityEquipment();
+
+        entityEquipmentPacket.setEntityID(entityID);
+        entityEquipmentPacket.setSlot(EnumWrappers.ItemSlot.HEAD);
+        entityEquipmentPacket.setItem(getItem());
+
+        sendPacket(entityEquipmentPacket.getHandle());
+
+        WrapperPlayServerEntityMetadata entityMetadataPacket = new WrapperPlayServerEntityMetadata();
+
+        entityMetadataPacket.setEntityID(entityID);
+
+        WrappedDataWatcher dataWatcher = new WrappedDataWatcher(entityMetadataPacket.getMetadata());
+
+        dataWatcher.setObject(
+                new WrappedDataWatcher.WrappedDataWatcherObject(14, WrappedDataWatcher.Registry.get(Byte.class)),
+                (byte) 0x01);
+
+        dataWatcher.setObject(
+                new WrappedDataWatcher.WrappedDataWatcherObject(0, WrappedDataWatcher.Registry.get(Byte.class)),
+                (byte) 0x20);
+
+        dataWatcher.setObject(
+                new WrappedDataWatcher.WrappedDataWatcherObject(2, WrappedDataWatcher.Registry.get(String.class)),
+                "§8[" + getLevelColor() + getLevel() + "§8] §7" + owner.getName() + "s " + getName());
+
+        dataWatcher.setObject(
+                new WrappedDataWatcher.WrappedDataWatcherObject(3, WrappedDataWatcher.Registry.get(Boolean.class)),
+                true);
+
+        dataWatcher.setObject(
+                new WrappedDataWatcher.WrappedDataWatcherObject(5, WrappedDataWatcher.Registry.get(Boolean.class)),
+                true);
+
+        entityMetadataPacket.setMetadata(dataWatcher.getWatchableObjects());
+
+        sendPacket(entityMetadataPacket.getHandle());
+
+    }
+
+    private void sendPacket(PacketContainer packet){
+
+        for(Player all : Bukkit.getOnlinePlayers()){
+
+            try {
+                ProtocolLibrary.getProtocolManager().sendServerPacket(all, packet);
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+    }
+
+    private void spawnArmorStand(JavaPlugin plugin, Location loc){
 
         armorStand = createArmorStand(loc);
 

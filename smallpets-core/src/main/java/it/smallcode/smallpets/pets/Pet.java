@@ -29,6 +29,7 @@ public abstract class Pet {
     protected long xp = 0;
 
     protected ArmorStand armorStand;
+    protected int entityID;
 
     protected Player owner;
 
