@@ -7,13 +7,22 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.cmds.SmallPetsCMD;
-import it.smallcode.smallpets.listener.*;
+import it.smallcode.smallpets.listener.JoinListener;
+import it.smallcode.smallpets.listener.QuitListener;
 import it.smallcode.smallpets.manager.*;
 import it.smallcode.smallpets.metrics.Metrics;
-import it.smallcode.smallpets.pets.v1_15.InventoryManager1_15;
-import it.smallcode.smallpets.pets.v1_15.PetMapManager1_15;
-import it.smallcode.smallpets.pets.v1_16.InventoryManager1_16;
-import it.smallcode.smallpets.pets.v1_16.PetMapManager1_16;
+import it.smallcode.smallpets.v1_12.InventoryManager1_12;
+import it.smallcode.smallpets.v1_12.ListenerManager1_12;
+import it.smallcode.smallpets.v1_12.PetMapManager1_12;
+import it.smallcode.smallpets.v1_13.InventoryManager1_13;
+import it.smallcode.smallpets.v1_13.ListenerManager1_13;
+import it.smallcode.smallpets.v1_13.PetMapManager1_13;
+import it.smallcode.smallpets.v1_15.InventoryManager1_15;
+import it.smallcode.smallpets.v1_15.ListenerManager1_15;
+import it.smallcode.smallpets.v1_15.PetMapManager1_15;
+import it.smallcode.smallpets.v1_16.InventoryManager1_16;
+import it.smallcode.smallpets.v1_16.ListenerManager1_16;
+import it.smallcode.smallpets.v1_16.PetMapManager1_16;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -29,6 +38,8 @@ public class SmallPets extends JavaPlugin {
 
     private InventoryManager inventoryManager;
     private InventoryCache inventoryCache;
+
+    private ListenerManager listenerManager;
 
     public final String PREFIX = "§e○§6◯  SmallPets §e◆ ";
 
@@ -52,21 +63,16 @@ public class SmallPets extends JavaPlugin {
 
         Bukkit.getConsoleSender().sendMessage(PREFIX + "Registered pets");
 
-        userManager = new UserManager();
-
         //Registering all listeners
 
-        Bukkit.getPluginManager().registerEvents(new JoinListener(), this);
-        Bukkit.getPluginManager().registerEvents(new QuitListener(), this);
-        Bukkit.getPluginManager().registerEvents(new WorldChangeListener(), this);
-        Bukkit.getPluginManager().registerEvents(new InventoryClickListener(), this);
-        Bukkit.getPluginManager().registerEvents(new ArmorStandInteractListener(), this);
-        Bukkit.getPluginManager().registerEvents(new PetLevelUpListener(), this);
-        Bukkit.getPluginManager().registerEvents(new GiveExpListener(), this);
-        Bukkit.getPluginManager().registerEvents(new UnlockListener(), this);
-        Bukkit.getPluginManager().registerEvents(new BlockPlaceListener(), this);
-        Bukkit.getPluginManager().registerEvents(new PlayerMoveListener(), this);
-        Bukkit.getPluginManager().registerEvents(new EntityDamageListener(), this);
+        Bukkit.getConsoleSender().sendMessage(PREFIX + "Registering listeners...");
+
+        listenerManager.registerListener();
+
+        Bukkit.getPluginManager().registerEvents(new JoinListener(userManager, petMapManager), this);
+        Bukkit.getPluginManager().registerEvents(new QuitListener(userManager, inventoryCache), this);
+
+        Bukkit.getConsoleSender().sendMessage(PREFIX + "Registered listeners!");
 
         //Registering all commands
 
@@ -133,15 +139,33 @@ public class SmallPets extends JavaPlugin {
 
         version = version.replace(".v", "");
 
-        if(version.startsWith("1_15") || version.startsWith("1_14")){
+        if(version.startsWith("1_12")) {
+
+            petMapManager = new PetMapManager1_12();
+            inventoryManager = new InventoryManager1_12(inventoryCache);
+            userManager = new UserManager(this, petMapManager);
+            listenerManager = new ListenerManager1_12(this, getUserManager(), getPetMapManager(), getInventoryCache(), PREFIX, xpMultiplier);
+
+        }else if(version.startsWith("1_13")){
+
+            petMapManager = new PetMapManager1_13();
+            inventoryManager = new InventoryManager1_13(inventoryCache);
+            userManager = new UserManager(this, petMapManager);
+            listenerManager = new ListenerManager1_13(this, getUserManager(), getPetMapManager(), getInventoryCache(), PREFIX, xpMultiplier);
+
+        }else if(version.startsWith("1_15") || version.startsWith("1_14")){
 
             petMapManager = new PetMapManager1_15();
             inventoryManager = new InventoryManager1_15(inventoryCache);
+            userManager = new UserManager(this, petMapManager);
+            listenerManager = new ListenerManager1_15(this, getUserManager(), getPetMapManager(), getInventoryCache(), PREFIX, xpMultiplier);
 
         }else if(version.startsWith("1_16")){
 
             petMapManager = new PetMapManager1_16();
             inventoryManager = new InventoryManager1_16(inventoryCache);
+            userManager = new UserManager(this, petMapManager);
+            listenerManager = new ListenerManager1_16(this, getUserManager(), getPetMapManager(), getInventoryCache(), PREFIX, xpMultiplier);
 
         }else{
 

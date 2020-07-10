@@ -10,8 +10,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>it.smallcode</groupId>
-    <artifactId>smallpets-1.15</artifactId>
-    <version>1.15</version>
+    <artifactId>smallpets-1.13</artifactId>
+    <version>1.13</version>
+
     <build>
         <plugins>
             <plugin>
@@ -28,9 +29,15 @@
     <dependencies>
 
         <dependency>
-            <groupId>org.bukkit</groupId>
-            <artifactId>bukkit</artifactId>
-            <version>1.15.2-R0.1-SNAPSHOT</version>
+            <groupId>it.smallcode</groupId>
+            <artifactId>smallpets-1.12</artifactId>
+            <version>1.12</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot</artifactId>
+            <version>1.13.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
 
@@ -42,5 +49,6 @@
         </dependency>
 
     </dependencies>
+
 
 </project>
