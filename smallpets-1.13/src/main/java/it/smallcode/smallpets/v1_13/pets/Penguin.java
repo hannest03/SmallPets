@@ -17,8 +17,8 @@ import java.util.ArrayList;
 
 public class Penguin extends it.smallcode.smallpets.v1_15.pets.Penguin {
 
-    public Penguin(Player owner, Long xp) {
-        super(owner, xp);
+    public Penguin(Player owner, Long xp, Boolean useProtocolLib) {
+        super(owner, xp, useProtocolLib);
     }
 
     /**

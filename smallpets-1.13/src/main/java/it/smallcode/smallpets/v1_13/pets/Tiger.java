@@ -17,8 +17,8 @@ import java.util.ArrayList;
 
 public class Tiger extends it.smallcode.smallpets.v1_15.pets.Tiger {
 
-    public Tiger(Player owner, Long xp) {
-        super(owner, xp);
+    public Tiger(Player owner, Long xp, Boolean useProtocolLib) {
+        super(owner, xp, useProtocolLib);
     }
 
     @Override

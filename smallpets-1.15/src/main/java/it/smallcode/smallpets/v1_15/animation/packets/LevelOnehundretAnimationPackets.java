@@ -1,4 +1,4 @@
-package it.smallcode.smallpets.v1_15.animation;
+package it.smallcode.smallpets.v1_15.animation.packets;
 /*
 
 Class created by SmallCode
@@ -9,18 +9,17 @@ Class created by SmallCode
 import it.smallcode.smallpets.pets.Pet;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 import java.util.ArrayList;
 
-public class LevelOnehundretAnimation {
+public class LevelOnehundretAnimationPackets {
 
     private int schedulerID;
 
     private int counter = 0;
 
-    public LevelOnehundretAnimation(final Pet pet, final ArmorStand armorStand, Plugin plugin){
+    public LevelOnehundretAnimationPackets(final Pet pet, final ArmorStand armorStand, Plugin plugin){
 
         final ArrayList<String> colors = new ArrayList<>();
 

@@ -6,8 +6,10 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.SmallPets;
 import it.smallcode.smallpets.manager.PetMapManager;
 import it.smallcode.smallpets.manager.UserManager;
+import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -27,9 +29,23 @@ public class JoinListener implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent e){
 
-        userManager.loadUser(e.getPlayer().getUniqueId().toString(), petMapManager);
+        Bukkit.getScheduler().scheduleAsyncDelayedTask(SmallPets.getInstance(), new Runnable() {
+            @Override
+            public void run() {
 
-        userManager.getUser(e.getPlayer().getUniqueId().toString()).spawnSelected();
+                userManager.loadUser(e.getPlayer().getUniqueId().toString(), petMapManager);
+
+                Bukkit.getScheduler().scheduleSyncDelayedTask(SmallPets.getInstance(), new Runnable() {
+                    @Override
+                    public void run() {
+
+                        userManager.getUser(e.getPlayer().getUniqueId().toString()).spawnSelected();
+
+                    }
+                });
+
+            }
+        });
 
     }
 

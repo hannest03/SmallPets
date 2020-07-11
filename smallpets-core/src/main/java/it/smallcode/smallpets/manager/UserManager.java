@@ -36,16 +36,20 @@ public class UserManager {
 
     private ArrayList<User> users;
 
+    private boolean useProtocolLib;
+
     /**
      *
      * Creates a user manager object
      *
      */
-    public UserManager(JavaPlugin plugin, PetMapManager petMapManager){
+    public UserManager(JavaPlugin plugin, PetMapManager petMapManager, boolean useProtocolLib){
 
         this.plugin = plugin;
 
         this.petMapManager = petMapManager;
+
+        this.useProtocolLib = useProtocolLib;
 
         users = new ArrayList<>();
 
@@ -78,7 +82,7 @@ public class UserManager {
 
                 Map<String, Object> data = cfg.getValues(true);
 
-                users.add(new User(userFile.getName().replaceFirst("[.][^.]+$", ""), data, petMapManager, plugin));
+                users.add(new User(userFile.getName().replaceFirst("[.][^.]+$", ""), data, petMapManager, plugin, useProtocolLib));
 
             }
 

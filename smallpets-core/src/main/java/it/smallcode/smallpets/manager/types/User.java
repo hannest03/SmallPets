@@ -72,9 +72,11 @@ public class User {
      * @param uuid - the uuid of the user
      * @param data - a map with the data of the user
      * @param petMapManager - the petMapManager with all the registered pets
+     * @oaram plugin - the instance of the plugin
+     * @param useProtocolLib - boolean if ProtocolLib is being used
      */
 
-    public User(String uuid, Map<String, Object> data, PetMapManager petMapManager, JavaPlugin plugin){
+    public User(String uuid, Map<String, Object> data, PetMapManager petMapManager, JavaPlugin plugin, boolean useProtocolLib){
 
         this.plugin = plugin;
 
@@ -86,7 +88,7 @@ public class User {
 
         for(Map<String, Object> petData : petDatas){
 
-            pets.add(unserializePet(petData, petMapManager, uuid));
+            pets.add(unserializePet(petData, petMapManager, uuid, useProtocolLib));
 
         }
 
@@ -302,7 +304,7 @@ public class User {
      * @return - the unserialized pet
      */
 
-    private Pet unserializePet(Map<String, Object> data, PetMapManager petMapManager, String uuid){
+    private Pet unserializePet(Map<String, Object> data, PetMapManager petMapManager, String uuid, boolean useProtocolLib){
 
         String type = (String) data.get("type");
 
@@ -312,9 +314,9 @@ public class User {
 
             try {
 
-                Constructor constructor = petMapManager.getPetMap().get(type).getConstructor(Player.class, Long.class);
+                Constructor constructor = petMapManager.getPetMap().get(type).getConstructor(Player.class, Long.class, Boolean.class);
 
-                return (Pet) constructor.newInstance(Bukkit.getPlayer(UUID.fromString(uuid)), exp);
+                return (Pet) constructor.newInstance(Bukkit.getPlayer(UUID.fromString(uuid)), exp, useProtocolLib);
 
             } catch (NoSuchMethodException ex) {
 

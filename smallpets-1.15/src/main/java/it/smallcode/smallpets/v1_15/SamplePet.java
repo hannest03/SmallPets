@@ -6,23 +6,23 @@ Class created by SmallCode
 
 */
 
-import com.comphenix.packetwrapper.WrapperPlayServerEntityEquipment;
-import com.comphenix.packetwrapper.WrapperPlayServerEntityMetadata;
-import com.comphenix.packetwrapper.WrapperPlayServerSpawnEntity;
+import com.comphenix.packetwrapper.*;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.wrappers.EnumWrappers;
+import com.comphenix.protocol.wrappers.WrappedChatComponent;
 import com.comphenix.protocol.wrappers.WrappedDataWatcher;
-import com.comphenix.protocol.wrappers.WrappedWatchableObject;
-import io.netty.buffer.ByteBuf;
+import it.smallcode.smallpets.animations.FollowPlayerAnimation;
+import it.smallcode.smallpets.animations.HoverAnimation;
 import it.smallcode.smallpets.events.PetLevelUpEvent;
 import it.smallcode.smallpets.pets.Pet;
-import it.smallcode.smallpets.v1_15.animation.FollowPlayerArmorStand;
-import it.smallcode.smallpets.v1_15.animation.HoverArmorStand;
-import it.smallcode.smallpets.v1_15.animation.LevelOnehundretAnimation;
+import it.smallcode.smallpets.v1_15.animation.armorstands.FollowPlayerArmorStand;
+import it.smallcode.smallpets.v1_15.animation.armorstands.HoverArmorStand;
+import it.smallcode.smallpets.v1_15.animation.armorstands.LevelOnehundretAnimation;
+import it.smallcode.smallpets.v1_15.animation.packets.FollowPlayerPackets;
+import it.smallcode.smallpets.v1_15.animation.packets.HoverPackets;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
@@ -32,9 +32,7 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.lang.reflect.InvocationTargetException;
-import java.sql.Wrapper;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.Optional;
 
 /**
  *
@@ -43,8 +41,6 @@ import java.util.List;
  */
 public class SamplePet extends Pet {
 
-    private static List<Integer> entityIDs = new LinkedList<>();
-
     /**
      *
      * Creates a pet
@@ -52,17 +48,15 @@ public class SamplePet extends Pet {
      * @param owner - the pet owner
      * @param xp - the xp
      */
-    public SamplePet(Player owner, Long xp) {
-        super(owner, xp);
+    public SamplePet(Player owner, Long xp, boolean useProtocolLib) {
+        super(owner, xp, useProtocolLib);
     }
 
-    private FollowPlayerArmorStand followPlayerArmorStand;
-    private HoverArmorStand hoverArmorStand;
+    private FollowPlayerAnimation followPlayerArmorStand;
+    private HoverAnimation hoverAnimation;
     private LevelOnehundretAnimation levelOnehundretAnimation;
 
     private int rotateID;
-
-    private int entityID = -1;
 
     public void spawn(JavaPlugin plugin) {
 
@@ -71,11 +65,21 @@ public class SamplePet extends Pet {
         loc.setX(loc.getX() - 1);
         loc.setY(loc.getY() + 0.75);
 
-        spawnPackets(loc);
+        setLocation(loc);
+
+        if(useProtocolLib) {
+
+            spawnPackets(plugin, loc);
+
+        }else{
+
+            spawnArmorStand(plugin, loc);
+
+        }
 
     }
 
-    private void spawnPackets(Location loc){
+    private void spawnPackets(JavaPlugin plugin, Location loc){
 
         do{
 
@@ -83,54 +87,68 @@ public class SamplePet extends Pet {
 
         }while(entityIDs.contains(entityID) && entityID >= 0);
 
-        WrapperPlayServerSpawnEntity spawnEntityPacket = new WrapperPlayServerSpawnEntity();
+        Bukkit.getScheduler().scheduleAsyncDelayedTask(plugin, new Runnable() {
+            @Override
+            public void run() {
 
-        spawnEntityPacket.setEntityID(entityID);
-        spawnEntityPacket.setType(EntityType.ARMOR_STAND);
+                WrapperPlayServerSpawnEntity spawnEntity = new WrapperPlayServerSpawnEntity();
 
-        spawnEntityPacket.setX(loc.getX());
-        spawnEntityPacket.setY(loc.getY());
-        spawnEntityPacket.setZ(loc.getZ());
+                spawnEntity.setEntityID(entityID);
 
-        sendPacket(spawnEntityPacket.getHandle());
+                spawnEntity.setType(EntityType.ARMOR_STAND);
+                spawnEntity.setObjectData(78);
 
-        WrapperPlayServerEntityEquipment entityEquipmentPacket = new WrapperPlayServerEntityEquipment();
+                spawnEntity.setX(loc.getX());
+                spawnEntity.setY(loc.getY());
+                spawnEntity.setZ(loc.getZ());
 
-        entityEquipmentPacket.setEntityID(entityID);
-        entityEquipmentPacket.setSlot(EnumWrappers.ItemSlot.HEAD);
-        entityEquipmentPacket.setItem(getItem());
+                spawnEntity.sendPacket(owner);
 
-        sendPacket(entityEquipmentPacket.getHandle());
+                WrapperPlayServerEntityEquipment entityEquipment = new WrapperPlayServerEntityEquipment();
 
-        WrapperPlayServerEntityMetadata entityMetadataPacket = new WrapperPlayServerEntityMetadata();
+                entityEquipment.setEntityID(entityID);
+                entityEquipment.setSlot(EnumWrappers.ItemSlot.HEAD);
+                entityEquipment.setItem(getItem());
 
-        entityMetadataPacket.setEntityID(entityID);
+                entityEquipment.sendPacket(owner);
 
-        WrappedDataWatcher dataWatcher = new WrappedDataWatcher(entityMetadataPacket.getMetadata());
+                WrapperPlayServerEntityMetadata entityMetadata = new WrapperPlayServerEntityMetadata();
 
-        dataWatcher.setObject(
-                new WrappedDataWatcher.WrappedDataWatcherObject(14, WrappedDataWatcher.Registry.get(Byte.class)),
-                (byte) 0x01);
+                entityMetadata.setEntityID(entityID);
 
-        dataWatcher.setObject(
-                new WrappedDataWatcher.WrappedDataWatcherObject(0, WrappedDataWatcher.Registry.get(Byte.class)),
-                (byte) 0x20);
+                WrappedDataWatcher dataWatcher = new WrappedDataWatcher(entityMetadata.getMetadata());
 
-        dataWatcher.setObject(
-                new WrappedDataWatcher.WrappedDataWatcherObject(2, WrappedDataWatcher.Registry.get(String.class)),
-                "§8[" + getLevelColor() + getLevel() + "§8] §7" + owner.getName() + "s " + getName());
+                dataWatcher.setObject(new WrappedDataWatcher.WrappedDataWatcherObject(0, WrappedDataWatcher.Registry.get(Byte.class)), (byte) 0x20);
+                dataWatcher.setObject(new WrappedDataWatcher.WrappedDataWatcherObject(14, WrappedDataWatcher.Registry.get(Byte.class)), (byte) 0x01);
 
-        dataWatcher.setObject(
-                new WrappedDataWatcher.WrappedDataWatcherObject(3, WrappedDataWatcher.Registry.get(Boolean.class)),
-                true);
+                entityMetadata.setMetadata(dataWatcher.getWatchableObjects());
 
-        dataWatcher.setObject(
-                new WrappedDataWatcher.WrappedDataWatcherObject(5, WrappedDataWatcher.Registry.get(Boolean.class)),
-                true);
+                entityMetadata.sendPacket(owner);
 
-        entityMetadataPacket.setMetadata(dataWatcher.getWatchableObjects());
+                setCustomName(getCustomeName());
 
-        sendPacket(entityMetadataPacket.getHandle());
+            }
+        });
+
+        rotateID = Bukkit.getScheduler().scheduleAsyncRepeatingTask(plugin, new Runnable() {
+            @Override
+            public void run() {
+
+                if(Math.abs(location.distance(owner.getLocation())) >= 2.5D)
+                    move();
+                else
+                    idle();
+
+
+            }
+        }, 0, 0);
+
+        followPlayerArmorStand = new FollowPlayerPackets(entityID, 0.5D);
+
+        hoverAnimation = new HoverPackets(entityID, 0.025, 0.2, -0.5);
+
+        if(getLevel() == 100)
+            levelOnehundretAnimation = new LevelOnehundretAnimation(this, plugin);
 
     }
 
@@ -152,6 +170,8 @@ public class SamplePet extends Pet {
 
         armorStand = createArmorStand(loc);
 
+        setCustomName(getCustomeName());
+
         //Please don't ask why
 
         Bukkit.getScheduler().scheduleAsyncDelayedTask(plugin, new Runnable() {
@@ -160,13 +180,6 @@ public class SamplePet extends Pet {
                 armorStand.setCustomNameVisible(true);
             }
         }, 1);
-
-        Bukkit.getScheduler().scheduleAsyncDelayedTask(plugin, new Runnable() {
-            @Override
-            public void run() {
-                armorStand.setCustomName("§8[" + getLevelColor() + getLevel() + "§8] §7" + owner.getName() + "s " + getName());
-            }
-        }, 2);
 
         Bukkit.getScheduler().scheduleAsyncDelayedTask(plugin, new Runnable() {
             @Override
@@ -204,16 +217,43 @@ public class SamplePet extends Pet {
 
     }
 
+    public void setCustomName(String name){
+
+        if(useProtocolLib){
+
+            WrapperPlayServerEntityMetadata entityMetadata = new WrapperPlayServerEntityMetadata();
+
+            entityMetadata.setEntityID(entityID);
+
+            WrappedDataWatcher dataWatcher = new WrappedDataWatcher(entityMetadata.getMetadata());
+
+            dataWatcher.setObject(new WrappedDataWatcher.WrappedDataWatcherObject(2, WrappedDataWatcher.Registry.getChatComponentSerializer(true)), Optional
+                    .of(WrappedChatComponent
+                            .fromChatMessage(name)[0].getHandle()));
+
+            dataWatcher.setObject(new WrappedDataWatcher.WrappedDataWatcherObject(3, WrappedDataWatcher.Registry.get(Boolean.class)), true);
+
+            entityMetadata.setMetadata(dataWatcher.getWatchableObjects());
+
+            entityMetadata.sendPacket(owner);
+
+        }else{
+
+            armorStand.setCustomNameVisible(true);
+            armorStand.setCustomName(name);
+
+        }
+
+    }
+
     protected void initAnimations(JavaPlugin plugin){
 
-        followPlayerArmorStand = new FollowPlayerArmorStand(armorStand, 0.5, owner, plugin);
-        followPlayerArmorStand.setActive(false);
+        followPlayerArmorStand = new FollowPlayerArmorStand(armorStand, 0.5);
 
-        hoverArmorStand = new HoverArmorStand(armorStand, 0.025, 0.2, -0.5, plugin);
-        hoverArmorStand.setActive(false);
+        hoverAnimation = new HoverArmorStand(armorStand, 0.025, 0.2, -0.5);
 
         if(getLevel() == 100)
-            levelOnehundretAnimation = new LevelOnehundretAnimation(this, armorStand, plugin);
+            levelOnehundretAnimation = new LevelOnehundretAnimation(this, plugin);
 
         rotateID = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
             @Override
@@ -271,17 +311,13 @@ public class SamplePet extends Pet {
 
     public void move() {
 
-        followPlayerArmorStand.setActive(true);
-
-        hoverArmorStand.setActive(false);
+        this.location = followPlayerArmorStand.move(owner, location);
 
     }
 
     public void idle() {
 
-        followPlayerArmorStand.setActive(false);
-
-        hoverArmorStand.setActive(true);
+        this.location = hoverAnimation.hover(owner, location);
 
     }
 
@@ -298,10 +334,10 @@ public class SamplePet extends Pet {
 
             Bukkit.getPluginManager().callEvent(new PetLevelUpEvent(this));
 
-            armorStand.setCustomName("§8[" + getLevelColor() + getLevel() + "§8] §7" + owner.getName() + "s " + getName());
+            setCustomName(getCustomeName());
 
             if(getLevel() == 100)
-                levelOnehundretAnimation = new LevelOnehundretAnimation(this, armorStand, plugin);
+                levelOnehundretAnimation = new LevelOnehundretAnimation(this, plugin);
 
         }
 
@@ -311,14 +347,25 @@ public class SamplePet extends Pet {
 
         Bukkit.getScheduler().cancelTask(rotateID);
 
-        followPlayerArmorStand.cancel();
-        hoverArmorStand.cancel();
-
-        if(levelOnehundretAnimation != null)
+        if (levelOnehundretAnimation != null)
             levelOnehundretAnimation.cancel();
 
-        if(armorStand != null)
+        if (armorStand != null)
             armorStand.remove();
+
+        if(useProtocolLib){
+
+            WrapperPlayServerEntityDestroy entityDestroy = new WrapperPlayServerEntityDestroy();
+
+            entityDestroy.setEntityIds(new int[]{ entityID });
+
+            if(owner != null) {
+
+                entityDestroy.sendPacket(owner);
+
+            }
+
+        }
 
     }
 
