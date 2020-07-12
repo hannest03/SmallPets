@@ -18,7 +18,7 @@ import it.smallcode.smallpets.events.PetLevelUpEvent;
 import it.smallcode.smallpets.pets.Pet;
 import it.smallcode.smallpets.v1_15.animation.armorstands.FollowPlayerArmorStand;
 import it.smallcode.smallpets.v1_15.animation.armorstands.HoverArmorStand;
-import it.smallcode.smallpets.v1_15.animation.armorstands.LevelOnehundretAnimation;
+import it.smallcode.smallpets.v1_15.animation.LevelOnehundretAnimation;
 import it.smallcode.smallpets.v1_15.animation.packets.FollowPlayerPackets;
 import it.smallcode.smallpets.v1_15.animation.packets.HoverPackets;
 import org.bukkit.Bukkit;
