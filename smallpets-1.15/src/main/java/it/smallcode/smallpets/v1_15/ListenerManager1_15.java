@@ -52,7 +52,8 @@ public class ListenerManager1_15 extends ListenerManager {
         Bukkit.getPluginManager().registerEvents(new InventoryClickListener(userManager, prefix), getPlugin());
         Bukkit.getPluginManager().registerEvents(new PetLevelUpListener(), getPlugin());
         Bukkit.getPluginManager().registerEvents(new UnlockListener(getPlugin(), userManager, prefix), getPlugin());
-        Bukkit.getPluginManager().registerEvents(new WorldChangeListener(userManager), getPlugin());
+        Bukkit.getPluginManager().registerEvents(new WorldChangeListener(userManager, getPlugin()), getPlugin());
+        Bukkit.getPluginManager().registerEvents(new PlayerDeathListener(userManager, getPlugin()), getPlugin());
 
     }
 }

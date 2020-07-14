@@ -8,7 +8,6 @@ Class created by SmallCode
 
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
@@ -43,6 +42,8 @@ public abstract class Pet {
     protected int entityID;
 
     protected Player owner;
+
+    private boolean activated;
 
     private static final String[] levelColors = {"§7", "§2", "§a", "§e", "§6", "§c", "§4", "§d", "§b", "§f"};
 
@@ -94,6 +95,13 @@ public abstract class Pet {
 
     }
 
+    /**
+     *
+     * Spawns an armorstand
+     *
+     * @param players - the players to which it will be sent
+     */
+    protected abstract void spawnArmorstandWithPackets(List<Player> players);
 
     /**
      *
@@ -298,9 +306,23 @@ public abstract class Pet {
 
     public String getCustomeName(){
 
-        return  "§8[" + getLevelColor() + getLevel() + "§8] §7" + owner.getName() + "s " + getName();
+        if(owner.getName().endsWith("s")){
+
+            return  "§8[" + getLevelColor() + getLevel() + "§8] §7" + owner.getName() + "' " + getName();
+
+        }else {
+
+            return "§8[" + getLevelColor() + getLevel() + "§8] §7" + owner.getName() + "'s " + getName();
+
+        }
 
     }
+
+    public abstract void teleport(Location loc);
+
+    public abstract void spawnToPlayer(Player p, JavaPlugin plugin);
+
+    public abstract void despawnFromPlayer(Player p, JavaPlugin plugin);
 
     public abstract void setCustomName(String name);
 
@@ -310,5 +332,13 @@ public abstract class Pet {
 
     public void setLocation(Location location) {
         this.location = location;
+    }
+
+    public boolean isActivated() {
+        return activated;
+    }
+
+    public void setActivated(boolean activated) {
+        this.activated = activated;
     }
 }

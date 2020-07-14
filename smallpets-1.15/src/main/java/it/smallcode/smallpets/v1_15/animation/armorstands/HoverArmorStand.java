@@ -29,6 +29,8 @@ public class HoverArmorStand extends HoverAnimation {
     @Override
     public Location hover(Player player, Location loc) {
 
+        //Hover
+
         if (height >= maxHeightCap)
             vel = -speed;
 
@@ -40,6 +42,25 @@ public class HoverArmorStand extends HoverAnimation {
         height += vel;
 
         newLoc.setY(newLoc.getY() + vel);
+
+        //Rotation
+
+        double a = player.getLocation().getX() - newLoc.getX();
+        double b = player.getLocation().getZ() - newLoc.getZ();
+
+        double angle = Math.atan(b / a);
+
+        angle = angle * (180 / Math.PI);
+
+        if(player.getLocation().getX() - newLoc.getX() >= 0){
+
+            angle += 180;
+
+        }
+
+        angle += 90;
+
+        newLoc.setYaw((float) angle);
 
         try {
 

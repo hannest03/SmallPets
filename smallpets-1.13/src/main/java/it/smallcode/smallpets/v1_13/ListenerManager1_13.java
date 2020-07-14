@@ -11,13 +11,9 @@ import it.smallcode.smallpets.manager.ListenerManager;
 import it.smallcode.smallpets.manager.PetMapManager;
 import it.smallcode.smallpets.manager.UserManager;
 import it.smallcode.smallpets.v1_13.listener.BlockPlaceListener;
-import it.smallcode.smallpets.v1_15.listener.InventoryClickListener;
+import it.smallcode.smallpets.v1_15.listener.*;
 import it.smallcode.smallpets.v1_13.listener.UnlockListener;
 import it.smallcode.smallpets.v1_15.listener.abilities.PlayerMoveListener;
-import it.smallcode.smallpets.v1_15.listener.ArmorStandInteractListener;
-import it.smallcode.smallpets.v1_15.listener.GiveExpListener;
-import it.smallcode.smallpets.v1_15.listener.PetLevelUpListener;
-import it.smallcode.smallpets.v1_15.listener.WorldChangeListener;
 import it.smallcode.smallpets.v1_15.listener.abilities.EntityDamageListener;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -62,7 +58,8 @@ public class ListenerManager1_13 extends ListenerManager {
         Bukkit.getPluginManager().registerEvents(new ArmorStandInteractListener(petMapManager), getPlugin());
         Bukkit.getPluginManager().registerEvents(new BlockPlaceListener(getPlugin()), getPlugin());
         Bukkit.getPluginManager().registerEvents(new GiveExpListener(getPlugin(), userManager, xpMultiplier), getPlugin());
-        Bukkit.getPluginManager().registerEvents(new WorldChangeListener(userManager), getPlugin());
+        Bukkit.getPluginManager().registerEvents(new WorldChangeListener(userManager, getPlugin()), getPlugin());
+        Bukkit.getPluginManager().registerEvents(new PlayerDeathListener(userManager, getPlugin()), getPlugin());
 
     }
 }

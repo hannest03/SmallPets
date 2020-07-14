@@ -7,9 +7,13 @@ Class created by SmallCode
 */
 
 import net.minecraft.server.v1_13_R2.NBTTagCompound;
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.craftbukkit.v1_13_R2.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 
@@ -65,6 +69,24 @@ public class Penguin extends it.smallcode.smallpets.v1_15.pets.Penguin {
         itemStack = CraftItemStack.asCraftMirror(item);
 
         return itemStack;
+
+    }
+
+    @Override
+    public void registerRecipe(Plugin plugin) {
+
+        ItemStack item = getUnlockItem(plugin);
+
+        NamespacedKey key = new NamespacedKey(plugin, "pet_penguin");
+
+        ShapedRecipe recipe = new ShapedRecipe(key, item);
+
+        recipe.shape("CCC", "CSC", "CCC");
+
+        recipe.setIngredient('C', Material.CHICKEN);
+        recipe.setIngredient('S', Material.SALMON);
+
+        Bukkit.addRecipe(recipe);
 
     }
 

@@ -176,9 +176,9 @@ public class UserManager {
 
                     try {
 
-                        Constructor constructor = petMapManager.getPetMap().get(type).getConstructor(Player.class, Long.class);
+                        Constructor constructor = petMapManager.getPetMap().get(type).getConstructor(Player.class, Long.class, Boolean.class);
 
-                        Pet pet = (Pet) constructor.newInstance(Bukkit.getPlayer(UUID.fromString(uuid)), 0L);
+                        Pet pet = (Pet) constructor.newInstance(Bukkit.getPlayer(UUID.fromString(uuid)), 0L, useProtocolLib);
 
                         user.getPets().add(pet);
 

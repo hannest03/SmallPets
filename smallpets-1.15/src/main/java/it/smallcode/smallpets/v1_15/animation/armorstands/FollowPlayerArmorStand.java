@@ -30,6 +30,8 @@ public class FollowPlayerArmorStand extends FollowPlayerAnimation {
     @Override
     public Location move(Player player, Location loc) {
 
+        //Move
+
         Vector goal = vectorFromLocation(player.getLocation());
 
         goal.setY(goal.getY() + 0.75);
@@ -41,6 +43,25 @@ public class FollowPlayerArmorStand extends FollowPlayerAnimation {
         Location newLoc = loc.clone();
 
         newLoc.add(direction.multiply(speed));
+
+        //Rotation
+
+        double a = player.getLocation().getX() - newLoc.getX();
+        double b = player.getLocation().getZ() - newLoc.getZ();
+
+        double angle = Math.atan(b / a);
+
+        angle = angle * (180 / Math.PI);
+
+        if(player.getLocation().getX() - newLoc.getX() >= 0){
+
+            angle += 180;
+
+        }
+
+        angle += 90;
+
+        newLoc.setYaw((float) angle);
 
         try {
 

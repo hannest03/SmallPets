@@ -6,8 +6,9 @@ Class created by SmallCode
 
 */
 
-import com.comphenix.packetwrapper.*;
+import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.ProtocolManager;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.wrappers.EnumWrappers;
 import com.comphenix.protocol.wrappers.WrappedChatComponent;
@@ -32,7 +33,10 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  *
@@ -52,13 +56,15 @@ public class SamplePet extends Pet {
         super(owner, xp, useProtocolLib);
     }
 
-    private FollowPlayerAnimation followPlayerArmorStand;
-    private HoverAnimation hoverAnimation;
-    private LevelOnehundretAnimation levelOnehundretAnimation;
+    protected FollowPlayerAnimation followPlayerArmorStand;
+    protected HoverAnimation hoverAnimation;
+    protected LevelOnehundretAnimation levelOnehundretAnimation;
 
-    private int rotateID;
+    protected int rotateID;
 
     public void spawn(JavaPlugin plugin) {
+
+        setActivated(true);
 
         Location loc = owner.getLocation().clone();
 
@@ -79,7 +85,60 @@ public class SamplePet extends Pet {
 
     }
 
-    private void spawnPackets(JavaPlugin plugin, Location loc){
+    public void spawnToPlayer(Player p, JavaPlugin plugin){
+
+        if(useProtocolLib){
+
+            Bukkit.getScheduler().scheduleAsyncDelayedTask(plugin, new Runnable() {
+                @Override
+                public void run() {
+
+                    List<Player> players = new LinkedList<>();
+
+                    players.add(p);
+
+                    spawnArmorstandWithPackets(players);
+
+                    setCustomName(getCustomeName());
+
+                }
+            });
+
+        }
+
+    }
+
+    public void despawnFromPlayer(Player p, JavaPlugin plugin){
+
+        if(useProtocolLib){
+
+            Bukkit.getScheduler().scheduleAsyncDelayedTask(plugin, new Runnable() {
+                @Override
+                public void run() {
+
+                    PacketContainer entityDestroy = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.ENTITY_DESTROY);
+
+                    int[] entityIDs = new int[1];
+
+                    entityIDs[0] = entityID;
+
+                    entityDestroy.getIntegerArrays().write(0, entityIDs);
+
+                    if(p != null) {
+
+                        sendPacket(entityDestroy, p);
+
+                    }
+
+                }
+            });
+
+        }
+
+    }
+
+
+    protected void spawnPackets(JavaPlugin plugin, Location loc){
 
         do{
 
@@ -87,82 +146,124 @@ public class SamplePet extends Pet {
 
         }while(entityIDs.contains(entityID) && entityID >= 0);
 
+        final Pet pet = this;
+
         Bukkit.getScheduler().scheduleAsyncDelayedTask(plugin, new Runnable() {
             @Override
             public void run() {
 
-                WrapperPlayServerSpawnEntity spawnEntity = new WrapperPlayServerSpawnEntity();
-
-                spawnEntity.setEntityID(entityID);
-
-                spawnEntity.setType(EntityType.ARMOR_STAND);
-                spawnEntity.setObjectData(78);
-
-                spawnEntity.setX(loc.getX());
-                spawnEntity.setY(loc.getY());
-                spawnEntity.setZ(loc.getZ());
-
-                spawnEntity.sendPacket(owner);
-
-                WrapperPlayServerEntityEquipment entityEquipment = new WrapperPlayServerEntityEquipment();
-
-                entityEquipment.setEntityID(entityID);
-                entityEquipment.setSlot(EnumWrappers.ItemSlot.HEAD);
-                entityEquipment.setItem(getItem());
-
-                entityEquipment.sendPacket(owner);
-
-                WrapperPlayServerEntityMetadata entityMetadata = new WrapperPlayServerEntityMetadata();
-
-                entityMetadata.setEntityID(entityID);
-
-                WrappedDataWatcher dataWatcher = new WrappedDataWatcher(entityMetadata.getMetadata());
-
-                dataWatcher.setObject(new WrappedDataWatcher.WrappedDataWatcherObject(0, WrappedDataWatcher.Registry.get(Byte.class)), (byte) 0x20);
-                dataWatcher.setObject(new WrappedDataWatcher.WrappedDataWatcherObject(14, WrappedDataWatcher.Registry.get(Byte.class)), (byte) 0x01);
-
-                entityMetadata.setMetadata(dataWatcher.getWatchableObjects());
-
-                entityMetadata.sendPacket(owner);
+                spawnArmorstandWithPackets(sendPacketToPlayers(owner));
 
                 setCustomName(getCustomeName());
+
+                followPlayerArmorStand = new FollowPlayerPackets(entityID, 0.5D);
+
+                hoverAnimation = new HoverPackets(entityID, 0.025, 0.2, -0.5);
+
+                if(getLevel() == 100)
+                    levelOnehundretAnimation = new LevelOnehundretAnimation(pet, plugin);
+
+                rotateID = Bukkit.getScheduler().scheduleAsyncRepeatingTask(plugin, new Runnable() {
+                    @Override
+                    public void run() {
+
+                        if(Math.abs(location.distance(owner.getLocation())) >= 2.5D)
+                            move();
+                        else
+                            idle();
+
+
+                    }
+                }, 0, 0);
 
             }
         });
 
-        rotateID = Bukkit.getScheduler().scheduleAsyncRepeatingTask(plugin, new Runnable() {
-            @Override
-            public void run() {
+    }
 
-                if(Math.abs(location.distance(owner.getLocation())) >= 2.5D)
-                    move();
-                else
-                    idle();
+    @Override
+    protected void spawnArmorstandWithPackets(List<Player> players) {
 
+        ProtocolManager protocolManager = ProtocolLibrary.getProtocolManager();
 
-            }
-        }, 0, 0);
+        //SPAWN ARMORSTAND
 
-        followPlayerArmorStand = new FollowPlayerPackets(entityID, 0.5D);
+        PacketContainer spawnPacket = protocolManager.createPacket(PacketType.Play.Server.SPAWN_ENTITY);
 
-        hoverAnimation = new HoverPackets(entityID, 0.025, 0.2, -0.5);
+        spawnPacket.getIntegers().write(0, entityID);
+        spawnPacket.getIntegers().write(6, 0);
 
-        if(getLevel() == 100)
-            levelOnehundretAnimation = new LevelOnehundretAnimation(this, plugin);
+        spawnPacket.getEntityTypeModifier().write(0, EntityType.ARMOR_STAND);
+
+        spawnPacket.getDoubles().write(0, location.getX());
+        spawnPacket.getDoubles().write(1, location.getY());
+        spawnPacket.getDoubles().write(2, location.getZ());
+
+        spawnPacket.getIntegers().write(4, 0);
+        spawnPacket.getIntegers().write(5, (int) (location.getYaw() * 256.0F / 360.0F));
+
+        spawnPacket.getUUIDs().write(0, UUID.randomUUID());
+
+        //EQUIPMENT
+
+        PacketContainer entityEquipment = protocolManager.createPacket(PacketType.Play.Server.ENTITY_EQUIPMENT);
+
+        entityEquipment.getIntegers().write(0, entityID);
+        entityEquipment.getItemSlots().write(0, EnumWrappers.ItemSlot.HEAD);
+        entityEquipment.getItemModifier().write(0, getItem());
+
+        //METADATA
+
+        PacketContainer entityMetadata = protocolManager.createPacket(PacketType.Play.Server.ENTITY_METADATA);
+
+        entityMetadata.getIntegers().write(0, entityID);
+
+        WrappedDataWatcher dataWatcher = new WrappedDataWatcher(entityMetadata.getWatchableCollectionModifier().read(0));
+
+        dataWatcher.setObject(new WrappedDataWatcher.WrappedDataWatcherObject(0, WrappedDataWatcher.Registry.get(Byte.class)), (byte) 0x20);
+        dataWatcher.setObject(new WrappedDataWatcher.WrappedDataWatcherObject(14, WrappedDataWatcher.Registry.get(Byte.class)), (byte) 0x01);
+
+        entityMetadata.getWatchableCollectionModifier().write(0, dataWatcher.getWatchableObjects());
+
+        sendPacket(sendPacketToPlayers(owner), spawnPacket);
+        sendPacket(sendPacketToPlayers(owner), entityEquipment);
+        sendPacket(sendPacketToPlayers(owner), entityMetadata);
 
     }
 
-    private void sendPacket(PacketContainer packet){
+    protected List<Player> sendPacketToPlayers(Player player){
 
-        for(Player all : Bukkit.getOnlinePlayers()){
+        List<Player> players = new LinkedList<>();
+
+        for(Player all : Bukkit.getOnlinePlayers())
+            if(all.getWorld().getName().equals(player.getWorld().getName()))
+                players.add(all);
+
+        return players;
+
+    }
+
+    protected void sendPacket(List<Player> players, PacketContainer packetContainer){
+
+        for(Player player : players){
 
             try {
-                ProtocolLibrary.getProtocolManager().sendServerPacket(all, packet);
+                ProtocolLibrary.getProtocolManager().sendServerPacket(player, packetContainer);
             } catch (InvocationTargetException e) {
                 e.printStackTrace();
             }
 
         }
+
+    }
+
+    protected void sendPacket(PacketContainer packetContainer, Player player){
+
+        List<Player> players = new LinkedList<>();
+
+        players.add(player);
+
+        sendPacket(players, packetContainer);
 
     }
 
@@ -221,11 +322,13 @@ public class SamplePet extends Pet {
 
         if(useProtocolLib){
 
-            WrapperPlayServerEntityMetadata entityMetadata = new WrapperPlayServerEntityMetadata();
+            ProtocolManager protocolManager = ProtocolLibrary.getProtocolManager();
 
-            entityMetadata.setEntityID(entityID);
+            PacketContainer entityMetadata = protocolManager.createPacket(PacketType.Play.Server.ENTITY_METADATA);
 
-            WrappedDataWatcher dataWatcher = new WrappedDataWatcher(entityMetadata.getMetadata());
+            entityMetadata.getIntegers().write(0, entityID);
+
+            WrappedDataWatcher dataWatcher = new WrappedDataWatcher(entityMetadata.getWatchableCollectionModifier().read(0));
 
             dataWatcher.setObject(new WrappedDataWatcher.WrappedDataWatcherObject(2, WrappedDataWatcher.Registry.getChatComponentSerializer(true)), Optional
                     .of(WrappedChatComponent
@@ -233,9 +336,9 @@ public class SamplePet extends Pet {
 
             dataWatcher.setObject(new WrappedDataWatcher.WrappedDataWatcherObject(3, WrappedDataWatcher.Registry.get(Boolean.class)), true);
 
-            entityMetadata.setMetadata(dataWatcher.getWatchableObjects());
+            entityMetadata.getWatchableCollectionModifier().write(0, dataWatcher.getWatchableObjects());
 
-            entityMetadata.sendPacket(owner);
+            sendPacket(sendPacketToPlayers(owner), entityMetadata);
 
         }else{
 
@@ -259,38 +362,7 @@ public class SamplePet extends Pet {
             @Override
             public void run() {
 
-                Location loc = armorStand.getLocation().clone();
-
-                double a = owner.getLocation().getX() - armorStand.getLocation().getX();
-                double b = owner.getLocation().getZ() - armorStand.getLocation().getZ();
-
-                double angle = Math.atan(b / a);
-
-                angle = angle * (180 / Math.PI);
-
-                if(owner.getLocation().getX() - armorStand.getLocation().getX() >= 0){
-
-                    angle += 180;
-
-                }
-
-                angle += 90;
-
-                loc.setYaw((float) angle);
-
-                try {
-
-                    if(!loc.getChunk().isLoaded())
-                        loc.getChunk().load();
-
-                    if(!armorStand.getLocation().getChunk().isLoaded())
-                        armorStand.getLocation().getChunk().load();
-
-                    armorStand.teleport(loc);
-
-                }catch (Exception ex){ ex.printStackTrace(); }
-
-                Location particleLoc = loc.clone();
+                Location particleLoc = armorStand.getLocation().clone();
 
                 particleLoc.setY(particleLoc.getY() + 0.7);
 
@@ -345,6 +417,8 @@ public class SamplePet extends Pet {
 
     public void destroy() {
 
+        setActivated(false);
+
         Bukkit.getScheduler().cancelTask(rotateID);
 
         if (levelOnehundretAnimation != null)
@@ -355,13 +429,17 @@ public class SamplePet extends Pet {
 
         if(useProtocolLib){
 
-            WrapperPlayServerEntityDestroy entityDestroy = new WrapperPlayServerEntityDestroy();
+            PacketContainer entityDestroy = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.ENTITY_DESTROY);
 
-            entityDestroy.setEntityIds(new int[]{ entityID });
+            int[] entityIDs = new int[1];
+
+            entityIDs[0] = entityID;
+
+            entityDestroy.getIntegerArrays().write(0, entityIDs);
 
             if(owner != null) {
 
-                entityDestroy.sendPacket(owner);
+                sendPacket(sendPacketToPlayers(owner), entityDestroy);
 
             }
 
@@ -387,6 +465,40 @@ public class SamplePet extends Pet {
     @Override
     public String getAbility() {
         return "";
+    }
+
+    @Override
+    public void teleport(Location loc) {
+
+        if(useProtocolLib){
+
+            PacketContainer teleportPacket = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.REL_ENTITY_MOVE_LOOK);
+
+            teleportPacket.getIntegers().write(0, entityID);
+
+            teleportPacket.getShorts().write(0, (short) ((loc.getX() - location.getX()) * 4096));
+            teleportPacket.getShorts().write(1, (short) ((loc.getY() - location.getY()) * 4096));
+            teleportPacket.getShorts().write(2, (short) ((loc.getZ() - location.getZ()) * 4096));
+
+            teleportPacket.getBytes().write(0, (byte) (loc.getYaw() * 256.0F / 360.0F));
+            teleportPacket.getBytes().write(1, (byte) (loc.getPitch() * 256.0F / 360.0F));
+
+            sendPacket(sendPacketToPlayers(owner), teleportPacket);
+
+        }else{
+
+            if(!location.getChunk().isLoaded())
+                location.getChunk().load();
+
+            if(!loc.getChunk().isLoaded())
+                loc.getChunk().load();
+
+            armorStand.teleport(loc);
+
+        }
+
+        setLocation(loc);
+
     }
 
     protected ArmorStand createArmorStand(Location loc){

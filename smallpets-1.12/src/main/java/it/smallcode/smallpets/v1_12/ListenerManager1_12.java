@@ -55,7 +55,8 @@ public class ListenerManager1_12 extends ListenerManager {
         Bukkit.getPluginManager().registerEvents(new ArmorStandInteractListener(petMapManager), getPlugin());
         Bukkit.getPluginManager().registerEvents(new BlockPlaceListener(getPlugin()), getPlugin());
         Bukkit.getPluginManager().registerEvents(new GiveExpListener(getPlugin(), userManager, xpMultiplier), getPlugin());
-        Bukkit.getPluginManager().registerEvents(new WorldChangeListener(userManager), getPlugin());
+        Bukkit.getPluginManager().registerEvents(new WorldChangeListener(userManager, getPlugin()), getPlugin());
+        Bukkit.getPluginManager().registerEvents(new PlayerDeathListener(userManager, getPlugin()), getPlugin());
 
     }
 }

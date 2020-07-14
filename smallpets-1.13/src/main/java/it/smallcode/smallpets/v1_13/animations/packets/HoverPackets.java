@@ -1,4 +1,4 @@
-package it.smallcode.smallpets.v1_15.animation.packets;
+package it.smallcode.smallpets.v1_13.animations.packets;
 /*
 
 Class created by SmallCode
@@ -6,7 +6,6 @@ Class created by SmallCode
 
 */
 
-import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.events.PacketContainer;
 import it.smallcode.smallpets.animations.HoverAnimation;
@@ -65,19 +64,6 @@ public class HoverPackets extends HoverAnimation {
         newLoc.setYaw((float) angle);
 
         try {
-
-            PacketContainer teleportPacket = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.REL_ENTITY_MOVE_LOOK);
-
-            teleportPacket.getIntegers().write(0, entityID);
-
-            teleportPacket.getShorts().write(0, (short) ((newLoc.getX() - loc.getX()) * 4096));
-            teleportPacket.getShorts().write(1, (short) ((newLoc.getY() - loc.getY()) * 4096));
-            teleportPacket.getShorts().write(2, (short) ((newLoc.getZ() - loc.getZ()) * 4096));
-
-            teleportPacket.getBytes().write(0, (byte) (newLoc.getYaw() * 256.0F / 360.0F));
-            teleportPacket.getBytes().write(1, (byte) (newLoc.getPitch() * 256.0F / 360.0F));
-
-            sendPacket(teleportPacket, player);
 
             return newLoc;
 

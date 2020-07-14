@@ -7,9 +7,13 @@ Class created by SmallCode
 */
 
 import net.minecraft.server.v1_13_R2.NBTTagCompound;
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.craftbukkit.v1_13_R2.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 
@@ -58,6 +62,27 @@ public class Tiger extends it.smallcode.smallpets.v1_15.pets.Tiger {
         itemStack = CraftItemStack.asCraftMirror(item);
 
         return itemStack;
+
+    }
+
+    @Override
+    public void registerRecipe(Plugin plugin) {
+
+        ItemStack item = getUnlockItem(plugin);
+
+        NamespacedKey key = new NamespacedKey(plugin, "pet_tiger");
+
+        ShapedRecipe recipe = new ShapedRecipe(key, item);
+
+        recipe.shape(" M ", "CBR", " P ");
+
+        recipe.setIngredient('M', Material.MUTTON);
+        recipe.setIngredient('C', Material.CHICKEN);
+        recipe.setIngredient('B', Material.BEEF);
+        recipe.setIngredient('R', Material.RABBIT);
+        recipe.setIngredient('P', Material.PORKCHOP);
+
+        Bukkit.addRecipe(recipe);
 
     }
 
