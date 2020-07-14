@@ -6,12 +6,15 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.pets.Pet;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-public abstract class HoverAnimation {
+public class HoverAnimation {
 
     protected double speed;
+
+    private Pet pet;
 
     protected double vel;
 
@@ -20,7 +23,9 @@ public abstract class HoverAnimation {
 
     protected double height;
 
-    public HoverAnimation(double speed, double maxHeightCap, double minHeightCap) {
+    public HoverAnimation(Pet pet, double speed, double maxHeightCap, double minHeightCap) {
+
+        this.pet = pet;
 
         this.speed = speed;
         this.vel = speed;
@@ -30,6 +35,45 @@ public abstract class HoverAnimation {
 
     }
 
-    public abstract Location hover(Player player, Location loc);
+    public Location hover(Player player, Location loc){
+
+        //Hover
+
+        if (height >= maxHeightCap)
+            vel = -speed;
+
+        if (height <= minHeightCap)
+            vel = speed;
+
+        Location newLoc = loc.clone();
+
+        height += vel;
+
+        newLoc.setY(newLoc.getY() + vel);
+
+        //Rotation
+
+        double a = player.getLocation().getX() - newLoc.getX();
+        double b = player.getLocation().getZ() - newLoc.getZ();
+
+        double angle = Math.atan(b / a);
+
+        angle = angle * (180 / Math.PI);
+
+        if(player.getLocation().getX() - newLoc.getX() >= 0){
+
+            angle += 180;
+
+        }
+
+        angle += 90;
+
+        newLoc.setYaw((float) angle);
+
+        pet.teleport(newLoc);
+
+        return newLoc;
+
+    }
 
 }

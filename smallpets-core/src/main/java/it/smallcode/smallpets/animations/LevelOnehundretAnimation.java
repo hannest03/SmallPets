@@ -1,4 +1,4 @@
-package it.smallcode.smallpets.v1_15.animation;
+package it.smallcode.smallpets.animations;
 /*
 
 Class created by SmallCode

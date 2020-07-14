@@ -43,6 +43,8 @@ public abstract class Pet {
 
     protected Player owner;
 
+    private boolean pauseLogic = false;
+
     private boolean activated;
 
     private static final String[] levelColors = {"§7", "§2", "§a", "§e", "§6", "§c", "§4", "§d", "§b", "§f"};
@@ -340,5 +342,13 @@ public abstract class Pet {
 
     public void setActivated(boolean activated) {
         this.activated = activated;
+    }
+
+    public boolean isPauseLogic() {
+        return pauseLogic;
+    }
+
+    public void setPauseLogic(boolean pauseLogic) {
+        this.pauseLogic = pauseLogic;
     }
 }

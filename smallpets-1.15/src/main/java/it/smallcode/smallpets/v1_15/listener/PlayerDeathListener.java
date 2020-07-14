@@ -48,7 +48,11 @@ public class PlayerDeathListener implements Listener {
 
             user.getSelected().spawnToPlayer(e.getPlayer(), plugin);
 
+            user.getSelected().setPauseLogic(true);
+
             user.getSelected().teleport(loc);
+
+            user.getSelected().setPauseLogic(false);
 
         }
 

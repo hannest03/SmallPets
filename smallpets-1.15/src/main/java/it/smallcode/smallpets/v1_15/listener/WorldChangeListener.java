@@ -80,7 +80,11 @@ public class WorldChangeListener implements Listener {
                     loc.setX(loc.getX() - 1);
                     loc.setY(loc.getY() + 0.75);
 
+                    user.getSelected().setPauseLogic(true);
+
                     user.getSelected().teleport(loc);
+
+                    user.getSelected().setPauseLogic(false);
 
                 }else{
 

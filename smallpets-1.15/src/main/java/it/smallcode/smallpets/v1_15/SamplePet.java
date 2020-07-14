@@ -17,11 +17,7 @@ import it.smallcode.smallpets.animations.FollowPlayerAnimation;
 import it.smallcode.smallpets.animations.HoverAnimation;
 import it.smallcode.smallpets.events.PetLevelUpEvent;
 import it.smallcode.smallpets.pets.Pet;
-import it.smallcode.smallpets.v1_15.animation.armorstands.FollowPlayerArmorStand;
-import it.smallcode.smallpets.v1_15.animation.armorstands.HoverArmorStand;
-import it.smallcode.smallpets.v1_15.animation.LevelOnehundretAnimation;
-import it.smallcode.smallpets.v1_15.animation.packets.FollowPlayerPackets;
-import it.smallcode.smallpets.v1_15.animation.packets.HoverPackets;
+import it.smallcode.smallpets.animations.LevelOnehundretAnimation;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
@@ -60,7 +56,7 @@ public class SamplePet extends Pet {
     protected HoverAnimation hoverAnimation;
     protected LevelOnehundretAnimation levelOnehundretAnimation;
 
-    protected int rotateID;
+    protected int logicID;
 
     public void spawn(JavaPlugin plugin) {
 
@@ -156,22 +152,25 @@ public class SamplePet extends Pet {
 
                 setCustomName(getCustomeName());
 
-                followPlayerArmorStand = new FollowPlayerPackets(entityID, 0.5D);
+                followPlayerArmorStand = new FollowPlayerAnimation(pet, 0.5D);
 
-                hoverAnimation = new HoverPackets(entityID, 0.025, 0.2, -0.5);
+                hoverAnimation = new HoverAnimation(pet, 0.025, 0.2, -0.5);
 
                 if(getLevel() == 100)
                     levelOnehundretAnimation = new LevelOnehundretAnimation(pet, plugin);
 
-                rotateID = Bukkit.getScheduler().scheduleAsyncRepeatingTask(plugin, new Runnable() {
+                logicID = Bukkit.getScheduler().scheduleAsyncRepeatingTask(plugin, new Runnable() {
                     @Override
                     public void run() {
 
-                        if(Math.abs(location.distance(owner.getLocation())) >= 2.5D)
-                            move();
-                        else
-                            idle();
+                        if(!isPauseLogic()) {
 
+                            if (Math.abs(location.distance(owner.getLocation())) >= 2.5D)
+                                move();
+                            else
+                                idle();
+
+                        }
 
                     }
                 }, 0, 0);
@@ -351,14 +350,14 @@ public class SamplePet extends Pet {
 
     protected void initAnimations(JavaPlugin plugin){
 
-        followPlayerArmorStand = new FollowPlayerArmorStand(armorStand, 0.5);
+        followPlayerArmorStand = new FollowPlayerAnimation(this, 0.5);
 
-        hoverAnimation = new HoverArmorStand(armorStand, 0.025, 0.2, -0.5);
+        hoverAnimation = new HoverAnimation(this, 0.025, 0.2, -0.5);
 
         if(getLevel() == 100)
             levelOnehundretAnimation = new LevelOnehundretAnimation(this, plugin);
 
-        rotateID = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
+        logicID = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
             @Override
             public void run() {
 
@@ -371,10 +370,14 @@ public class SamplePet extends Pet {
 
                 particleLoc.getWorld().spawnParticle(Particle.VILLAGER_HAPPY, particleLoc, 1);
 
-                if(armorStand.getLocation().distance(owner.getLocation()) >= 2.5D)
-                    move();
-                else
-                    idle();
+                if(!isPauseLogic()) {
+
+                    if (armorStand.getLocation().distance(owner.getLocation()) >= 2.5D)
+                        move();
+                    else
+                        idle();
+
+                }
 
             }
         }, 0, 0);
@@ -419,7 +422,7 @@ public class SamplePet extends Pet {
 
         setActivated(false);
 
-        Bukkit.getScheduler().cancelTask(rotateID);
+        Bukkit.getScheduler().cancelTask(logicID);
 
         if (levelOnehundretAnimation != null)
             levelOnehundretAnimation.cancel();
@@ -500,6 +503,8 @@ public class SamplePet extends Pet {
         setLocation(loc);
 
     }
+
+
 
     protected ArmorStand createArmorStand(Location loc){
 
