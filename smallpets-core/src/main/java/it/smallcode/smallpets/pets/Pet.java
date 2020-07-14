@@ -251,6 +251,8 @@ public abstract class Pet {
 
     }
 
+    protected abstract void spawnParticles();
+
     /**
      *
      * Returns the exp of the pet

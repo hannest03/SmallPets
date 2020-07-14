@@ -163,6 +163,8 @@ public class SamplePet extends Pet {
                     @Override
                     public void run() {
 
+                        spawnParticles();
+
                         if(!isPauseLogic()) {
 
                             if (Math.abs(location.distance(owner.getLocation())) >= 2.5D)
@@ -361,14 +363,7 @@ public class SamplePet extends Pet {
             @Override
             public void run() {
 
-                Location particleLoc = armorStand.getLocation().clone();
-
-                particleLoc.setY(particleLoc.getY() + 0.7);
-
-                if(!particleLoc.getChunk().isLoaded())
-                    particleLoc.getChunk().load();
-
-                particleLoc.getWorld().spawnParticle(Particle.VILLAGER_HAPPY, particleLoc, 1);
+                spawnParticles();
 
                 if(!isPauseLogic()) {
 
@@ -468,6 +463,21 @@ public class SamplePet extends Pet {
     @Override
     public String getAbility() {
         return "";
+    }
+
+    @Override
+    protected void spawnParticles() {
+
+        Location particleLoc = location.clone();
+
+        particleLoc.setY(particleLoc.getY() + 0.7);
+
+        for(Player p : sendPacketToPlayers(owner)){
+
+            p.spawnParticle(Particle.VILLAGER_HAPPY, particleLoc, 1);
+
+        }
+
     }
 
     @Override
