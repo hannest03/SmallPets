@@ -6,7 +6,6 @@ Class created by SmallCode
 
 */
 
-import com.comphenix.protocol.PacketType;
 import it.smallcode.smallpets.manager.PetMapManager;
 import it.smallcode.smallpets.pets.Pet;
 import it.smallcode.smallpets.v1_12.pets.Monkey;
@@ -14,7 +13,6 @@ import it.smallcode.smallpets.v1_12.pets.Penguin;
 import it.smallcode.smallpets.v1_12.pets.Tiger;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
