@@ -30,7 +30,9 @@ public class ListenerManager1_13 extends ListenerManager {
     private String prefix;
     private double xpMultiplier;
 
-    public ListenerManager1_13(JavaPlugin plugin, UserManager userManager, PetMapManager petMapManager, InventoryCache inventoryCache, String prefix, double xpMultiplier) {
+    private boolean useProtocollib;
+
+    public ListenerManager1_13(JavaPlugin plugin, UserManager userManager, PetMapManager petMapManager, InventoryCache inventoryCache, String prefix, double xpMultiplier, boolean useProtocollib) {
 
         super(plugin);
 
@@ -39,6 +41,8 @@ public class ListenerManager1_13 extends ListenerManager {
         this.inventoryCache = inventoryCache;
         this.prefix = prefix;
         this.xpMultiplier = xpMultiplier;
+
+        this.useProtocollib = useProtocollib;
 
     }
 
@@ -58,7 +62,7 @@ public class ListenerManager1_13 extends ListenerManager {
         Bukkit.getPluginManager().registerEvents(new ArmorStandInteractListener(petMapManager), getPlugin());
         Bukkit.getPluginManager().registerEvents(new BlockPlaceListener(getPlugin()), getPlugin());
         Bukkit.getPluginManager().registerEvents(new GiveExpListener(getPlugin(), userManager, xpMultiplier), getPlugin());
-        Bukkit.getPluginManager().registerEvents(new WorldChangeListener(userManager, getPlugin()), getPlugin());
+        Bukkit.getPluginManager().registerEvents(new WorldChangeListener(userManager, getPlugin(), useProtocollib), getPlugin());
         Bukkit.getPluginManager().registerEvents(new PlayerDeathListener(userManager, getPlugin()), getPlugin());
 
     }

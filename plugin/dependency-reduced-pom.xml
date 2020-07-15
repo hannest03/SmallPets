@@ -4,7 +4,7 @@
   <groupId>it.smallcode</groupId>
   <artifactId>smallpets</artifactId>
   <name>SmallPets</name>
-  <version>protocollib-dev</version>
+  <version>beta-3</version>
   <description>Adds simple little cute pets with abilities</description>
   <build>
     <resources>

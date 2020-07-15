@@ -28,11 +28,15 @@ public class WorldChangeListener implements Listener {
 
     private UserManager userManager;
 
-    public WorldChangeListener(UserManager userManager, JavaPlugin plugin){
+    private boolean useProtocollib;
+
+    public WorldChangeListener(UserManager userManager, JavaPlugin plugin, boolean useProtocollib){
 
         this.userManager = userManager;
 
         this.plugin = plugin;
+
+        this.useProtocollib = useProtocollib;
 
     }
 
@@ -51,23 +55,27 @@ public class WorldChangeListener implements Listener {
 
                 if(!event.isCancelled()) {
 
-                    for (Player all : Bukkit.getOnlinePlayers()) {
+                    if(useProtocollib) {
 
-                        if (all.getWorld().getName().equals(e.getFrom().getName())) {
+                        for (Player all : Bukkit.getOnlinePlayers()) {
 
-                            user.getSelected().despawnFromPlayer(all, plugin);
+                            if (all.getWorld().getName().equals(e.getFrom().getName())) {
 
-                        }
+                                user.getSelected().despawnFromPlayer(all, plugin);
 
-                        if (all.getWorld().getName().equals(e.getPlayer().getWorld().getName())) {
+                            }
 
-                            user.getSelected().spawnToPlayer(all, plugin);
+                            if (all.getWorld().getName().equals(e.getPlayer().getWorld().getName())) {
 
-                            User userAll = userManager.getUser(all.getUniqueId().toString());
+                                user.getSelected().spawnToPlayer(all, plugin);
 
-                            if (userAll != null && userAll.getSelected() != null) {
+                                User userAll = userManager.getUser(all.getUniqueId().toString());
 
-                                userAll.getSelected().spawnToPlayer(e.getPlayer(), plugin);
+                                if (userAll != null && userAll.getSelected() != null) {
+
+                                    userAll.getSelected().spawnToPlayer(e.getPlayer(), plugin);
+
+                                }
 
                             }
 

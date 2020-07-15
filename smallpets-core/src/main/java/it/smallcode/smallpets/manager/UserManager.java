@@ -230,6 +230,22 @@ public class UserManager {
 
     /**
      *
+     * Spawns all the pets from the loaded users
+     *
+     */
+
+    public void spawnPets(){
+
+        for(User user : users){
+
+            user.spawnSelected();
+
+        }
+
+    }
+
+    /**
+     *
      * Returns the user
      *
      * @param uuid - the uuid of the player

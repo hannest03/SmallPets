@@ -9,6 +9,7 @@ Class created by SmallCode
 import it.smallcode.smallpets.cmds.SmallPetsCMD;
 import it.smallcode.smallpets.listener.JoinListener;
 import it.smallcode.smallpets.listener.QuitListener;
+import it.smallcode.smallpets.listener.WorldSaveListener;
 import it.smallcode.smallpets.manager.*;
 import it.smallcode.smallpets.metrics.Metrics;
 import it.smallcode.smallpets.v1_12.InventoryManager1_12;
@@ -28,6 +29,9 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class SmallPets extends JavaPlugin {
 
     private static SmallPets instance;
@@ -45,7 +49,7 @@ public class SmallPets extends JavaPlugin {
 
     private double xpMultiplier;
 
-    private static boolean useProtocolLib = false;
+    public static boolean useProtocolLib = false;
 
     @Override
     public void onEnable() {
@@ -58,9 +62,19 @@ public class SmallPets extends JavaPlugin {
 
         if(Bukkit.getPluginManager().getPlugin("ProtocolLib") != null && Bukkit.getPluginManager().getPlugin("ProtocolLib").isEnabled()){
 
-            useProtocolLib = true;
+            String version = Bukkit.getServer().getClass().getPackage().getName();
 
-            Bukkit.getConsoleSender().sendMessage(PREFIX + "Found ProtocolLib, now using it.");
+            version = version.substring(version.lastIndexOf('.'));
+
+            version = version.replace(".v", "");
+
+            if(!version.startsWith("1_16")) {
+
+                useProtocolLib = true;
+
+                Bukkit.getConsoleSender().sendMessage(PREFIX + "Found ProtocolLib, now using it.");
+
+            }
 
         }
 
@@ -73,6 +87,12 @@ public class SmallPets extends JavaPlugin {
 
         Bukkit.getConsoleSender().sendMessage(PREFIX + "Registered pets");
 
+        Bukkit.getConsoleSender().sendMessage(PREFIX + "Registering crafting recipes...");
+
+        petMapManager.registerCraftingRecipe(this);
+
+        Bukkit.getConsoleSender().sendMessage(PREFIX + "Registered crafting recipes!");
+
         //Registering all listeners
 
         Bukkit.getConsoleSender().sendMessage(PREFIX + "Registering listeners...");
@@ -81,6 +101,7 @@ public class SmallPets extends JavaPlugin {
 
         Bukkit.getPluginManager().registerEvents(new JoinListener(userManager, petMapManager), this);
         Bukkit.getPluginManager().registerEvents(new QuitListener(userManager, inventoryCache), this);
+        Bukkit.getPluginManager().registerEvents(new WorldSaveListener(), this);
 
         Bukkit.getConsoleSender().sendMessage(PREFIX + "Registered listeners!");
 
@@ -90,7 +111,35 @@ public class SmallPets extends JavaPlugin {
 
         //Registering bStats
 
+        Bukkit.getConsoleSender().sendMessage(PREFIX + "Starting metrics...");
+
         Metrics metrics = new Metrics(this, 8071);
+
+        metrics.addCustomChart(new Metrics.DrilldownPie("protocollib", () ->{
+
+            Map<String, Map<String, Integer>> map = new HashMap<>();
+
+            String version = Bukkit.getVersion();
+
+            Map<String, Integer> entry = new HashMap<>();
+
+            entry.put(version, 1);
+
+            if(useProtocolLib){
+
+                map.put("Uses protocollib", entry);
+
+            }else{
+
+                map.put("Doesn't use protocollib", entry);
+
+            }
+
+            return map;
+
+        }));
+
+        Bukkit.getConsoleSender().sendMessage(PREFIX + "Metrics started!");
 
         //Loading the users which are online
 
@@ -100,11 +149,7 @@ public class SmallPets extends JavaPlugin {
 
         }
 
-        Bukkit.getConsoleSender().sendMessage(PREFIX + "Registering crafting recipes...");
-
-        petMapManager.registerCraftingRecipe(this);
-
-        Bukkit.getConsoleSender().sendMessage(PREFIX + "Registered crafting recipes!");
+        Bukkit.getPluginManager().registerEvents(new WorldSaveListener(), this);
 
         Bukkit.getConsoleSender().sendMessage(PREFIX + "Plugin initialized");
 
@@ -154,28 +199,28 @@ public class SmallPets extends JavaPlugin {
             petMapManager = new PetMapManager1_12();
             inventoryManager = new InventoryManager1_12(inventoryCache);
             userManager = new UserManager(this, petMapManager, useProtocolLib);
-            listenerManager = new ListenerManager1_12(this, getUserManager(), getPetMapManager(), getInventoryCache(), PREFIX, xpMultiplier);
+            listenerManager = new ListenerManager1_12(this, getUserManager(), getPetMapManager(), getInventoryCache(), PREFIX, xpMultiplier, useProtocolLib);
 
         }else if(version.startsWith("1_13")){
 
             petMapManager = new PetMapManager1_13();
             inventoryManager = new InventoryManager1_13(inventoryCache);
             userManager = new UserManager(this, petMapManager, useProtocolLib);
-            listenerManager = new ListenerManager1_13(this, getUserManager(), getPetMapManager(), getInventoryCache(), PREFIX, xpMultiplier);
+            listenerManager = new ListenerManager1_13(this, getUserManager(), getPetMapManager(), getInventoryCache(), PREFIX, xpMultiplier, useProtocolLib);
 
         }else if(version.startsWith("1_15") || version.startsWith("1_14")){
 
             petMapManager = new PetMapManager1_15();
             inventoryManager = new InventoryManager1_15(inventoryCache);
             userManager = new UserManager(this, petMapManager, useProtocolLib);
-            listenerManager = new ListenerManager1_15(this, getUserManager(), getPetMapManager(), getInventoryCache(), PREFIX, xpMultiplier);
+            listenerManager = new ListenerManager1_15(this, getUserManager(), getPetMapManager(), getInventoryCache(), PREFIX, xpMultiplier, useProtocolLib);
 
         }else if(version.startsWith("1_16")){
 
             petMapManager = new PetMapManager1_16();
             inventoryManager = new InventoryManager1_16(inventoryCache);
             userManager = new UserManager(this, petMapManager, useProtocolLib);
-            listenerManager = new ListenerManager1_16(this, getUserManager(), getPetMapManager(), getInventoryCache(), PREFIX, xpMultiplier);
+            listenerManager = new ListenerManager1_16(this, getUserManager(), getPetMapManager(), getInventoryCache(), PREFIX, xpMultiplier, useProtocolLib);
 
         }else{
 
