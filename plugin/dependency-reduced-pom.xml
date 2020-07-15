@@ -14,6 +14,9 @@
         <directory>src/main/resources</directory>
         <includes>
           <include>plugin.yml</include>
+          <include>en.yml</include>
+          <include>de.yml</include>
+          <include>it.yml</include>
         </includes>
       </resource>
     </resources>

@@ -1,0 +1,14 @@
+translations:
+  petSpawned: 'Your pet was summoned'
+  petDespawned: 'Your pet was despawned'
+  experienceSummary: '§fExperience Summary'
+  levelupText: '&eYour pet is now level &6&l%pet_level%&e!'
+  nextLevel: '&eYour pet needs &6%exp_next_level%&6 xp &eto reach level &6%pet_next_level%&e'
+  petUnlock: 'Unlocked %pet_type% pet!'
+  clickToSelect: '&6CLICK TO SELECT'
+  clickToDeselect: '&cCLICK TO DESELECT'
+  givePetSender: 'Gave the %pet_type% pet to %player%!'
+  givePetReciever: 'You received the %pet_type% pet from %sender%!'
+  playerIsntOnline: "The player isn't online!"
+  userDataNotFound: "Your user data couldn't be found!"
+  commandIsOnlyForPlayers: "This command is only for players"

@@ -6,6 +6,8 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.languages.Language;
+import it.smallcode.smallpets.languages.LanguageManager;
 import it.smallcode.smallpets.manager.UserManager;
 import it.smallcode.smallpets.manager.types.User;
 import org.bukkit.Material;
@@ -18,12 +20,14 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 public class InventoryClickListener implements Listener {
 
     private UserManager userManager;
+    private LanguageManager languageManager;
 
     private String prefix;
 
-    public InventoryClickListener(UserManager userManager, String prefix){
+    public InventoryClickListener(UserManager userManager, String prefix, LanguageManager languageManager){
 
         this.userManager = userManager;
+        this.languageManager = languageManager;
 
         this.prefix = prefix;
 
@@ -54,13 +58,13 @@ public class InventoryClickListener implements Listener {
 
                             user.setSelected(null);
 
-                            e.getWhoClicked().sendMessage(prefix + "Your pet was despawned");
+                            e.getWhoClicked().sendMessage(prefix + languageManager.getLanguage().getStringFormatted("petDespawned"));
 
                         } else {
 
                             user.setSelected(user.getPetFromType(type));
 
-                            e.getWhoClicked().sendMessage(prefix + "Your pet was summoned");
+                            e.getWhoClicked().sendMessage(prefix + languageManager.getLanguage().getStringFormatted("petSpawned"));
 
                         }
 
