@@ -24,12 +24,12 @@ public class Tiger extends SamplePet {
 
     public static final float MAXDAMAGEMULTIPLIER = 0.15F;
 
-    public Tiger(Player owner, Long xp) {
-        super(owner, xp);
+    public Tiger(Player owner, Long xp, Boolean useProtocolLib) {
+        super(owner, xp, useProtocolLib);
     }
 
-    public Tiger(Player owner) {
-        this(owner, 0L);
+    public Tiger(Player owner, Boolean useProtocolLib) {
+        this(owner, 0L, useProtocolLib);
     }
 
     public ItemStack getItem() {

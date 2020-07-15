@@ -36,16 +36,20 @@ public class UserManager {
 
     private ArrayList<User> users;
 
+    private boolean useProtocolLib;
+
     /**
      *
      * Creates a user manager object
      *
      */
-    public UserManager(JavaPlugin plugin, PetMapManager petMapManager){
+    public UserManager(JavaPlugin plugin, PetMapManager petMapManager, boolean useProtocolLib){
 
         this.plugin = plugin;
 
         this.petMapManager = petMapManager;
+
+        this.useProtocolLib = useProtocolLib;
 
         users = new ArrayList<>();
 
@@ -78,7 +82,7 @@ public class UserManager {
 
                 Map<String, Object> data = cfg.getValues(true);
 
-                users.add(new User(userFile.getName().replaceFirst("[.][^.]+$", ""), data, petMapManager, plugin));
+                users.add(new User(userFile.getName().replaceFirst("[.][^.]+$", ""), data, petMapManager, plugin, useProtocolLib));
 
             }
 
@@ -172,9 +176,9 @@ public class UserManager {
 
                     try {
 
-                        Constructor constructor = petMapManager.getPetMap().get(type).getConstructor(Player.class, Long.class);
+                        Constructor constructor = petMapManager.getPetMap().get(type).getConstructor(Player.class, Long.class, Boolean.class);
 
-                        Pet pet = (Pet) constructor.newInstance(Bukkit.getPlayer(UUID.fromString(uuid)), 0L);
+                        Pet pet = (Pet) constructor.newInstance(Bukkit.getPlayer(UUID.fromString(uuid)), 0L, useProtocolLib);
 
                         user.getPets().add(pet);
 
@@ -219,6 +223,22 @@ public class UserManager {
         for(User user : users){
 
             user.despawnSelected();
+
+        }
+
+    }
+
+    /**
+     *
+     * Spawns all the pets from the loaded users
+     *
+     */
+
+    public void spawnPets(){
+
+        for(User user : users){
+
+            user.spawnSelected();
 
         }
 

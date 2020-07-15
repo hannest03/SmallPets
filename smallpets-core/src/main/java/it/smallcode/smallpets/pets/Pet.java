@@ -6,11 +6,15 @@ Class created by SmallCode
 
 */
 
+import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -28,9 +32,20 @@ public abstract class Pet {
 
     protected long xp = 0;
 
+    protected boolean useProtocolLib = false;
+
+    protected static List<Integer> entityIDs = new LinkedList<>();
+
     protected ArmorStand armorStand;
 
+    protected Location location;
+    protected int entityID;
+
     protected Player owner;
+
+    private boolean pauseLogic = false;
+
+    private boolean activated;
 
     private static final String[] levelColors = {"§7", "§2", "§a", "§e", "§6", "§c", "§4", "§d", "§b", "§f"};
 
@@ -40,12 +55,15 @@ public abstract class Pet {
      *
      * @param owner - the pet owner
      * @param xp - the xp
+     * @param useProtocolLib - boolean if protocolLib is being used
      */
 
-    public Pet(Player owner, Long xp) {
+    public Pet(Player owner, Long xp, Boolean useProtocolLib) {
 
         this.owner = owner;
         this.xp = xp;
+
+        this.useProtocolLib = useProtocolLib;
 
         tach = -(Math.log(((getLevel() +1) - maxLevel) / -(maxLevel - minLevel)) / xpToLevelTwo);
 
@@ -56,13 +74,36 @@ public abstract class Pet {
      * Creates a pet
      *
      * @param owner - the owner
+     * @param useProtocolLib - boolean if protocolLib is being used
+     */
+
+    public Pet(Player owner, Boolean useProtocolLib) {
+
+        this(owner, 0L, useProtocolLib);
+
+    }
+
+    /**
+     *
+     * Creates a pet
+     *
+     * @param owner - the owner
+     *
      */
 
     public Pet(Player owner) {
 
-        this(owner, 0L);
+        this(owner, 0L, false);
 
     }
+
+    /**
+     *
+     * Spawns an armorstand
+     *
+     * @param players - the players to which it will be sent
+     */
+    protected abstract void spawnArmorstandWithPackets(List<Player> players);
 
     /**
      *
@@ -210,6 +251,8 @@ public abstract class Pet {
 
     }
 
+    protected abstract void spawnParticles();
+
     /**
      *
      * Returns the exp of the pet
@@ -265,4 +308,49 @@ public abstract class Pet {
         return armorStand;
     }
 
+    public String getCustomeName(){
+
+        if(owner.getName().endsWith("s")){
+
+            return  "§8[" + getLevelColor() + getLevel() + "§8] §7" + owner.getName() + "' " + getName();
+
+        }else {
+
+            return "§8[" + getLevelColor() + getLevel() + "§8] §7" + owner.getName() + "'s " + getName();
+
+        }
+
+    }
+
+    public abstract void teleport(Location loc);
+
+    public abstract void spawnToPlayer(Player p, JavaPlugin plugin);
+
+    public abstract void despawnFromPlayer(Player p, JavaPlugin plugin);
+
+    public abstract void setCustomName(String name);
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public boolean isActivated() {
+        return activated;
+    }
+
+    public void setActivated(boolean activated) {
+        this.activated = activated;
+    }
+
+    public boolean isPauseLogic() {
+        return pauseLogic;
+    }
+
+    public void setPauseLogic(boolean pauseLogic) {
+        this.pauseLogic = pauseLogic;
+    }
 }

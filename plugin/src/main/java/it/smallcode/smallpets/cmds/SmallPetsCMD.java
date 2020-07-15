@@ -70,6 +70,8 @@ public class SmallPetsCMD implements CommandExecutor {
 
                                 s.sendMessage(SmallPets.getInstance().PREFIX + "Gave the " + args[3] + " pet to " + args[2] + "!");
 
+                                Bukkit.getPlayer(args[2]).sendMessage(SmallPets.getInstance().PREFIX + "You received the " + args[3] + " pet from " + s.getName() + "!");
+
                                 return false;
 
                             } else {

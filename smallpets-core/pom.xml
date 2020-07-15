@@ -30,9 +30,16 @@
         <!--This adds the Bukkit API artifact to the build -->
         <!-- Do not include this in the pom.xml file if the Spigot API is already added -->
         <dependency>
-            <groupId>org.bukkit</groupId>
-            <artifactId>bukkit</artifactId>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot</artifactId>
             <version>1.15.2-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.comphenix.protocol</groupId>
+            <artifactId>ProtocolLib</artifactId>
+            <version>LATEST</version>
             <scope>provided</scope>
         </dependency>
 

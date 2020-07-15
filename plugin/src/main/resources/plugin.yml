@@ -3,6 +3,8 @@ version: ${project.version}
 description: ${project.description}
 author: SmallCode
 api-version: 1.13
+softdepend:
+  - ProtocolLib
 main: it.smallcode.smallpets.SmallPets
 commands:
   smallpets:

@@ -1,8 +1,8 @@
-package it.smallcode.smallpets.v1_12.pets;
+package it.smallcode.smallpets.v1_12;
 /*
 
 Class created by SmallCode
-09.07.2020 21:48
+14.07.2020 13:41
 
 */
 
@@ -12,26 +12,23 @@ import com.comphenix.protocol.ProtocolManager;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.wrappers.EnumWrappers;
 import com.comphenix.protocol.wrappers.WrappedDataWatcher;
-import it.smallcode.smallpets.v1_12.SkullCreator;
-import net.minecraft.server.v1_12_R1.NBTTagCompound;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.ShapedRecipe;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.plugin.Plugin;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class Penguin extends it.smallcode.smallpets.v1_15.pets.Penguin {
+public class SamplePet extends it.smallcode.smallpets.v1_15.SamplePet {
 
-    public Penguin(Player owner, Long xp, Boolean useProtocolLib) {
+
+    /**
+     * Creates a pet
+     *
+     * @param owner          - the pet owner
+     * @param xp             - the xp
+     * @param useProtocolLib
+     */
+    public SamplePet(Player owner, Long xp, boolean useProtocolLib) {
         super(owner, xp, useProtocolLib);
     }
 
@@ -86,6 +83,8 @@ public class Penguin extends it.smallcode.smallpets.v1_15.pets.Penguin {
         sendPacket(sendPacketToPlayers(owner), entityEquipment);
         sendPacket(sendPacketToPlayers(owner), entityMetadata);
 
+
+
     }
 
     @Override
@@ -123,13 +122,13 @@ public class Penguin extends it.smallcode.smallpets.v1_15.pets.Penguin {
 
         if(useProtocolLib){
 
-            PacketContainer teleportPacket = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.ENTITY_TELEPORT);
+            PacketContainer teleportPacket = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.REL_ENTITY_MOVE_LOOK);
 
             teleportPacket.getIntegers().write(0, entityID);
 
-            teleportPacket.getDoubles().write(0, loc.getX());
-            teleportPacket.getDoubles().write(1, loc.getY());
-            teleportPacket.getDoubles().write(2, loc.getZ());
+            teleportPacket.getIntegers().write(0, (int) ((loc.getX() - location.getX()) * 4096));
+            teleportPacket.getIntegers().write(1, (int) ((loc.getY() - location.getY()) * 4096));
+            teleportPacket.getIntegers().write(2, (int) ((loc.getZ() - location.getZ()) * 4096));
 
             teleportPacket.getBytes().write(0, (byte) (loc.getYaw() * 256.0F / 360.0F));
             teleportPacket.getBytes().write(1, (byte) (loc.getPitch() * 256.0F / 360.0F));
@@ -149,85 +148,6 @@ public class Penguin extends it.smallcode.smallpets.v1_15.pets.Penguin {
         }
 
         setLocation(loc);
-
-    }
-
-    public ItemStack getItem() {
-
-        ItemStack skull = SkullCreator.getSkull("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvM2MwZDE2MTA3OTU2ZDc4NTNhMWJlMzE1NDljNDZhMmZmMjBiNDUxZDYzNjA3NTI4ZDVlMTk1YzQ0NTllMWZhMSJ9fX0=");
-
-        ItemMeta skullMeta = skull.getItemMeta();
-
-        skullMeta.setDisplayName(getName());
-
-        skull.setItemMeta(skullMeta);
-
-        return skull;
-
-    }
-
-    @Override
-    public void registerRecipe(Plugin plugin) {
-
-        ItemStack item = getUnlockItem(plugin);
-
-        NamespacedKey key = new NamespacedKey(plugin, "pet_penguin");
-
-        ShapedRecipe recipe = new ShapedRecipe(key, item);
-
-        recipe.shape("CCC", "CSC", "CCC");
-
-        recipe.setIngredient('C', Material.RAW_CHICKEN);
-        recipe.setIngredient('S', Material.RAW_FISH, (short) 1);
-
-        Bukkit.addRecipe(recipe);
-
-    }
-
-    /**
-     *
-     * Returns the item to unlock the tiger
-     *
-     * @param plugin - the plugin
-     * @return the item to unlock the tiger
-     */
-    @Override
-    public ItemStack getUnlockItem(Plugin plugin){
-
-        ItemStack item = getItem();
-
-        ItemMeta itemMeta = item.getItemMeta();
-
-        itemMeta.setDisplayName("§9Penguin");
-
-        ArrayList<String> lore = new ArrayList<>();
-
-        lore.add("");
-        lore.add("§6RIGHT CLICK TO UNLOCK");
-
-        itemMeta.setLore(lore);
-
-        item.setItemMeta(itemMeta);
-
-        item = addNBTTag(item, "pet", getName());
-
-        return item;
-
-    }
-
-    private ItemStack addNBTTag(ItemStack itemStack, String key, String value){
-
-        net.minecraft.server.v1_12_R1.ItemStack stack = CraftItemStack.asNMSCopy(itemStack);
-
-        NBTTagCompound tag = stack.getTag() != null ? stack.getTag() : new NBTTagCompound();
-
-        tag.setString(key, value);
-
-        stack.setTag(tag);
-
-        itemStack = CraftItemStack.asCraftMirror(stack);
-
-        return itemStack;
 
     }
 

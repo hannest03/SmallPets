@@ -107,7 +107,7 @@ public class InventoryManager1_15 extends InventoryManager {
 
             lore.add("");
 
-            if(pet.getArmorStand() != null && pet.getArmorStand().isValid())
+            if(pet.isActivated())
                 lore.add("§cCLICK TO DESELECT");
             else
                 lore.add("§6CLICK TO SELECT");

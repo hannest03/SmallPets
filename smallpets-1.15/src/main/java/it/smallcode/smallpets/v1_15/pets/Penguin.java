@@ -24,12 +24,12 @@ public class Penguin extends SamplePet {
 
     public static final float MAXSWIMMINGSPEED = 0.25F;
 
-    public Penguin(Player owner, Long xp) {
-        super(owner, xp);
+    public Penguin(Player owner, Long xp, Boolean useProtocolLib) {
+        super(owner, xp, useProtocolLib);
     }
 
-    public Penguin(Player owner) {
-        this(owner, 0L);
+    public Penguin(Player owner, Boolean useProtocolLib) {
+        this(owner, 0L, useProtocolLib);
     }
 
     public ItemStack getItem() {

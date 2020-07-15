@@ -14,8 +14,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 public class Monkey extends it.smallcode.smallpets.v1_15.pets.Monkey {
 
 
-    public Monkey(Player owner, Long xp) {
-        super(owner, xp);
+    public Monkey(Player owner, Long xp, Boolean useProtocolLib) {
+        super(owner, xp, useProtocolLib);
     }
 
     @Override

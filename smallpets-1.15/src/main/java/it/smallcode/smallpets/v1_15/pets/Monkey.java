@@ -24,12 +24,12 @@ public class Monkey extends SamplePet {
 
     public static double MAXJUMPHEIGHT = 0.05;
 
-    public Monkey(Player owner, Long xp) {
-        super(owner, xp);
+    public Monkey(Player owner, Long xp, Boolean useProtocolLib) {
+        super(owner, xp, useProtocolLib);
     }
 
-    public Monkey(Player owner) {
-        this(owner, 0L);
+    public Monkey(Player owner, Boolean useProtocolLib) {
+        this(owner, 0L, useProtocolLib);
     }
 
     public ItemStack getItem() {

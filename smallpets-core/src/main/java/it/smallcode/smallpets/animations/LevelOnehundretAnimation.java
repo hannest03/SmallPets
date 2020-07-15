@@ -1,4 +1,4 @@
-package it.smallcode.smallpets.v1_15.animation;
+package it.smallcode.smallpets.animations;
 /*
 
 Class created by SmallCode
@@ -20,7 +20,7 @@ public class LevelOnehundretAnimation {
 
     private int counter = 0;
 
-    public LevelOnehundretAnimation(final Pet pet, final ArmorStand armorStand, Plugin plugin){
+    public LevelOnehundretAnimation(final Pet pet, Plugin plugin){
 
         final ArrayList<String> colors = new ArrayList<>();
 
@@ -37,7 +37,7 @@ public class LevelOnehundretAnimation {
         colors.add("§d");
         colors.add("§5");
 
-        schedulerID = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
+        schedulerID = Bukkit.getScheduler().scheduleAsyncRepeatingTask(plugin, new Runnable() {
             public void run() {
 
                 int last = counter -1;
@@ -50,7 +50,15 @@ public class LevelOnehundretAnimation {
                 if(next == colors.size())
                     next = 0;
 
-                armorStand.setCustomName("§8[" + colors.get(last) + "1" + colors.get(counter) + "0" + colors.get(next) + "0§8] §7" + pet.getOwner().getName() + "s " + pet.getName());
+                if(pet.getOwner().getName().endsWith("s")) {
+
+                    pet.setCustomName("§8[" + colors.get(last) + "1" + colors.get(counter) + "0" + colors.get(next) + "0§8] §7" + pet.getOwner().getName() + "' " + pet.getName());
+
+                }else{
+
+                    pet.setCustomName("§8[" + colors.get(last) + "1" + colors.get(counter) + "0" + colors.get(next) + "0§8] §7" + pet.getOwner().getName() + "'s " + pet.getName());
+
+                }
 
                 counter++;
 
