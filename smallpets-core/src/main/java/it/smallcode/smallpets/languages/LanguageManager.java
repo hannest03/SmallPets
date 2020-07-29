@@ -41,9 +41,6 @@ public class LanguageManager {
 
         setSelectedLanguage(newLanguage);
 
-        Bukkit.getConsoleSender().sendMessage("§b" + newLanguage);
-        Bukkit.getConsoleSender().sendMessage("§b" + selectedLanguage);
-
         loadLanguage();
 
     }

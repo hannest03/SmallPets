@@ -17,6 +17,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
+import java.util.Map;
+
 public class InventoryClickListener implements Listener {
 
     private UserManager userManager;
@@ -50,6 +52,8 @@ public class InventoryClickListener implements Listener {
 
                     String type = nameSplit[nameSplit.length - 1];
 
+                    type = getRealTypeFromType(type);
+
                     User user = userManager.getUser(p.getUniqueId().toString());
 
                     if(user != null) {
@@ -79,6 +83,24 @@ public class InventoryClickListener implements Listener {
             }
 
         }
+
+    }
+
+    private String getRealTypeFromType(String type){
+
+        for (Map.Entry<String, String> entry : languageManager.getLanguage().getTranslations().entrySet()) {
+            if (type.equals(entry.getValue())) {
+
+                if(entry.getKey().startsWith("translations.pet")){
+
+                    return entry.getKey().replace("translations.pet.", "");
+
+                }
+
+            }
+        }
+
+        return "";
 
     }
 
