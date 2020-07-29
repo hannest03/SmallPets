@@ -12,6 +12,7 @@ import com.comphenix.protocol.ProtocolManager;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.wrappers.EnumWrappers;
 import com.comphenix.protocol.wrappers.WrappedDataWatcher;
+import it.smallcode.smallpets.languages.LanguageManager;
 import net.minecraft.server.v1_13_R2.NBTTagCompound;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -30,8 +31,8 @@ import java.util.UUID;
 
 public class Penguin extends it.smallcode.smallpets.v1_15.pets.Penguin {
 
-    public Penguin(Player owner, Long xp, Boolean useProtocolLib) {
-        super(owner, xp, useProtocolLib);
+    public Penguin(Player owner, Long xp, Boolean useProtocolLib, LanguageManager languageManager) {
+        super(owner, xp, useProtocolLib, languageManager);
     }
 
     /**

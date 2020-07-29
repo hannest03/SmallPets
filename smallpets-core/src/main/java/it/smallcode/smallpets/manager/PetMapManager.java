@@ -6,6 +6,7 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.languages.LanguageManager;
 import org.bukkit.plugin.Plugin;
 
 import java.util.HashMap;
@@ -57,6 +58,6 @@ public abstract class PetMapManager {
      *
      */
 
-    public abstract void registerCraftingRecipe(Plugin plugin);
+    public abstract void registerCraftingRecipe(Plugin plugin, LanguageManager languageManager);
 
 }

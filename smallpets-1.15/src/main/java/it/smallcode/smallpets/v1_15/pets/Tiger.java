@@ -6,6 +6,7 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.languages.LanguageManager;
 import it.smallcode.smallpets.v1_15.SamplePet;
 import it.smallcode.smallpets.v1_15.SkullCreator;
 import org.bukkit.Bukkit;
@@ -24,14 +25,17 @@ public class Tiger extends SamplePet {
 
     public static final float MAXDAMAGEMULTIPLIER = 0.15F;
 
-    public Tiger(Player owner, Long xp, Boolean useProtocolLib) {
-        super(owner, xp, useProtocolLib);
+    /**
+     * Creates a pet
+     *
+     * @param owner           - the pet owner
+     * @param xp              - the xp
+     * @param useProtocolLib
+     * @param languageManager
+     */
+    public Tiger(Player owner, Long xp, Boolean useProtocolLib, LanguageManager languageManager) {
+        super(owner, xp, useProtocolLib, languageManager);
     }
-
-    public Tiger(Player owner, Boolean useProtocolLib) {
-        this(owner, 0L, useProtocolLib);
-    }
-
     public ItemStack getItem() {
 
         ItemStack skull = SkullCreator.getSkull("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZmM0MjYzODc0NDkyMmI1ZmNmNjJjZDliZjI3ZWVhYjkxYjJlNzJkNmM3MGU4NmNjNWFhMzg4Mzk5M2U5ZDg0In19fQ==");

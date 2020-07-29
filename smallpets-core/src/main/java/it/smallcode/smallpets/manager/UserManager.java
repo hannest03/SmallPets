@@ -6,6 +6,7 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.languages.LanguageManager;
 import it.smallcode.smallpets.manager.types.User;
 import it.smallcode.smallpets.pets.Pet;
 import org.bukkit.Bukkit;
@@ -32,6 +33,7 @@ public class UserManager {
 
     private JavaPlugin plugin;
 
+    private LanguageManager languageManager;
     private PetMapManager petMapManager;
 
     private ArrayList<User> users;
@@ -43,10 +45,11 @@ public class UserManager {
      * Creates a user manager object
      *
      */
-    public UserManager(JavaPlugin plugin, PetMapManager petMapManager, boolean useProtocolLib){
+    public UserManager(JavaPlugin plugin, LanguageManager languageManager, PetMapManager petMapManager, boolean useProtocolLib){
 
         this.plugin = plugin;
 
+        this.languageManager = languageManager;
         this.petMapManager = petMapManager;
 
         this.useProtocolLib = useProtocolLib;
@@ -82,7 +85,7 @@ public class UserManager {
 
                 Map<String, Object> data = cfg.getValues(true);
 
-                users.add(new User(userFile.getName().replaceFirst("[.][^.]+$", ""), data, petMapManager, plugin, useProtocolLib));
+                users.add(new User(userFile.getName().replaceFirst("[.][^.]+$", ""), data, petMapManager, plugin, useProtocolLib, languageManager));
 
             }
 

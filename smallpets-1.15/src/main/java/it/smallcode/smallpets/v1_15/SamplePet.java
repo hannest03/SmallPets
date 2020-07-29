@@ -16,6 +16,7 @@ import com.comphenix.protocol.wrappers.WrappedDataWatcher;
 import it.smallcode.smallpets.animations.FollowPlayerAnimation;
 import it.smallcode.smallpets.animations.HoverAnimation;
 import it.smallcode.smallpets.events.PetLevelUpEvent;
+import it.smallcode.smallpets.languages.LanguageManager;
 import it.smallcode.smallpets.pets.Pet;
 import it.smallcode.smallpets.animations.LevelOnehundretAnimation;
 import org.bukkit.Bukkit;
@@ -48,8 +49,8 @@ public class SamplePet extends Pet {
      * @param owner - the pet owner
      * @param xp - the xp
      */
-    public SamplePet(Player owner, Long xp, boolean useProtocolLib) {
-        super(owner, xp, useProtocolLib);
+    public SamplePet(Player owner, Long xp, boolean useProtocolLib, LanguageManager languageManager) {
+        super(owner, xp, useProtocolLib, languageManager);
     }
 
     protected FollowPlayerAnimation followPlayerArmorStand;

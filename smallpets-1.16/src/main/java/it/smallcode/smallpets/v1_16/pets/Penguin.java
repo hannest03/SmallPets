@@ -6,6 +6,7 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.languages.LanguageManager;
 import it.smallcode.smallpets.v1_16.SkullCreator;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -13,9 +14,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public class Penguin extends it.smallcode.smallpets.v1_15.pets.Penguin {
 
-
-    public Penguin(Player owner, Long xp, Boolean useProtocolLib) {
-        super(owner, xp, useProtocolLib);
+    public Penguin(Player owner, Long xp, Boolean useProtocolLib, LanguageManager languageManager) {
+        super(owner, xp, useProtocolLib, languageManager);
     }
 
     @Override

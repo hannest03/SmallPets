@@ -20,20 +20,37 @@ public class ReloadSubCMD extends SubCommand {
     @Override
     protected void handleCommand(CommandSender s, String[] args) {
 
-        if(args[0].equalsIgnoreCase("all")){
+        if(args.length == 1) {
 
-            SmallPets.getInstance().loadConfig();
-            SmallPets.getInstance().getLanguageManager().loadLanguage();
+            if (args[0].equalsIgnoreCase("all")) {
 
-        }else if(args[0].equalsIgnoreCase("config")){
+                SmallPets.getInstance().loadConfig();
+                SmallPets.getInstance().getLanguageManager().loadLanguage();
 
-            SmallPets.getInstance().loadConfig();
+                s.sendMessage(SmallPets.getInstance().PREFIX + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("reloaded")
+                        .replaceAll("%type%", "all"));
 
-        }else if(args[0].equalsIgnoreCase("language")){
+            } else if (args[0].equalsIgnoreCase("config")) {
 
-            SmallPets.getInstance().getLanguageManager().loadLanguage();
+                SmallPets.getInstance().loadConfig();
 
-        }else{
+                s.sendMessage(SmallPets.getInstance().PREFIX + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("reloaded")
+                        .replaceAll("%type%", "config"));
+
+            } else if (args[0].equalsIgnoreCase("language")) {
+
+                SmallPets.getInstance().getLanguageManager().loadLanguage();
+
+                s.sendMessage(SmallPets.getInstance().PREFIX + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("reloaded")
+                        .replaceAll("%type%", "language"));
+
+            } else {
+
+                s.sendMessage(SmallPets.getInstance().PREFIX + "/smallpets admin " + getHelp());
+
+            }
+
+        } else {
 
             s.sendMessage(SmallPets.getInstance().PREFIX + "/smallpets admin " + getHelp());
 

@@ -6,6 +6,7 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.languages.LanguageManager;
 import it.smallcode.smallpets.v1_15.SamplePet;
 import it.smallcode.smallpets.v1_15.SkullCreator;
 import org.bukkit.Bukkit;
@@ -24,12 +25,8 @@ public class Monkey extends SamplePet {
 
     public static double MAXJUMPHEIGHT = 0.05;
 
-    public Monkey(Player owner, Long xp, Boolean useProtocolLib) {
-        super(owner, xp, useProtocolLib);
-    }
-
-    public Monkey(Player owner, Boolean useProtocolLib) {
-        this(owner, 0L, useProtocolLib);
+    public Monkey(Player owner, Long xp, Boolean useProtocolLib, LanguageManager languageManager) {
+        super(owner, xp, useProtocolLib, languageManager);
     }
 
     public ItemStack getItem() {
@@ -38,7 +35,7 @@ public class Monkey extends SamplePet {
 
         ItemMeta skullMeta = skull.getItemMeta();
 
-        skullMeta.setDisplayName(getName());
+        skullMeta.setDisplayName(getLanguageManager().getLanguage().getStringFormatted("pet." + getName()));
 
         skull.setItemMeta(skullMeta);
 
@@ -78,7 +75,7 @@ public class Monkey extends SamplePet {
 
         ItemMeta itemMeta = item.getItemMeta();
 
-        itemMeta.setDisplayName("§6Monkey");
+        itemMeta.setDisplayName("§6" + getLanguageManager().getLanguage().getStringFormatted("pet." + getName()));
 
         ArrayList<String> lore = new ArrayList<>();
 

@@ -12,3 +12,9 @@ translations:
   playerIsntOnline: "The player isn't online!"
   userDataNotFound: "Your user data couldn't be found!"
   commandIsOnlyForPlayers: "This command is only for players"
+  reloaded: 'Reloaded %type%'
+  maxLevel: '&d&kS&d MAX LEVEL &d&kS'
+  pet:
+    tiger: 'tiger'
+    penguin: 'penguin'
+    monkey: 'monkey'

@@ -1,2 +1,20 @@
 translations:
   petSpawned: 'Dein Haustier wurde beschwört'
+  petDespawned: 'Dein Haustier wurde eingepackt'
+  experienceSummary: '§fErfahrungspunkte Zusammenfassung'
+  levelupText: '&eDein Haustier ist jet Level &6&l%pet_level%&e!'
+  nextLevel: '&eDein Haustier braucht noch &6%exp_next_level%&6 xp &eum Level &6%pet_next_level%&e zu erreichen'
+  petUnlock: '%pet_type% freigeschalten!'
+  clickToSelect: '&6KLICKEN UM AUSZUWÄHLEN'
+  clickToDeselect: '&cKLICKEN UM ABZUWÄHLEN'
+  givePetSender: 'Das %pet_type% Haustier wurde %player% gegeben!'
+  givePetReciever: 'Dir wurde das %pet_type% Haustier von %sender% gegeben!'
+  playerIsntOnline: "Der Spieler ist nicht online!"
+  userDataNotFound: "Deine Nutzerdaten wurden nicht gefunden!"
+  commandIsOnlyForPlayers: "Dieser Befehl ist nur für Spieler"
+  reloaded: '%type% wurde neugeladen'
+  maxLevel: '&d&kS&d MAX LEVEL &d&kS'
+  pet:
+    tiger: 'Tiger'
+    penguin: 'Pinguin'
+    monkey: 'Affe'

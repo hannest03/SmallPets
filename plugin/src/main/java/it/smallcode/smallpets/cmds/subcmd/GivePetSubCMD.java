@@ -24,14 +24,14 @@ public class GivePetSubCMD extends SubCommand {
 
             if (Bukkit.getPlayer(args[0]) != null && Bukkit.getPlayer(args[0]).isOnline()) {
 
-                SmallPets.getInstance().getUserManager().giveUserPet(args[1], Bukkit.getPlayer(args[0]).getUniqueId().toString());
+                SmallPets.getInstance().getUserManager().giveUserPet(args[1].toLowerCase(), Bukkit.getPlayer(args[0]).getUniqueId().toString());
 
                 s.sendMessage(SmallPets.getInstance().PREFIX + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("givePetSender")
-                        .replaceAll("%pet_type%", args[1])
+                        .replaceAll("%pet_type%", SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("pet." + args[1]))
                         .replaceAll("%player%", args[0]));
 
                 Bukkit.getPlayer(args[0]).sendMessage(SmallPets.getInstance().PREFIX + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("givePetReciever")
-                        .replaceAll("%pet_type%", args[1])
+                        .replaceAll("%pet_type%", SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("pet." + args[1]))
                         .replaceAll("%sender%", s.getName()));
 
             } else {

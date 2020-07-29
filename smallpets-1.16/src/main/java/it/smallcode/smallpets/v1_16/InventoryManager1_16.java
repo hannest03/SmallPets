@@ -6,13 +6,14 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.languages.LanguageManager;
 import it.smallcode.smallpets.manager.InventoryCache;
 import it.smallcode.smallpets.v1_15.InventoryManager1_15;
 
 public class InventoryManager1_16 extends InventoryManager1_15 {
 
 
-    public InventoryManager1_16(InventoryCache inventoryCache) {
-        super(inventoryCache);
+    public InventoryManager1_16(InventoryCache inventoryCache, LanguageManager languageManager) {
+        super(inventoryCache, languageManager);
     }
 }

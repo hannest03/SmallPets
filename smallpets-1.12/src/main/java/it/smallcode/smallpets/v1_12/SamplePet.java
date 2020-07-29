@@ -12,6 +12,7 @@ import com.comphenix.protocol.ProtocolManager;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.wrappers.EnumWrappers;
 import com.comphenix.protocol.wrappers.WrappedDataWatcher;
+import it.smallcode.smallpets.languages.LanguageManager;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -20,16 +21,16 @@ import java.util.UUID;
 
 public class SamplePet extends it.smallcode.smallpets.v1_15.SamplePet {
 
-
     /**
      * Creates a pet
      *
-     * @param owner          - the pet owner
-     * @param xp             - the xp
+     * @param owner           - the pet owner
+     * @param xp              - the xp
      * @param useProtocolLib
+     * @param languageManager
      */
-    public SamplePet(Player owner, Long xp, boolean useProtocolLib) {
-        super(owner, xp, useProtocolLib);
+    public SamplePet(Player owner, Long xp, boolean useProtocolLib, LanguageManager languageManager) {
+        super(owner, xp, useProtocolLib, languageManager);
     }
 
     @Override

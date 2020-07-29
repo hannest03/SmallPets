@@ -6,6 +6,7 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.languages.LanguageManager;
 import it.smallcode.smallpets.manager.UserManager;
 import org.bukkit.craftbukkit.v1_13_R2.inventory.CraftItemStack;
 import org.bukkit.event.EventHandler;
@@ -19,13 +20,15 @@ public class UnlockListener implements Listener {
 
     private JavaPlugin plugin;
 
+    private LanguageManager languageManager;
     private UserManager userManager;
     private String prefix;
 
-    public UnlockListener(JavaPlugin plugin, UserManager userManager, String prefix){
+    public UnlockListener(JavaPlugin plugin, LanguageManager languageManager, UserManager userManager, String prefix){
 
         this.plugin = plugin;
 
+        this.languageManager = languageManager;
         this.userManager = userManager;
         this.prefix = prefix;
 
@@ -52,7 +55,8 @@ public class UnlockListener implements Listener {
 
                             e.getItem().setAmount(e.getItem().getAmount() -1);
 
-                            e.getPlayer().sendMessage(prefix + "Unlocked " + type + " pet!");
+                            e.getPlayer().sendMessage(prefix + languageManager.getLanguage().getStringFormatted("petUnlock")
+                                    .replaceAll("%pet_type%", languageManager.getLanguage().getStringFormatted("pet." + type)));
 
                         }
 

@@ -6,6 +6,7 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.languages.LanguageManager;
 import it.smallcode.smallpets.manager.PetMapManager;
 import it.smallcode.smallpets.pets.Pet;
 import it.smallcode.smallpets.v1_15.pets.Monkey;
@@ -28,39 +29,36 @@ public class PetMapManager1_15 extends PetMapManager {
 
     }
 
-    public void registerCraftingRecipe(Plugin plugin){
+    public void registerCraftingRecipe(Plugin plugin, LanguageManager languageManager){
 
-        petMap.values().iterator().forEachRemaining(new Consumer<Class>() {
-            @Override
-            public void accept(Class aClass) {
+        petMap.values().iterator().forEachRemaining(aClass -> {
 
-                try {
+            try {
 
-                    Constructor constructor = aClass.getConstructor(Player.class, Long.class, Boolean.class);
+                Constructor constructor = aClass.getConstructor(Player.class, Long.class, Boolean.class, LanguageManager.class);
 
-                    Pet pet = (Pet) constructor.newInstance(null, 0L, false);
+                Pet pet = (Pet) constructor.newInstance(null, 0L, false, languageManager);
 
-                    pet.registerRecipe(plugin);
+                pet.registerRecipe(plugin);
 
-                } catch (NoSuchMethodException ex) {
+            } catch (NoSuchMethodException ex) {
 
-                    ex.printStackTrace();
+                ex.printStackTrace();
 
-                } catch (IllegalAccessException ex) {
+            } catch (IllegalAccessException ex) {
 
-                    ex.printStackTrace();
+                ex.printStackTrace();
 
-                } catch (InstantiationException ex) {
+            } catch (InstantiationException ex) {
 
-                    ex.printStackTrace();
+                ex.printStackTrace();
 
-                } catch (InvocationTargetException ex) {
+            } catch (InvocationTargetException ex) {
 
-                    ex.printStackTrace();
-
-                }
+                ex.printStackTrace();
 
             }
+
         });
 
     }

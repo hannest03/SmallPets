@@ -6,6 +6,8 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.languages.Language;
+import it.smallcode.smallpets.languages.LanguageManager;
 import it.smallcode.smallpets.manager.InventoryCache;
 import it.smallcode.smallpets.manager.InventoryManager;
 import it.smallcode.smallpets.pets.Pet;
@@ -29,9 +31,9 @@ public class InventoryManager1_12 extends InventoryManager {
      *
      * @param inventoryCache - the inventoryCache
      */
-    public InventoryManager1_12(InventoryCache inventoryCache) {
+    public InventoryManager1_12(InventoryCache inventoryCache, LanguageManager languageManager) {
 
-        super(inventoryCache);
+        super(inventoryCache, languageManager);
 
         colors.add("§4");
         colors.add("§c");
@@ -80,7 +82,7 @@ public class InventoryManager1_12 extends InventoryManager {
 
             ItemMeta itemMeta = itemStack.getItemMeta();
 
-            itemMeta.setDisplayName("§e" + p.getName() + "s " + pet.getName());
+            itemMeta.setDisplayName("§e" + p.getName() + "s " + languageManager.getLanguage().getStringFormatted("pet." + pet.getName()));
 
             ArrayList<String> lore = new ArrayList();
 
@@ -99,7 +101,7 @@ public class InventoryManager1_12 extends InventoryManager {
 
             lore.add(progressBar);
 
-            String expB = "§d§kS§d MAX LEVEL §d§kS";
+            String expB = languageManager.getLanguage().getStringFormatted("maxLevel");
 
             if(pet.getLevel() != 100) {
                 expB = pet.getLevelColor() + (pet.getXp() - pet.getExpForLevel(pet.getLevel())) + "§8/" + pet.getLevelColor() + (pet.getExpForNextLevel() - pet.getExpForLevel(pet.getLevel()));
@@ -112,9 +114,9 @@ public class InventoryManager1_12 extends InventoryManager {
             lore.add("");
 
             if(pet.isActivated())
-                lore.add("§cCLICK TO DESELECT");
+                lore.add(languageManager.getLanguage().getStringFormatted("clickToDeselect"));
             else
-                lore.add("§6CLICK TO SELECT");
+                lore.add(languageManager.getLanguage().getStringFormatted("clickToSelect"));
 
             itemMeta.setLore(lore);
 

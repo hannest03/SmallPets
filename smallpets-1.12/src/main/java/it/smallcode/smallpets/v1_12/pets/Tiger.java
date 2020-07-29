@@ -12,6 +12,7 @@ import com.comphenix.protocol.ProtocolManager;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.wrappers.EnumWrappers;
 import com.comphenix.protocol.wrappers.WrappedDataWatcher;
+import it.smallcode.smallpets.languages.LanguageManager;
 import it.smallcode.smallpets.v1_12.SkullCreator;
 import net.minecraft.server.v1_12_R1.NBTTagCompound;
 import org.bukkit.Bukkit;
@@ -31,12 +32,16 @@ import java.util.UUID;
 
 public class Tiger extends it.smallcode.smallpets.v1_15.pets.Tiger {
 
-    public Tiger(Player owner, Long xp, Boolean useProtocolLib) {
-        super(owner, xp, useProtocolLib);
-    }
-
-    public Tiger(Player owner, Boolean useProtocolLib) {
-        this(owner, 0L, useProtocolLib);
+    /**
+     * Creates a pet
+     *
+     * @param owner           - the pet owner
+     * @param xp              - the xp
+     * @param useProtocolLib
+     * @param languageManager
+     */
+    public Tiger(Player owner, Long xp, boolean useProtocolLib, LanguageManager languageManager) {
+        super(owner, xp, useProtocolLib, languageManager);
     }
 
     @Override

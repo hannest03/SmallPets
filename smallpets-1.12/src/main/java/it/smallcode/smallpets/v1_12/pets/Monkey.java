@@ -12,6 +12,7 @@ import com.comphenix.protocol.ProtocolManager;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.wrappers.EnumWrappers;
 import com.comphenix.protocol.wrappers.WrappedDataWatcher;
+import it.smallcode.smallpets.languages.LanguageManager;
 import it.smallcode.smallpets.v1_12.SkullCreator;
 import net.minecraft.server.v1_12_R1.NBTTagCompound;
 import org.bukkit.Bukkit;
@@ -31,8 +32,8 @@ import java.util.UUID;
 
 public class Monkey extends it.smallcode.smallpets.v1_15.pets.Monkey {
 
-    public Monkey(Player owner, Long xp, Boolean useProtocolLib) {
-        super(owner, xp, useProtocolLib);
+    public Monkey(Player owner, Long xp, Boolean useProtocolLib, LanguageManager languageManager) {
+        super(owner, xp, useProtocolLib, languageManager);
     }
 
     public ItemStack getItem() {

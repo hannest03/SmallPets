@@ -7,12 +7,16 @@ Class created by SmallCode
 */
 
 import org.bukkit.ChatColor;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.MemorySection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Objects;
+import java.util.function.BiConsumer;
 
 public class Language {
 
@@ -57,8 +61,38 @@ public class Language {
 
         translations = new HashMap<>();
 
-        for(String key: cfg.getConfigurationSection("translations").getKeys(false)) {
-            translations.put(key, cfg.getString("translations." + key));
+        loadConfigurationSection("translations", Objects.requireNonNull(cfg.getConfigurationSection("translations")), cfg);
+
+        System.out.println("Loaded: ");
+
+        translations.forEach((s, s2) -> System.out.println(s + " | " + s2));
+
+    }
+
+    /**
+     *
+     * Loads a the language file recursively
+     *
+     * @param keyPre - the key before
+     * @param configurationSection - the configuration section
+     * @param cfg - the file configuration
+     */
+    private void loadConfigurationSection(String keyPre, ConfigurationSection configurationSection, FileConfiguration cfg){
+
+        for(String key : configurationSection.getKeys(false)){
+
+            if (cfg.get(keyPre + "." + key) instanceof ConfigurationSection) {
+
+                loadConfigurationSection(keyPre + "." + key, Objects.requireNonNull(cfg.getConfigurationSection(keyPre + "." + key)), cfg);
+
+            }else{
+
+                System.out.println(keyPre + "." + key + " | " + cfg.getString(keyPre + "." + key));
+
+                translations.put(keyPre + "." + key, cfg.getString(keyPre + "." + key));
+
+            }
+
         }
 
     }
@@ -73,13 +107,15 @@ public class Language {
 
     public String getString(String name){
 
+        name = "translations." + name;
+
         if(translations.containsKey(name)){
 
             return translations.get(name);
 
         }
 
-        return "";
+        return name;
 
     }
 
@@ -93,13 +129,7 @@ public class Language {
 
     public String getStringFormatted(String name){
 
-        if(translations.containsKey(name)){
-
-            return ChatColor.translateAlternateColorCodes('&', translations.get(name));
-
-        }
-
-        return name;
+        return ChatColor.translateAlternateColorCodes('&', getString(name));
 
     }
 
