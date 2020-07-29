@@ -58,6 +58,7 @@ public class SmallPets extends JavaPlugin {
 
         instance = this;
 
+        this.initConfig();
         this.loadConfig();
 
         inventoryCache = new InventoryCache();
@@ -169,7 +170,7 @@ public class SmallPets extends JavaPlugin {
 
     }
 
-    public void loadConfig(){
+    public void initConfig(){
 
         FileConfiguration cfg = this.getConfig();
 
@@ -179,6 +180,14 @@ public class SmallPets extends JavaPlugin {
         getConfig().options().copyDefaults(true);
 
         saveConfig();
+        reloadConfig();
+
+    }
+
+    public void loadConfig(){
+
+        FileConfiguration cfg = this.getConfig();
+
         reloadConfig();
 
         this.xpMultiplier = cfg.getDouble("xpMultiplier");

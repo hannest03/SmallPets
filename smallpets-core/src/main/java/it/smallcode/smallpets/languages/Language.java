@@ -63,10 +63,6 @@ public class Language {
 
         loadConfigurationSection("translations", Objects.requireNonNull(cfg.getConfigurationSection("translations")), cfg);
 
-        System.out.println("Loaded: ");
-
-        translations.forEach((s, s2) -> System.out.println(s + " | " + s2));
-
     }
 
     /**
@@ -86,8 +82,6 @@ public class Language {
                 loadConfigurationSection(keyPre + "." + key, Objects.requireNonNull(cfg.getConfigurationSection(keyPre + "." + key)), cfg);
 
             }else{
-
-                System.out.println(keyPre + "." + key + " | " + cfg.getString(keyPre + "." + key));
 
                 translations.put(keyPre + "." + key, cfg.getString(keyPre + "." + key));
 

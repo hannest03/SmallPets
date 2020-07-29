@@ -37,6 +37,17 @@ public class LanguageManager {
 
     }
 
+    public void loadLanguage(String newLanguage){
+
+        setSelectedLanguage(newLanguage);
+
+        Bukkit.getConsoleSender().sendMessage("§b" + newLanguage);
+        Bukkit.getConsoleSender().sendMessage("§b" + selectedLanguage);
+
+        loadLanguage();
+
+    }
+
     public void loadLanguage(){
 
         if(!plugin.getDataFolder().exists())

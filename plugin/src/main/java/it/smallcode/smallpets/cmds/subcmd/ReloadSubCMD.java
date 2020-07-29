@@ -12,7 +12,6 @@ import org.bukkit.command.CommandSender;
 
 public class ReloadSubCMD extends SubCommand {
 
-
     public ReloadSubCMD(String name, String permission) {
         super(name, permission);
     }
@@ -25,7 +24,7 @@ public class ReloadSubCMD extends SubCommand {
             if (args[0].equalsIgnoreCase("all")) {
 
                 SmallPets.getInstance().loadConfig();
-                SmallPets.getInstance().getLanguageManager().loadLanguage();
+                SmallPets.getInstance().getLanguageManager().loadLanguage(SmallPets.getInstance().getConfig().getString("language"));
 
                 s.sendMessage(SmallPets.getInstance().PREFIX + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("reloaded")
                         .replaceAll("%type%", "all"));
@@ -39,7 +38,8 @@ public class ReloadSubCMD extends SubCommand {
 
             } else if (args[0].equalsIgnoreCase("language")) {
 
-                SmallPets.getInstance().getLanguageManager().loadLanguage();
+                SmallPets.getInstance().reloadConfig();
+                SmallPets.getInstance().getLanguageManager().loadLanguage(SmallPets.getInstance().getConfig().getString("language"));
 
                 s.sendMessage(SmallPets.getInstance().PREFIX + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("reloaded")
                         .replaceAll("%type%", "language"));
@@ -60,6 +60,6 @@ public class ReloadSubCMD extends SubCommand {
 
     @Override
     public String getHelp() {
-        return getName() + "<all/config/language>";
+        return getName() + " <all/config/language>";
     }
 }
