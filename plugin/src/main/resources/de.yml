@@ -16,6 +16,9 @@ translations:
   commandIsOnlyForPlayers: "Dieser Befehl ist nur für Spieler"
   reloaded: '%type% wurde neugeladen'
   maxLevel: '&d&kS&d MAX LEVEL &d&kS'
+  experienceMultiplier: 'Erfahrungsmultiplikator'
+  stats: 'Statistiken'
+  experienceBooster: 'Erfahrungspunkte Booster'
   pet:
     tiger: 'Tiger'
     penguin: 'Pinguin'

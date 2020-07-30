@@ -14,6 +14,9 @@ translations:
   commandIsOnlyForPlayers: "This command is only for players"
   reloaded: 'Reloaded %type%'
   maxLevel: '&d&kS&d MAX LEVEL &d&kS'
+  experienceMultiplier: 'Experience multiplier'
+  stats: 'Stats'
+  experienceBooster: 'Experience booster'
   pet:
     tiger: 'tiger'
     penguin: 'penguin'

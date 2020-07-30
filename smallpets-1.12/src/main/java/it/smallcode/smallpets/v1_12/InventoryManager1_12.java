@@ -20,6 +20,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class InventoryManager1_12 extends InventoryManager {
@@ -31,9 +32,9 @@ public class InventoryManager1_12 extends InventoryManager {
      *
      * @param inventoryCache - the inventoryCache
      */
-    public InventoryManager1_12(InventoryCache inventoryCache, LanguageManager languageManager) {
+    public InventoryManager1_12(InventoryCache inventoryCache, LanguageManager languageManager, double xpMultiplier) {
 
-        super(inventoryCache, languageManager);
+        super(inventoryCache, languageManager, xpMultiplier);
 
         colors.add("§4");
         colors.add("§c");
@@ -69,6 +70,24 @@ public class InventoryManager1_12 extends InventoryManager {
             }
 
         }
+
+        ItemStack stats = new ItemStack(Material.REDSTONE_TORCH_ON);
+
+        ItemMeta itemMeta = stats.getItemMeta();
+
+        itemMeta.setDisplayName("§6" + languageManager.getLanguage().getStringFormatted("stats"));
+
+        List<String> lore = new LinkedList<>();
+
+        lore.add("");
+        lore.add("§e" + languageManager.getLanguage().getStringFormatted("experienceMultiplier") + "§8: §7" + ((int) (xpMultiplier *100)) / 100);
+        lore.add("");
+
+        itemMeta.setLore(lore);
+
+        stats.setItemMeta(itemMeta);
+
+        inventory.setItem(40, stats);
 
         p.openInventory(inventory);
 

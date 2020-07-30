@@ -12,7 +12,7 @@ import it.smallcode.smallpets.v1_15.InventoryManager1_15;
 
 public class InventoryManager1_13 extends InventoryManager1_15 {
 
-    public InventoryManager1_13(InventoryCache inventoryCache, LanguageManager languageManager) {
-        super(inventoryCache, languageManager);
+    public InventoryManager1_13(InventoryCache inventoryCache, LanguageManager languageManager, double xpMultiplier) {
+        super(inventoryCache, languageManager, xpMultiplier);
     }
 }
