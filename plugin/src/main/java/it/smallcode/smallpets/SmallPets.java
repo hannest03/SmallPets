@@ -50,6 +50,7 @@ public class SmallPets extends JavaPlugin {
     public final String PREFIX = "§e○§6◯  SmallPets §e◆ ";
 
     private double xpMultiplier;
+    private boolean registerCraftingRecipes;
 
     public static boolean useProtocolLib = false;
 
@@ -92,11 +93,15 @@ public class SmallPets extends JavaPlugin {
 
         Bukkit.getConsoleSender().sendMessage(PREFIX + "Registered pets");
 
-        Bukkit.getConsoleSender().sendMessage(PREFIX + "Registering crafting recipes...");
+        if(registerCraftingRecipes) {
 
-        petMapManager.registerCraftingRecipe(this, languageManager);
+            Bukkit.getConsoleSender().sendMessage(PREFIX + "Registering crafting recipes...");
 
-        Bukkit.getConsoleSender().sendMessage(PREFIX + "Registered crafting recipes!");
+            petMapManager.registerCraftingRecipe(this, languageManager);
+
+            Bukkit.getConsoleSender().sendMessage(PREFIX + "Registered crafting recipes!");
+
+        }
 
         //Registering all listeners
 
@@ -176,6 +181,7 @@ public class SmallPets extends JavaPlugin {
 
         cfg.addDefault("xpMultiplier", 1D);
         cfg.addDefault("language", "en");
+        cfg.addDefault("registerCraftingRecipes", true);
 
         getConfig().options().copyDefaults(true);
 
@@ -191,6 +197,7 @@ public class SmallPets extends JavaPlugin {
         FileConfiguration cfg = this.getConfig();
 
         this.xpMultiplier = cfg.getDouble("xpMultiplier");
+        this.registerCraftingRecipes = cfg.getBoolean("registerCraftingRecipes");
 
         if(inventoryManager != null){
 

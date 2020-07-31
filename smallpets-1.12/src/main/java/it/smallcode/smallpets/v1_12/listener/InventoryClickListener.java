@@ -42,7 +42,7 @@ public class InventoryClickListener implements Listener {
 
             if(e.getCurrentItem() != null && e.getCurrentItem().getItemMeta() != null && e.getCurrentItem().getItemMeta().getDisplayName() != null) {
 
-                if (e.getCurrentItem().getTypeId() != 160) {
+                if (e.getCurrentItem().getTypeId() == 397) {
 
                     Player p = (Player) e.getWhoClicked();
 

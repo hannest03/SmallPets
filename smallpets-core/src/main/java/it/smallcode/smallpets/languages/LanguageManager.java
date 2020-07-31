@@ -16,6 +16,8 @@ import java.util.Objects;
 
 public class LanguageManager {
 
+    private static final String[] languages = {"en", "de", "it"};
+
     private JavaPlugin plugin;
     private String prefix;
     private String selectedLanguage;
@@ -57,35 +59,19 @@ public class LanguageManager {
 
         Bukkit.getConsoleSender().sendMessage(prefix + "Loading language " + selectedLanguage + " ...");
 
-        File enFile = new File(dir.getAbsolutePath(), "en.yml");
+        for(String lang : languages){
 
-        if(!enFile.exists()){
+            File file = new File(dir.getAbsolutePath(), lang + ".yml");
 
-            FileUtils.insertData("en.yml", dir.getAbsoluteFile() + "/en.yml", plugin);
+            if(!file.exists()){
 
-        }
+                FileUtils.insertData(lang + ".yml", dir.getAbsoluteFile() + "/" + lang + ".yml", plugin);
 
-        updateFile(enFile);
+            }
 
-        File deFile = new File(dir.getAbsolutePath(), "de.yml");
-
-        if(!deFile.exists()){
-
-            FileUtils.insertData("de.yml", dir.getAbsoluteFile() + "/de.yml", plugin);
+            updateFile(file);
 
         }
-
-        updateFile(deFile);
-
-        File itFile = new File(dir.getAbsolutePath(), "it.yml");
-
-        if(!itFile.exists()){
-
-            FileUtils.insertData("it.yml", dir.getAbsoluteFile() + "/it.yml", plugin);
-
-        }
-
-        updateFile(itFile);
 
         for(File file : dir.listFiles()){
 
