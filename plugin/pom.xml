@@ -99,6 +99,7 @@
                     <include>en.yml</include>
                     <include>de.yml</include>
                     <include>it.yml</include>
+                    <include>pl.yml</include>
                 </includes>
             </resource>
         </resources>

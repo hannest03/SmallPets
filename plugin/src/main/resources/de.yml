@@ -19,6 +19,8 @@ translations:
   experienceMultiplier: 'Erfahrungsmultiplikator'
   stats: 'Statistiken'
   experienceBooster: 'Erfahrungspunkte Booster'
+  petNameFormat: "&8[%level%&8] &7%player_name%s "
+  petNameFormatTwoS: "&8[%level%&8] &7%player_name%' "
   pet:
     tiger: 'Tiger'
     penguin: 'Pinguin'

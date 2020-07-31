@@ -100,7 +100,7 @@ public class InventoryManager1_15 extends InventoryManager {
 
             ItemMeta itemMeta = itemStack.getItemMeta();
 
-            itemMeta.setDisplayName("§e" + p.getName() + "s " + languageManager.getLanguage().getStringFormatted("pet." + pet.getName()));
+            itemMeta.setDisplayName(pet.getCustomeName());
 
             ArrayList<String> lore = new ArrayList();
 

@@ -158,7 +158,7 @@ public class SamplePet extends Pet {
                 hoverAnimation = new HoverAnimation(pet, 0.025, 0.2, -0.5);
 
                 if(getLevel() == 100)
-                    levelOnehundretAnimation = new LevelOnehundretAnimation(pet, plugin);
+                    levelOnehundretAnimation = new LevelOnehundretAnimation(pet, getLanguageManager(),  plugin);
 
                 logicID = Bukkit.getScheduler().scheduleAsyncRepeatingTask(plugin, new Runnable() {
                     @Override
@@ -358,7 +358,7 @@ public class SamplePet extends Pet {
         hoverAnimation = new HoverAnimation(this, 0.025, 0.2, -0.5);
 
         if(getLevel() == 100)
-            levelOnehundretAnimation = new LevelOnehundretAnimation(this, plugin);
+            levelOnehundretAnimation = new LevelOnehundretAnimation(this, getLanguageManager(), plugin);
 
         logicID = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
             @Override
@@ -408,7 +408,7 @@ public class SamplePet extends Pet {
             setCustomName(getCustomeName());
 
             if(getLevel() == 100)
-                levelOnehundretAnimation = new LevelOnehundretAnimation(this, plugin);
+                levelOnehundretAnimation = new LevelOnehundretAnimation(this, getLanguageManager(), plugin);
 
         }
 

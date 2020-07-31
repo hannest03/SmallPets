@@ -315,15 +315,20 @@ public abstract class Pet {
 
     public String getCustomeName(){
 
+        String name = "";
+
         if(owner.getName().endsWith("s")){
-
-            return  "§8[" + getLevelColor() + getLevel() + "§8] §7" + owner.getName() + "' " + getName();
-
+            name = languageManager.getLanguage().getStringFormatted("petNameFormatTwoS");
         }else {
-
-            return "§8[" + getLevelColor() + getLevel() + "§8] §7" + owner.getName() + "'s " + getName();
-
+            name = languageManager.getLanguage().getStringFormatted("petNameFormat");
         }
+
+        name = name.replaceAll("%level%", getLevelColor() + getLevel());
+        name = name.replaceAll("%player_name%", owner.getName());
+
+        name += languageManager.getLanguage().getStringFormatted("pet." + getName());
+
+        return name;
 
     }
 

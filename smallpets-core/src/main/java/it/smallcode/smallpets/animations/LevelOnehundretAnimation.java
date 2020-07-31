@@ -6,6 +6,7 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.languages.LanguageManager;
 import it.smallcode.smallpets.pets.Pet;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.ArmorStand;
@@ -20,7 +21,7 @@ public class LevelOnehundretAnimation {
 
     private int counter = 0;
 
-    public LevelOnehundretAnimation(final Pet pet, Plugin plugin){
+    public LevelOnehundretAnimation(final Pet pet, LanguageManager languageManager, Plugin plugin){
 
         final ArrayList<String> colors = new ArrayList<>();
 
@@ -50,15 +51,22 @@ public class LevelOnehundretAnimation {
                 if(next == colors.size())
                     next = 0;
 
-                if(pet.getOwner().getName().endsWith("s")) {
+                String name = "";
 
-                    pet.setCustomName("§8[" + colors.get(last) + "1" + colors.get(counter) + "0" + colors.get(next) + "0§8] §7" + pet.getOwner().getName() + "' " + pet.getName());
-
-                }else{
-
-                    pet.setCustomName("§8[" + colors.get(last) + "1" + colors.get(counter) + "0" + colors.get(next) + "0§8] §7" + pet.getOwner().getName() + "'s " + pet.getName());
-
+                if(pet.getOwner().getName().endsWith("s")){
+                    name = languageManager.getLanguage().getStringFormatted("petNameFormatTwoS");
+                }else {
+                    name = languageManager.getLanguage().getStringFormatted("petNameFormat");
                 }
+
+                String level = colors.get(last) + "1" + colors.get(counter) + "0" + colors.get(next) + "0";
+
+                name = name.replaceAll("%level%", level);
+                name = name.replaceAll("%player_name%", pet.getOwner().getName());
+
+                name += languageManager.getLanguage().getStringFormatted("pet." + pet.getName());
+
+                pet.setCustomName(name);
 
                 counter++;
 
