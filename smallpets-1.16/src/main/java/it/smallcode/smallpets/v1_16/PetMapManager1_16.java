@@ -40,9 +40,9 @@ public class PetMapManager1_16 extends PetMapManager {
 
                 try {
 
-                    Constructor constructor = aClass.getConstructor(Player.class, LanguageManager.class);
+                    Constructor constructor = aClass.getConstructor(Player.class, Long.class, Boolean.class, LanguageManager.class);
 
-                    Pet pet = (Pet) constructor.newInstance(null, languageManager);
+                    Pet pet = (Pet) constructor.newInstance(null, 0L, false, languageManager);
 
                     pet.registerRecipe(plugin);
 

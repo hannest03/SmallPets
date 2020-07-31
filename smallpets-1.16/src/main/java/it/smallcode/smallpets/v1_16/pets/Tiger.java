@@ -22,18 +22,8 @@ public class Tiger extends it.smallcode.smallpets.v1_15.pets.Tiger {
      * @param useProtocolLib
      * @param languageManager
      */
-    public Tiger(Player owner, Long xp, boolean useProtocolLib, LanguageManager languageManager) {
+    public Tiger(Player owner, Long xp, Boolean useProtocolLib, LanguageManager languageManager) {
         super(owner, xp, useProtocolLib, languageManager);
-    }
-
-    /**
-     * Creates a pet
-     *
-     * @param owner           - the pet owner
-     * @param languageManager - the LanguageManager
-     */
-    public Tiger(Player owner, LanguageManager languageManager) {
-        super(owner, 0L, false, languageManager);
     }
 
     @Override
