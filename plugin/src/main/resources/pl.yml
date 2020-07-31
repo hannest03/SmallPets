@@ -9,6 +9,8 @@ translations:
   clickToDeselect: '&cKLIKNIJ ABY ZDESPAWNOWAC'
   givePetSender: Dano zwierzaka (%pet_type%) graczowi %player%!
   givePetReciever: Otrzymano zwierzaka (%pet_type%) od %sender%!
+  removePetSender: 'Zwierzak (%pet_type%) zostal zabrany od %player%!'
+  removePetReciever: 'Twoj zwierzak (%pet_type%) zostal zabrany przez %sender%!'
   playerIsntOnline: Ten gracz nie jest online!
   userDataNotFound: Nie znaleziono danych!
   commandIsOnlyForPlayers: Ta komenda jest tylko dla graczy

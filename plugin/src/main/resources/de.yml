@@ -9,7 +9,7 @@ translations:
   clickToDeselect: '&cKLICKEN UM ABZUWÄHLEN'
   givePetSender: 'Das %pet_type% Haustier wurde %player% gegeben!'
   givePetReciever: 'Dir wurde das %pet_type% Haustier von %sender% gegeben!'
-  removePetSender: 'Das %pet_type% Haustier wurde %player5 genommen!'
+  removePetSender: 'Das %pet_type% Haustier wurde %player% genommen!'
   removePetReciever: 'Dir wurde das %pet_type% Haustier von %sender% genommen!'
   playerIsntOnline: "Der Spieler ist nicht online!"
   userDataNotFound: "Deine Nutzerdaten wurden nicht gefunden!"

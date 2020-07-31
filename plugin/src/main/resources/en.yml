@@ -9,6 +9,8 @@ translations:
   clickToDeselect: '&cCLICK TO DESELECT'
   givePetSender: 'Gave the %pet_type% pet to %player%!'
   givePetReciever: 'You received the %pet_type% pet from %sender%!'
+  removePetSender: 'The %pet_type% pet was taken from %player%!'
+  removePetReciever: 'Your %pet_type% pet was taken by %sender%!'
   playerIsntOnline: "The player isn't online!"
   userDataNotFound: "Your user data couldn't be found!"
   commandIsOnlyForPlayers: "This command is only for players"
