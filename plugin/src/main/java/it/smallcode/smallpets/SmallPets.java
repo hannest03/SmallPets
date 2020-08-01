@@ -149,6 +149,8 @@ public class SmallPets extends JavaPlugin {
 
         }));
 
+        metrics.addCustomChart(new Metrics.SimplePie("languages", () -> languageManager.getLanguage().getLanguageName()));
+
         Bukkit.getConsoleSender().sendMessage(PREFIX + "Metrics started!");
 
         //Loading the users which are online
