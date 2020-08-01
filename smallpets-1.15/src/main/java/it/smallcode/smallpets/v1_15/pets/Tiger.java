@@ -71,37 +71,6 @@ public class Tiger extends SamplePet {
 
     }
 
-    /**
-     *
-     * Returns the item to unlock the tiger
-     *
-     * @param plugin - the plugin
-     * @return the item to unlock the tiger
-     */
-    @Override
-    public ItemStack getUnlockItem(Plugin plugin){
-
-        ItemStack item = getItem();
-
-        ItemMeta itemMeta = item.getItemMeta();
-
-        itemMeta.setDisplayName("§6Tiger");
-
-        ArrayList<String> lore = new ArrayList<>();
-
-        lore.add("");
-        lore.add("§6RIGHT CLICK TO UNLOCK");
-
-        itemMeta.setLore(lore);
-
-        itemMeta.getPersistentDataContainer().set(new NamespacedKey(plugin, "pet"), PersistentDataType.STRING, getName());
-
-        item.setItemMeta(itemMeta);
-
-        return item;
-
-    }
-
     @Override
     public String getAbility() {
 

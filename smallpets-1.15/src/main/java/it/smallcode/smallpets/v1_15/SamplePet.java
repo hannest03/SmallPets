@@ -23,19 +23,19 @@ import it.smallcode.smallpets.pets.Pet;
 import it.smallcode.smallpets.animations.LevelOnehundretAnimation;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.NamespacedKey;
 import org.bukkit.Particle;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 /**
  *
@@ -51,7 +51,7 @@ public class SamplePet extends Pet {
      * @param owner - the pet owner
      * @param xp - the xp
      */
-    public SamplePet(Player owner, Long xp, boolean useProtocolLib, LanguageManager languageManager) {
+    public SamplePet(Player owner, Long xp, Boolean useProtocolLib, LanguageManager languageManager) {
         super(owner, xp, useProtocolLib, languageManager);
     }
 
@@ -460,7 +460,28 @@ public class SamplePet extends Pet {
 
     @Override
     public ItemStack getUnlockItem(Plugin plugin) {
-        return null;
+
+        ItemStack item = getItem();
+
+        ItemMeta itemMeta = item.getItemMeta();
+
+        String name = getName();
+
+        itemMeta.setDisplayName("§6" + name.substring(0, 1).toUpperCase() + name.substring(1));
+
+        ArrayList<String> lore = new ArrayList<>();
+
+        lore.add("");
+        lore.add("§6RIGHT CLICK TO UNLOCK");
+
+        itemMeta.setLore(lore);
+
+        itemMeta.getPersistentDataContainer().set(new NamespacedKey(plugin, "pet"), PersistentDataType.STRING, getName());
+
+        item.setItemMeta(itemMeta);
+
+        return item;
+
     }
 
     @Override
@@ -477,7 +498,7 @@ public class SamplePet extends Pet {
 
         for(Player p : sendPacketToPlayers(owner)){
 
-            p.spawnParticle(Particle.VILLAGER_HAPPY, particleLoc, 1);
+            p.spawnParticle(getParticle(), particleLoc, 1);
 
         }
 

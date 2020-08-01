@@ -31,42 +31,4 @@ public class PetMapManager1_12 extends PetMapManager {
         petMap.put("monkey", Monkey.class);
 
     }
-
-    @Override
-    public void registerCraftingRecipe(Plugin plugin, LanguageManager languageManager) {
-
-        petMap.values().iterator().forEachRemaining(new Consumer<Class>() {
-            @Override
-            public void accept(Class aClass) {
-
-                try {
-
-                    Constructor constructor = aClass.getConstructor(Player.class, Long.class, Boolean.class, LanguageManager.class);
-
-                    Pet pet = (Pet) constructor.newInstance(null, 0L, false, languageManager);
-
-                    pet.registerRecipe(plugin);
-
-                } catch (NoSuchMethodException ex) {
-
-                    ex.printStackTrace();
-
-                } catch (IllegalAccessException ex) {
-
-                    ex.printStackTrace();
-
-                } catch (InstantiationException ex) {
-
-                    ex.printStackTrace();
-
-                } catch (InvocationTargetException ex) {
-
-                    ex.printStackTrace();
-
-                }
-
-            }
-        });
-
-    }
 }

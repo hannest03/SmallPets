@@ -13,9 +13,16 @@ import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.wrappers.EnumWrappers;
 import com.comphenix.protocol.wrappers.WrappedDataWatcher;
 import it.smallcode.smallpets.languages.LanguageManager;
+import net.minecraft.server.v1_12_R1.NBTTagCompound;
 import org.bukkit.Location;
+import org.bukkit.Particle;
+import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.plugin.Plugin;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,6 +38,55 @@ public class SamplePet extends it.smallcode.smallpets.v1_15.SamplePet {
      */
     public SamplePet(Player owner, Long xp, boolean useProtocolLib, LanguageManager languageManager) {
         super(owner, xp, useProtocolLib, languageManager);
+    }
+
+    /**
+     *
+     * Returns the item to unlock the tiger
+     *
+     * @param plugin - the plugin
+     * @return the item to unlock the tiger
+     */
+    @Override
+    public ItemStack getUnlockItem(Plugin plugin){
+
+        ItemStack item = getItem();
+
+        ItemMeta itemMeta = item.getItemMeta();
+
+        String name = getName();
+
+        itemMeta.setDisplayName("§6" + name.substring(0, 1).toUpperCase() + name.substring(1));
+
+        ArrayList<String> lore = new ArrayList<>();
+
+        lore.add("");
+        lore.add("§6RIGHT CLICK TO UNLOCK");
+
+        itemMeta.setLore(lore);
+
+        item.setItemMeta(itemMeta);
+
+        item = addNBTTag(item, "pet", getName());
+
+        return item;
+
+    }
+
+    private ItemStack addNBTTag(ItemStack itemStack, String key, String value){
+
+        net.minecraft.server.v1_12_R1.ItemStack stack = CraftItemStack.asNMSCopy(itemStack);
+
+        NBTTagCompound tag = stack.getTag() != null ? stack.getTag() : new NBTTagCompound();
+
+        tag.setString(key, value);
+
+        stack.setTag(tag);
+
+        itemStack = CraftItemStack.asCraftMirror(stack);
+
+        return itemStack;
+
     }
 
     @Override

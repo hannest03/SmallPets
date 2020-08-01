@@ -7,8 +7,8 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.languages.LanguageManager;
-import it.smallcode.smallpets.manager.UserManager;
 import org.bukkit.Location;
+import org.bukkit.Particle;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -33,6 +33,8 @@ public abstract class Pet {
     private static final double xpToLevelTwo = 500;
 
     private final double tach;
+
+    private Particle particle = Particle.VILLAGER_HAPPY;
 
     protected long xp = 0;
 
@@ -367,5 +369,13 @@ public abstract class Pet {
 
     public LanguageManager getLanguageManager() {
         return languageManager;
+    }
+
+    public Particle getParticle() {
+        return particle;
+    }
+
+    public void setParticle(Particle particle) {
+        this.particle = particle;
     }
 }
