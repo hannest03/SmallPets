@@ -6,7 +6,6 @@ Class created by SmallCode
 
 */
 
-import it.smallcode.smallpets.languages.Language;
 import it.smallcode.smallpets.languages.LanguageManager;
 import it.smallcode.smallpets.manager.InventoryCache;
 import it.smallcode.smallpets.manager.ListenerManager;

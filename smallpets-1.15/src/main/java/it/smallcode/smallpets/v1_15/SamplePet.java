@@ -17,6 +17,8 @@ import it.smallcode.smallpets.animations.FollowPlayerAnimation;
 import it.smallcode.smallpets.animations.HoverAnimation;
 import it.smallcode.smallpets.events.PetLevelUpEvent;
 import it.smallcode.smallpets.languages.LanguageManager;
+import it.smallcode.smallpets.manager.UserManager;
+import it.smallcode.smallpets.manager.types.User;
 import it.smallcode.smallpets.pets.Pet;
 import it.smallcode.smallpets.animations.LevelOnehundretAnimation;
 import org.bukkit.Bukkit;
@@ -514,8 +516,6 @@ public class SamplePet extends Pet {
         setLocation(loc);
 
     }
-
-
 
     protected ArmorStand createArmorStand(Location loc){
 

@@ -281,7 +281,8 @@ public class UserManager {
 
         for(User user : users){
 
-            user.spawnSelected();
+            if(Bukkit.getOfflinePlayer(user.getUuid()).isOnline())
+                user.spawnSelected();
 
         }
 
