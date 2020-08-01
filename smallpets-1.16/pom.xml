@@ -40,6 +40,14 @@
             <version>1.16.1-R0.1-SNAPSHOT</version>
             <type>jar</type>
             <optional>true</optional>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.comphenix.protocol</groupId>
+            <artifactId>ProtocolLib</artifactId>
+            <version>devbuild</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>

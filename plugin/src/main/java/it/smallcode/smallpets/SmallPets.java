@@ -66,19 +66,9 @@ public class SmallPets extends JavaPlugin {
 
         if(Bukkit.getPluginManager().getPlugin("ProtocolLib") != null && Bukkit.getPluginManager().getPlugin("ProtocolLib").isEnabled()){
 
-            String version = Bukkit.getServer().getClass().getPackage().getName();
+            useProtocolLib = true;
 
-            version = version.substring(version.lastIndexOf('.'));
-
-            version = version.replace(".v", "");
-
-            if(!version.startsWith("1_16")) {
-
-                useProtocolLib = true;
-
-                Bukkit.getConsoleSender().sendMessage(PREFIX + "Found ProtocolLib, now using it.");
-
-            }
+            Bukkit.getConsoleSender().sendMessage(PREFIX + "Found ProtocolLib, now using it.");
 
         }
 
