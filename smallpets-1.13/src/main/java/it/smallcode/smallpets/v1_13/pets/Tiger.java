@@ -39,7 +39,7 @@ public class Tiger extends it.smallcode.smallpets.v1_15.pets.Tiger {
      * @param useProtocolLib
      * @param languageManager
      */
-    public Tiger(Player owner, Long xp, boolean useProtocolLib, LanguageManager languageManager) {
+    public Tiger(Player owner, Long xp, Boolean useProtocolLib, LanguageManager languageManager) {
         super(owner, xp, useProtocolLib, languageManager);
     }
 
