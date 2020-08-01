@@ -6,6 +6,8 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.languages.LanguageManager;
+import it.smallcode.smallpets.manager.UserManager;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
@@ -23,6 +25,8 @@ import java.util.List;
  */
 
 public abstract class Pet {
+
+    private LanguageManager languageManager;
 
     private static final double minLevel = 1;
     private static final double maxLevel = 101;
@@ -58,12 +62,14 @@ public abstract class Pet {
      * @param useProtocolLib - boolean if protocolLib is being used
      */
 
-    public Pet(Player owner, Long xp, Boolean useProtocolLib) {
+    public Pet(Player owner, Long xp, Boolean useProtocolLib, LanguageManager languageManager) {
 
         this.owner = owner;
         this.xp = xp;
 
         this.useProtocolLib = useProtocolLib;
+
+        this.languageManager = languageManager;
 
         tach = -(Math.log(((getLevel() +1) - maxLevel) / -(maxLevel - minLevel)) / xpToLevelTwo);
 
@@ -77,9 +83,9 @@ public abstract class Pet {
      * @param useProtocolLib - boolean if protocolLib is being used
      */
 
-    public Pet(Player owner, Boolean useProtocolLib) {
+    public Pet(Player owner, Boolean useProtocolLib, LanguageManager languageManager) {
 
-        this(owner, 0L, useProtocolLib);
+        this(owner, 0L, useProtocolLib, languageManager);
 
     }
 
@@ -91,9 +97,9 @@ public abstract class Pet {
      *
      */
 
-    public Pet(Player owner) {
+    public Pet(Player owner, LanguageManager languageManager) {
 
-        this(owner, 0L, false);
+        this(owner, 0L, false, languageManager);
 
     }
 
@@ -310,15 +316,20 @@ public abstract class Pet {
 
     public String getCustomeName(){
 
+        String name = "";
+
         if(owner.getName().endsWith("s")){
-
-            return  "§8[" + getLevelColor() + getLevel() + "§8] §7" + owner.getName() + "' " + getName();
-
+            name = languageManager.getLanguage().getStringFormatted("petNameFormatTwoS");
         }else {
-
-            return "§8[" + getLevelColor() + getLevel() + "§8] §7" + owner.getName() + "'s " + getName();
-
+            name = languageManager.getLanguage().getStringFormatted("petNameFormat");
         }
+
+        name = name.replaceAll("%level%", getLevelColor() + getLevel());
+        name = name.replaceAll("%player_name%", owner.getName());
+
+        name += languageManager.getLanguage().getStringFormatted("pet." + getName());
+
+        return name;
 
     }
 
@@ -352,5 +363,9 @@ public abstract class Pet {
 
     public void setPauseLogic(boolean pauseLogic) {
         this.pauseLogic = pauseLogic;
+    }
+
+    public LanguageManager getLanguageManager() {
+        return languageManager;
     }
 }

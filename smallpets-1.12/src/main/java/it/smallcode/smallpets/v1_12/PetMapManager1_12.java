@@ -6,6 +6,8 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.languages.Language;
+import it.smallcode.smallpets.languages.LanguageManager;
 import it.smallcode.smallpets.manager.PetMapManager;
 import it.smallcode.smallpets.pets.Pet;
 import it.smallcode.smallpets.v1_12.pets.Monkey;
@@ -31,7 +33,7 @@ public class PetMapManager1_12 extends PetMapManager {
     }
 
     @Override
-    public void registerCraftingRecipe(Plugin plugin) {
+    public void registerCraftingRecipe(Plugin plugin, LanguageManager languageManager) {
 
         petMap.values().iterator().forEachRemaining(new Consumer<Class>() {
             @Override
@@ -39,9 +41,9 @@ public class PetMapManager1_12 extends PetMapManager {
 
                 try {
 
-                    Constructor constructor = aClass.getConstructor(Player.class, Long.class, Boolean.class);
+                    Constructor constructor = aClass.getConstructor(Player.class, Long.class, Boolean.class, LanguageManager.class);
 
-                    Pet pet = (Pet) constructor.newInstance(null, 0L, false);
+                    Pet pet = (Pet) constructor.newInstance(null, 0L, false, languageManager);
 
                     pet.registerRecipe(plugin);
 

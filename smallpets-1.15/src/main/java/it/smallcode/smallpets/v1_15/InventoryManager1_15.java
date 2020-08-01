@@ -6,6 +6,8 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.languages.Language;
+import it.smallcode.smallpets.languages.LanguageManager;
 import it.smallcode.smallpets.manager.InventoryCache;
 import it.smallcode.smallpets.manager.InventoryManager;
 import it.smallcode.smallpets.pets.Pet;
@@ -18,15 +20,16 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class InventoryManager1_15 extends InventoryManager {
 
     private final ArrayList<String> colors = new ArrayList<>();
 
-    public InventoryManager1_15(InventoryCache inventoryCache) {
+    public InventoryManager1_15(InventoryCache inventoryCache, LanguageManager languageManager, double xpMultiplier) {
 
-        super(inventoryCache);
+        super(inventoryCache, languageManager, xpMultiplier);
 
         colors.add("§4");
         colors.add("§c");
@@ -64,6 +67,27 @@ public class InventoryManager1_15 extends InventoryManager {
 
         }
 
+        ItemStack stats = new ItemStack(Material.REDSTONE_TORCH);
+
+        ItemMeta itemMeta = stats.getItemMeta();
+
+        itemMeta.setDisplayName("§6" + languageManager.getLanguage().getStringFormatted("stats"));
+
+        List<String> lore = new LinkedList<>();
+
+        double experienceMultiplier = (int) (xpMultiplier * 100D) /100D;
+
+        lore.add("");
+        lore.add("§e" + languageManager.getLanguage().getStringFormatted("experienceMultiplier") + "§8: §7" + experienceMultiplier);
+        lore.add("§e" + languageManager.getLanguage().getStringFormatted("experienceBooster") + "§8: §7" + "none");
+        lore.add("");
+
+        itemMeta.setLore(lore);
+
+        stats.setItemMeta(itemMeta);
+
+        inventory.setItem(40, stats);
+
         p.openInventory(inventory);
 
     }
@@ -76,7 +100,7 @@ public class InventoryManager1_15 extends InventoryManager {
 
             ItemMeta itemMeta = itemStack.getItemMeta();
 
-            itemMeta.setDisplayName("§e" + p.getName() + "s " + pet.getName());
+            itemMeta.setDisplayName(pet.getCustomeName());
 
             ArrayList<String> lore = new ArrayList();
 
@@ -95,7 +119,7 @@ public class InventoryManager1_15 extends InventoryManager {
 
             lore.add(progressBar);
 
-            String expB = "§d§kS§d MAX LEVEL §d§kS";
+            String expB = languageManager.getLanguage().getStringFormatted("maxLevel");
 
             if(pet.getLevel() != 100) {
                 expB = pet.getLevelColor() + (pet.getXp() - pet.getExpForLevel(pet.getLevel())) + "§8/" + pet.getLevelColor() + (pet.getExpForNextLevel() - pet.getExpForLevel(pet.getLevel()));
@@ -108,9 +132,9 @@ public class InventoryManager1_15 extends InventoryManager {
             lore.add("");
 
             if(pet.isActivated())
-                lore.add("§cCLICK TO DESELECT");
+                lore.add(languageManager.getLanguage().getStringFormatted("clickToDeselect"));
             else
-                lore.add("§6CLICK TO SELECT");
+                lore.add(languageManager.getLanguage().getStringFormatted("clickToSelect"));
 
             itemMeta.setLore(lore);
 

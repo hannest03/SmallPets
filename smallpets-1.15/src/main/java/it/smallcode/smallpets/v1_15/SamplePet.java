@@ -16,6 +16,9 @@ import com.comphenix.protocol.wrappers.WrappedDataWatcher;
 import it.smallcode.smallpets.animations.FollowPlayerAnimation;
 import it.smallcode.smallpets.animations.HoverAnimation;
 import it.smallcode.smallpets.events.PetLevelUpEvent;
+import it.smallcode.smallpets.languages.LanguageManager;
+import it.smallcode.smallpets.manager.UserManager;
+import it.smallcode.smallpets.manager.types.User;
 import it.smallcode.smallpets.pets.Pet;
 import it.smallcode.smallpets.animations.LevelOnehundretAnimation;
 import org.bukkit.Bukkit;
@@ -48,8 +51,8 @@ public class SamplePet extends Pet {
      * @param owner - the pet owner
      * @param xp - the xp
      */
-    public SamplePet(Player owner, Long xp, boolean useProtocolLib) {
-        super(owner, xp, useProtocolLib);
+    public SamplePet(Player owner, Long xp, boolean useProtocolLib, LanguageManager languageManager) {
+        super(owner, xp, useProtocolLib, languageManager);
     }
 
     protected FollowPlayerAnimation followPlayerArmorStand;
@@ -157,7 +160,7 @@ public class SamplePet extends Pet {
                 hoverAnimation = new HoverAnimation(pet, 0.025, 0.2, -0.5);
 
                 if(getLevel() == 100)
-                    levelOnehundretAnimation = new LevelOnehundretAnimation(pet, plugin);
+                    levelOnehundretAnimation = new LevelOnehundretAnimation(pet, getLanguageManager(),  plugin);
 
                 logicID = Bukkit.getScheduler().scheduleAsyncRepeatingTask(plugin, new Runnable() {
                     @Override
@@ -357,7 +360,7 @@ public class SamplePet extends Pet {
         hoverAnimation = new HoverAnimation(this, 0.025, 0.2, -0.5);
 
         if(getLevel() == 100)
-            levelOnehundretAnimation = new LevelOnehundretAnimation(this, plugin);
+            levelOnehundretAnimation = new LevelOnehundretAnimation(this, getLanguageManager(), plugin);
 
         logicID = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
             @Override
@@ -407,7 +410,7 @@ public class SamplePet extends Pet {
             setCustomName(getCustomeName());
 
             if(getLevel() == 100)
-                levelOnehundretAnimation = new LevelOnehundretAnimation(this, plugin);
+                levelOnehundretAnimation = new LevelOnehundretAnimation(this, getLanguageManager(), plugin);
 
         }
 
@@ -513,8 +516,6 @@ public class SamplePet extends Pet {
         setLocation(loc);
 
     }
-
-
 
     protected ArmorStand createArmorStand(Location loc){
 

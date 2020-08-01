@@ -8,6 +8,7 @@ Class created by SmallCode
 
 import it.smallcode.smallpets.events.DespawnPetEvent;
 import it.smallcode.smallpets.events.SpawnPetEvent;
+import it.smallcode.smallpets.languages.LanguageManager;
 import it.smallcode.smallpets.manager.PetMapManager;
 import it.smallcode.smallpets.pets.Pet;
 import org.bukkit.Bukkit;
@@ -76,7 +77,7 @@ public class User {
      * @param useProtocolLib - boolean if ProtocolLib is being used
      */
 
-    public User(String uuid, Map<String, Object> data, PetMapManager petMapManager, JavaPlugin plugin, boolean useProtocolLib){
+    public User(String uuid, Map<String, Object> data, PetMapManager petMapManager, JavaPlugin plugin, boolean useProtocolLib, LanguageManager languageManager){
 
         this.plugin = plugin;
 
@@ -88,7 +89,7 @@ public class User {
 
         for(Map<String, Object> petData : petDatas){
 
-            pets.add(unserializePet(petData, petMapManager, uuid, useProtocolLib));
+            pets.add(unserializePet(petData, petMapManager, uuid, useProtocolLib, languageManager));
 
         }
 
@@ -304,7 +305,7 @@ public class User {
      * @return - the unserialized pet
      */
 
-    private Pet unserializePet(Map<String, Object> data, PetMapManager petMapManager, String uuid, boolean useProtocolLib){
+    private Pet unserializePet(Map<String, Object> data, PetMapManager petMapManager, String uuid, boolean useProtocolLib, LanguageManager languageManager){
 
         String type = (String) data.get("type");
 
@@ -314,9 +315,9 @@ public class User {
 
             try {
 
-                Constructor constructor = petMapManager.getPetMap().get(type).getConstructor(Player.class, Long.class, Boolean.class);
+                Constructor constructor = petMapManager.getPetMap().get(type).getConstructor(Player.class, Long.class, Boolean.class, LanguageManager.class);
 
-                return (Pet) constructor.newInstance(Bukkit.getPlayer(UUID.fromString(uuid)), exp, useProtocolLib);
+                return (Pet) constructor.newInstance(Bukkit.getPlayer(UUID.fromString(uuid)), exp, useProtocolLib, languageManager);
 
             } catch (NoSuchMethodException ex) {
 

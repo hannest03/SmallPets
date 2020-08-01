@@ -4,7 +4,7 @@
   <groupId>it.smallcode</groupId>
   <artifactId>smallpets</artifactId>
   <name>SmallPets</name>
-  <version>beta-3</version>
+  <version>beta-4</version>
   <description>Adds simple little cute pets with abilities</description>
   <build>
     <resources>
@@ -14,6 +14,10 @@
         <directory>src/main/resources</directory>
         <includes>
           <include>plugin.yml</include>
+          <include>en.yml</include>
+          <include>de.yml</include>
+          <include>it.yml</include>
+          <include>pl.yml</include>
         </includes>
       </resource>
     </resources>

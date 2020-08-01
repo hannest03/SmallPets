@@ -6,6 +6,7 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.languages.LanguageManager;
 import it.smallcode.smallpets.manager.types.User;
 import it.smallcode.smallpets.pets.Pet;
 import org.bukkit.Bukkit;
@@ -32,6 +33,7 @@ public class UserManager {
 
     private JavaPlugin plugin;
 
+    private LanguageManager languageManager;
     private PetMapManager petMapManager;
 
     private ArrayList<User> users;
@@ -43,10 +45,11 @@ public class UserManager {
      * Creates a user manager object
      *
      */
-    public UserManager(JavaPlugin plugin, PetMapManager petMapManager, boolean useProtocolLib){
+    public UserManager(JavaPlugin plugin, LanguageManager languageManager, PetMapManager petMapManager, boolean useProtocolLib){
 
         this.plugin = plugin;
 
+        this.languageManager = languageManager;
         this.petMapManager = petMapManager;
 
         this.useProtocolLib = useProtocolLib;
@@ -82,7 +85,7 @@ public class UserManager {
 
                 Map<String, Object> data = cfg.getValues(true);
 
-                users.add(new User(userFile.getName().replaceFirst("[.][^.]+$", ""), data, petMapManager, plugin, useProtocolLib));
+                users.add(new User(userFile.getName().replaceFirst("[.][^.]+$", ""), data, petMapManager, plugin, useProtocolLib, languageManager));
 
             }
 
@@ -176,9 +179,9 @@ public class UserManager {
 
                     try {
 
-                        Constructor constructor = petMapManager.getPetMap().get(type).getConstructor(Player.class, Long.class, Boolean.class);
+                        Constructor constructor = petMapManager.getPetMap().get(type).getConstructor(Player.class, Long.class, Boolean.class, LanguageManager.class);
 
-                        Pet pet = (Pet) constructor.newInstance(Bukkit.getPlayer(UUID.fromString(uuid)), 0L, useProtocolLib);
+                        Pet pet = (Pet) constructor.newInstance(Bukkit.getPlayer(UUID.fromString(uuid)), 0L, useProtocolLib, languageManager);
 
                         user.getPets().add(pet);
 
@@ -201,6 +204,46 @@ public class UserManager {
                         ex.printStackTrace();
 
                     }
+
+                }
+
+            }
+
+        }
+
+        return false;
+
+    }
+
+    /**
+     *
+     * Removes a player a pet
+     *
+     * @param type - the type of the pet
+     * @param uuid - the uuid of the player
+     * @return the boolean is true if the pet was successfully removed from to the player,<br> if the player hasn't got the pet or there was an error false will be returned
+     */
+    public boolean removeUserPet(String type, String uuid){
+
+        User user = getUser(uuid);
+
+        if(user != null){
+
+            if(petMapManager.getPetMap().containsKey(type)){
+
+                if(user.getPetFromType(type) != null) {
+
+                    if(user.getSelected().getName().equals(type)){
+
+                        user.despawnSelected();
+
+                    }
+
+                    Pet pet = user.getPetFromType(type);
+
+                    user.getPets().remove(pet);
+
+                    return true;
 
                 }
 
@@ -238,7 +281,8 @@ public class UserManager {
 
         for(User user : users){
 
-            user.spawnSelected();
+            if(Bukkit.getOfflinePlayer(user.getUuid()).isOnline())
+                user.spawnSelected();
 
         }
 

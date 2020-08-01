@@ -6,6 +6,7 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.languages.LanguageManager;
 import it.smallcode.smallpets.manager.InventoryCache;
 import it.smallcode.smallpets.manager.ListenerManager;
 import it.smallcode.smallpets.manager.PetMapManager;
@@ -25,9 +26,13 @@ public class ListenerManager1_15 extends ListenerManager {
     private double xpMultiplier;
     private boolean useProtocollib;
 
-    public ListenerManager1_15(JavaPlugin plugin, UserManager userManager, PetMapManager petMapManager, InventoryCache inventoryCache, String prefix, double xpMultiplier, boolean useProtocollib) {
+    private LanguageManager languageManager;
+
+    public ListenerManager1_15(JavaPlugin plugin, UserManager userManager, PetMapManager petMapManager, LanguageManager languageManager, InventoryCache inventoryCache, String prefix, double xpMultiplier, boolean useProtocollib) {
 
         super(plugin);
+
+        this.languageManager = languageManager;
 
         this.userManager = userManager;
         this.petMapManager = petMapManager;
@@ -49,12 +54,12 @@ public class ListenerManager1_15 extends ListenerManager {
 
         //OTHERS
 
-        Bukkit.getPluginManager().registerEvents(new ArmorStandInteractListener(petMapManager), getPlugin());
+        Bukkit.getPluginManager().registerEvents(new ArmorStandInteractListener(petMapManager, languageManager), getPlugin());
         Bukkit.getPluginManager().registerEvents(new BlockPlaceListener(getPlugin()), getPlugin());
         Bukkit.getPluginManager().registerEvents(new GiveExpListener(getPlugin(), userManager, xpMultiplier), getPlugin());
-        Bukkit.getPluginManager().registerEvents(new InventoryClickListener(userManager, prefix), getPlugin());
-        Bukkit.getPluginManager().registerEvents(new PetLevelUpListener(), getPlugin());
-        Bukkit.getPluginManager().registerEvents(new UnlockListener(getPlugin(), userManager, prefix), getPlugin());
+        Bukkit.getPluginManager().registerEvents(new InventoryClickListener(userManager, prefix, languageManager), getPlugin());
+        Bukkit.getPluginManager().registerEvents(new PetLevelUpListener(languageManager), getPlugin());
+        Bukkit.getPluginManager().registerEvents(new UnlockListener(getPlugin(), languageManager, userManager, prefix), getPlugin());
         Bukkit.getPluginManager().registerEvents(new WorldChangeListener(userManager, getPlugin(), useProtocollib), getPlugin());
         Bukkit.getPluginManager().registerEvents(new PlayerDeathListener(userManager, getPlugin()), getPlugin());
 

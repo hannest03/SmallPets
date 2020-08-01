@@ -10,7 +10,7 @@
     <name>SmallPets</name>
     <description>Adds simple little cute pets with abilities</description>
 
-    <version>beta-3</version>
+    <version>beta-4</version>
 
     <dependencies>
 
@@ -96,6 +96,10 @@
                 <directory>src/main/resources</directory>
                 <includes>
                     <include>plugin.yml</include>
+                    <include>en.yml</include>
+                    <include>de.yml</include>
+                    <include>it.yml</include>
+                    <include>pl.yml</include>
                 </includes>
             </resource>
         </resources>

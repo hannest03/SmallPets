@@ -65,7 +65,7 @@ public class WorldChangeListener implements Listener {
 
                             }
 
-                            if (all.getWorld().getName().equals(e.getPlayer().getWorld().getName())) {
+                            if (all.getWorld().getName().equals(e.getFrom().getName())) {
 
                                 user.getSelected().spawnToPlayer(all, plugin);
 
@@ -102,56 +102,6 @@ public class WorldChangeListener implements Listener {
             }
 
         }
-
-    }
-
-    private void sendPacket(PacketContainer packet, World world){
-
-        for(Player all : Bukkit.getOnlinePlayers()){
-
-            if(all.getWorld().getName().equals(world.getName()))
-
-                try {
-                    ProtocolLibrary.getProtocolManager().sendServerPacket(all, packet);
-                } catch (InvocationTargetException e) {
-                    e.printStackTrace();
-                }
-
-        }
-
-    }
-
-    private void loadChunksInRange(int x, int z, World world){
-
-        if(!world.getChunkAt(x, z).isLoaded())
-            world.getChunkAt(x, z).load();
-
-        if(!world.getChunkAt(x +1, z).isLoaded())
-            world.getChunkAt(x +1, z).load();
-
-        if(!world.getChunkAt(x -1, z).isLoaded())
-            world.getChunkAt(x -1, z).load();
-
-        if(!world.getChunkAt(x, z +1).isLoaded())
-            world.getChunkAt(x, z +1).load();
-
-        if(!world.getChunkAt(x, z -1).isLoaded())
-            world.getChunkAt(x, z -1).load();
-
-        if(!world.getChunkAt(x, z).isLoaded())
-            world.getChunkAt(x, z).load();
-
-        if(!world.getChunkAt(x +1, z -1).isLoaded())
-            world.getChunkAt(x +1, z -1).load();
-
-        if(!world.getChunkAt(x -1, z +1).isLoaded())
-            world.getChunkAt(x -1, z +1).load();
-
-        if(!world.getChunkAt(x +1, z +1).isLoaded())
-            world.getChunkAt(x +1, z +1).load();
-
-        if(!world.getChunkAt(x -1, z -1).isLoaded())
-            world.getChunkAt(x -1, z -1).load();
 
     }
 

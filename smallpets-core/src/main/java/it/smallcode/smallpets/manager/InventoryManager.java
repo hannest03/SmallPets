@@ -6,6 +6,8 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.languages.Language;
+import it.smallcode.smallpets.languages.LanguageManager;
 import it.smallcode.smallpets.pets.Pet;
 import org.bukkit.entity.Player;
 
@@ -20,6 +22,10 @@ public abstract class InventoryManager {
 
     protected InventoryCache inventoryCache;
 
+    protected LanguageManager languageManager;
+
+    protected double xpMultiplier;
+
     /**
      *
      * Creates a inventory manager object
@@ -27,9 +33,12 @@ public abstract class InventoryManager {
      * @param inventoryCache - the inventoryCache
      */
 
-    public InventoryManager(InventoryCache inventoryCache){
+    public InventoryManager(InventoryCache inventoryCache, LanguageManager languageManager, double xpMultiplier){
 
         this.inventoryCache = inventoryCache;
+        this.languageManager = languageManager;
+
+        this.xpMultiplier = xpMultiplier;
 
     }
 
@@ -43,4 +52,7 @@ public abstract class InventoryManager {
 
     public abstract void openPetsMenu(List<Pet> pets, Player p);
 
+    public void setXpMultiplier(double xpMultiplier) {
+        this.xpMultiplier = xpMultiplier;
+    }
 }

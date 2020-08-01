@@ -6,6 +6,8 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.languages.Language;
+import it.smallcode.smallpets.languages.LanguageManager;
 import it.smallcode.smallpets.manager.UserManager;
 import it.smallcode.smallpets.manager.types.User;
 import org.bukkit.Material;
@@ -15,15 +17,19 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
+import java.util.Map;
+
 public class InventoryClickListener implements Listener {
 
     private UserManager userManager;
+    private LanguageManager languageManager;
 
     private String prefix;
 
-    public InventoryClickListener(UserManager userManager, String prefix){
+    public InventoryClickListener(UserManager userManager, String prefix, LanguageManager languageManager){
 
         this.userManager = userManager;
+        this.languageManager = languageManager;
 
         this.prefix = prefix;
 
@@ -38,13 +44,15 @@ public class InventoryClickListener implements Listener {
 
             if(e.getCurrentItem() != null && e.getCurrentItem().getItemMeta() != null && e.getCurrentItem().getItemMeta().getDisplayName() != null) {
 
-                if (e.getCurrentItem().getType() != Material.BLACK_STAINED_GLASS_PANE) {
+                if (e.getCurrentItem().getType() == Material.PLAYER_HEAD) {
 
                     Player p = (Player) e.getWhoClicked();
 
                     String[] nameSplit = e.getCurrentItem().getItemMeta().getDisplayName().split(" ");
 
                     String type = nameSplit[nameSplit.length - 1];
+
+                    type = getRealTypeFromType(type);
 
                     User user = userManager.getUser(p.getUniqueId().toString());
 
@@ -54,13 +62,13 @@ public class InventoryClickListener implements Listener {
 
                             user.setSelected(null);
 
-                            e.getWhoClicked().sendMessage(prefix + "Your pet was despawned");
+                            e.getWhoClicked().sendMessage(prefix + languageManager.getLanguage().getStringFormatted("petDespawned"));
 
                         } else {
 
                             user.setSelected(user.getPetFromType(type));
 
-                            e.getWhoClicked().sendMessage(prefix + "Your pet was summoned");
+                            e.getWhoClicked().sendMessage(prefix + languageManager.getLanguage().getStringFormatted("petSpawned"));
 
                         }
 
@@ -75,6 +83,24 @@ public class InventoryClickListener implements Listener {
             }
 
         }
+
+    }
+
+    private String getRealTypeFromType(String type){
+
+        for (Map.Entry<String, String> entry : languageManager.getLanguage().getTranslations().entrySet()) {
+            if (type.equals(entry.getValue())) {
+
+                if(entry.getKey().startsWith("translations.pet")){
+
+                    return entry.getKey().replace("translations.pet.", "");
+
+                }
+
+            }
+        }
+
+        return "";
 
     }
 

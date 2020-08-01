@@ -7,6 +7,9 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.SmallPets;
+import it.smallcode.smallpets.cmds.subcmd.GivePetSubCMD;
+import it.smallcode.smallpets.cmds.subcmd.ReloadSubCMD;
+import it.smallcode.smallpets.cmds.subcmd.RemovePetSubCMD;
 import it.smallcode.smallpets.manager.types.User;
 import it.smallcode.smallpets.pets.Pet;
 import org.bukkit.Bukkit;
@@ -16,10 +19,23 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class SmallPetsCMD implements CommandExecutor {
 
+    private ArrayList<SubCommand> subAdminCommands;
+
+    public SmallPetsCMD(){
+
+        subAdminCommands = new ArrayList<>();
+
+        subAdminCommands.add(new GivePetSubCMD("givepet", "smallpets.givepet"));
+        subAdminCommands.add(new RemovePetSubCMD("removePet", "smallpets.removepet"));
+        subAdminCommands.add(new ReloadSubCMD("reload", "smallpets.reload"));
+
+    }
 
     @Override
     public boolean onCommand(CommandSender s, Command c, String label, String[] args) {
@@ -42,72 +58,61 @@ public class SmallPetsCMD implements CommandExecutor {
 
                 } else {
 
-                    p.sendMessage(SmallPets.getInstance().PREFIX + "Your user data couldn't be found!");
+                    p.sendMessage(SmallPets.getInstance().PREFIX + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("userDataNotFound"));
 
                 }
 
             } else {
 
-                s.sendMessage(SmallPets.getInstance().PREFIX + "This command is only for players");
+                s.sendMessage(SmallPets.getInstance().PREFIX + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("commandIsOnlyForPlayers"));
 
             }
 
             return false;
 
-        } else if (args.length == 4) {
+        } else if (args.length >= 2) {
 
-            if (args[0].equalsIgnoreCase("admin")) {
+            if(args[0].equalsIgnoreCase("admin")){
 
-                if (s.hasPermission("smallpets.admin")) {
+                Optional<SubCommand> optSubCommand = subAdminCommands.stream().filter(subCommand -> subCommand.getName().equalsIgnoreCase(args[1])).findFirst();
 
-                    if (args[1].equalsIgnoreCase("givepet")) {
+                if(optSubCommand.isPresent()) {
 
-                        if (s.hasPermission("smallpets.admin.givepet") || s.hasPermission("smallpets.admin.*")) {
+                    String[] passArgs = new String[args.length - 2];
 
-                            if (Bukkit.getPlayer(args[2]) != null && Bukkit.getPlayer(args[2]).isOnline()) {
+                    for (int i = 0; i < passArgs.length; i++) {
 
-                                SmallPets.getInstance().getUserManager().giveUserPet(args[3], Bukkit.getPlayer(args[2]).getUniqueId().toString());
-
-                                s.sendMessage(SmallPets.getInstance().PREFIX + "Gave the " + args[3] + " pet to " + args[2] + "!");
-
-                                Bukkit.getPlayer(args[2]).sendMessage(SmallPets.getInstance().PREFIX + "You received the " + args[3] + " pet from " + s.getName() + "!");
-
-                                return false;
-
-                            } else {
-
-                                s.sendMessage(SmallPets.getInstance().PREFIX + "The player isn't online!");
-
-                                return false;
-
-                            }
-
-                        } else {
-
-                            s.sendMessage(SmallPets.getInstance().PREFIX + "You haven't got the permission to do that!");
-
-                            return false;
-
-                        }
+                        passArgs[i] = args[i + 2];
 
                     }
 
-                } else {
-
-                    s.sendMessage(SmallPets.getInstance().PREFIX + "You haven't got the permission to do that!");
+                    optSubCommand.get().command(s, passArgs);
 
                     return false;
+
 
                 }
 
             }
 
-            s.sendMessage(SmallPets.getInstance().PREFIX + "/smallpets");
-            s.sendMessage(SmallPets.getInstance().PREFIX + "/smallpets admin givepet <user> <type>");
-
         }
+
+        sendHelp(s);
 
         return false;
 
     }
+
+    private void sendHelp(CommandSender s){
+
+        s.sendMessage(SmallPets.getInstance().PREFIX + "/smallpets");
+
+        for(SubCommand subCommand : subAdminCommands){
+
+            s.sendMessage(SmallPets.getInstance().PREFIX + "/smallpets admin " + subCommand.getHelp());
+
+        }
+
+    }
+
 }
