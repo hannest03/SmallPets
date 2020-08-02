@@ -5,6 +5,7 @@ author: SmallCode
 api-version: 1.13
 softdepend:
   - ProtocolLib
+  - PlaceholderAPI
 main: it.smallcode.smallpets.SmallPets
 commands:
   smallpets:

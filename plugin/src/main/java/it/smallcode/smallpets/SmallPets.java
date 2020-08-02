@@ -13,6 +13,7 @@ import it.smallcode.smallpets.listener.QuitListener;
 import it.smallcode.smallpets.listener.WorldSaveListener;
 import it.smallcode.smallpets.manager.*;
 import it.smallcode.smallpets.metrics.Metrics;
+import it.smallcode.smallpets.placeholderapi.SmallPetsExpansion;
 import it.smallcode.smallpets.v1_12.InventoryManager1_12;
 import it.smallcode.smallpets.v1_12.ListenerManager1_12;
 import it.smallcode.smallpets.v1_12.PetMapManager1_12;
@@ -108,6 +109,18 @@ public class SmallPets extends JavaPlugin {
         //Registering all commands
 
         Bukkit.getPluginCommand("smallpets").setExecutor(new SmallPetsCMD());
+
+        //Registering PlaceholderAPI
+
+        if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null){
+
+            Bukkit.getConsoleSender().sendMessage(PREFIX + "Registering PlaceholderAPI expansion...");
+
+            new SmallPetsExpansion().register();
+
+            Bukkit.getConsoleSender().sendMessage(PREFIX + "Registered PlaceholderAPI expansion!");
+
+        }
 
         //Registering bStats
 
