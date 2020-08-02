@@ -1,0 +1,27 @@
+translations:
+  petSpawned: 'Evcil hayvanın çağrıldı.'
+  petDespawned: 'Evcil hayvanın kaldırıldı'
+  experienceSummary: '§fDeneyim Özeti'
+  levelupText: '&eEvcil hayvanın artık &6&l%pet_level%&e seviye!'
+  nextLevel: '&eEvcil hayvanının &6%pet_next_level%6e seviyeye ulaşabilmesi için &6%exp_next_level%&6 xp''ye &edaha ihtiyacı var.'
+  petUnlock: '%pet_type% evcil hayvanı açıldı!'
+  clickToSelect: '&6SEÇMEK IÇIN TIKLA'
+  clickToDeselect: '&cKALDIRMAK İÇİN TIKLA'
+  givePetSender: '%pet_type% evcil hayvanı %player% adlı oyuncuya verildi!'
+  givePetReciever: '%sender% sana %pet_type% evcil hayvanı verdi!'
+  removePetSender: '%pet_type% evcil hayvanı %player% adlı oyuncudan alındı!'
+  removePetReciever: '%sender% senin %pet_type% evcil hayvanını aldı!'
+  playerIsntOnline: "Bu oyuncu çevrimiçi değil!"
+  userDataNotFound: "Oyuncu verilerin bulunamadı!"
+  commandIsOnlyForPlayers: "Bu komut sadece oyundan kullanılabilir"
+  reloaded: '%type% yenilendi'
+  maxLevel: '&d&kS&d SON SEVIYE &d&kS'
+  experienceMultiplier: 'Tecrübe katlayıcı'
+  stats: 'İstatistikler'
+  experienceBooster: 'Tecrübe yükseltici'
+  petNameFormat: "&8[%level%&8] &7%player_name%'s "
+  petNameFormatTwoS: "&8[%level%&8] &7%player_name%' "
+  pet:
+    tiger: 'kaplan'
+    penguin: 'penguen'
+    monkey: 'maymun'
