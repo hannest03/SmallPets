@@ -89,7 +89,10 @@ public class User {
 
         for(Map<String, Object> petData : petDatas){
 
-            pets.add(unserializePet(petData, petMapManager, uuid, useProtocolLib, languageManager));
+            Pet pet = unserializePet(petData, petMapManager, uuid, useProtocolLib, languageManager);
+
+            if(pet != null)
+                pets.add(pet);
 
         }
 
@@ -109,10 +112,11 @@ public class User {
 
         Optional<Pet> result = pets.stream().filter(p -> p.getName().equals(type)).findFirst();
 
-        if(result.isPresent())
-            return result.get();
-        else
-            return null;
+        if(result != null)
+            if(result.isPresent())
+                return result.get();
+
+        return null;
 
     }
 
