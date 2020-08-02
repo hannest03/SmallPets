@@ -1,0 +1,27 @@
+translations:
+  petSpawned: '成功召唤出你的宠物。'
+  petDespawned: '成功召回你的宠物。'
+  experienceSummary: '§f经验总和'
+  levelupText: '&e你的宠物现在的等级是 &6&l%pet_level%&e 级!'
+  nextLevel: '&e你的宠物需要 &6%exp_next_level%&6 点经验值 &e来达到等级 &6%pet_next_level%&e'
+  petUnlock: '解锁 %pet_type% 宠物!'
+  clickToSelect: '&6 点击选择'
+  clickToDeselect: '&c 点击来取消选择'
+  givePetSender: '将 %pet_type% 宠物给予玩家 %player%!'
+  givePetReciever: '你从玩家 %sender% 处收到了宠物 %pet_type%!'
+  removePetSender: '宠物 %pet_type% 已被玩家 %player% 带走了!'
+  removePetReciever: '你的宠物 %pet_type% 被玩家 %sender% 带走了!'
+  playerIsntOnline: "该玩家不在线!"
+  userDataNotFound: "找不到您的用户数据!"
+  commandIsOnlyForPlayers: "这个命令只适用于玩家"
+  reloaded: '重新加载 %type%'
+  maxLevel: '&d&kS&d 最高等级 &d&kS'
+  experienceMultiplier: '经验增倍'
+  stats: '统计'
+  experienceBooster: '经验加速器'
+  petNameFormat: "&8[%level%&8] &7%player_name%'s "
+  petNameFormatTwoS: "&8[%level%&8] &7%player_name%' "
+  pet:
+    tiger: '老虎'
+    penguin: '企鹅'
+    monkey: '猴子'

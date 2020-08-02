@@ -19,6 +19,7 @@
           <include>it.yml</include>
           <include>pl.yml</include>
           <include>tr.yml</include>
+          <include>zh.yml</include>
         </includes>
       </resource>
     </resources>
