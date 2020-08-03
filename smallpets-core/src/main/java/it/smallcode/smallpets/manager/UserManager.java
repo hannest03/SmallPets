@@ -233,9 +233,13 @@ public class UserManager {
 
                 if(user.getPetFromType(type) != null) {
 
-                    if(user.getSelected().getName().equals(type)){
+                    if(user.getSelected() != null) {
 
-                        user.despawnSelected();
+                        if (user.getSelected().getName().equals(type)) {
+
+                            user.despawnSelected();
+
+                        }
 
                     }
 

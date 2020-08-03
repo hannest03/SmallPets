@@ -16,7 +16,7 @@ import java.util.Objects;
 
 public class LanguageManager {
 
-    private static final String[] languages = {"en", "de", "it", "pl", "tr", "zh"};
+    private static final String[] languages = {"en", "de", "it", "pl", "tr", "zh", "vi"};
 
     private JavaPlugin plugin;
     private String prefix;
@@ -65,7 +65,7 @@ public class LanguageManager {
 
             if(!file.exists()){
 
-                FileUtils.insertData(lang + ".yml", dir.getAbsoluteFile() + "/" + lang + ".yml", plugin);
+                FileUtils.insertData("translations/" + lang + ".yml", dir.getAbsoluteFile() + "/" + lang + ".yml", plugin);
 
             }
 
@@ -97,7 +97,7 @@ public class LanguageManager {
 
     private void updateFile(File file){
 
-        Reader reader = new InputStreamReader(Objects.requireNonNull(plugin.getResource(file.getName())));
+        Reader reader = new InputStreamReader(Objects.requireNonNull(plugin.getResource("translations/" + file.getName())));
 
         YamlConfiguration newCfg = YamlConfiguration.loadConfiguration(reader);
 

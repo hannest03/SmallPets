@@ -10,7 +10,7 @@
     <name>SmallPets</name>
     <description>Adds simple little cute pets with abilities</description>
 
-    <version>beta-4.1</version>
+    <version>beta-4.2</version>
 
     <repositories>
 
@@ -112,12 +112,13 @@
                 <directory>src/main/resources</directory>
                 <includes>
                     <include>plugin.yml</include>
-                    <include>en.yml</include>
-                    <include>de.yml</include>
-                    <include>it.yml</include>
-                    <include>pl.yml</include>
-                    <include>tr.yml</include>
-                    <include>zh.yml</include>
+                    <include>translations/en.yml</include>
+                    <include>translations/de.yml</include>
+                    <include>translations/it.yml</include>
+                    <include>translations/pl.yml</include>
+                    <include>translations/tr.yml</include>
+                    <include>translations/zh.yml</include>
+                    <include>translations/vi.yml</include>
                 </includes>
             </resource>
         </resources>
