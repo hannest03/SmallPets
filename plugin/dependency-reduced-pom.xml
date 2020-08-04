@@ -21,6 +21,7 @@
           <include>translations/tr.yml</include>
           <include>translations/zh.yml</include>
           <include>translations/vi.yml</include>
+          <include>translations/es.yml</include>
         </includes>
       </resource>
     </resources>
