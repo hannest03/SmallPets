@@ -1,27 +1,27 @@
 translations:
-  petSpawned: Tu mascota fue convocada
-  petDespawned: Tu mascota ha desaparecido
-  experienceSummary: §fResumen de la Experiencia
+  petSpawned: 'Tu mascota fue convocada'
+  petDespawned: 'Tu mascota ha desaparecido'
+  experienceSummary: '&fResumen de la Experiencia'
   levelupText: '&eTu mascota ahora es nivel &6&l%pet_level%&e!'
   nextLevel: '&eTu mascota necesita &6%exp_next_level%&6 exp &epara alcanzar el nivel &6%pet_next_level%&e'
-  petUnlock: Has desbloqueado la mascota %pet_type%!
+  petUnlock: 'Has desbloqueado la mascota %pet_type%!'
   clickToSelect: '&6CLICKEA PARA SELECCIONAR'
   clickToDeselect: '&cCLICKEA PARA DESELECCIONAR'
-  givePetSender: Le dio la mascota %pet_type% a %player%!
-  givePetReciever: Has recibido la mascota %pet_type% por parte de %sender%!
-  removePetSender: La mascota %pet_type% fue tomada por %player%!
-  removePetReciever: Tu mascota %pet_type% fue tomada por %sender%!
-  playerIsntOnline: El jugador no esta online!
-  userDataNotFound: No se pudo encontrar tus datos de usuario!
-  commandIsOnlyForPlayers: Este comando es solo para jugadores
-  reloaded: Recargado %type%
+  givePetSender: 'Le dio la mascota %pet_type% a %player%!'
+  givePetReciever: 'Has recibido la mascota %pet_type% por parte de %sender%!'
+  removePetSender: 'La mascota %pet_type% fue tomada por %player%!'
+  removePetReciever: 'Tu mascota %pet_type% fue tomada por %sender%!'
+  playerIsntOnline: 'El jugador no esta online!'
+  userDataNotFound: 'No se pudo encontrar tus datos de usuario!'
+  commandIsOnlyForPlayers: 'Este comando es solo para jugadores'
+  reloaded: 'Recargado %type%'
   maxLevel: '&d&kS&d NIVEL MAXIMO &d&kS'
-  experienceMultiplier: Multiplicador de Experiencia
-  stats: Stats
-  experienceBooster: Acelerador de Experiencia
+  experienceMultiplier: 'Multiplicador de Experiencia'
+  stats: 'Stats'
+  experienceBooster: 'Acelerador de Experiencia'
   petNameFormat: "&8[%level%&8] &7%player_name%'s "
   petNameFormatTwoS: "&8[%level%&8] &7%player_name%' "
   pet:
-    tiger: tiger
-    penguin: penguin
-    monkey: monkey
+    tiger: 'tiger'
+    penguin: 'penguin'
+    monkey: 'monkey'

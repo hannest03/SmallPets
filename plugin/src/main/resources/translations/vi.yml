@@ -1,27 +1,27 @@
 translations:
-  petSpawned: Bạn đã triệu hồi thú cưng
-  petDespawned: Bạn đã cất thú cưng
-  experienceSummary: §fKinh Nghiệm
+  petSpawned: 'Bạn đã triệu hồi thú cưng'
+  petDespawned: 'Bạn đã cất thú cưng'
+  experienceSummary: '&fKinh Nghiệm'
   levelupText: '&eCHÚC MỪNG!&b Thú cưng của bạn đã lên cấp &6&l%pet_level%&e!'
   nextLevel: '&7Thú cưng của bạn cần &6%exp_next_level%&6 XP &7để lên cấp &6%pet_next_level%&e'
   petUnlock: '&3&l&k||&6&l MỞ KHÓA THÚ CƯNG:&e %pet_type%! &3&l&k||&r'
   clickToSelect: '&8&l(&a✔️&8&l) &aNhấn vào để triệu hồi'
   clickToDeselect: '&8&l(&c✘&8&l) &cNhấn vào để cất'
-  givePetSender: Đã gửi thú cưng %pet_type% từ %player%!
-  givePetReciever: Bạn đã nhận được %pet_type% từ người chơi %sender%!
-  removePetSender: Thú cưng %pet_type% đã bị lấy từ %player%!
-  removePetReciever: Thú cưng %pet_type% của bạn đã bị lấy bởi %sender%!
-  playerIsntOnline: Người chơi này không hoạt động!
-  userDataNotFound: Người chơi này không có trong dữ liệu!
-  commandIsOnlyForPlayers: Câu lệnh chỉ dành cho người chơi
-  reloaded: Khởi động lại %type%
+  givePetSender: 'Đã gửi thú cưng %pet_type% từ %player%!'
+  givePetReciever: 'Bạn đã nhận được %pet_type% từ người chơi %sender%!'
+  removePetSender: 'Thú cưng %pet_type% đã bị lấy từ %player%!'
+  removePetReciever: 'Thú cưng %pet_type% của bạn đã bị lấy bởi %sender%!'
+  playerIsntOnline: 'Người chơi này không hoạt động!'
+  userDataNotFound: 'Người chơi này không có trong dữ liệu!'
+  commandIsOnlyForPlayers: 'Câu lệnh chỉ dành cho người chơi'
+  reloaded: 'Khởi động lại %type%'
   maxLevel: '&d&kS&d CẤP ĐỘ TỐI ĐA &d&kS'
-  experienceMultiplier: x2 Kinh Nghiệm
-  stats: THÔNG SỐ
-  experienceBooster: Tăng Cường Kinh Nghiệm
+  experienceMultiplier: 'x2 Kinh Nghiệm'
+  stats: 'THÔNG SỐ'
+  experienceBooster: 'Tăng Cường Kinh Nghiệm'
   petNameFormat: '&8&l(%level%&8&l) &7%player_name%''s '
   petNameFormatTwoS: '&8&l(%level%&8&l) &7%player_name%'' '
   pet:
-    tiger: Hổ
-    penguin: Chim Cánh Cụt
-    monkey: Khỉ
+    tiger: 'Hổ'
+    penguin: 'Chim Cánh Cụt'
+    monkey: 'Khỉ'
