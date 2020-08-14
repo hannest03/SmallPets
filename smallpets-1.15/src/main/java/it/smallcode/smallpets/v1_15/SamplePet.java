@@ -524,17 +524,45 @@ public class SamplePet extends Pet {
 
         }else{
 
-            if(!location.getChunk().isLoaded())
-                location.getChunk().load();
-
-            if(!loc.getChunk().isLoaded())
-                loc.getChunk().load();
+            loadChunks(location);
+            loadChunks(loc);
 
             armorStand.teleport(loc);
 
         }
 
         setLocation(loc);
+
+    }
+
+    private void loadChunks(Location loc){
+
+        if(!loc.getChunk().isLoaded())
+            loc.getChunk().load();
+
+        if(!loc.getWorld().getChunkAt(loc.getChunk().getX()+1, loc.getChunk().getZ()).isLoaded())
+            loc.getWorld().getChunkAt(loc.getChunk().getX()+1, loc.getChunk().getZ()).load();
+
+        if(!loc.getWorld().getChunkAt(loc.getChunk().getX()-1, loc.getChunk().getZ()).isLoaded())
+            loc.getWorld().getChunkAt(loc.getChunk().getX()-1, loc.getChunk().getZ()).load();
+
+        if(!loc.getWorld().getChunkAt(loc.getChunk().getX(), loc.getChunk().getZ()+1).isLoaded())
+            loc.getWorld().getChunkAt(loc.getChunk().getX(), loc.getChunk().getZ()+1).load();
+
+        if(!loc.getWorld().getChunkAt(loc.getChunk().getX(), loc.getChunk().getZ()-1).isLoaded())
+            loc.getWorld().getChunkAt(loc.getChunk().getX(), loc.getChunk().getZ()-1).load();
+
+        if(!loc.getWorld().getChunkAt(loc.getChunk().getX()+1, loc.getChunk().getZ()+1).isLoaded())
+            loc.getWorld().getChunkAt(loc.getChunk().getX()+1, loc.getChunk().getZ()+1).load();
+
+        if(!loc.getWorld().getChunkAt(loc.getChunk().getX()-1, loc.getChunk().getZ()-1).isLoaded())
+            loc.getWorld().getChunkAt(loc.getChunk().getX()-1, loc.getChunk().getZ()-1).load();
+
+        if(!loc.getWorld().getChunkAt(loc.getChunk().getX() -1, loc.getChunk().getZ() +1).isLoaded())
+            loc.getWorld().getChunkAt(loc.getChunk().getX() -1, loc.getChunk().getZ() +1).load();
+
+        if(!loc.getWorld().getChunkAt(loc.getChunk().getX() +1, loc.getChunk().getZ() -1).isLoaded())
+            loc.getWorld().getChunkAt(loc.getChunk().getX() +1, loc.getChunk().getZ() -1).load();
 
     }
 
