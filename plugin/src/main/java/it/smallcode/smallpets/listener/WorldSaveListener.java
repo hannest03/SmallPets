@@ -32,7 +32,7 @@ public class WorldSaveListener implements Listener {
                     SmallPets.getInstance().getUserManager().spawnPets();
 
                 }
-            }, 20 * 3);
+            }, 20 * 10);
 
         }
 
