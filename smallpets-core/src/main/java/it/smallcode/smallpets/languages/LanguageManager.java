@@ -16,7 +16,7 @@ import java.util.Objects;
 
 public class LanguageManager {
 
-    private static final String[] languages = {"en", "de", "it", "pl", "tr", "zh", "vi", "es"};
+    private static final String[] languages = {"en", "de", "it", "pl", "tr", "zh", "vi", "es", "fr"};
 
     private JavaPlugin plugin;
     private String prefix;

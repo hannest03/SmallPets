@@ -1,0 +1,27 @@
+translations:
+  petSpawned: 'Votre compagnon a été invoqué'
+  petDespawned: 'Votre compagnon a disparu'
+  experienceSummary: '§fStatistiques compagnon'
+  levelupText: '&eVotre compagnon est maintenant niveau &6&l%pet_level%&e!'
+  nextLevel: '&eVotre compagnon a besoin de &6%exp_next_level%&6 xp &epour atteindre le niveau &6%pet_next_level%&e'
+  petUnlock: 'Compagnon %pet_type% débloqué!'
+  clickToSelect: '&6CLIQUEZ POUR ÉQUIPER'
+  clickToDeselect: '&cCLIQUEZ POUR DÉSÉQUIPER'
+  givePetSender: 'Vous avez donné le compagnon %pet_type% à %player%!'
+  givePetReciever: 'Vous avez reçu le compagnon %pet_type% de %sender%!'
+  removePetSender: 'Le compagnon %pet_type% a été pris par %player%!'
+  removePetReciever: 'Votre compagnon %pet_type% a été pris par %sender%!'
+  playerIsntOnline: "Le joueur n'est pas connecter!"
+  userDataNotFound: "Vos données d'utilisateur sont introuvables!"
+  commandIsOnlyForPlayers: "Cette commande est réservée aux joueurs"
+  reloaded: 'Rechargé %type%'
+  maxLevel: '&d&kS&d NIVEAU MAX &d&kS'
+  experienceMultiplier: "Multiplicateur d'expérience"
+  stats: 'Statistiques'
+  experienceBooster: "Boosteur d'expérience"
+  petNameFormat: "&8[%level%&8] &7%player_name%'s "
+  petNameFormatTwoS: "&8[%level%&8] &7%player_name%' "
+  pet:
+    tiger: 'tigre'
+    penguin: 'manchot'
+    monkey: 'singe'

@@ -120,6 +120,7 @@
                     <include>translations/zh.yml</include>
                     <include>translations/vi.yml</include>
                     <include>translations/es.yml</include>
+                    <include>translations/fr.yml</include>
                 </includes>
             </resource>
         </resources>
