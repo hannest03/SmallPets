@@ -7,10 +7,7 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.SmallPets;
-import it.smallcode.smallpets.cmds.subcmd.GiveExperienceSubCMD;
-import it.smallcode.smallpets.cmds.subcmd.GivePetSubCMD;
-import it.smallcode.smallpets.cmds.subcmd.ReloadSubCMD;
-import it.smallcode.smallpets.cmds.subcmd.RemovePetSubCMD;
+import it.smallcode.smallpets.cmds.subcmd.*;
 import it.smallcode.smallpets.manager.types.User;
 import it.smallcode.smallpets.pets.Pet;
 import org.bukkit.Bukkit;
@@ -33,8 +30,9 @@ public class SmallPetsCMD implements CommandExecutor {
         subAdminCommands = new ArrayList<>();
 
         subAdminCommands.add(new GivePetSubCMD("givepet", "smallpets.givepet"));
-        subAdminCommands.add(new GiveExperienceSubCMD("giveexp", "smallpets.giveexp"));
         subAdminCommands.add(new RemovePetSubCMD("removePet", "smallpets.removepet"));
+        subAdminCommands.add(new GiveExperienceSubCMD("giveexp", "smallpets.giveexp"));
+        subAdminCommands.add(new SetLevelSubCMD("setlevel", "smallpets.setlevel"));
         subAdminCommands.add(new ReloadSubCMD("reload", "smallpets.reload"));
 
     }
