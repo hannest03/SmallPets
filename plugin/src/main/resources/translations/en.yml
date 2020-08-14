@@ -1,4 +1,5 @@
 translations:
+  noPerms: "You haven't got the permission to do that!"
   petSpawned: 'Your pet was summoned'
   petDespawned: 'Your pet was despawned'
   experienceSummary: '§fExperience Summary'

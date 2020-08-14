@@ -1,4 +1,5 @@
 translations:
+  noPerms: "You haven't got the permission to do that!"
   petSpawned: 'Evcil hayvanın çağrıldı.'
   petDespawned: 'Evcil hayvanın kaldırıldı'
   experienceSummary: '§fDeneyim Özeti'

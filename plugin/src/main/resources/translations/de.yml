@@ -1,4 +1,5 @@
 translations:
+  noPerms: "Dafür hast du keine Rechte!"
   petSpawned: 'Dein Haustier wurde beschwört'
   petDespawned: 'Dein Haustier wurde eingepackt'
   experienceSummary: '§fErfahrungspunkte Zusammenfassung'

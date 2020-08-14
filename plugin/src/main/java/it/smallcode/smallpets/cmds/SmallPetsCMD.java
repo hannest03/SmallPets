@@ -46,19 +46,27 @@ public class SmallPetsCMD implements CommandExecutor {
 
                 Player p = (Player) s;
 
-                User user = SmallPets.getInstance().getUserManager().getUser(p.getUniqueId().toString());
+                if(p.hasPermission("smallpets.useInventory")) {
 
-                if (user != null) {
+                    User user = SmallPets.getInstance().getUserManager().getUser(p.getUniqueId().toString());
 
-                    List<Pet> pets = user.getPets();
+                    if (user != null) {
 
-                    SmallPets.getInstance().getInventoryManager().openPetsMenu(pets, p);
+                        List<Pet> pets = user.getPets();
 
-                    p.playSound(p.getLocation(), Sound.BLOCK_CHEST_OPEN, 1, 1);
+                        SmallPets.getInstance().getInventoryManager().openPetsMenu(pets, p);
 
-                } else {
+                        p.playSound(p.getLocation(), Sound.BLOCK_CHEST_OPEN, 1, 1);
 
-                    p.sendMessage(SmallPets.getInstance().PREFIX + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("userDataNotFound"));
+                    } else {
+
+                        p.sendMessage(SmallPets.getInstance().PREFIX + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("userDataNotFound"));
+
+                    }
+
+                }else{
+
+                    s.sendMessage(SmallPets.getInstance().PREFIX + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("noPerms"));
 
                 }
 

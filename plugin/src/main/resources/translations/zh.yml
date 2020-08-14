@@ -1,4 +1,5 @@
 translations:
+  noPerms: "You haven't got the permission to do that!"
   petSpawned: '成功召唤出你的宠物。'
   petDespawned: '成功召回你的宠物。'
   experienceSummary: '§f经验总和'

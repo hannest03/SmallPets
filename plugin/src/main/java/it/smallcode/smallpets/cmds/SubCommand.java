@@ -30,7 +30,7 @@ public abstract class SubCommand {
 
         }else{
 
-            s.sendMessage(SmallPets.getInstance().PREFIX + "You haven't got the permission to do that!");
+            s.sendMessage(SmallPets.getInstance().PREFIX + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("noPerms"));
 
         }
 

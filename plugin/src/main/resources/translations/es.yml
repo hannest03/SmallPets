@@ -1,4 +1,5 @@
 translations:
+  noPerms: "You haven't got the permission to do that!"
   petSpawned: 'Tu mascota fue convocada'
   petDespawned: 'Tu mascota ha desaparecido'
   experienceSummary: '&fResumen de la Experiencia'
