@@ -82,6 +82,12 @@ public class SmallPetsExpansion extends PlaceholderExpansion {
 
         }
 
+        if(params.equals("registeredPets")){
+
+            return String.valueOf(SmallPets.getInstance().getPetMapManager().getPetMap().size());
+
+        }
+
         return null;
 
     }
