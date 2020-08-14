@@ -2,6 +2,8 @@ translations:
   noPerms: "You haven't got the permission to do that!"
   petSpawned: 'Your pet was summoned'
   petDespawned: 'Your pet was despawned'
+  petNotUnlocked: "Pet not unlocked"
+  notInteger: "Number must be a integer"
   experienceSummary: '§fExperience Summary'
   levelupText: '&eYour pet is now level &6&l%pet_level%&e!'
   nextLevel: '&eYour pet needs &6%exp_next_level%&6 xp &eto reach level &6%pet_next_level%&e'
@@ -13,7 +15,7 @@ translations:
   removePetSender: 'The %pet_type% pet was taken from %player%!'
   removePetReciever: 'Your %pet_type% pet was taken by %sender%!'
   playerIsntOnline: "The player isn't online!"
-  userDataNotFound: "Your user data couldn't be found!"
+  userDataNotFound: "User data couldn't be found!"
   commandIsOnlyForPlayers: "This command is only for players"
   reloaded: 'Reloaded %type%'
   maxLevel: '&d&kS&d MAX LEVEL &d&kS'

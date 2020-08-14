@@ -407,10 +407,14 @@ public class SamplePet extends Pet {
 
             Bukkit.getPluginManager().callEvent(new PetLevelUpEvent(this));
 
-            setCustomName(getCustomeName());
+            if(isActivated()) {
 
-            if(getLevel() == 100)
-                levelOnehundretAnimation = new LevelOnehundretAnimation(this, getLanguageManager(), plugin);
+                setCustomName(getCustomeName());
+
+                if (getLevel() == 100)
+                    levelOnehundretAnimation = new LevelOnehundretAnimation(this, getLanguageManager(), plugin);
+
+            }
 
         }
 

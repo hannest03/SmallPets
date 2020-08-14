@@ -2,6 +2,8 @@ translations:
   noPerms: "Non hai il permesso di farlo!"
   petSpawned: 'Il vostro pet è stato convocato'
   petDespawned: 'Il tuo pet è stato disperato'
+  petNotUnlocked: "Questo pet non è stato sbloccato"
+  notInteger: "Numero deve essere numero intero"
   experienceSummary: "&fSommario dell'esperienza"
   levelupText: '&eIl tuo pet è ora di livello &6&l%pet_level%&e!'
   nextLevel: '&eIl tuo pet ha bisogno di &6%exp_next_level%&6 xp &eper raggiungere il livello &6%pet_next_level%&e'
@@ -13,7 +15,7 @@ translations:
   removePetSender: 'Il %pet_type% pet è stato preso da %player%!'
   removePetReciever: 'Il vostro %pet_type% pet è stato preso da %sender%!'
   playerIsntOnline: "Il giocatore non è online!"
-  userDataNotFound: "I vostri dati utente non sono stati trovati!"
+  userDataNotFound: "Dati utente non sono stati trovati!"
   commandIsOnlyForPlayers: "Questo command è solo per giocatori!"
   reloaded: 'Ricaricato %type%'
   maxLevel: '&d&kS&d LIVELLO MASSIMO &d&kS'
