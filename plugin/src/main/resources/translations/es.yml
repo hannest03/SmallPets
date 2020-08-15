@@ -1,7 +1,7 @@
 translations:
-  petSpawned: 'Tu mascota ha spawneado'
-  petDespawned: 'Tu mascota ha despawneado'
-  experienceSummary: '&fResumen de Experiencia'
+  petSpawned: 'Tu mascota fue convocada'
+  petDespawned: 'Tu mascota ha desaparecido'
+  experienceSummary: '&fResumen de la Experiencia'
   levelupText: '&eTu mascota ahora es nivel &6&l%pet_level%&e!'
   nextLevel: '&eTu mascota necesita &6%exp_next_level%&6 xp &epara alcanzar el nivel &6%pet_next_level%&e'
   petUnlock: 'Desbloqueaste la mascota %pet_type%!'
