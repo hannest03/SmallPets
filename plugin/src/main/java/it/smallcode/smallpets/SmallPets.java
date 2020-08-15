@@ -48,6 +48,8 @@ public class SmallPets extends JavaPlugin {
     private ListenerManager listenerManager;
     private LanguageManager languageManager;
 
+    private ExperienceManager experienceManager;
+
     public final String PREFIX = "§e○§6◯  SmallPets §e◆ ";
 
     private double xpMultiplier;
@@ -93,6 +95,12 @@ public class SmallPets extends JavaPlugin {
             Bukkit.getConsoleSender().sendMessage(PREFIX + "Registered crafting recipes!");
 
         }
+
+        Bukkit.getConsoleSender().sendMessage(PREFIX + "Load experience table...");
+
+        this.experienceManager = new ExperienceManager(this);
+
+        Bukkit.getConsoleSender().sendMessage(PREFIX + "Experience table loaded!");
 
         //Registering all listeners
 
@@ -296,5 +304,9 @@ public class SmallPets extends JavaPlugin {
 
     public double getXpMultiplier() {
         return xpMultiplier;
+    }
+
+    public ExperienceManager getExperienceManager() {
+        return experienceManager;
     }
 }
