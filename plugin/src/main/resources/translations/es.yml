@@ -1,5 +1,4 @@
 translations:
-  noPerms: "You haven't got the permission to do that!"
   petSpawned: 'Tu mascota fue convocada'
   petDespawned: 'Tu mascota ha desaparecido'
   experienceSummary: '&fResumen de la Experiencia'
@@ -26,3 +25,6 @@ translations:
     tiger: 'tiger'
     penguin: 'penguin'
     monkey: 'monkey'
+  noPerms: "No tienes permiso para hacer eso!"
+  petNotUnlocked: "Mascota no desbloqueada"
+  notInteger: "El número debe ser un número entero"
