@@ -32,7 +32,6 @@ public class ExperienceManager {
         this.plugin = plugin;
 
         load();
-        save();
 
     }
 
@@ -67,45 +66,8 @@ public class ExperienceManager {
 
             ConfigurationSection section = (ConfigurationSection) cfg.get(id);
 
-            experienceTable.unserialize(id, section);
+            experienceTables.add(experienceTable.unserialize(id, section));
 
-            experienceTables.add(experienceTable);
-
-        }
-
-    }
-
-    public void save(){
-
-        File file = new File(plugin.getDataFolder(), fileName + ".yml");
-
-        file.getParentFile().mkdirs();
-
-        if(!file.exists()){
-
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            writeDefaults();
-            return;
-
-        }
-
-        FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
-
-        for(ExperienceTable experienceTable : experienceTables){
-
-            cfg.set(experienceTable.getPetType().getId(), experienceTable.getExperienceTable());
-
-        }
-
-        try {
-            cfg.save(file);
-        } catch (IOException e) {
-            e.printStackTrace();
         }
 
     }
@@ -160,6 +122,41 @@ public class ExperienceManager {
 
         save();
         load();
+
+    }
+
+    private void save(){
+
+        File file = new File(plugin.getDataFolder(), fileName + ".yml");
+
+        file.getParentFile().mkdirs();
+
+        if(!file.exists()){
+
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            writeDefaults();
+            return;
+
+        }
+
+        FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
+
+        for(ExperienceTable experienceTable : experienceTables){
+
+            cfg.set(experienceTable.getPetType().getId(), experienceTable.getExperienceTable());
+
+        }
+
+        try {
+            cfg.save(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 

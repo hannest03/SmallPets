@@ -7,6 +7,7 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.pets.PetType;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import sun.text.IntHashtable;
 
@@ -73,6 +74,8 @@ public class ExperienceTable {
                 }
 
             }
+
+            Bukkit.getConsoleSender().sendMessage("§c§lCouldn't load " + id + " exp table!");
 
         }
 

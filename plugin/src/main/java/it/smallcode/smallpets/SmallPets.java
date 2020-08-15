@@ -96,7 +96,7 @@ public class SmallPets extends JavaPlugin {
 
         }
 
-        Bukkit.getConsoleSender().sendMessage(PREFIX + "Load experience table...");
+        Bukkit.getConsoleSender().sendMessage(PREFIX + "Loading experience table...");
 
         this.experienceManager = new ExperienceManager(this);
 
