@@ -126,6 +126,7 @@ public class InventoryManager1_15 extends InventoryManager {
                 String expB = pet.getLevelColor() + (pet.getXp() - pet.getExpForLevel(pet.getLevel())) + "§8/" + pet.getLevelColor() + (pet.getExpForNextLevel() - pet.getExpForLevel(pet.getLevel()));
 
                 lore.add("  " + CenteredText.sendCenteredMessage(expB, ChatColor.stripColor(progressBar).length()));
+
             }else{
 
                 lore.add("§8" + languageManager.getLanguage().getStringFormatted("maxLevel"));
