@@ -53,6 +53,8 @@ public abstract class Pet {
 
     private boolean activated;
 
+    private PetType petType;
+
     private static final String[] levelColors = {"§7", "§2", "§a", "§e", "§6", "§c", "§4", "§d", "§b", "§f"};
 
     /**
@@ -335,6 +337,22 @@ public abstract class Pet {
 
     }
 
+    public String getCustomeNameWithoutPlayername(){
+
+        String name = languageManager.getLanguage().getStringFormatted("petNameWithoutOwner");
+
+        name = name.replaceAll("%level%", getLevelColor() + getLevel());
+
+        String petName = languageManager.getLanguage().getStringFormatted("pet." + getName());
+
+        petName = petName.substring(0, 1).toUpperCase() + petName.substring(1);
+
+        name += "§6" + petName;
+
+        return name;
+
+    }
+
     public abstract void teleport(Location loc);
 
     public abstract void spawnToPlayer(Player p, JavaPlugin plugin);
@@ -378,4 +396,15 @@ public abstract class Pet {
     public void setParticle(Particle particle) {
         this.particle = particle;
     }
+
+    public PetType getPetType() {
+        return petType;
+    }
+
+    protected void setPetType(PetType petType){
+
+        this.petType = petType;
+
+    }
+
 }

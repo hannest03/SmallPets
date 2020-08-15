@@ -7,6 +7,7 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.languages.LanguageManager;
+import it.smallcode.smallpets.pets.PetType;
 import it.smallcode.smallpets.v1_15.SamplePet;
 import it.smallcode.smallpets.v1_15.SkullCreator;
 import org.bukkit.Bukkit;
@@ -26,7 +27,11 @@ public class Penguin extends SamplePet {
     public static final float MAXSWIMMINGSPEED = 0.25F;
 
     public Penguin(Player owner, Long xp, Boolean useProtocolLib, LanguageManager languageManager) {
+
         super(owner, xp, useProtocolLib, languageManager);
+
+        super.setPetType(PetType.fishing);
+
     }
 
     public ItemStack getItem() {

@@ -7,6 +7,7 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.languages.LanguageManager;
+import it.smallcode.smallpets.pets.PetType;
 import it.smallcode.smallpets.v1_15.SamplePet;
 import it.smallcode.smallpets.v1_15.SkullCreator;
 import org.bukkit.Bukkit;
@@ -35,6 +36,9 @@ public class Tiger extends SamplePet {
      */
     public Tiger(Player owner, Long xp, Boolean useProtocolLib, LanguageManager languageManager) {
         super(owner, xp, useProtocolLib, languageManager);
+
+        super.setPetType(PetType.combat);
+
     }
     public ItemStack getItem() {
 

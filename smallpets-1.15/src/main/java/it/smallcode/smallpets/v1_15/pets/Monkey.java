@@ -10,6 +10,7 @@ import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.events.PacketContainer;
 import it.smallcode.smallpets.languages.LanguageManager;
+import it.smallcode.smallpets.pets.PetType;
 import it.smallcode.smallpets.v1_15.SamplePet;
 import it.smallcode.smallpets.v1_15.SkullCreator;
 import org.bukkit.Bukkit;
@@ -29,7 +30,11 @@ public class Monkey extends SamplePet {
     public static double MAXJUMPHEIGHT = 0.05;
 
     public Monkey(Player owner, Long xp, Boolean useProtocolLib, LanguageManager languageManager) {
+
         super(owner, xp, useProtocolLib, languageManager);
+
+        super.setPetType(PetType.foraging);
+
     }
 
     public ItemStack getItem() {

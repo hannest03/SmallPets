@@ -22,9 +22,16 @@ translations:
   experienceMultiplier: 'Experience multiplier'
   stats: 'Stats'
   experienceBooster: 'Experience booster'
-  petNameFormat: "&8[%level%&8] &7%player_name%'s "
-  petNameFormatTwoS: "&8[%level%&8] &7%player_name%' "
+  petNameFormat: "&7[%level%&7] &7%player_name%'s "
+  petNameFormatTwoS: "&7[%level%&7] &7%player_name%' "
+  petNameWithoutOwner: "&7[%level%&7] "
   pet:
     tiger: 'tiger'
     penguin: 'penguin'
     monkey: 'monkey'
+  petType:
+    combat: 'Combat pet'
+    mining: 'Mining pet'
+    farming: 'Farming pet'
+    fishing: 'Fishing pet'
+    foraging: 'Foraging pet'

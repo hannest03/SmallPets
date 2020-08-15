@@ -100,9 +100,15 @@ public class InventoryManager1_15 extends InventoryManager {
 
             ItemMeta itemMeta = itemStack.getItemMeta();
 
-            itemMeta.setDisplayName(pet.getCustomeName());
+            itemMeta.setDisplayName(pet.getCustomeNameWithoutPlayername());
 
             ArrayList<String> lore = new ArrayList();
+
+            if(pet.getPetType() != null) {
+
+                lore.add("§8" + pet.getPetType().getName(languageManager));
+
+            }
 
             lore.add("");
 
@@ -112,22 +118,19 @@ public class InventoryManager1_15 extends InventoryManager {
 
             String progressBar = CenteredText.sendCenteredMessage(generateFinishedProgressbar(pet), ChatColor.stripColor(pet.getAbility()).length());
 
-            if(pet.getLevel() != 100)
-                lore.add("  " + CenteredText.sendCenteredMessage(pet.getLevelColor() + pet.getLevel(), ChatColor.stripColor(progressBar).length()));
-            else
-                lore.add("§d" + CenteredText.sendCenteredMessage("" + pet.getLevel(), ChatColor.stripColor(progressBar).length()));
-
-            lore.add(progressBar);
-
-            String expB = languageManager.getLanguage().getStringFormatted("maxLevel");
-
             if(pet.getLevel() != 100) {
-                expB = pet.getLevelColor() + (pet.getXp() - pet.getExpForLevel(pet.getLevel())) + "§8/" + pet.getLevelColor() + (pet.getExpForNextLevel() - pet.getExpForLevel(pet.getLevel()));
+
+                lore.add("  " + CenteredText.sendCenteredMessage(pet.getLevelColor() + pet.getLevel(), ChatColor.stripColor(progressBar).length()));
+                lore.add(progressBar);
+
+                String expB = pet.getLevelColor() + (pet.getXp() - pet.getExpForLevel(pet.getLevel())) + "§8/" + pet.getLevelColor() + (pet.getExpForNextLevel() - pet.getExpForLevel(pet.getLevel()));
 
                 lore.add("  " + CenteredText.sendCenteredMessage(expB, ChatColor.stripColor(progressBar).length()));
+            }else{
 
-            }else
-                lore.add(CenteredText.sendCenteredMessage(expB, ChatColor.stripColor(progressBar).length()));
+                lore.add("§8" + languageManager.getLanguage().getStringFormatted("maxLevel"));
+
+            }
 
             lore.add("");
 

@@ -8,7 +8,6 @@ Class created by SmallCode
 
 import it.smallcode.smallpets.languages.LanguageManager;
 
-import javax.swing.text.html.Option;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -17,7 +16,8 @@ public enum PetType {
     combat("combat"),
     mining("mining"),
     farming("farming"),
-    fishing("fishing");
+    fishing("fishing"),
+    foraging("foraging");
 
     private String id;
 
