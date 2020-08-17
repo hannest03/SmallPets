@@ -29,6 +29,7 @@ public class SmallPetsCMD implements CommandExecutor {
 
         subAdminCommands = new ArrayList<>();
 
+        subAdminCommands.add(new PetTypesSubCMD("pettypes", "smallpets.pettypes"));
         subAdminCommands.add(new GivePetSubCMD("givepet", "smallpets.givepet"));
         subAdminCommands.add(new RemovePetSubCMD("removePet", "smallpets.removepet"));
         subAdminCommands.add(new GiveExperienceSubCMD("giveexp", "smallpets.giveexp"));
