@@ -25,24 +25,9 @@ import java.util.List;
 
 public class InventoryManager1_15 extends InventoryManager {
 
-    private final ArrayList<String> colors = new ArrayList<>();
-
     public InventoryManager1_15(InventoryCache inventoryCache, LanguageManager languageManager, double xpMultiplier) {
 
         super(inventoryCache, languageManager, xpMultiplier);
-
-        colors.add("§4");
-        colors.add("§c");
-        colors.add("§6");
-        colors.add("§e");
-        colors.add("§2");
-        colors.add("§a");
-        colors.add("§b");
-        colors.add("§3");
-        colors.add("§1");
-        colors.add("§9");
-        colors.add("§d");
-        colors.add("§5");
 
     }
 
@@ -94,44 +79,13 @@ public class InventoryManager1_15 extends InventoryManager {
 
     private ItemStack makePetItem(Pet pet, Player p){
 
-        ItemStack itemStack = pet.getItem();
+        ItemStack itemStack = pet.getDisplayItem();
 
         if(itemStack != null) {
 
             ItemMeta itemMeta = itemStack.getItemMeta();
 
-            itemMeta.setDisplayName(pet.getCustomeNameWithoutPlayername());
-
-            ArrayList<String> lore = new ArrayList();
-
-            if(pet.getPetType() != null) {
-
-                lore.add("§8" + pet.getPetType().getName(languageManager));
-
-            }
-
-            lore.add("");
-
-            lore.add(pet.getAbility());
-
-            lore.add("");
-
-            String progressBar = CenteredText.sendCenteredMessage(generateFinishedProgressbar(pet), ChatColor.stripColor(pet.getAbility()).length());
-
-            if(pet.getLevel() != 100) {
-
-                lore.add("  " + CenteredText.sendCenteredMessage(pet.getLevelColor() + pet.getLevel(), ChatColor.stripColor(progressBar).length()));
-                lore.add(progressBar);
-
-                String expB = pet.getLevelColor() + (pet.getXp() - pet.getExpForLevel(pet.getLevel())) + "§8/" + pet.getLevelColor() + (pet.getExpForNextLevel() - pet.getExpForLevel(pet.getLevel()));
-
-                lore.add("  " + CenteredText.sendCenteredMessage(expB, ChatColor.stripColor(progressBar).length()));
-
-            }else{
-
-                lore.add("§8" + languageManager.getLanguage().getStringFormatted("maxLevel"));
-
-            }
+            List<String> lore = itemMeta.getLore();
 
             lore.add("");
 
@@ -147,65 +101,6 @@ public class InventoryManager1_15 extends InventoryManager {
         }
 
         return itemStack;
-
-    }
-
-    private String generateFinishedProgressbar(Pet pet){
-
-        if(pet.getLevel() == 100)
-            return generateProgressBar(pet);
-
-        return pet.getLevelColor() + pet.getLevel() + " " + generateProgressBar(pet) + " " + pet.getLevelColor() + (pet.getLevel() +1);
-
-    }
-
-    private String generateProgressBar(Pet pet){
-
-        String bar = "";
-
-        int bars = 35;
-
-        long lastExp = pet.getExpForLevel(pet.getLevel());
-        long nextExp = pet.getExpForNextLevel();
-
-        if(pet.getLevel() == 100){
-
-            int color = (int) (Math.random() * colors.size()-1);
-
-            for(int i = 0; i < bars; i++) {
-
-                bar += colors.get(color) + "|";
-
-                color++;
-
-                if(color == colors.size())
-                    color = 0;
-
-            }
-
-            return bar;
-
-        }
-
-        long oneBar = (nextExp - lastExp) / bars;
-
-        long nextBar = 0;
-
-        while(nextBar <= (pet.getXp() - lastExp) && bar.length() < (bars*3)){
-
-            nextBar += oneBar;
-
-            bar += pet.getLevelColor() + "|";
-
-        }
-
-        while(bar.length() < (bars*3)){
-
-            bar += "§8|";
-
-        }
-
-        return bar;
 
     }
 

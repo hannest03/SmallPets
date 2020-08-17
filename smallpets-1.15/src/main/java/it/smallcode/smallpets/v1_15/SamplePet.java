@@ -21,10 +21,8 @@ import it.smallcode.smallpets.manager.UserManager;
 import it.smallcode.smallpets.manager.types.User;
 import it.smallcode.smallpets.pets.Pet;
 import it.smallcode.smallpets.animations.LevelOnehundretAnimation;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.NamespacedKey;
-import org.bukkit.Particle;
+import it.smallcode.smallpets.text.CenteredText;
+import org.bukkit.*;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -43,6 +41,25 @@ import java.util.*;
  *
  */
 public class SamplePet extends Pet {
+
+    private static final ArrayList<String> colors = new ArrayList<>();
+
+    static {
+
+        colors.add("§4");
+        colors.add("§c");
+        colors.add("§6");
+        colors.add("§e");
+        colors.add("§2");
+        colors.add("§a");
+        colors.add("§b");
+        colors.add("§3");
+        colors.add("§1");
+        colors.add("§9");
+        colors.add("§d");
+        colors.add("§5");
+
+    }
 
     /**
      *
@@ -465,15 +482,11 @@ public class SamplePet extends Pet {
     @Override
     public ItemStack getUnlockItem(Plugin plugin) {
 
-        ItemStack item = getItem();
+        ItemStack item = getDisplayItem();
 
         ItemMeta itemMeta = item.getItemMeta();
 
-        String name = getName();
-
-        itemMeta.setDisplayName("§6" + name.substring(0, 1).toUpperCase() + name.substring(1));
-
-        ArrayList<String> lore = new ArrayList<>();
+        List<String> lore = itemMeta.getLore();
 
         lore.add("");
         lore.add("§6RIGHT CLICK TO UNLOCK");
@@ -481,6 +494,7 @@ public class SamplePet extends Pet {
         itemMeta.setLore(lore);
 
         itemMeta.getPersistentDataContainer().set(new NamespacedKey(plugin, "pet"), PersistentDataType.STRING, getName());
+        itemMeta.getPersistentDataContainer().set(new NamespacedKey(plugin, "petExp"), PersistentDataType.LONG, getXp());
 
         item.setItemMeta(itemMeta);
 
@@ -505,6 +519,117 @@ public class SamplePet extends Pet {
             p.spawnParticle(getParticle(), particleLoc, 1);
 
         }
+
+    }
+
+    @Override
+    public ItemStack getDisplayItem() {
+
+        ItemStack itemStack = getItem();
+
+        if(itemStack != null) {
+
+            ItemMeta itemMeta = itemStack.getItemMeta();
+
+            itemMeta.setDisplayName(getCustomeNameWithoutPlayername());
+
+            ArrayList<String> lore = new ArrayList();
+
+            if(getPetType() != null) {
+
+                lore.add("§8" + getPetType().getName(getLanguageManager()));
+
+            }
+
+            lore.add("");
+
+            lore.add(getAbility());
+
+            lore.add("");
+
+            String progressBar = CenteredText.sendCenteredMessage(generateFinishedProgressbar(), ChatColor.stripColor(getAbility()).length());
+
+            if(getLevel() != 100) {
+
+                lore.add("  " + CenteredText.sendCenteredMessage(getLevelColor() + getLevel(), ChatColor.stripColor(progressBar).length()));
+                lore.add(progressBar);
+
+                String expB = getLevelColor() + (getXp() - getExpForLevel(getLevel())) + "§8/" + getLevelColor() + (getExpForNextLevel() - getExpForLevel(getLevel()));
+
+                lore.add("  " + CenteredText.sendCenteredMessage(expB, ChatColor.stripColor(progressBar).length()));
+
+            }else{
+
+                lore.add("§8" + getLanguageManager().getLanguage().getStringFormatted("maxLevel"));
+
+            }
+
+            itemMeta.setLore(lore);
+
+            itemStack.setItemMeta(itemMeta);
+
+        }
+
+        return itemStack;
+
+    }
+
+    private String generateFinishedProgressbar(){
+
+        if(getLevel() == 100)
+            return generateProgressBar();
+
+        return getLevelColor() + getLevel() + " " + generateProgressBar() + " " + getLevelColor() + (getLevel() +1);
+
+    }
+
+    private String generateProgressBar(){
+
+        String bar = "";
+
+        int bars = 35;
+
+        long lastExp = getExpForLevel(getLevel());
+        long nextExp = getExpForNextLevel();
+
+        if(getLevel() == 100){
+
+            int color = (int) (Math.random() * colors.size()-1);
+
+            for(int i = 0; i < bars; i++) {
+
+                bar += colors.get(color) + "|";
+
+                color++;
+
+                if(color == colors.size())
+                    color = 0;
+
+            }
+
+            return bar;
+
+        }
+
+        long oneBar = (nextExp - lastExp) / bars;
+
+        long nextBar = 0;
+
+        while(nextBar <= (getXp() - lastExp) && bar.length() < (bars*3)){
+
+            nextBar += oneBar;
+
+            bar += getLevelColor() + "|";
+
+        }
+
+        while(bar.length() < (bars*3)){
+
+            bar += "§8|";
+
+        }
+
+        return bar;
 
     }
 

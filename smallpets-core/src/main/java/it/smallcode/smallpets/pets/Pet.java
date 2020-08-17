@@ -318,6 +318,8 @@ public abstract class Pet {
         return armorStand;
     }
 
+    public abstract ItemStack getDisplayItem();
+
     public String getCustomeName(){
 
         String name = "";
