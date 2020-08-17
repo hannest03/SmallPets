@@ -61,6 +61,18 @@ public class Language {
 
         translations = new HashMap<>();
 
+        if(!file.getName().equalsIgnoreCase("en.yml")) {
+
+            if (new File(file.getParentFile().getAbsolutePath(), "en.yml").exists()) {
+
+                FileConfiguration cfg2 = YamlConfiguration.loadConfiguration(new File(file.getParentFile().getAbsolutePath(), "en.yml"));
+
+                loadConfigurationSection("translations", Objects.requireNonNull(cfg2.getConfigurationSection("translations")), cfg2);
+
+            }
+
+        }
+
         loadConfigurationSection("translations", Objects.requireNonNull(cfg.getConfigurationSection("translations")), cfg);
 
     }
