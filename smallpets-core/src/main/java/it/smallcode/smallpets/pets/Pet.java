@@ -318,7 +318,7 @@ public abstract class Pet {
         return armorStand;
     }
 
-    public abstract ItemStack getDisplayItem();
+    public abstract ItemStack getDisplayItem(JavaPlugin plugin);
 
     public String getCustomeName(){
 

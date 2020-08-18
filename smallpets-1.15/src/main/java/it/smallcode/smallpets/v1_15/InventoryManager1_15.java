@@ -18,6 +18,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -25,9 +26,13 @@ import java.util.List;
 
 public class InventoryManager1_15 extends InventoryManager {
 
-    public InventoryManager1_15(InventoryCache inventoryCache, LanguageManager languageManager, double xpMultiplier) {
+    private JavaPlugin plugin;
+
+    public InventoryManager1_15(InventoryCache inventoryCache, LanguageManager languageManager, double xpMultiplier, JavaPlugin plugin) {
 
         super(inventoryCache, languageManager, xpMultiplier);
+
+        this.plugin = plugin;
 
     }
 
@@ -79,7 +84,7 @@ public class InventoryManager1_15 extends InventoryManager {
 
     private ItemStack makePetItem(Pet pet, Player p){
 
-        ItemStack itemStack = pet.getDisplayItem();
+        ItemStack itemStack = pet.getDisplayItem(plugin);
 
         if(itemStack != null) {
 

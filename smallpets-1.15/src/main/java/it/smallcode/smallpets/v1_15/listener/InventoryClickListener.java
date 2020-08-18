@@ -11,11 +11,14 @@ import it.smallcode.smallpets.languages.LanguageManager;
 import it.smallcode.smallpets.manager.UserManager;
 import it.smallcode.smallpets.manager.types.User;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.persistence.PersistentDataType;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Map;
 
@@ -23,13 +26,15 @@ public class InventoryClickListener implements Listener {
 
     private UserManager userManager;
     private LanguageManager languageManager;
+    private JavaPlugin plugin;
 
     private String prefix;
 
-    public InventoryClickListener(UserManager userManager, String prefix, LanguageManager languageManager){
+    public InventoryClickListener(UserManager userManager, String prefix, LanguageManager languageManager, JavaPlugin plugin){
 
         this.userManager = userManager;
         this.languageManager = languageManager;
+        this.plugin = plugin;
 
         this.prefix = prefix;
 
@@ -46,37 +51,37 @@ public class InventoryClickListener implements Listener {
 
                 if (e.getCurrentItem().getType() == Material.PLAYER_HEAD) {
 
-                    Player p = (Player) e.getWhoClicked();
+                    String type = e.getCurrentItem().getItemMeta().getPersistentDataContainer().get(new NamespacedKey(plugin, "pet"), PersistentDataType.STRING);
 
-                    String[] nameSplit = e.getCurrentItem().getItemMeta().getDisplayName().split(" ");
+                    if(type != null && type.trim().length() != 0){
 
-                    String type = nameSplit[nameSplit.length - 1];
+                        Player p = (Player) e.getWhoClicked();
 
-                    type = getRealTypeFromType(type);
+                        User user = userManager.getUser(p.getUniqueId().toString());
 
-                    User user = userManager.getUser(p.getUniqueId().toString());
+                        if(user != null) {
 
-                    if(user != null) {
+                            if (user.getSelected() != null && user.getSelected().getName().equals(type)) {
 
-                        if (user.getSelected() != null && user.getSelected().getName().equals(type)) {
+                                user.setSelected(null);
 
-                            user.setSelected(null);
+                                e.getWhoClicked().sendMessage(prefix + languageManager.getLanguage().getStringFormatted("petDespawned"));
 
-                            e.getWhoClicked().sendMessage(prefix + languageManager.getLanguage().getStringFormatted("petDespawned"));
+                            } else {
 
-                        } else {
+                                user.setSelected(user.getPetFromType(type));
 
-                            user.setSelected(user.getPetFromType(type));
+                                e.getWhoClicked().sendMessage(prefix + languageManager.getLanguage().getStringFormatted("petSpawned"));
 
-                            e.getWhoClicked().sendMessage(prefix + languageManager.getLanguage().getStringFormatted("petSpawned"));
+                            }
 
                         }
 
+                        p.playSound(p.getLocation(), Sound.ENTITY_PLAYER_BURP, 1,1 );
+
+                        p.closeInventory();
+
                     }
-
-                    p.playSound(p.getLocation(), Sound.ENTITY_PLAYER_BURP, 1,1 );
-
-                    p.closeInventory();
 
                 }
 

@@ -15,6 +15,7 @@ import com.comphenix.protocol.wrappers.WrappedChatComponent;
 import com.comphenix.protocol.wrappers.WrappedDataWatcher;
 import it.smallcode.smallpets.animations.FollowPlayerAnimation;
 import it.smallcode.smallpets.animations.HoverAnimation;
+import it.smallcode.smallpets.animations.WalkAwayFromPlayerAnimation;
 import it.smallcode.smallpets.events.PetLevelUpEvent;
 import it.smallcode.smallpets.languages.LanguageManager;
 import it.smallcode.smallpets.manager.UserManager;
@@ -75,6 +76,7 @@ public class SamplePet extends Pet {
     protected FollowPlayerAnimation followPlayerArmorStand;
     protected HoverAnimation hoverAnimation;
     protected LevelOnehundretAnimation levelOnehundretAnimation;
+    protected WalkAwayFromPlayerAnimation walkAwayFromPlayerAnimation;
 
     protected int logicID;
 
@@ -173,6 +175,7 @@ public class SamplePet extends Pet {
                 setCustomName(getCustomeName());
 
                 followPlayerArmorStand = new FollowPlayerAnimation(pet, 0.5D);
+                walkAwayFromPlayerAnimation = new WalkAwayFromPlayerAnimation(pet, 0.55D);
 
                 hoverAnimation = new HoverAnimation(pet, 0.025, 0.2, -0.5);
 
@@ -187,10 +190,20 @@ public class SamplePet extends Pet {
 
                         if(!isPauseLogic()) {
 
-                            if (Math.abs(location.distance(owner.getLocation())) >= 2.5D)
+                            double distance = Math.sqrt(Math.pow(armorStand.getLocation().getX() - owner.getLocation().getX(), 2) + Math.pow(armorStand.getLocation().getZ() - owner.getLocation().getZ(), 2));
+
+                            if (distance >= 2.5D)
                                 move();
                             else
-                                idle();
+                                if(distance <= 1.0D){
+
+                                    moveAway();
+
+                                }else {
+
+                                    idle();
+
+                                }
 
                         }
 
@@ -373,6 +386,7 @@ public class SamplePet extends Pet {
     protected void initAnimations(JavaPlugin plugin){
 
         followPlayerArmorStand = new FollowPlayerAnimation(this, 0.5);
+        walkAwayFromPlayerAnimation = new WalkAwayFromPlayerAnimation(this, 0.55);
 
         hoverAnimation = new HoverAnimation(this, 0.025, 0.2, -0.5);
 
@@ -387,15 +401,31 @@ public class SamplePet extends Pet {
 
                 if(!isPauseLogic()) {
 
-                    if (armorStand.getLocation().distance(owner.getLocation()) >= 2.5D)
+                    double distance = Math.sqrt(Math.pow(armorStand.getLocation().getX() - owner.getLocation().getX(), 2) + Math.pow(armorStand.getLocation().getZ() - owner.getLocation().getZ(), 2));
+
+                    if (distance >= 2.5D)
                         move();
                     else
-                        idle();
+                        if(distance <= 1.0D){
+
+                            moveAway();
+
+                        }else {
+
+                            idle();
+
+                        }
 
                 }
 
             }
         }, 0, 0);
+
+    }
+
+    public void moveAway(){
+
+        this.location = walkAwayFromPlayerAnimation.move(owner, location);
 
     }
 
@@ -503,7 +533,7 @@ public class SamplePet extends Pet {
     @Override
     public ItemStack getUnlockItem(Plugin plugin) {
 
-        ItemStack item = getDisplayItem();
+        ItemStack item = getDisplayItem((JavaPlugin) plugin);
 
         ItemMeta itemMeta = item.getItemMeta();
 
@@ -514,7 +544,6 @@ public class SamplePet extends Pet {
 
         itemMeta.setLore(lore);
 
-        itemMeta.getPersistentDataContainer().set(new NamespacedKey(plugin, "pet"), PersistentDataType.STRING, getName());
         itemMeta.getPersistentDataContainer().set(new NamespacedKey(plugin, "petExp"), PersistentDataType.LONG, getXp());
 
         item.setItemMeta(itemMeta);
@@ -544,7 +573,7 @@ public class SamplePet extends Pet {
     }
 
     @Override
-    public ItemStack getDisplayItem() {
+    public ItemStack getDisplayItem(JavaPlugin plugin) {
 
         ItemStack itemStack = getItem();
 
@@ -586,6 +615,8 @@ public class SamplePet extends Pet {
             }
 
             itemMeta.setLore(lore);
+
+            itemMeta.getPersistentDataContainer().set(new NamespacedKey(plugin, "pet"), PersistentDataType.STRING, getName());
 
             itemStack.setItemMeta(itemMeta);
 
