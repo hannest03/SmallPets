@@ -415,10 +415,20 @@ public class SamplePet extends Pet {
 
         int level = getLevel();
 
-        if(level != 100)
+        if(exp >= 0) {
+            if (level != 100)
+                this.xp += exp;
+
+        }else{
+
             this.xp += exp;
 
-        if(level < getLevel()){
+            if(this.xp < 0)
+                this.xp = 0;
+
+        }
+
+        if(level != getLevel()){
 
             //LEVEL UP
 
@@ -428,8 +438,19 @@ public class SamplePet extends Pet {
 
                 setCustomName(getCustomeName());
 
-                if (getLevel() == 100)
+                if (getLevel() == 100) {
+
                     levelOnehundretAnimation = new LevelOnehundretAnimation(this, getLanguageManager(), plugin);
+
+                }else {
+
+                    if (levelOnehundretAnimation != null) {
+
+                        levelOnehundretAnimation.cancel();
+                        levelOnehundretAnimation = null;
+
+                    }
+                }
 
             }
 
