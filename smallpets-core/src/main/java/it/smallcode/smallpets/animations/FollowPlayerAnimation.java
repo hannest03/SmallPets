@@ -29,6 +29,16 @@ public class FollowPlayerAnimation {
 
         goal.setY(goal.getY() + 0.75);
 
+        double distance = Math.sqrt(Math.pow(loc.getX() - player.getLocation().getX(), 2) + Math.pow(loc.getZ() - player.getLocation().getZ(), 2));
+
+        if (distance < 2.5D){
+
+            goal.setY(goal.getY() + player.getLocation().getY() - loc.getY());
+            goal.setX(loc.getX());
+            goal.setZ(loc.getZ());
+
+        }
+
         Vector start = vectorFromLocation(loc);
 
         Vector direction = normalize(goal.subtract(start));

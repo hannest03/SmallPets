@@ -182,33 +182,7 @@ public class SamplePet extends Pet {
                 if(getLevel() == 100)
                     levelOnehundretAnimation = new LevelOnehundretAnimation(pet, getLanguageManager(),  plugin);
 
-                logicID = Bukkit.getScheduler().scheduleAsyncRepeatingTask(plugin, new Runnable() {
-                    @Override
-                    public void run() {
-
-                        spawnParticles();
-
-                        if(!isPauseLogic()) {
-
-                            double distance = Math.sqrt(Math.pow(getLocation().getX() - owner.getLocation().getX(), 2) + Math.pow(getLocation().getZ() - owner.getLocation().getZ(), 2));
-
-                            if (distance >= 2.5D)
-                                move();
-                            else
-                                if(distance <= 1.0D){
-
-                                    moveAway();
-
-                                }else {
-
-                                    idle();
-
-                                }
-
-                        }
-
-                    }
-                }, 0, 0);
+                initLogic(plugin);
 
             }
         });
@@ -393,6 +367,12 @@ public class SamplePet extends Pet {
         if(getLevel() == 100)
             levelOnehundretAnimation = new LevelOnehundretAnimation(this, getLanguageManager(), plugin);
 
+        initLogic(plugin);
+
+    }
+
+    private void initLogic(JavaPlugin plugin){
+
         logicID = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
             @Override
             public void run() {
@@ -403,18 +383,20 @@ public class SamplePet extends Pet {
 
                     double distance = Math.sqrt(Math.pow(getLocation().getX() - owner.getLocation().getX(), 2) + Math.pow(getLocation().getZ() - owner.getLocation().getZ(), 2));
 
-                    if (distance >= 2.5D)
+                    if (distance >= 2.5D || Math.abs(owner.getLocation().getY() - getLocation().getY()) > 1D)
+
                         move();
+
                     else
-                        if(distance <= 1.0D){
+                    if(distance <= 1.0D){
 
-                            moveAway();
+                        moveAway();
 
-                        }else {
+                    }else {
 
-                            idle();
+                        idle();
 
-                        }
+                    }
 
                 }
 
