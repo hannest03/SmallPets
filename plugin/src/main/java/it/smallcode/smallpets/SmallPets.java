@@ -258,7 +258,7 @@ public class SmallPets extends JavaPlugin {
         }else if(version.startsWith("1_16")){
 
             petMapManager = new PetMapManager1_16();
-            inventoryManager = new InventoryManager1_16(inventoryCache, languageManager, xpMultiplier);
+            inventoryManager = new InventoryManager1_16(inventoryCache, languageManager, xpMultiplier, this);
             userManager = new UserManager(this, languageManager, petMapManager, useProtocolLib);
             listenerManager = new ListenerManager1_16(this, getUserManager(), getPetMapManager(), languageManager, getInventoryCache(), PREFIX, xpMultiplier, useProtocolLib);
 

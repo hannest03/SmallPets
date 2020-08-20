@@ -190,7 +190,7 @@ public class SamplePet extends Pet {
 
                         if(!isPauseLogic()) {
 
-                            double distance = Math.sqrt(Math.pow(armorStand.getLocation().getX() - owner.getLocation().getX(), 2) + Math.pow(armorStand.getLocation().getZ() - owner.getLocation().getZ(), 2));
+                            double distance = Math.sqrt(Math.pow(getLocation().getX() - owner.getLocation().getX(), 2) + Math.pow(getLocation().getZ() - owner.getLocation().getZ(), 2));
 
                             if (distance >= 2.5D)
                                 move();
@@ -401,7 +401,7 @@ public class SamplePet extends Pet {
 
                 if(!isPauseLogic()) {
 
-                    double distance = Math.sqrt(Math.pow(armorStand.getLocation().getX() - owner.getLocation().getX(), 2) + Math.pow(armorStand.getLocation().getZ() - owner.getLocation().getZ(), 2));
+                    double distance = Math.sqrt(Math.pow(getLocation().getX() - owner.getLocation().getX(), 2) + Math.pow(getLocation().getZ() - owner.getLocation().getZ(), 2));
 
                     if (distance >= 2.5D)
                         move();
