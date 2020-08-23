@@ -8,10 +8,7 @@ Class created by SmallCode
 
 import it.smallcode.smallpets.languages.Language;
 import it.smallcode.smallpets.languages.LanguageManager;
-import it.smallcode.smallpets.manager.InventoryCache;
-import it.smallcode.smallpets.manager.ListenerManager;
-import it.smallcode.smallpets.manager.PetMapManager;
-import it.smallcode.smallpets.manager.UserManager;
+import it.smallcode.smallpets.manager.*;
 import it.smallcode.smallpets.v1_13.listener.BlockPlaceListener;
 import it.smallcode.smallpets.v1_15.listener.*;
 import it.smallcode.smallpets.v1_13.listener.UnlockListener;
@@ -34,13 +31,15 @@ public class ListenerManager1_13 extends ListenerManager {
 
     private boolean useProtocollib;
 
+    private InventoryManager inventoryManager;
     private LanguageManager languageManager;
 
-    public ListenerManager1_13(JavaPlugin plugin, UserManager userManager, PetMapManager petMapManager, LanguageManager languageManager, InventoryCache inventoryCache, String prefix, double xpMultiplier, boolean useProtocollib) {
+    public ListenerManager1_13(JavaPlugin plugin, UserManager userManager, PetMapManager petMapManager, LanguageManager languageManager, InventoryCache inventoryCache, String prefix, double xpMultiplier, boolean useProtocollib, InventoryManager inventoryManager) {
 
         super(plugin);
 
         this.languageManager = languageManager;
+        this.inventoryManager = inventoryManager;
 
         this.userManager = userManager;
         this.petMapManager = petMapManager;
@@ -63,7 +62,7 @@ public class ListenerManager1_13 extends ListenerManager {
         //OTHERS
 
         Bukkit.getPluginManager().registerEvents(new PetLevelUpListener(languageManager), getPlugin());
-        Bukkit.getPluginManager().registerEvents(new InventoryClickListener(userManager, prefix, languageManager), getPlugin());
+        Bukkit.getPluginManager().registerEvents(new InventoryClickListener(userManager, prefix, languageManager, getPlugin(), inventoryManager), getPlugin());
         Bukkit.getPluginManager().registerEvents(new UnlockListener(getPlugin(), languageManager, userManager, prefix), getPlugin());
         Bukkit.getPluginManager().registerEvents(new ArmorStandInteractListener(petMapManager, languageManager), getPlugin());
         Bukkit.getPluginManager().registerEvents(new BlockPlaceListener(getPlugin()), getPlugin());

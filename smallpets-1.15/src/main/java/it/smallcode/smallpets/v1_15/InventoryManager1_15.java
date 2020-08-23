@@ -6,13 +6,10 @@ Class created by SmallCode
 
 */
 
-import it.smallcode.smallpets.languages.Language;
 import it.smallcode.smallpets.languages.LanguageManager;
 import it.smallcode.smallpets.manager.InventoryCache;
 import it.smallcode.smallpets.manager.InventoryManager;
 import it.smallcode.smallpets.pets.Pet;
-import it.smallcode.smallpets.text.CenteredText;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -20,19 +17,14 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 public class InventoryManager1_15 extends InventoryManager {
 
-    private JavaPlugin plugin;
-
     public InventoryManager1_15(InventoryCache inventoryCache, LanguageManager languageManager, double xpMultiplier, JavaPlugin plugin) {
 
-        super(inventoryCache, languageManager, xpMultiplier);
-
-        this.plugin = plugin;
+        super(inventoryCache, languageManager, xpMultiplier, plugin);
 
     }
 
@@ -45,6 +37,8 @@ public class InventoryManager1_15 extends InventoryManager {
 
         inventory = makeEdges(inventory);
 
+        inventory.setItem(0, createItem("§8Select", Material.BLACK_STAINED_GLASS_PANE));
+
         for(Pet pet : pets){
 
             ItemStack itemStack = makePetItem(pet, p);
@@ -54,6 +48,16 @@ public class InventoryManager1_15 extends InventoryManager {
                 inventory.addItem(itemStack);
 
             }
+
+        }
+
+        if(convertingPets.contains(p.getUniqueId().toString())){
+
+            inventory.setItem(44, createItem(languageManager.getLanguage().getStringFormatted("convertToItem"), Material.LIME_DYE));
+
+        }else{
+
+            inventory.setItem(44, createItem(languageManager.getLanguage().getStringFormatted("convertToItem"), Material.GRAY_DYE));
 
         }
 

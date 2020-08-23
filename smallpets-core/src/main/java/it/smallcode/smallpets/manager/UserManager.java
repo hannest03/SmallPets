@@ -217,6 +217,63 @@ public class UserManager {
 
     /**
      *
+     * Gives a player a pet
+     *
+     * @param type - the type of the pet
+     * @param uuid - the uuid of the player
+     * @param exp - the amount of exp the pet has
+     * @return the boolean is true if the pet was successfully added to the player,<br> if the player already had the pet or there was an error false will be returned
+     */
+    public boolean giveUserPet(String type, String uuid, Long exp){
+
+        User user = getUser(uuid);
+
+        if(user != null){
+
+            if(petMapManager.getPetMap().containsKey(type)){
+
+                if(user.getPetFromType(type) == null) {
+
+                    try {
+
+                        Constructor constructor = petMapManager.getPetMap().get(type).getConstructor(Player.class, Long.class, Boolean.class, LanguageManager.class);
+
+                        Pet pet = (Pet) constructor.newInstance(Bukkit.getPlayer(UUID.fromString(uuid)), exp, useProtocolLib, languageManager);
+
+                        user.getPets().add(pet);
+
+                        return true;
+
+                    } catch (NoSuchMethodException ex) {
+
+                        ex.printStackTrace();
+
+                    } catch (IllegalAccessException ex) {
+
+                        ex.printStackTrace();
+
+                    } catch (InstantiationException ex) {
+
+                        ex.printStackTrace();
+
+                    } catch (InvocationTargetException ex) {
+
+                        ex.printStackTrace();
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        return false;
+
+    }
+
+    /**
+     *
      * Removes a player a pet
      *
      * @param type - the type of the pet

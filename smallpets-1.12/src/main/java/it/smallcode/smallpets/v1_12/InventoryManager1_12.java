@@ -6,48 +6,30 @@ Class created by SmallCode
 
 */
 
-import it.smallcode.smallpets.languages.Language;
 import it.smallcode.smallpets.languages.LanguageManager;
 import it.smallcode.smallpets.manager.InventoryCache;
 import it.smallcode.smallpets.manager.InventoryManager;
 import it.smallcode.smallpets.pets.Pet;
-import it.smallcode.smallpets.text.CenteredText;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 public class InventoryManager1_12 extends InventoryManager {
-
-    private final ArrayList<String> colors = new ArrayList<>();
 
     /**
      * Creates a inventory manager object
      *
      * @param inventoryCache - the inventoryCache
      */
-    public InventoryManager1_12(InventoryCache inventoryCache, LanguageManager languageManager, double xpMultiplier) {
+    public InventoryManager1_12(InventoryCache inventoryCache, LanguageManager languageManager, double xpMultiplier, JavaPlugin plugin) {
 
-        super(inventoryCache, languageManager, xpMultiplier);
-
-        colors.add("§4");
-        colors.add("§c");
-        colors.add("§6");
-        colors.add("§e");
-        colors.add("§2");
-        colors.add("§a");
-        colors.add("§b");
-        colors.add("§3");
-        colors.add("§1");
-        colors.add("§9");
-        colors.add("§d");
-        colors.add("§5");
+        super(inventoryCache, languageManager, xpMultiplier, plugin);
 
     }
 
@@ -68,6 +50,16 @@ public class InventoryManager1_12 extends InventoryManager {
                 inventory.addItem(itemStack);
 
             }
+
+        }
+
+        if(convertingPets.contains(p.getUniqueId().toString())){
+
+            inventory.setItem(44, createItem(languageManager.getLanguage().getStringFormatted("convertToItem"), 351, (short) 10));
+
+        }else{
+
+            inventory.setItem(44, createItem(languageManager.getLanguage().getStringFormatted("convertToItem"), 351, (short) 8));
 
         }
 
@@ -95,40 +87,13 @@ public class InventoryManager1_12 extends InventoryManager {
 
     private ItemStack makePetItem(Pet pet, Player p){
 
-        ItemStack itemStack = pet.getItem();
+        ItemStack itemStack = pet.getDisplayItem(plugin);
 
         if(itemStack != null) {
 
             ItemMeta itemMeta = itemStack.getItemMeta();
 
-            itemMeta.setDisplayName(pet.getCustomeName());
-
-            ArrayList<String> lore = new ArrayList();
-
-            lore.add("");
-
-            lore.add(pet.getAbility());
-
-            lore.add("");
-
-            String progressBar = CenteredText.sendCenteredMessage(generateFinishedProgressbar(pet), ChatColor.stripColor(pet.getAbility()).length());
-
-            if(pet.getLevel() != 100)
-                lore.add("  " + CenteredText.sendCenteredMessage(pet.getLevelColor() + pet.getLevel(), ChatColor.stripColor(progressBar).length()));
-            else
-                lore.add("§d" + CenteredText.sendCenteredMessage("" + pet.getLevel(), ChatColor.stripColor(progressBar).length()));
-
-            lore.add(progressBar);
-
-            String expB = languageManager.getLanguage().getStringFormatted("maxLevel");
-
-            if(pet.getLevel() != 100) {
-                expB = pet.getLevelColor() + (pet.getXp() - pet.getExpForLevel(pet.getLevel())) + "§8/" + pet.getLevelColor() + (pet.getExpForNextLevel() - pet.getExpForLevel(pet.getLevel()));
-
-                lore.add("  " + CenteredText.sendCenteredMessage(expB, ChatColor.stripColor(progressBar).length()));
-
-            }else
-                lore.add(CenteredText.sendCenteredMessage(expB, ChatColor.stripColor(progressBar).length()));
+            List<String> lore = itemMeta.getLore();
 
             lore.add("");
 
@@ -144,65 +109,6 @@ public class InventoryManager1_12 extends InventoryManager {
         }
 
         return itemStack;
-
-    }
-
-    private String generateFinishedProgressbar(Pet pet){
-
-        if(pet.getLevel() == 100)
-            return generateProgressBar(pet);
-
-        return pet.getLevelColor() + pet.getLevel() + " " + generateProgressBar(pet) + " " + pet.getLevelColor() + (pet.getLevel() +1);
-
-    }
-
-    private String generateProgressBar(Pet pet){
-
-        String bar = "";
-
-        int bars = 35;
-
-        long lastExp = pet.getExpForLevel(pet.getLevel());
-        long nextExp = pet.getExpForNextLevel();
-
-        if(pet.getLevel() == 100){
-
-            int color = (int) (Math.random() * colors.size()-1);
-
-            for(int i = 0; i < bars; i++) {
-
-                bar += colors.get(color) + "|";
-
-                color++;
-
-                if(color == colors.size())
-                    color = 0;
-
-            }
-
-            return bar;
-
-        }
-
-        long oneBar = (nextExp - lastExp) / bars;
-
-        long nextBar = 0;
-
-        while(nextBar <= (pet.getXp() - lastExp) && bar.length() < (bars*3)){
-
-            nextBar += oneBar;
-
-            bar += pet.getLevelColor() + "|";
-
-        }
-
-        while(bar.length() < (bars*3)){
-
-            bar += "§8|";
-
-        }
-
-        return bar;
 
     }
 

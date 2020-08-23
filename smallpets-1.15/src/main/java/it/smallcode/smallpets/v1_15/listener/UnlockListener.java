@@ -58,7 +58,15 @@ public class UnlockListener implements Listener {
 
                             String type = item.getItemMeta().getPersistentDataContainer().get(key, PersistentDataType.STRING);
 
-                            if(userManager.giveUserPet(type, e.getPlayer().getUniqueId().toString())){
+                            long exp = 0;
+
+                            if(itemMeta.getPersistentDataContainer().has(new NamespacedKey(plugin, "petExp"), PersistentDataType.LONG)){
+
+                                exp = itemMeta.getPersistentDataContainer().get(new NamespacedKey(plugin, "petExp"), PersistentDataType.LONG);
+
+                            }
+
+                            if(userManager.giveUserPet(type, e.getPlayer().getUniqueId().toString(), exp)){
 
                                 e.getItem().setAmount(e.getItem().getAmount() -1);
 

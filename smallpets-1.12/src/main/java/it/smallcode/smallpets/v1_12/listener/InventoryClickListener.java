@@ -8,6 +8,7 @@ Class created by SmallCode
 
 import it.smallcode.smallpets.languages.Language;
 import it.smallcode.smallpets.languages.LanguageManager;
+import it.smallcode.smallpets.manager.InventoryManager;
 import it.smallcode.smallpets.manager.UserManager;
 import it.smallcode.smallpets.manager.types.User;
 import org.bukkit.Sound;
@@ -23,11 +24,13 @@ public class InventoryClickListener implements Listener {
     private String prefix;
 
     private LanguageManager languageManager;
+    private InventoryManager inventoryManager;
 
-    public InventoryClickListener(UserManager userManager, String prefix, LanguageManager languageManager){
+    public InventoryClickListener(UserManager userManager, String prefix, LanguageManager languageManager, InventoryManager inventoryManager){
 
         this.userManager = userManager;
         this.languageManager = languageManager;
+        this.inventoryManager = inventoryManager;
 
         this.prefix = prefix;
 
