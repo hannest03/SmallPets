@@ -9,3 +9,5 @@ softdepend:
 main: it.smallcode.smallpets.SmallPets
 commands:
   smallpets:
+    aliases:
+      - sp
