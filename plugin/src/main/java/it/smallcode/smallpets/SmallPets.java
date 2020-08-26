@@ -77,6 +77,12 @@ public class SmallPets extends JavaPlugin {
 
         languageManager = new LanguageManager(this, PREFIX, this.getConfig().getString("language"));
 
+        Bukkit.getConsoleSender().sendMessage(PREFIX + "Loading experience table...");
+
+        this.experienceManager = new ExperienceManager(this);
+
+        Bukkit.getConsoleSender().sendMessage(PREFIX + "Experience table loaded!");
+
         if(!selectRightVersion())
             return;
 
@@ -95,12 +101,6 @@ public class SmallPets extends JavaPlugin {
             Bukkit.getConsoleSender().sendMessage(PREFIX + "Registered crafting recipes!");
 
         }
-
-        Bukkit.getConsoleSender().sendMessage(PREFIX + "Loading experience table...");
-
-        this.experienceManager = new ExperienceManager(this);
-
-        Bukkit.getConsoleSender().sendMessage(PREFIX + "Experience table loaded!");
 
         //Registering all listeners
 
@@ -253,14 +253,14 @@ public class SmallPets extends JavaPlugin {
             petMapManager = new PetMapManager1_15();
             inventoryManager = new InventoryManager1_15(inventoryCache, languageManager, xpMultiplier, this);
             userManager = new UserManager(this, languageManager, petMapManager, useProtocolLib);
-            listenerManager = new ListenerManager1_15(this, getUserManager(), getPetMapManager(), languageManager, getInventoryCache(), PREFIX, xpMultiplier, useProtocolLib, inventoryManager);
+            listenerManager = new ListenerManager1_15(this, getUserManager(), getPetMapManager(), languageManager, getInventoryCache(), PREFIX, xpMultiplier, useProtocolLib, inventoryManager, experienceManager);
 
         }else if(version.startsWith("1_16")){
 
             petMapManager = new PetMapManager1_16();
             inventoryManager = new InventoryManager1_16(inventoryCache, languageManager, xpMultiplier, this);
             userManager = new UserManager(this, languageManager, petMapManager, useProtocolLib);
-            listenerManager = new ListenerManager1_16(this, getUserManager(), getPetMapManager(), languageManager, getInventoryCache(), PREFIX, xpMultiplier, useProtocolLib, inventoryManager);
+            listenerManager = new ListenerManager1_16(this, getUserManager(), getPetMapManager(), languageManager, getInventoryCache(), PREFIX, xpMultiplier, useProtocolLib, inventoryManager, experienceManager);
 
         }else{
 

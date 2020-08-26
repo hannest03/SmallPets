@@ -27,15 +27,25 @@ public class ExperienceManager {
 
     private ArrayList<ExperienceTable> experienceTables;
 
+    private HashMap<String, Integer> experienceTableAll;
+
     public ExperienceManager(JavaPlugin plugin){
 
         this.plugin = plugin;
 
         load();
+        loadExperienceTableAll();
 
     }
 
-    public void load(){
+    public void reload(){
+
+        load();
+        loadExperienceTableAll();
+
+    }
+
+    private void load(){
 
         experienceTables = new ArrayList<>();
 
@@ -72,6 +82,38 @@ public class ExperienceManager {
 
     }
 
+    public PetType getPetTypeOfType(String type){
+
+        for(ExperienceTable experienceTable : experienceTables){
+
+            if(experienceTable.getExperienceTable().containsKey(type)){
+
+                return experienceTable.getPetType();
+
+            }
+
+        }
+
+        return null;
+
+    }
+
+    private void loadExperienceTableAll(){
+
+        experienceTableAll = new HashMap<>();
+
+        for(ExperienceTable experienceTable : experienceTables){
+
+            for(String key : experienceTable.getExperienceTable().keySet()){
+
+                experienceTableAll.put(key, experienceTable.getExperienceTable().get(key));
+
+            }
+
+        }
+
+    }
+
     private void writeDefaults(){
 
         experienceTables = new ArrayList<>();
@@ -85,7 +127,10 @@ public class ExperienceManager {
         combatTableExp.put("creeper", 10);
         combatTableExp.put("skeleton", 5);
         combatTableExp.put("spider", 5);
+        combatTableExp.put("cave_spider", 5);
         combatTableExp.put("zombie", 5);
+        combatTableExp.put("husk", 5);
+        combatTableExp.put("drowned", 5);
         combatTableExp.put("slime", 1);
         combatTableExp.put("blaze", 5);
         combatTableExp.put("magma_cube", 5);
@@ -95,12 +140,13 @@ public class ExperienceManager {
         combatTableExp.put("bat", 1);
         combatTableExp.put("guardian", 15);
         combatTableExp.put("shulker", 15);
+        combatTableExp.put("evoker", 20);
         combatTableExp.put("vex", 10);
         combatTableExp.put("evocation_illager", 10);
         combatTableExp.put("vindication_illager", 10);
         combatTableExp.put("illusion_illager", 10);
-        combatTableExp.put("husk", 5);
         combatTableExp.put("wither_skeleton", 15);
+        combatTableExp.put("phantom", 5);
         combatTableExp.put("elder_guardian", 500);
 
         combatTableExp.put("ender_dragon", 1000);
@@ -162,5 +208,9 @@ public class ExperienceManager {
 
     public ArrayList<ExperienceTable> getExperienceTables() {
         return experienceTables;
+    }
+
+    public HashMap<String, Integer> getExperienceTableAll() {
+        return experienceTableAll;
     }
 }

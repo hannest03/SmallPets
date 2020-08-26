@@ -25,6 +25,7 @@ public class ReloadSubCMD extends SubCommand {
 
                 SmallPets.getInstance().loadConfig();
                 SmallPets.getInstance().getLanguageManager().loadLanguage(SmallPets.getInstance().getConfig().getString("language"));
+                SmallPets.getInstance().getExperienceManager().reload();
 
                 s.sendMessage(SmallPets.getInstance().PREFIX + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("reloaded")
                         .replaceAll("%type%", "all"));
@@ -44,7 +45,14 @@ public class ReloadSubCMD extends SubCommand {
                 s.sendMessage(SmallPets.getInstance().PREFIX + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("reloaded")
                         .replaceAll("%type%", "language"));
 
-            } else {
+            }else if(args[0].equalsIgnoreCase("experienceTable")){
+
+                SmallPets.getInstance().getExperienceManager().reload();
+
+                s.sendMessage(SmallPets.getInstance().PREFIX + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("reloaded")
+                        .replaceAll("%type%", "experienceTable"));
+
+            }else{
 
                 s.sendMessage(SmallPets.getInstance().PREFIX + "/smallpets admin " + getHelp());
 
@@ -60,6 +68,6 @@ public class ReloadSubCMD extends SubCommand {
 
     @Override
     public String getHelp() {
-        return getName() + " <all/config/language>";
+        return getName() + " <all/config/experienceTable/language>";
     }
 }
