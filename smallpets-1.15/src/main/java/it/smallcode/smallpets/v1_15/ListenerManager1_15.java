@@ -11,7 +11,9 @@ import it.smallcode.smallpets.manager.*;
 import it.smallcode.smallpets.v1_15.listener.*;
 import it.smallcode.smallpets.v1_15.listener.abilities.EntityDamageListener;
 import it.smallcode.smallpets.v1_15.listener.abilities.PlayerMoveListener;
+import it.smallcode.smallpets.v1_15.listener.experience.BlockBreakListener;
 import it.smallcode.smallpets.v1_15.listener.experience.EntityDeathLListener;
+import it.smallcode.smallpets.v1_15.listener.experience.FurnaceSmeltListener;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -56,7 +58,14 @@ public class ListenerManager1_15 extends ListenerManager {
 
         //EXPERIENCE
 
+        //--- Combat
+
         Bukkit.getPluginManager().registerEvents(new EntityDeathLListener(getPlugin(), userManager, experienceManager, xpMultiplier), getPlugin());
+
+        //--- Mining
+
+        Bukkit.getPluginManager().registerEvents(new BlockBreakListener(getPlugin(), userManager, experienceManager, xpMultiplier), getPlugin());
+        Bukkit.getPluginManager().registerEvents(new FurnaceSmeltListener(getPlugin(), userManager, experienceManager, xpMultiplier), getPlugin());
 
         //OTHERS
 

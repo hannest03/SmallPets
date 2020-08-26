@@ -2,7 +2,7 @@ package it.smallcode.smallpets.v1_15.listener.experience;
 /*
 
 Class created by SmallCode
-25.08.2020 22:04
+26.08.2020 21:54
 
 */
 
@@ -12,10 +12,10 @@ import it.smallcode.smallpets.manager.types.User;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.inventory.FurnaceExtractEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class BlockBreakListener implements Listener {
+public class FurnaceSmeltListener implements Listener {
 
     private JavaPlugin plugin;
 
@@ -24,7 +24,7 @@ public class BlockBreakListener implements Listener {
 
     private double xpMultiplier;
 
-    public BlockBreakListener(JavaPlugin plugin, UserManager userManager, ExperienceManager experienceManager, double xpMultiplier){
+    public FurnaceSmeltListener(JavaPlugin plugin, UserManager userManager, ExperienceManager experienceManager, double xpMultiplier){
 
         this.userManager = userManager;
         this.experienceManager = experienceManager;
@@ -34,7 +34,7 @@ public class BlockBreakListener implements Listener {
     }
 
     @EventHandler
-    public void onBlockBreak(BlockBreakEvent e){
+    public void onSmelt(FurnaceExtractEvent e){
 
         Player p = e.getPlayer();
 
@@ -44,7 +44,7 @@ public class BlockBreakListener implements Listener {
 
             if(user.getSelected() != null){
 
-                String type = e.getBlock().getType().toString().toLowerCase();
+                String type = e.getItemType().toString().toLowerCase();
 
                 if(experienceManager.getExperienceTableAll().containsKey(type)){
 
@@ -56,7 +56,7 @@ public class BlockBreakListener implements Listener {
 
                     }
 
-                    user.getSelected().giveExp((int) (exp * xpMultiplier), plugin);
+                    user.getSelected().giveExp((int) (exp * xpMultiplier) * e.getItemAmount(), plugin);
 
                 }
 

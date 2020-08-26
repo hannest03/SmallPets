@@ -166,6 +166,27 @@ public class ExperienceManager {
 
         experienceTables.add(combatTable);
 
+        ExperienceTable miningTable = new ExperienceTable();
+
+        miningTable.setPetType(PetType.mining);
+
+        HashMap<String, Integer> miningTableExp = new HashMap<>();
+
+        miningTableExp.put("coal_ore", 5);
+        miningTableExp.put("nether_quartz_ore", 5);
+        miningTableExp.put("nether_gold_ore", 10);
+        miningTableExp.put("iron_ingot", 15);
+        miningTableExp.put("gold_ingot", 20);
+        miningTableExp.put("lapis_ore", 10);
+        miningTableExp.put("redstone_ore", 15);
+        miningTableExp.put("diamond_ore", 30);
+        miningTableExp.put("emerald_ore", 50);
+        miningTableExp.put("ancient_debris", 200);
+
+        miningTable.setExperienceTable(miningTableExp);
+
+        experienceTables.add(miningTable);
+
         save();
         load();
 
