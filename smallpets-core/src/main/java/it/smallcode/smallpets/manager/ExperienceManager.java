@@ -187,6 +187,25 @@ public class ExperienceManager {
 
         experienceTables.add(miningTable);
 
+        ExperienceTable foragingTable = new ExperienceTable();
+
+        foragingTable.setPetType(PetType.foraging);
+
+        HashMap<String, Integer> foragingTableExp = new HashMap<>();
+
+        foragingTableExp.put("oak_log", 5);
+        foragingTableExp.put("spruce_log", 5);
+        foragingTableExp.put("birch_log", 5);
+        foragingTableExp.put("jungle_log", 5);
+        foragingTableExp.put("acacia_log", 5);
+        foragingTableExp.put("dark_oak_log", 5);
+        foragingTableExp.put("crimson_hyphae", 6);
+        foragingTableExp.put("warped_hyphae", 6);
+
+        foragingTable.setExperienceTable(foragingTableExp);
+
+        experienceTables.add(foragingTable);
+
         save();
         load();
 
