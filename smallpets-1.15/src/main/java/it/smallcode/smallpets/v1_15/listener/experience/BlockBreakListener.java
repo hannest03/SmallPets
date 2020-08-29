@@ -9,6 +9,8 @@ Class created by SmallCode
 import it.smallcode.smallpets.manager.ExperienceManager;
 import it.smallcode.smallpets.manager.UserManager;
 import it.smallcode.smallpets.manager.types.User;
+import org.bukkit.Material;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -48,21 +50,86 @@ public class BlockBreakListener implements Listener {
 
                 if(experienceManager.getExperienceTableAll().containsKey(type)){
 
-                    int exp = experienceManager.getExperienceTableAll().get(type);
+                    if(isFarmingBlock(e.getBlock().getType())){
 
-                    if(experienceManager.getPetTypeOfType(type) != user.getSelected().getPetType()) {
+                        String blockData = e.getBlock().getBlockData().getAsString();
 
-                        exp /= 2;
+                        int index = blockData.indexOf("age=");
+
+                        index += 4;
+
+                        blockData = blockData.substring(index, index + 1);
+
+                        int age = Integer.parseInt(blockData);
+
+                        if(e.getBlock().getType() != Material.BEETROOTS){
+
+                            if(age == 7){
+
+                                int exp = experienceManager.getExperienceTableAll().get(type);
+
+                                if (experienceManager.getPetTypeOfType(type) != user.getSelected().getPetType()) {
+
+                                    exp /= 2;
+
+                                }
+
+                                user.getSelected().giveExp((int) (exp * xpMultiplier), plugin);
+
+                            }
+
+                        }else{
+
+                            if(age == 3){
+
+                                int exp = experienceManager.getExperienceTableAll().get(type);
+
+                                if (experienceManager.getPetTypeOfType(type) != user.getSelected().getPetType()) {
+
+                                    exp /= 2;
+
+                                }
+
+                                user.getSelected().giveExp((int) (exp * xpMultiplier), plugin);
+
+                            }
+
+                        }
+
+                    }else {
+
+                        int exp = experienceManager.getExperienceTableAll().get(type);
+
+                        if (experienceManager.getPetTypeOfType(type) != user.getSelected().getPetType()) {
+
+                            exp /= 2;
+
+                        }
+
+                        user.getSelected().giveExp((int) (exp * xpMultiplier), plugin);
 
                     }
-
-                    user.getSelected().giveExp((int) (exp * xpMultiplier), plugin);
 
                 }
 
             }
 
         }
+
+    }
+
+    private boolean isFarmingBlock(Material material){
+
+        if(     material == Material.WHEAT ||
+                material == Material.POTATOES ||
+                material == Material.CARROTS ||
+                material == Material.BEETROOTS){
+
+            return true;
+
+        }
+
+        return false;
 
     }
 

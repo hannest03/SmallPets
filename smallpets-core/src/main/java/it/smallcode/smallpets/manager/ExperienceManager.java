@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
+import java.util.function.Consumer;
 
 public class ExperienceManager {
 
@@ -205,6 +206,25 @@ public class ExperienceManager {
         foragingTable.setExperienceTable(foragingTableExp);
 
         experienceTables.add(foragingTable);
+
+        ExperienceTable farmingTable = new ExperienceTable();
+
+        farmingTable.setPetType(PetType.farming);
+
+        HashMap<String, Integer> farmingTableExp = new HashMap<>();
+
+        farmingTableExp.put("wheat", 5);
+        farmingTableExp.put("potatoes", 5);
+        farmingTableExp.put("carrots", 5);
+        farmingTableExp.put("beetroots", 5);
+        farmingTableExp.put("cocoa", 5);
+        farmingTableExp.put("melon", 5);
+        farmingTableExp.put("pumpkin", 5);
+        farmingTableExp.put("cactus", 5);
+
+        farmingTable.setExperienceTable(farmingTableExp);
+
+        experienceTables.add(farmingTable);
 
         save();
         load();
