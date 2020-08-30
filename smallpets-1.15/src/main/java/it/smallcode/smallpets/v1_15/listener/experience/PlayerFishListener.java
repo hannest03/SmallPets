@@ -55,11 +55,7 @@ public class PlayerFishListener implements Listener {
 
                         String type = item.getType().toString().toLowerCase();
 
-                        System.out.println(type);
-
                         if(experienceManager.getExperienceTableAll().containsKey(type)){
-
-                            System.out.println("Exp");
 
                             int exp = experienceManager.getExperienceTableAll().get(type);
 
