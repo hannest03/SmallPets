@@ -15,10 +15,18 @@ public abstract class SubCommand {
     private String name;
     private String permission;
 
-    public SubCommand(String name, String permission){
+    protected String help;
+
+    private SubCommandType subCommandType;
+
+    public SubCommand(String name, String permission, SubCommandType subCommandType){
 
         this.name = name;
         this.permission = permission;
+
+        this.subCommandType = subCommandType;
+
+        help = getName();
 
     }
 
@@ -50,9 +58,13 @@ public abstract class SubCommand {
 
     protected abstract void handleCommand(CommandSender s, String[] args);
 
-    public abstract String getHelp();
+    public String getHelp(){ return help; }
 
     public String getName() {
         return name;
+    }
+
+    public SubCommandType getSubCommandType() {
+        return subCommandType;
     }
 }

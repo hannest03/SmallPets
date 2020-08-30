@@ -9,6 +9,7 @@ Class created by SmallCode
 import it.smallcode.smallpets.SmallPets;
 import it.smallcode.smallpets.cmds.SmallPetsCMD;
 import it.smallcode.smallpets.cmds.SubCommand;
+import it.smallcode.smallpets.cmds.SubCommandType;
 import it.smallcode.smallpets.manager.types.User;
 import it.smallcode.smallpets.pets.Pet;
 import org.bukkit.Bukkit;
@@ -17,7 +18,10 @@ import org.bukkit.command.CommandSender;
 public class SetLevelSubCMD extends SubCommand {
 
     public SetLevelSubCMD(String name, String permission) {
-        super(name, permission);
+        super(name, permission, SubCommandType.ADMIN);
+
+        help += " <user> <type> <level>";
+
     }
 
     @Override
@@ -81,11 +85,6 @@ public class SetLevelSubCMD extends SubCommand {
 
         }
 
-    }
-
-    @Override
-    public String getHelp() {
-        return getName() + " <user> <type> <level>";
     }
 
     private boolean isInteger(String number){

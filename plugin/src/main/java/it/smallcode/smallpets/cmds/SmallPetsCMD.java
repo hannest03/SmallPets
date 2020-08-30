@@ -23,18 +23,21 @@ import java.util.Optional;
 
 public class SmallPetsCMD implements CommandExecutor {
 
-    private ArrayList<SubCommand> subAdminCommands;
+    private ArrayList<SubCommand> subCommands;
 
     public SmallPetsCMD(){
 
-        subAdminCommands = new ArrayList<>();
+        subCommands = new ArrayList<>();
 
-        subAdminCommands.add(new PetTypesSubCMD("pettypes", "smallpets.pettypes"));
-        subAdminCommands.add(new GivePetSubCMD("givepet", "smallpets.givepet"));
-        subAdminCommands.add(new RemovePetSubCMD("removePet", "smallpets.removepet"));
-        subAdminCommands.add(new GiveExperienceSubCMD("giveexp", "smallpets.giveexp"));
-        subAdminCommands.add(new SetLevelSubCMD("setlevel", "smallpets.setlevel"));
-        subAdminCommands.add(new ReloadSubCMD("reload", "smallpets.reload"));
+        subCommands.add(new PetTypesSubCMD("pettypes", "smallpets.pettypes"));
+        subCommands.add(new GivePetSubCMD("givepet", "smallpets.givepet"));
+        subCommands.add(new RemovePetSubCMD("removePet", "smallpets.removepet"));
+        subCommands.add(new GiveExperienceSubCMD("giveexp", "smallpets.giveexp"));
+        subCommands.add(new SetLevelSubCMD("setlevel", "smallpets.setlevel"));
+        subCommands.add(new ReloadSubCMD("reload", "smallpets.reload"));
+
+        subCommands.add(new DiscordSubCMD("discord", ""));
+        subCommands.add(new DonateSubCMD("donate", ""));
 
     }
 
@@ -79,30 +82,50 @@ public class SmallPetsCMD implements CommandExecutor {
 
             return false;
 
-        } else if (args.length >= 2) {
+        }
 
-            if(args[0].equalsIgnoreCase("admin")){
+        //smallpets admin test
+        //smallpets discord
 
-                Optional<SubCommand> optSubCommand = subAdminCommands.stream().filter(subCommand -> subCommand.getName().equalsIgnoreCase(args[1])).findFirst();
+        Optional<SubCommand> optionalSubCommand = subCommands.stream().filter(subCommand -> {
 
-                if(optSubCommand.isPresent()) {
+            if(args.length >= subCommand.getSubCommandType().getMinArgs() +1){
 
-                    String[] passArgs = new String[args.length - 2];
+                String typeName = "";
 
-                    for (int i = 0; i < passArgs.length; i++) {
+                if(subCommand.getSubCommandType().getMinArgs() > 0){
 
-                        passArgs[i] = args[i + 2];
+                    typeName = args[subCommand.getSubCommandType().getMinArgs() -1];
 
-                    }
+                }
 
-                    optSubCommand.get().command(s, passArgs);
+                if(subCommand.getSubCommandType().getName().equalsIgnoreCase(typeName)){
 
-                    return false;
-
+                    return subCommand.getName().equalsIgnoreCase(args[subCommand.getSubCommandType().getMinArgs()]);
 
                 }
 
             }
+
+            return false;
+
+        }).findFirst();
+
+        if(optionalSubCommand.isPresent()){
+
+            SubCommand subCommand = optionalSubCommand.get();
+
+            String[] passArgs = new String[args.length - (subCommand.getSubCommandType().getMinArgs() +1)];
+
+            for (int i = 0; i < passArgs.length; i++) {
+
+                passArgs[i] = args[i + (subCommand.getSubCommandType().getMinArgs() +1)];
+
+            }
+
+            subCommand.command(s, passArgs);
+
+            return false;
 
         }
 
@@ -116,9 +139,9 @@ public class SmallPetsCMD implements CommandExecutor {
 
         s.sendMessage(SmallPets.getInstance().PREFIX + "/smallpets");
 
-        for(SubCommand subCommand : subAdminCommands){
+        for(SubCommand subCommand : subCommands){
 
-            s.sendMessage(SmallPets.getInstance().PREFIX + "/smallpets admin " + subCommand.getHelp());
+            s.sendMessage(SmallPets.getInstance().PREFIX + "/smallpets " + subCommand.getSubCommandType().getName() + " " + subCommand.getHelp());
 
         }
 

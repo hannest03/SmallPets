@@ -8,12 +8,13 @@ Class created by SmallCode
 
 import it.smallcode.smallpets.SmallPets;
 import it.smallcode.smallpets.cmds.SubCommand;
+import it.smallcode.smallpets.cmds.SubCommandType;
 import org.bukkit.command.CommandSender;
 
 public class PetTypesSubCMD extends SubCommand {
 
     public PetTypesSubCMD(String name, String permission) {
-        super(name, permission);
+        super(name, permission, SubCommandType.ADMIN);
     }
 
     @Override
@@ -33,8 +34,4 @@ public class PetTypesSubCMD extends SubCommand {
 
     }
 
-    @Override
-    public String getHelp() {
-        return getName();
-    }
 }

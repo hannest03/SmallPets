@@ -17,6 +17,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -80,7 +81,9 @@ public class InventoryManager1_15 extends InventoryManager {
 
         stats.setItemMeta(itemMeta);
 
+        inventory.setItem(39, createItem("§6Sort", Material.HOPPER, "§cNot implemented yet"));
         inventory.setItem(40, stats);
+        inventory.setItem(41, createItem("§6Recipe book", Material.BOOK, "§cNot implemented yet"));
 
         p.openInventory(inventory);
 
@@ -147,6 +150,32 @@ public class InventoryManager1_15 extends InventoryManager {
         ItemMeta itemMeta = item.getItemMeta();
 
         itemMeta.setDisplayName(name);
+
+        item.setItemMeta(itemMeta);
+
+        return item;
+
+    }
+
+    private ItemStack createItem(String name, Material material, String lore){
+
+        ItemStack item = new ItemStack(material);
+
+        ItemMeta itemMeta = item.getItemMeta();
+
+        itemMeta.setDisplayName(name);
+
+        ArrayList<String> finalLore = new ArrayList<>();
+
+        String[] loreArray = lore.split("\n");
+
+        for(String string : loreArray){
+
+            finalLore.add(string);
+
+        }
+
+        itemMeta.setLore(finalLore);
 
         item.setItemMeta(itemMeta);
 

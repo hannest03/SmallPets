@@ -8,19 +8,23 @@ Class created by SmallCode
 
 import it.smallcode.smallpets.SmallPets;
 import it.smallcode.smallpets.cmds.SubCommand;
+import it.smallcode.smallpets.cmds.SubCommandType;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 
 public class GivePetSubCMD extends SubCommand {
 
     public GivePetSubCMD(String name, String permission) {
-        super(name, permission);
+        super(name, permission, SubCommandType.ADMIN);
+
+        help += " <user> <type>";
+
     }
 
     @Override
     public void handleCommand(CommandSender s, String[] args) {
 
-        if(args.length == 2) {
+        if (args.length == 2) {
 
             if (Bukkit.getPlayer(args[0]) != null && Bukkit.getPlayer(args[0]).isOnline()) {
 
@@ -40,7 +44,7 @@ public class GivePetSubCMD extends SubCommand {
 
             }
 
-        }else{
+        } else {
 
             s.sendMessage(SmallPets.getInstance().PREFIX + "/smallpets admin " + getHelp());
 
@@ -48,8 +52,4 @@ public class GivePetSubCMD extends SubCommand {
 
     }
 
-    @Override
-    public String getHelp() {
-        return getName() + " <user> <type>";
-    }
 }

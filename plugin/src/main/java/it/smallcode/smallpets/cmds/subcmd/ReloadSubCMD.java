@@ -8,12 +8,16 @@ Class created by SmallCode
 
 import it.smallcode.smallpets.SmallPets;
 import it.smallcode.smallpets.cmds.SubCommand;
+import it.smallcode.smallpets.cmds.SubCommandType;
 import org.bukkit.command.CommandSender;
 
 public class ReloadSubCMD extends SubCommand {
 
     public ReloadSubCMD(String name, String permission) {
-        super(name, permission);
+        super(name, permission, SubCommandType.ADMIN);
+
+        help += " <all/config/experienceTable/language>";
+
     }
 
     @Override
@@ -66,8 +70,4 @@ public class ReloadSubCMD extends SubCommand {
 
     }
 
-    @Override
-    public String getHelp() {
-        return getName() + " <all/config/experienceTable/language>";
-    }
 }

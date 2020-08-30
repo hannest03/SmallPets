@@ -8,6 +8,7 @@ Class created by SmallCode
 
 import it.smallcode.smallpets.SmallPets;
 import it.smallcode.smallpets.cmds.SubCommand;
+import it.smallcode.smallpets.cmds.SubCommandType;
 import it.smallcode.smallpets.manager.types.User;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -16,7 +17,10 @@ public class GiveExperienceSubCMD extends SubCommand {
 
 
     public GiveExperienceSubCMD(String name, String permission) {
-        super(name, permission);
+        super(name, permission, SubCommandType.ADMIN);
+
+        help += "  <user> <type> <exp>";
+
     }
 
     @Override
@@ -68,11 +72,6 @@ public class GiveExperienceSubCMD extends SubCommand {
 
         }
 
-    }
-
-    @Override
-    public String getHelp() {
-        return getName() + " <user> <type> <exp>";
     }
 
     private boolean isInteger(String number){
