@@ -226,6 +226,25 @@ public class ExperienceManager {
 
         experienceTables.add(farmingTable);
 
+        ExperienceTable fishingTable = new ExperienceTable();
+
+        fishingTable.setPetType(PetType.fishing);
+
+        HashMap<String, Integer> fishingTableExp = new HashMap<>();
+
+        fishingTableExp.put("cod", 5);
+        fishingTableExp.put("salmon", 5);
+        fishingTableExp.put("tropical_fish", 5);
+        fishingTableExp.put("pufferfish", 5);
+
+        fishingTableExp.put("fishing_rod", 25);
+        fishingTableExp.put("enchanted_book", 50);
+        fishingTableExp.put("name_tag", 50);
+
+        fishingTable.setExperienceTable(fishingTableExp);
+
+        experienceTables.add(fishingTable);
+
         save();
         load();
 

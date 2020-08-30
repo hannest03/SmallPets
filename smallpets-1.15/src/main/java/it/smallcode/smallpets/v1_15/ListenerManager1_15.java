@@ -14,6 +14,7 @@ import it.smallcode.smallpets.v1_15.listener.abilities.PlayerMoveListener;
 import it.smallcode.smallpets.v1_15.listener.experience.BlockBreakListener;
 import it.smallcode.smallpets.v1_15.listener.experience.EntityDeathLListener;
 import it.smallcode.smallpets.v1_15.listener.experience.FurnaceSmeltListener;
+import it.smallcode.smallpets.v1_15.listener.experience.PlayerFishListener;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -62,16 +63,19 @@ public class ListenerManager1_15 extends ListenerManager {
 
         Bukkit.getPluginManager().registerEvents(new EntityDeathLListener(getPlugin(), userManager, experienceManager, xpMultiplier), getPlugin());
 
-        //--- Mining
+        //--- Mining && Foraging && Farming
 
         Bukkit.getPluginManager().registerEvents(new BlockBreakListener(getPlugin(), userManager, experienceManager, xpMultiplier), getPlugin());
         Bukkit.getPluginManager().registerEvents(new FurnaceSmeltListener(getPlugin(), userManager, experienceManager, xpMultiplier), getPlugin());
+
+        //--- Fishing
+
+        Bukkit.getPluginManager().registerEvents(new PlayerFishListener(getPlugin(), userManager, experienceManager, xpMultiplier), getPlugin());
 
         //OTHERS
 
         Bukkit.getPluginManager().registerEvents(new ArmorStandInteractListener(petMapManager, languageManager), getPlugin());
         Bukkit.getPluginManager().registerEvents(new BlockPlaceListener(getPlugin()), getPlugin());
-        //Bukkit.getPluginManager().registerEvents(new GiveExpListener(getPlugin(), userManager, xpMultiplier), getPlugin());
         Bukkit.getPluginManager().registerEvents(new PetLevelUpListener(languageManager), getPlugin());
         Bukkit.getPluginManager().registerEvents(new UnlockListener(getPlugin(), languageManager, userManager, prefix), getPlugin());
         Bukkit.getPluginManager().registerEvents(new WorldChangeListener(userManager, getPlugin(), useProtocollib), getPlugin());
