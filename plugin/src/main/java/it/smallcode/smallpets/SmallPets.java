@@ -239,14 +239,14 @@ public class SmallPets extends JavaPlugin {
             petMapManager = new PetMapManager1_12();
             inventoryManager = new InventoryManager1_12(inventoryCache, languageManager, xpMultiplier, this);
             userManager = new UserManager(this, languageManager, petMapManager, useProtocolLib);
-            listenerManager = new ListenerManager1_12(this, getUserManager(), getPetMapManager(), languageManager, getInventoryCache(), PREFIX, xpMultiplier, useProtocolLib, inventoryManager);
+            listenerManager = new ListenerManager1_12(this, getUserManager(), getPetMapManager(), languageManager, getInventoryCache(), PREFIX, xpMultiplier, useProtocolLib, inventoryManager, experienceManager);
 
         }else if(version.startsWith("1_13")){
 
             petMapManager = new PetMapManager1_13();
             inventoryManager = new InventoryManager1_13(inventoryCache, languageManager, xpMultiplier, this);
             userManager = new UserManager(this, languageManager, petMapManager, useProtocolLib);
-            listenerManager = new ListenerManager1_13(this, getUserManager(), getPetMapManager(), languageManager, getInventoryCache(), PREFIX, xpMultiplier, useProtocolLib, inventoryManager);
+            listenerManager = new ListenerManager1_13(this, getUserManager(), getPetMapManager(), languageManager, getInventoryCache(), PREFIX, xpMultiplier, useProtocolLib, inventoryManager, experienceManager);
 
         }else if(version.startsWith("1_15") || version.startsWith("1_14")){
 

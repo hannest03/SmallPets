@@ -15,6 +15,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -55,7 +56,22 @@ public abstract class Pet {
 
     private PetType petType;
 
-    private static final String[] levelColors = {"§7", "§2", "§a", "§e", "§6", "§c", "§4", "§d", "§b", "§f"};
+    protected static final ArrayList<String> levelColors = new ArrayList<>();
+
+    static {
+
+        levelColors.add("§7");
+        levelColors.add("§2");
+        levelColors.add("§a");
+        levelColors.add("§e");
+        levelColors.add("§6");
+        levelColors.add("§c");
+        levelColors.add("§4");
+        levelColors.add("§d");
+        levelColors.add("§b");
+        levelColors.add("§f");
+
+    }
 
     /**
      *
@@ -254,10 +270,10 @@ public abstract class Pet {
 
         int index = getLevel() / 10;
 
-        if(levelColors.length <= index)
+        if(levelColors.size() <= index)
             return "";
 
-        return levelColors[index];
+        return levelColors.get(index);
 
     }
 
@@ -352,6 +368,65 @@ public abstract class Pet {
         name += "§6" + petName;
 
         return name;
+
+    }
+
+    protected String generateFinishedProgressbar(){
+
+        if(getLevel() == 100)
+            return generateProgressBar();
+
+        return getLevelColor() + getLevel() + " " + generateProgressBar() + " " + getLevelColor() + (getLevel() +1);
+
+    }
+
+    private String generateProgressBar(){
+
+        String bar = "";
+
+        int bars = 35;
+
+        long lastExp = getExpForLevel(getLevel());
+        long nextExp = getExpForNextLevel();
+
+        if(getLevel() == 100){
+
+            int color = (int) (Math.random() * levelColors.size()-1);
+
+            for(int i = 0; i < bars; i++) {
+
+                bar += levelColors.get(color) + "|";
+
+                color++;
+
+                if(color == levelColors.size())
+                    color = 0;
+
+            }
+
+            return bar;
+
+        }
+
+        long oneBar = (nextExp - lastExp) / bars;
+
+        long nextBar = 0;
+
+        while(nextBar <= (getXp() - lastExp) && bar.length() < (bars*3)){
+
+            nextBar += oneBar;
+
+            bar += getLevelColor() + "|";
+
+        }
+
+        while(bar.length() < (bars*3)){
+
+            bar += "§8|";
+
+        }
+
+        return bar;
 
     }
 

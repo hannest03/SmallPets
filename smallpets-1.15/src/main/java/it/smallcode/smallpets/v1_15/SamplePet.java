@@ -43,25 +43,6 @@ import java.util.*;
  */
 public class SamplePet extends Pet {
 
-    private static final ArrayList<String> colors = new ArrayList<>();
-
-    static {
-
-        colors.add("§4");
-        colors.add("§c");
-        colors.add("§6");
-        colors.add("§e");
-        colors.add("§2");
-        colors.add("§a");
-        colors.add("§b");
-        colors.add("§3");
-        colors.add("§1");
-        colors.add("§9");
-        colors.add("§d");
-        colors.add("§5");
-
-    }
-
     /**
      *
      * Creates a pet
@@ -605,65 +586,6 @@ public class SamplePet extends Pet {
         }
 
         return itemStack;
-
-    }
-
-    private String generateFinishedProgressbar(){
-
-        if(getLevel() == 100)
-            return generateProgressBar();
-
-        return getLevelColor() + getLevel() + " " + generateProgressBar() + " " + getLevelColor() + (getLevel() +1);
-
-    }
-
-    private String generateProgressBar(){
-
-        String bar = "";
-
-        int bars = 35;
-
-        long lastExp = getExpForLevel(getLevel());
-        long nextExp = getExpForNextLevel();
-
-        if(getLevel() == 100){
-
-            int color = (int) (Math.random() * colors.size()-1);
-
-            for(int i = 0; i < bars; i++) {
-
-                bar += colors.get(color) + "|";
-
-                color++;
-
-                if(color == colors.size())
-                    color = 0;
-
-            }
-
-            return bar;
-
-        }
-
-        long oneBar = (nextExp - lastExp) / bars;
-
-        long nextBar = 0;
-
-        while(nextBar <= (getXp() - lastExp) && bar.length() < (bars*3)){
-
-            nextBar += oneBar;
-
-            bar += getLevelColor() + "|";
-
-        }
-
-        while(bar.length() < (bars*3)){
-
-            bar += "§8|";
-
-        }
-
-        return bar;
 
     }
 

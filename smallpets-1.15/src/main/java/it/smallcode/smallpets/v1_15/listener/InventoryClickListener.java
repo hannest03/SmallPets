@@ -89,10 +89,13 @@ public class InventoryClickListener implements Listener {
 
                                 if(p.getInventory().firstEmpty() != -1) {
 
-                                    if(user.getSelected().getName().equalsIgnoreCase(type)){
+                                    if(user.getSelected() != null) {
 
-                                        user.setSelected(null);
+                                        if (user.getSelected().getName().equalsIgnoreCase(type)) {
 
+                                            user.setSelected(null);
+
+                                        }
                                     }
 
                                     ItemStack petItem = user.getPetFromType(type).getUnlockItem(plugin);
