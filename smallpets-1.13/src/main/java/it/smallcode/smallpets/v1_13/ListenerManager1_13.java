@@ -10,6 +10,7 @@ import it.smallcode.smallpets.languages.Language;
 import it.smallcode.smallpets.languages.LanguageManager;
 import it.smallcode.smallpets.manager.*;
 import it.smallcode.smallpets.v1_13.listener.BlockPlaceListener;
+import it.smallcode.smallpets.v1_13.listener.InventoryClickListener;
 import it.smallcode.smallpets.v1_15.listener.*;
 import it.smallcode.smallpets.v1_13.listener.UnlockListener;
 import it.smallcode.smallpets.v1_15.listener.abilities.PlayerMoveListener;
@@ -84,6 +85,7 @@ public class ListenerManager1_13 extends ListenerManager {
 
         Bukkit.getPluginManager().registerEvents(new PetLevelUpListener(languageManager), getPlugin());
         Bukkit.getPluginManager().registerEvents(new InventoryClickListener(userManager, prefix, languageManager, getPlugin(), inventoryManager), getPlugin());
+        Bukkit.getPluginManager().registerEvents(new InventoryCloseListener(inventoryManager), getPlugin());
         Bukkit.getPluginManager().registerEvents(new UnlockListener(getPlugin(), languageManager, userManager, prefix), getPlugin());
         Bukkit.getPluginManager().registerEvents(new ArmorStandInteractListener(petMapManager, languageManager), getPlugin());
         Bukkit.getPluginManager().registerEvents(new BlockPlaceListener(getPlugin()), getPlugin());

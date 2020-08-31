@@ -51,7 +51,15 @@ public class UnlockListener implements Listener {
 
                         String type = item.getTag().getString("pet");
 
-                        if(userManager.giveUserPet(type, e.getPlayer().getUniqueId().toString())){
+                        long exp = 0;
+
+                        if(item.getTag().hasKey("petExp")) {
+
+                            exp = Long.valueOf(item.getTag().getString("petExp"));
+
+                        }
+
+                        if(userManager.giveUserPet(type, e.getPlayer().getUniqueId().toString(), exp)){
 
                             e.getItem().setAmount(e.getItem().getAmount() -1);
 
