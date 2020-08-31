@@ -74,7 +74,6 @@ public class InventoryManager1_15 extends InventoryManager {
 
         lore.add("");
         lore.add("§e" + languageManager.getLanguage().getStringFormatted("experienceMultiplier") + "§8: §7" + experienceMultiplier);
-        lore.add("§e" + languageManager.getLanguage().getStringFormatted("experienceBooster") + "§8: §7" + "none");
         lore.add("");
 
         itemMeta.setLore(lore);

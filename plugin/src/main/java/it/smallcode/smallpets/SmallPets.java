@@ -36,6 +36,9 @@ import java.util.Map;
 
 public class SmallPets extends JavaPlugin {
 
+    public static final String DISCORD_LINK = "https://discordapp.com/invite/62wbxdg";
+    public static final String DONATION_LINK = "https://ko-fi.com/smallcode";
+
     private static SmallPets instance;
 
     private PetMapManager petMapManager;
@@ -173,6 +176,9 @@ public class SmallPets extends JavaPlugin {
         }
 
         Bukkit.getPluginManager().registerEvents(new WorldSaveListener(), this);
+
+        Bukkit.getConsoleSender().sendMessage(PREFIX + "Consider joining the discord server for news and test versions! You can join with this link: " + DISCORD_LINK);
+        Bukkit.getConsoleSender().sendMessage(PREFIX + "One time donations are also appreciated: " + DONATION_LINK);
 
         Bukkit.getConsoleSender().sendMessage(PREFIX + "Plugin initialized");
 

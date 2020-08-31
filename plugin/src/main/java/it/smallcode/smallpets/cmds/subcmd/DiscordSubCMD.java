@@ -21,7 +21,7 @@ public class DiscordSubCMD extends SubCommand {
     @Override
     protected void handleCommand(CommandSender s, String[] args) {
 
-        s.sendMessage("§f[§dDiscord§7] §dhttps://discordapp.com/invite/62wbxdg");
+        s.sendMessage("§f[§dDiscord§7] §d" + SmallPets.DISCORD_LINK);
 
     }
 

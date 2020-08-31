@@ -564,7 +564,7 @@ public class ItemIDs {
         itemIds.put(new ItemID(346,0), "fishing_rod");
         itemIds.put(new ItemID(347,0), "clock");
         itemIds.put(new ItemID(348,0), "glowstone_dust");
-        itemIds.put(new ItemID(349,0), "raw_fish");
+        itemIds.put(new ItemID(349,0), "cod");
         itemIds.put(new ItemID(349,1), "salmon");
         itemIds.put(new ItemID(349,2), "clownfish");
         itemIds.put(new ItemID(349,3), "pufferfish");

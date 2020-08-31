@@ -52,7 +52,7 @@ public class PlayerFishListener implements Listener {
 
                         ItemStack item = itemEntity.getItemStack();
 
-                        String type = ItemIDs.getTypeFromIDAndSubID(item.getTypeId(), item.getType().getMaxDurability()).toLowerCase();
+                        String type = ItemIDs.getTypeFromIDAndSubID(item.getTypeId(), item.getData().getData()).toLowerCase();
 
                         if(experienceManager.getExperienceTableAll().containsKey(type)){
 

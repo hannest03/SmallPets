@@ -6,6 +6,7 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.SmallPets;
 import it.smallcode.smallpets.cmds.SubCommand;
 import it.smallcode.smallpets.cmds.SubCommandType;
 import org.bukkit.command.CommandSender;
@@ -19,7 +20,7 @@ public class DonateSubCMD extends SubCommand {
     @Override
     protected void handleCommand(CommandSender s, String[] args) {
 
-        s.sendMessage("§e[§6Donate§e] https://ko-fi.com/smallcode");
+        s.sendMessage("§e[§6Donate§e] " + SmallPets.DONATION_LINK);
 
     }
 
