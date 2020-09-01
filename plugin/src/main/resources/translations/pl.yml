@@ -1,5 +1,5 @@
 translations:
-  noPerms: "You haven't got the permission to do that!"
+  noPerms: "&cBrak permisji"
   petSpawned: 'Twoj zwierzak pojawil sie'
   petDespawned: 'Twoj zwierzak zniknal'
   experienceSummary: '&fPosumowanie Expa'
