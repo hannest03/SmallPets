@@ -6,8 +6,8 @@ Class created by SmallCode
 
 */
 
-import it.smallcode.smallpets.manager.UserManager;
-import it.smallcode.smallpets.manager.types.User;
+import it.smallcode.smallpets.core.manager.UserManager;
+import it.smallcode.smallpets.core.manager.types.User;
 import it.smallcode.smallpets.v1_15.pets.Monkey;
 import it.smallcode.smallpets.v1_15.pets.Penguin;
 import org.bukkit.Material;

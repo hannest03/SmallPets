@@ -1,10 +1,11 @@
 translations:
-  noPerms: "You haven't got the permission to do that!"
+  noPerms: '&cBrak permisji'
   petSpawned: 'Twoj zwierzak pojawil sie'
   petDespawned: 'Twoj zwierzak zniknal'
   experienceSummary: '&fPosumowanie Expa'
   levelupText: '&eTwoj zwierzak ma teraz poziom &6&l%pet_level%&e!'
-  nextLevel: '&eTwoj zwierzak wymaga &6%exp_next_level%&6 expa &eaby osiagnac poziom &6%pet_next_level%&e'
+  nextLevel: '&eTwoj zwierzak wymaga &6%exp_next_level%&6 expa &eaby osiagnac poziom
+    &6%pet_next_level%&e'
   petUnlock: 'Odblokowano zwierzaka (%pet_type%)!'
   clickToSelect: '&6KLIKNIJ ABY WYBRAC'
   clickToDeselect: '&cKLIKNIJ ABY ZDESPAWNOWAC'
@@ -20,9 +21,20 @@ translations:
   experienceMultiplier: 'Mnoznik Expa'
   stats: 'Statystyki'
   experienceBooster: 'Booster Expa'
-  petNameFormat: "&8[%level%&8] &7%player_name% "
-  petNameFormatTwoS: "&8[%level%&8] &7%player_name% "
+  petNameFormat: '&8[%level%&8] &7%player_name% '
+  petNameFormatTwoS: '&8[%level%&8] &7%player_name% '
+  petNotUnlocked: 'Zwierzak nie jest odblokowany'
+  notInteger: 'Nieprawidlowy numer'
+  convertToItem: '&7Zamien na przedmiot'
+  inventoryFull: '&7Twoj ekwipunek jest pelny'
+  petNameWithoutOwner: '&7[%level%&7] '
   pet:
     tiger: 'Tygrys'
     penguin: 'Pingwin'
     monkey: 'Malpa'
+  petType:
+    combat: 'Rodzaj: Walka'
+    mining: 'Rodzaj: Gornictwo'
+    farming: 'Rodzaj: Rolnictwo'
+    fishing: 'Rodzaj: Lownictwo'
+    foraging: 'Rodzaj: Drwalnictwo'

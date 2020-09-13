@@ -6,13 +6,11 @@ Class created by SmallCode
 
 */
 
-import it.smallcode.smallpets.languages.LanguageManager;
-import it.smallcode.smallpets.manager.PetMapManager;
+import it.smallcode.smallpets.core.languages.LanguageManager;
+import it.smallcode.smallpets.core.manager.PetMapManager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerArmorStandManipulateEvent;
-
-import java.util.Map;
 
 public class ArmorStandInteractListener implements Listener {
 

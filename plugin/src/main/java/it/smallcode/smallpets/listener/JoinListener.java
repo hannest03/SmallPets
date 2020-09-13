@@ -7,9 +7,9 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.SmallPets;
-import it.smallcode.smallpets.manager.PetMapManager;
-import it.smallcode.smallpets.manager.UserManager;
-import it.smallcode.smallpets.manager.types.User;
+import it.smallcode.smallpets.core.manager.PetMapManager;
+import it.smallcode.smallpets.core.manager.UserManager;
+import it.smallcode.smallpets.core.manager.types.User;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

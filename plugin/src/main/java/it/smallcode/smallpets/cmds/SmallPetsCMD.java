@@ -8,9 +8,8 @@ Class created by SmallCode
 
 import it.smallcode.smallpets.SmallPets;
 import it.smallcode.smallpets.cmds.subcmd.*;
-import it.smallcode.smallpets.manager.types.User;
-import it.smallcode.smallpets.pets.Pet;
-import org.bukkit.Bukkit;
+import it.smallcode.smallpets.core.manager.types.User;
+import it.smallcode.smallpets.core.pets.Pet;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

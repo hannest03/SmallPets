@@ -6,8 +6,8 @@ Class created by SmallCode
 
 */
 
-import it.smallcode.smallpets.languages.LanguageManager;
-import it.smallcode.smallpets.pets.PetType;
+import it.smallcode.smallpets.core.languages.LanguageManager;
+import it.smallcode.smallpets.core.pets.PetType;
 import it.smallcode.smallpets.v1_15.SamplePet;
 import it.smallcode.smallpets.v1_15.SkullCreator;
 import org.bukkit.Bukkit;
@@ -17,10 +17,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.Plugin;
-
-import java.util.ArrayList;
 
 public class Penguin extends SamplePet {
 

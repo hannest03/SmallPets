@@ -6,21 +6,16 @@ Class created by SmallCode
 
 */
 
-import com.comphenix.protocol.ProtocolLibrary;
-import com.comphenix.protocol.events.PacketContainer;
-import it.smallcode.smallpets.events.PetChangeWorldEvent;
-import it.smallcode.smallpets.manager.UserManager;
-import it.smallcode.smallpets.manager.types.User;
+import it.smallcode.smallpets.core.events.PetChangeWorldEvent;
+import it.smallcode.smallpets.core.manager.UserManager;
+import it.smallcode.smallpets.core.manager.types.User;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.lang.reflect.InvocationTargetException;
 
 public class WorldChangeListener implements Listener {
 

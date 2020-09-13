@@ -6,15 +6,13 @@ Class created by SmallCode
 
 */
 
-import it.smallcode.smallpets.languages.Language;
-import it.smallcode.smallpets.languages.LanguageManager;
-import it.smallcode.smallpets.manager.InventoryManager;
-import it.smallcode.smallpets.manager.UserManager;
-import it.smallcode.smallpets.manager.types.User;
+import it.smallcode.smallpets.core.languages.LanguageManager;
+import it.smallcode.smallpets.core.manager.InventoryManager;
+import it.smallcode.smallpets.core.manager.UserManager;
+import it.smallcode.smallpets.core.manager.types.User;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Sound;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -23,8 +21,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.util.Map;
 
 public class InventoryClickListener implements Listener {
 

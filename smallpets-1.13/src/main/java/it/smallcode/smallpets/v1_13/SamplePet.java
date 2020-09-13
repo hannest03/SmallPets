@@ -6,8 +6,8 @@ Class created by SmallCode
 
 */
 
-import it.smallcode.smallpets.languages.LanguageManager;
-import it.smallcode.smallpets.text.CenteredText;
+import it.smallcode.smallpets.core.languages.LanguageManager;
+import it.smallcode.smallpets.core.text.CenteredText;
 import net.minecraft.server.v1_13_R2.NBTTagCompound;
 import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.v1_13_R2.inventory.CraftItemStack;

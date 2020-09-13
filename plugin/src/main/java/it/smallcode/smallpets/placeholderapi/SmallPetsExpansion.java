@@ -7,7 +7,7 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.SmallPets;
-import it.smallcode.smallpets.manager.types.User;
+import it.smallcode.smallpets.core.manager.types.User;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.OfflinePlayer;
 

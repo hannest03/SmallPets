@@ -6,10 +6,8 @@ Class created by SmallCode
 
 */
 
-import it.smallcode.smallpets.languages.LanguageManager;
-import it.smallcode.smallpets.manager.UserManager;
-import org.bukkit.NamespacedKey;
-import org.bukkit.craftbukkit.v1_12_R1.entity.CraftItem;
+import it.smallcode.smallpets.core.languages.LanguageManager;
+import it.smallcode.smallpets.core.manager.UserManager;
 import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

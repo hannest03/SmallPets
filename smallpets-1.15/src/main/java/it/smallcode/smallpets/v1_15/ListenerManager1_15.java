@@ -6,8 +6,8 @@ Class created by SmallCode
 
 */
 
-import it.smallcode.smallpets.languages.LanguageManager;
-import it.smallcode.smallpets.manager.*;
+import it.smallcode.smallpets.core.languages.LanguageManager;
+import it.smallcode.smallpets.core.manager.*;
 import it.smallcode.smallpets.v1_15.listener.*;
 import it.smallcode.smallpets.v1_15.listener.abilities.EntityDamageListener;
 import it.smallcode.smallpets.v1_15.listener.abilities.PlayerMoveListener;

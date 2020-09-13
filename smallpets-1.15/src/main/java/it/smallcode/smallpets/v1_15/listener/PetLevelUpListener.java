@@ -6,11 +6,9 @@ Class created by SmallCode
 
 */
 
-import it.smallcode.smallpets.events.PetLevelUpEvent;
-import it.smallcode.smallpets.languages.LanguageManager;
-import it.smallcode.smallpets.manager.PetMapManager;
-import it.smallcode.smallpets.manager.UserManager;
-import it.smallcode.smallpets.text.CenteredText;
+import it.smallcode.smallpets.core.events.PetLevelUpEvent;
+import it.smallcode.smallpets.core.languages.LanguageManager;
+import it.smallcode.smallpets.core.text.CenteredText;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

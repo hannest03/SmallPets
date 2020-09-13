@@ -6,9 +6,8 @@ Class created by SmallCode
 
 */
 
-import it.smallcode.smallpets.languages.Language;
-import it.smallcode.smallpets.languages.LanguageManager;
-import it.smallcode.smallpets.manager.*;
+import it.smallcode.smallpets.core.languages.LanguageManager;
+import it.smallcode.smallpets.core.manager.*;
 import it.smallcode.smallpets.v1_13.listener.BlockPlaceListener;
 import it.smallcode.smallpets.v1_13.listener.InventoryClickListener;
 import it.smallcode.smallpets.v1_15.listener.*;

@@ -6,19 +6,10 @@ Class created by SmallCode
 
 */
 
-import it.smallcode.smallpets.languages.Language;
-import it.smallcode.smallpets.languages.LanguageManager;
-import it.smallcode.smallpets.manager.PetMapManager;
-import it.smallcode.smallpets.pets.Pet;
+import it.smallcode.smallpets.core.manager.PetMapManager;
 import it.smallcode.smallpets.v1_12.pets.Monkey;
 import it.smallcode.smallpets.v1_12.pets.Penguin;
 import it.smallcode.smallpets.v1_12.pets.Tiger;
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
-
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.util.function.Consumer;
 
 public class PetMapManager1_12 extends PetMapManager {
 

@@ -6,10 +6,9 @@ Class created by SmallCode
 
 */
 
-import it.smallcode.smallpets.manager.ExperienceManager;
-import it.smallcode.smallpets.manager.UserManager;
-import it.smallcode.smallpets.manager.types.User;
-import org.bukkit.Bukkit;
+import it.smallcode.smallpets.core.manager.ExperienceManager;
+import it.smallcode.smallpets.core.manager.UserManager;
+import it.smallcode.smallpets.core.manager.types.User;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

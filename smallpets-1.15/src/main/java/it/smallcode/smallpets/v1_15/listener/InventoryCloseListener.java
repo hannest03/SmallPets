@@ -6,7 +6,7 @@ Class created by SmallCode
 
 */
 
-import it.smallcode.smallpets.manager.InventoryManager;
+import it.smallcode.smallpets.core.manager.InventoryManager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryCloseEvent;

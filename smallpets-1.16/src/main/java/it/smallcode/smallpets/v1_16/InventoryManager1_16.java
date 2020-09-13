@@ -6,8 +6,8 @@ Class created by SmallCode
 
 */
 
-import it.smallcode.smallpets.languages.LanguageManager;
-import it.smallcode.smallpets.manager.InventoryCache;
+import it.smallcode.smallpets.core.languages.LanguageManager;
+import it.smallcode.smallpets.core.manager.InventoryCache;
 import it.smallcode.smallpets.v1_15.InventoryManager1_15;
 import org.bukkit.plugin.java.JavaPlugin;
 

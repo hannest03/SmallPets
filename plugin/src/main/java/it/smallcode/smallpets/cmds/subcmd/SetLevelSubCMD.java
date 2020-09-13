@@ -7,11 +7,10 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.SmallPets;
-import it.smallcode.smallpets.cmds.SmallPetsCMD;
 import it.smallcode.smallpets.cmds.SubCommand;
 import it.smallcode.smallpets.cmds.SubCommandType;
-import it.smallcode.smallpets.manager.types.User;
-import it.smallcode.smallpets.pets.Pet;
+import it.smallcode.smallpets.core.manager.types.User;
+import it.smallcode.smallpets.core.pets.Pet;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 

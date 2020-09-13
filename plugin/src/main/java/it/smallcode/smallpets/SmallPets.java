@@ -7,11 +7,11 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.cmds.SmallPetsCMD;
-import it.smallcode.smallpets.languages.LanguageManager;
+import it.smallcode.smallpets.core.languages.LanguageManager;
 import it.smallcode.smallpets.listener.JoinListener;
 import it.smallcode.smallpets.listener.QuitListener;
 import it.smallcode.smallpets.listener.WorldSaveListener;
-import it.smallcode.smallpets.manager.*;
+import it.smallcode.smallpets.core.manager.*;
 import it.smallcode.smallpets.metrics.Metrics;
 import it.smallcode.smallpets.placeholderapi.SmallPetsExpansion;
 import it.smallcode.smallpets.v1_12.InventoryManager1_12;
@@ -20,6 +20,7 @@ import it.smallcode.smallpets.v1_12.PetMapManager1_12;
 import it.smallcode.smallpets.v1_13.InventoryManager1_13;
 import it.smallcode.smallpets.v1_13.ListenerManager1_13;
 import it.smallcode.smallpets.v1_13.PetMapManager1_13;
+import it.smallcode.smallpets.v1_15.AbilityManager1_15;
 import it.smallcode.smallpets.v1_15.InventoryManager1_15;
 import it.smallcode.smallpets.v1_15.ListenerManager1_15;
 import it.smallcode.smallpets.v1_15.PetMapManager1_15;
@@ -52,6 +53,7 @@ public class SmallPets extends JavaPlugin {
     private LanguageManager languageManager;
 
     private ExperienceManager experienceManager;
+    private AbilityManager abilityManager;
 
     public final String PREFIX = "§e○§6◯  SmallPets §e◆ ";
 
@@ -88,6 +90,18 @@ public class SmallPets extends JavaPlugin {
 
         if(!selectRightVersion())
             return;
+
+        Bukkit.getConsoleSender().sendMessage(PREFIX + "Registering abilities...");
+
+        abilityManager.registerAbilities();
+
+        Bukkit.getConsoleSender().sendMessage(PREFIX + "Registered abilities");
+
+        Bukkit.getConsoleSender().sendMessage(PREFIX + "Registering ability listeners...");
+
+        abilityManager.registerListener();
+
+        Bukkit.getConsoleSender().sendMessage(PREFIX + "Registered ability listeners");
 
         Bukkit.getConsoleSender().sendMessage(PREFIX + "Registering pets...");
 
@@ -257,6 +271,7 @@ public class SmallPets extends JavaPlugin {
         }else if(version.startsWith("1_15") || version.startsWith("1_14")){
 
             petMapManager = new PetMapManager1_15();
+            abilityManager = new AbilityManager1_15();
             inventoryManager = new InventoryManager1_15(inventoryCache, languageManager, xpMultiplier, this);
             userManager = new UserManager(this, languageManager, petMapManager, useProtocolLib);
             listenerManager = new ListenerManager1_15(this, getUserManager(), getPetMapManager(), languageManager, getInventoryCache(), PREFIX, xpMultiplier, useProtocolLib, inventoryManager, experienceManager);

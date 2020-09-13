@@ -6,10 +6,10 @@ Class created by SmallCode
 
 */
 
-import it.smallcode.smallpets.languages.LanguageManager;
-import it.smallcode.smallpets.manager.InventoryCache;
-import it.smallcode.smallpets.manager.InventoryManager;
-import it.smallcode.smallpets.pets.Pet;
+import it.smallcode.smallpets.core.languages.LanguageManager;
+import it.smallcode.smallpets.core.manager.InventoryCache;
+import it.smallcode.smallpets.core.manager.InventoryManager;
+import it.smallcode.smallpets.core.pets.Pet;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
