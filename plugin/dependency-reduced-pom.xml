@@ -4,11 +4,7 @@
   <groupId>it.smallcode</groupId>
   <artifactId>smallpets</artifactId>
   <name>SmallPets</name>
-<<<<<<< HEAD
   <version>beta-5</version>
-=======
-  <version>beta-4.4</version>
->>>>>>> d172824... Fixed bug where pet would be invisible once you change the world
   <description>Adds simple little cute pets with abilities</description>
   <build>
     <resources>
