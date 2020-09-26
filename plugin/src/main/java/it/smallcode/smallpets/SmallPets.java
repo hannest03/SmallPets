@@ -191,10 +191,14 @@ public class SmallPets extends JavaPlugin {
 
         Bukkit.getPluginManager().registerEvents(new WorldSaveListener(), this);
 
-        Bukkit.getConsoleSender().sendMessage(PREFIX + "Consider joining the discord server for news and test versions! You can join with this link: " + DISCORD_LINK);
-        Bukkit.getConsoleSender().sendMessage(PREFIX + "One time donations are also appreciated: " + DONATION_LINK);
+        Bukkit.getConsoleSender().sendMessage("");
 
-        Bukkit.getConsoleSender().sendMessage(PREFIX + "Plugin initialized");
+        Bukkit.getConsoleSender().sendMessage(PREFIX + "Consider joining the discord server for news and test versions!");
+        Bukkit.getConsoleSender().sendMessage(PREFIX + "You can join with this link: " + DISCORD_LINK);
+
+        Bukkit.getConsoleSender().sendMessage("");
+
+        Bukkit.getConsoleSender().sendMessage(PREFIX + "One time donations are also appreciated: " + DONATION_LINK);
 
     }
 
@@ -271,7 +275,7 @@ public class SmallPets extends JavaPlugin {
         }else if(version.startsWith("1_15") || version.startsWith("1_14")){
 
             petMapManager = new PetMapManager1_15();
-            abilityManager = new AbilityManager1_15();
+            abilityManager = new AbilityManager1_15(this);
             inventoryManager = new InventoryManager1_15(inventoryCache, languageManager, xpMultiplier, this);
             userManager = new UserManager(this, languageManager, petMapManager, useProtocolLib);
             listenerManager = new ListenerManager1_15(this, getUserManager(), getPetMapManager(), languageManager, getInventoryCache(), PREFIX, xpMultiplier, useProtocolLib, inventoryManager, experienceManager);

@@ -8,8 +8,18 @@ Class created by SmallCode
 
 import it.smallcode.smallpets.core.manager.AbilityManager;
 import it.smallcode.smallpets.v1_15.abilities.DamageAbility;
+import org.bukkit.plugin.java.JavaPlugin;
 
 public class AbilityManager1_15 extends AbilityManager {
+
+    /**
+     * Creates an AbilityManager
+     *
+     * @param plugin
+     */
+    public AbilityManager1_15(JavaPlugin plugin) {
+        super(plugin);
+    }
 
     @Override
     public void registerAbilities() {

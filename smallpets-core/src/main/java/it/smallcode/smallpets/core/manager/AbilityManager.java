@@ -6,15 +6,21 @@ Class created by SmallCode
 
 */
 
-import it.smallcode.smallpets.core.manager.types.Ability;
+import it.smallcode.smallpets.core.abilities.Ability;
 import org.bukkit.Bukkit;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 public abstract class AbilityManager {
 
     protected HashMap<String, Class> abilityMap;
+
+    private JavaPlugin plugin;
 
     /**
      *
@@ -22,9 +28,10 @@ public abstract class AbilityManager {
      *
      */
 
-    public AbilityManager() {
+    public AbilityManager(JavaPlugin plugin) {
 
         abilityMap = new HashMap<String, Class>();
+        this.plugin = plugin;
 
     }
 
@@ -36,35 +43,75 @@ public abstract class AbilityManager {
 
     public abstract void registerAbilities();
 
+    public Ability createAbility(String id){
+
+        if(abilityMap.get(id) != null){
+
+            try {
+
+                Constructor constructor = abilityMap.get(id).getConstructor(AbilityManager.class);
+
+                Ability ability = (Ability) constructor.newInstance(this);
+
+                return ability;
+
+            } catch (InstantiationException ex) {
+
+                ex.printStackTrace();
+
+            } catch (IllegalAccessException ex) {
+
+                ex.printStackTrace();
+
+            } catch (NoSuchMethodException ex) {
+
+                ex.printStackTrace();
+
+            } catch (InvocationTargetException ex) {
+                
+                ex.printStackTrace();
+                
+            }
+
+        }
+
+        return null;
+
+    }
+
     public void registerListener(){
 
-        abilityMap.values().stream().forEach(abilityClass -> {
+        abilityMap.keySet().stream().forEach(id -> {
 
-            if(abilityClass != null){
+           Ability ability = createAbility(id);
 
-                try {
+           if(ability != null) {
 
-                    Ability ability = (Ability) abilityClass.newInstance();
+               ability.registerListeners();
 
-                    ability.registerListener();
+           }else{
 
-                } catch (InstantiationException ex) {
+               Bukkit.getConsoleSender().sendMessage("§cERROR REGISTERING '" + id + "' ABILITY!");
 
-                    ex.printStackTrace();
+           }
 
-                } catch (IllegalAccessException ex) {
+        });
 
-                    ex.printStackTrace();
+    }
 
-                }
+    public String getIDByClass(Class clazz){
 
-            }else{
+        for(Map.Entry entry : abilityMap.entrySet()){
 
-                Bukkit.getConsoleSender().sendMessage("§4 ERROR REGISTERING ABILITY!");
+            if(entry.getValue() == clazz){
+
+                return (String) entry.getKey();
 
             }
 
-        });
+        }
+
+        return "No ID!";
 
     }
 
@@ -79,4 +126,7 @@ public abstract class AbilityManager {
         return abilityMap;
     }
 
+    public JavaPlugin getPlugin() {
+        return plugin;
+    }
 }
