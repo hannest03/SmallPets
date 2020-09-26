@@ -60,7 +60,7 @@ public class WorldChangeListener implements Listener {
 
                             }
 
-                            if (all.getWorld().getName().equals(e.getFrom().getName())) {
+                            if (all.getWorld().getName().equals(e.getPlayer().getWorld().getName())) {
 
                                 user.getSelected().spawnToPlayer(all, plugin);
 
