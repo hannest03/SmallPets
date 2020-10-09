@@ -30,7 +30,7 @@ public class PetTypesSubCMD extends SubCommand {
 
         list = list.substring(0, list.length() - 2);
 
-        s.sendMessage(SmallPets.getInstance().PREFIX + list);
+        s.sendMessage(SmallPets.getInstance().getPrefix() + list);
 
     }
 
