@@ -60,19 +60,19 @@ public class SmallPetsCMD implements CommandExecutor {
 
                     } else {
 
-                        p.sendMessage(SmallPets.getInstance().PREFIX + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("userDataNotFound"));
+                        p.sendMessage(SmallPets.getInstance().getPrefix() + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("userDataNotFound"));
 
                     }
 
                 }else{
 
-                    s.sendMessage(SmallPets.getInstance().PREFIX + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("noPerms"));
+                    s.sendMessage(SmallPets.getInstance().getPrefix() + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("noPerms"));
 
                 }
 
             } else {
 
-                s.sendMessage(SmallPets.getInstance().PREFIX + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("commandIsOnlyForPlayers"));
+                s.sendMessage(SmallPets.getInstance().getPrefix() + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("commandIsOnlyForPlayers"));
 
             }
 
@@ -113,11 +113,11 @@ public class SmallPetsCMD implements CommandExecutor {
 
     private void sendHelp(CommandSender s){
 
-        s.sendMessage(SmallPets.getInstance().PREFIX + "/smallpets");
+        s.sendMessage(SmallPets.getInstance().getPrefix() + "/smallpets");
 
         for(SubCommand subCommand : subAdminCommands){
 
-            s.sendMessage(SmallPets.getInstance().PREFIX + "/smallpets admin " + subCommand.getHelp());
+            s.sendMessage(SmallPets.getInstance().getPrefix() + "/smallpets admin " + subCommand.getHelp());
 
         }
 

@@ -30,7 +30,7 @@ public abstract class SubCommand {
 
         }else{
 
-            s.sendMessage(SmallPets.getInstance().PREFIX + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("noPerms"));
+            s.sendMessage(SmallPets.getInstance().getPrefix() + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("noPerms"));
 
         }
 

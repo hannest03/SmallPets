@@ -27,6 +27,7 @@ import it.smallcode.smallpets.v1_16.InventoryManager1_16;
 import it.smallcode.smallpets.v1_16.ListenerManager1_16;
 import it.smallcode.smallpets.v1_16.PetMapManager1_16;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -48,7 +49,7 @@ public class SmallPets extends JavaPlugin {
     private ListenerManager listenerManager;
     private LanguageManager languageManager;
 
-    public final String PREFIX = "§e○§6◯  SmallPets §e◆ ";
+    public String prefix = "§e○§6◯  SmallPets §e◆ ";
 
     private double xpMultiplier;
     private boolean registerCraftingRecipes;
@@ -69,34 +70,34 @@ public class SmallPets extends JavaPlugin {
 
             useProtocolLib = true;
 
-            Bukkit.getConsoleSender().sendMessage(PREFIX + "Found ProtocolLib, now using it.");
+            Bukkit.getConsoleSender().sendMessage(getPrefix() + "Found ProtocolLib, now using it.");
 
         }
 
-        languageManager = new LanguageManager(this, PREFIX, this.getConfig().getString("language"));
+        languageManager = new LanguageManager(this, getPrefix(), this.getConfig().getString("language"));
 
         if(!selectRightVersion())
             return;
 
-        Bukkit.getConsoleSender().sendMessage(PREFIX + "Registering pets...");
+        Bukkit.getConsoleSender().sendMessage(getPrefix() + "Registering pets...");
 
         petMapManager.registerPets();
 
-        Bukkit.getConsoleSender().sendMessage(PREFIX + "Registered pets");
+        Bukkit.getConsoleSender().sendMessage(getPrefix() + "Registered pets");
 
         if(registerCraftingRecipes) {
 
-            Bukkit.getConsoleSender().sendMessage(PREFIX + "Registering crafting recipes...");
+            Bukkit.getConsoleSender().sendMessage(getPrefix() + "Registering crafting recipes...");
 
             petMapManager.registerCraftingRecipe(this, languageManager);
 
-            Bukkit.getConsoleSender().sendMessage(PREFIX + "Registered crafting recipes!");
+            Bukkit.getConsoleSender().sendMessage(getPrefix() + "Registered crafting recipes!");
 
         }
 
         //Registering all listeners
 
-        Bukkit.getConsoleSender().sendMessage(PREFIX + "Registering listeners...");
+        Bukkit.getConsoleSender().sendMessage(getPrefix() + "Registering listeners...");
 
         listenerManager.registerListener();
 
@@ -104,7 +105,7 @@ public class SmallPets extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new QuitListener(userManager, inventoryCache), this);
         Bukkit.getPluginManager().registerEvents(new WorldSaveListener(), this);
 
-        Bukkit.getConsoleSender().sendMessage(PREFIX + "Registered listeners!");
+        Bukkit.getConsoleSender().sendMessage(getPrefix() + "Registered listeners!");
 
         //Registering all commands
 
@@ -114,17 +115,17 @@ public class SmallPets extends JavaPlugin {
 
         if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null){
 
-            Bukkit.getConsoleSender().sendMessage(PREFIX + "Registering PlaceholderAPI expansion...");
+            Bukkit.getConsoleSender().sendMessage(getPrefix() + "Registering PlaceholderAPI expansion...");
 
             new SmallPetsExpansion().register();
 
-            Bukkit.getConsoleSender().sendMessage(PREFIX + "Registered PlaceholderAPI expansion!");
+            Bukkit.getConsoleSender().sendMessage(getPrefix() + "Registered PlaceholderAPI expansion!");
 
         }
 
         //Registering bStats
 
-        Bukkit.getConsoleSender().sendMessage(PREFIX + "Starting metrics...");
+        Bukkit.getConsoleSender().sendMessage(getPrefix() + "Starting metrics...");
 
         Metrics metrics = new Metrics(this, 8071);
 
@@ -154,7 +155,7 @@ public class SmallPets extends JavaPlugin {
 
         metrics.addCustomChart(new Metrics.SimplePie("languages", () -> languageManager.getLanguage().getLanguageName()));
 
-        Bukkit.getConsoleSender().sendMessage(PREFIX + "Metrics started!");
+        Bukkit.getConsoleSender().sendMessage(getPrefix() + "Metrics started!");
 
         //Loading the users which are online
 
@@ -166,7 +167,7 @@ public class SmallPets extends JavaPlugin {
 
         Bukkit.getPluginManager().registerEvents(new WorldSaveListener(), this);
 
-        Bukkit.getConsoleSender().sendMessage(PREFIX + "Plugin initialized");
+        Bukkit.getConsoleSender().sendMessage(getPrefix() + "Plugin initialized");
 
     }
 
@@ -184,6 +185,7 @@ public class SmallPets extends JavaPlugin {
 
         FileConfiguration cfg = this.getConfig();
 
+        cfg.addDefault("prefixPattern", "&e○&6◯  %plugin_name% &e◆ &7");
         cfg.addDefault("xpMultiplier", 1D);
         cfg.addDefault("language", "en");
         cfg.addDefault("registerCraftingRecipes", true);
@@ -200,6 +202,20 @@ public class SmallPets extends JavaPlugin {
         reloadConfig();
 
         FileConfiguration cfg = this.getConfig();
+
+        this.prefix = cfg.getString("prefixPattern");
+
+        if(!this.prefix.contains("%plugin_name%")) {
+
+            Bukkit.getConsoleSender().sendMessage( "§c" + getName() + ": deactivating, wrong prefix pattern! ");
+            Bukkit.getConsoleSender().sendMessage( "§c" + getName() + ": PrefixPattern doesn't contain %plugin_name%: " + this.prefix);
+
+            Bukkit.getPluginManager().disablePlugin(this);
+
+        }
+
+        this.prefix = this.prefix.replaceAll("%plugin_name%", getName());
+        this.prefix = ChatColor.translateAlternateColorCodes('&', this.prefix);
 
         this.xpMultiplier = cfg.getDouble("xpMultiplier");
         this.registerCraftingRecipes = cfg.getBoolean("registerCraftingRecipes");
@@ -231,32 +247,32 @@ public class SmallPets extends JavaPlugin {
             petMapManager = new PetMapManager1_12();
             inventoryManager = new InventoryManager1_12(inventoryCache, languageManager, xpMultiplier);
             userManager = new UserManager(this, languageManager, petMapManager, useProtocolLib);
-            listenerManager = new ListenerManager1_12(this, getUserManager(), getPetMapManager(), languageManager, getInventoryCache(), PREFIX, xpMultiplier, useProtocolLib);
+            listenerManager = new ListenerManager1_12(this, getUserManager(), getPetMapManager(), languageManager, getInventoryCache(), getPrefix(), xpMultiplier, useProtocolLib);
 
         }else if(version.startsWith("1_13")){
 
             petMapManager = new PetMapManager1_13();
             inventoryManager = new InventoryManager1_13(inventoryCache, languageManager, xpMultiplier);
             userManager = new UserManager(this, languageManager, petMapManager, useProtocolLib);
-            listenerManager = new ListenerManager1_13(this, getUserManager(), getPetMapManager(), languageManager, getInventoryCache(), PREFIX, xpMultiplier, useProtocolLib);
+            listenerManager = new ListenerManager1_13(this, getUserManager(), getPetMapManager(), languageManager, getInventoryCache(), getPrefix(), xpMultiplier, useProtocolLib);
 
         }else if(version.startsWith("1_15") || version.startsWith("1_14")){
 
             petMapManager = new PetMapManager1_15();
             inventoryManager = new InventoryManager1_15(inventoryCache, languageManager, xpMultiplier);
             userManager = new UserManager(this, languageManager, petMapManager, useProtocolLib);
-            listenerManager = new ListenerManager1_15(this, getUserManager(), getPetMapManager(), languageManager, getInventoryCache(), PREFIX, xpMultiplier, useProtocolLib);
+            listenerManager = new ListenerManager1_15(this, getUserManager(), getPetMapManager(), languageManager, getInventoryCache(), getPrefix(), xpMultiplier, useProtocolLib);
 
         }else if(version.startsWith("1_16")){
 
             petMapManager = new PetMapManager1_16();
             inventoryManager = new InventoryManager1_16(inventoryCache, languageManager, xpMultiplier);
             userManager = new UserManager(this, languageManager, petMapManager, useProtocolLib);
-            listenerManager = new ListenerManager1_16(this, getUserManager(), getPetMapManager(), languageManager, getInventoryCache(), PREFIX, xpMultiplier, useProtocolLib);
+            listenerManager = new ListenerManager1_16(this, getUserManager(), getPetMapManager(), languageManager, getInventoryCache(), getPrefix(), xpMultiplier, useProtocolLib);
 
         }else{
 
-            Bukkit.getConsoleSender().sendMessage(PREFIX + "Not supported version");
+            Bukkit.getConsoleSender().sendMessage(getPrefix() + "Not supported version");
 
             Bukkit.getPluginManager().disablePlugin(this);
 
@@ -264,9 +280,15 @@ public class SmallPets extends JavaPlugin {
 
         }
 
-        Bukkit.getConsoleSender().sendMessage(PREFIX + "Loaded version " + version + "!");
+        Bukkit.getConsoleSender().sendMessage(getPrefix() + "Loaded version " + version + "!");
 
         return true;
+
+    }
+
+    public String getPrefix(){
+
+        return prefix;
 
     }
 

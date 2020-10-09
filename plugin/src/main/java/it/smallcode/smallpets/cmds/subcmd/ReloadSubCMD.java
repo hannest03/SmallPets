@@ -26,14 +26,14 @@ public class ReloadSubCMD extends SubCommand {
                 SmallPets.getInstance().loadConfig();
                 SmallPets.getInstance().getLanguageManager().loadLanguage(SmallPets.getInstance().getConfig().getString("language"));
 
-                s.sendMessage(SmallPets.getInstance().PREFIX + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("reloaded")
+                s.sendMessage(SmallPets.getInstance().getPrefix() + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("reloaded")
                         .replaceAll("%type%", "all"));
 
             } else if (args[0].equalsIgnoreCase("config")) {
 
                 SmallPets.getInstance().loadConfig();
 
-                s.sendMessage(SmallPets.getInstance().PREFIX + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("reloaded")
+                s.sendMessage(SmallPets.getInstance().getPrefix() + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("reloaded")
                         .replaceAll("%type%", "config"));
 
             } else if (args[0].equalsIgnoreCase("language")) {
@@ -41,18 +41,18 @@ public class ReloadSubCMD extends SubCommand {
                 SmallPets.getInstance().reloadConfig();
                 SmallPets.getInstance().getLanguageManager().loadLanguage(SmallPets.getInstance().getConfig().getString("language"));
 
-                s.sendMessage(SmallPets.getInstance().PREFIX + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("reloaded")
+                s.sendMessage(SmallPets.getInstance().getPrefix() + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("reloaded")
                         .replaceAll("%type%", "language"));
 
             } else {
 
-                s.sendMessage(SmallPets.getInstance().PREFIX + "/smallpets admin " + getHelp());
+                s.sendMessage(SmallPets.getInstance().getPrefix() + "/smallpets admin " + getHelp());
 
             }
 
         } else {
 
-            s.sendMessage(SmallPets.getInstance().PREFIX + "/smallpets admin " + getHelp());
+            s.sendMessage(SmallPets.getInstance().getPrefix() + "/smallpets admin " + getHelp());
 
         }
 

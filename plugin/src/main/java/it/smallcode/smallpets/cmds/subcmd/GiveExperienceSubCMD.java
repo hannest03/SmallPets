@@ -40,31 +40,31 @@ public class GiveExperienceSubCMD extends SubCommand {
 
                         }else{
 
-                            s.sendMessage(SmallPets.getInstance().PREFIX + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("notInteger"));
+                            s.sendMessage(SmallPets.getInstance().getPrefix() + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("notInteger"));
 
                         }
 
                     }else{
 
-                        s.sendMessage(SmallPets.getInstance().PREFIX + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("petNotUnlocked"));
+                        s.sendMessage(SmallPets.getInstance().getPrefix() + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("petNotUnlocked"));
 
                     }
 
                 }else{
 
-                    s.sendMessage(SmallPets.getInstance().PREFIX + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("userDataNotFound"));
+                    s.sendMessage(SmallPets.getInstance().getPrefix() + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("userDataNotFound"));
 
                 }
 
             } else {
 
-                s.sendMessage(SmallPets.getInstance().PREFIX + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("playerIsntOnline"));
+                s.sendMessage(SmallPets.getInstance().getPrefix() + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("playerIsntOnline"));
 
             }
 
         }else{
 
-            s.sendMessage(SmallPets.getInstance().PREFIX + "/smallpets admin " + getHelp());
+            s.sendMessage(SmallPets.getInstance().getPrefix() + "/smallpets admin " + getHelp());
 
         }
 

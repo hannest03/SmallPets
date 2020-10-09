@@ -26,23 +26,23 @@ public class GivePetSubCMD extends SubCommand {
 
                 SmallPets.getInstance().getUserManager().giveUserPet(args[1].toLowerCase(), Bukkit.getPlayer(args[0]).getUniqueId().toString());
 
-                s.sendMessage(SmallPets.getInstance().PREFIX + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("givePetSender")
+                s.sendMessage(SmallPets.getInstance().getPrefix() + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("givePetSender")
                         .replaceAll("%pet_type%", SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("pet." + args[1]))
                         .replaceAll("%player%", args[0]));
 
-                Bukkit.getPlayer(args[0]).sendMessage(SmallPets.getInstance().PREFIX + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("givePetReciever")
+                Bukkit.getPlayer(args[0]).sendMessage(SmallPets.getInstance().getPrefix() + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("givePetReciever")
                         .replaceAll("%pet_type%", SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("pet." + args[1]))
                         .replaceAll("%sender%", s.getName()));
 
             } else {
 
-                s.sendMessage(SmallPets.getInstance().PREFIX + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("playerIsntOnline"));
+                s.sendMessage(SmallPets.getInstance().getPrefix() + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("playerIsntOnline"));
 
             }
 
         }else{
 
-            s.sendMessage(SmallPets.getInstance().PREFIX + "/smallpets admin " + getHelp());
+            s.sendMessage(SmallPets.getInstance().getPrefix() + "/smallpets admin " + getHelp());
 
         }
 
