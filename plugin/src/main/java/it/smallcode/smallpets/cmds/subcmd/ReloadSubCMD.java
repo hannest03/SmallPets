@@ -53,7 +53,7 @@ public class ReloadSubCMD extends SubCommand {
 
                 SmallPets.getInstance().getExperienceManager().reload();
 
-                s.sendMessage(SmallPets.getInstance().PREFIX + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("reloaded")
+                s.sendMessage(SmallPets.getInstance().getPrefix() + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("reloaded")
                         .replaceAll("%type%", "experienceTable"));
 
             }else{
