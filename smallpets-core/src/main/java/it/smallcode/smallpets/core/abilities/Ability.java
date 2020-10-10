@@ -6,21 +6,27 @@ Class created by SmallCode
 
 */
 
-import it.smallcode.smallpets.core.manager.AbilityManager;
-import org.bukkit.Bukkit;
+import it.smallcode.smallpets.core.SmallPetsCommons;
+import it.smallcode.smallpets.core.pets.Pet;
+
+import java.util.List;
 
 public abstract class Ability {
 
-    private AbilityManager abilityManager;
+    private AbilityType abilityType;
 
-    public Ability(AbilityManager abilityManager){
+    public Ability(AbilityType abilityType){
 
-        this.abilityManager = abilityManager;
+        this.abilityType = abilityType;
 
     }
 
+    public abstract List<String> getAbilityTooltip(Pet pet);
     public abstract void registerListeners();
 
-    protected AbilityManager getAbilityManager(){ return abilityManager; }
+    public String getID(){ return SmallPetsCommons.getSmallPetsCommons().getAbilityManager().getIDByClass(this.getClass()); }
 
+    public AbilityType getAbilityType() {
+        return abilityType;
+    }
 }

@@ -37,3 +37,6 @@ translations:
     farming: 'Farming pet'
     fishing: 'Fishing pet'
     foraging: 'Foraging pet'
+  ability:
+    damage_ability:
+      description: '&7Deal &c+%extraStat%%&7 more damage!'

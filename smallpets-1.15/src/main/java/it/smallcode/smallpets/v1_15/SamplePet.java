@@ -13,6 +13,7 @@ import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.wrappers.EnumWrappers;
 import com.comphenix.protocol.wrappers.WrappedChatComponent;
 import com.comphenix.protocol.wrappers.WrappedDataWatcher;
+import it.smallcode.smallpets.core.abilities.AbilityType;
 import it.smallcode.smallpets.core.animations.FollowPlayerAnimation;
 import it.smallcode.smallpets.core.animations.HoverAnimation;
 import it.smallcode.smallpets.core.animations.WalkAwayFromPlayerAnimation;
@@ -554,9 +555,41 @@ public class SamplePet extends Pet {
 
             lore.add("");
 
-            lore.add(getAbility());
+            abilities.stream().forEach(ability -> {
+
+                if(ability.getAbilityType() == AbilityType.STAT){
+
+                    ability.getAbilityTooltip(this).stream().forEach(line ->{
+
+                        lore.add(line);
+
+                    });
+
+                }
+
+            });
 
             lore.add("");
+
+            abilities.stream().forEach(ability -> {
+
+                if(ability.getAbilityType() == AbilityType.ABILITY){
+
+                    ability.getAbilityTooltip(this).stream().forEach(line ->{
+
+                        lore.add(line);
+
+                    });
+
+                    lore.add("");
+
+                }
+
+            });
+
+            //lore.add(getAbility());
+
+            //lore.add("");
 
             String progressBar = CenteredText.sendCenteredMessage(generateFinishedProgressbar(), ChatColor.stripColor(getAbility()).length());
 
