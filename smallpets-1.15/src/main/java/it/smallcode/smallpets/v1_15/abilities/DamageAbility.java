@@ -6,22 +6,23 @@ Class created by SmallCode
 
 */
 
-import it.smallcode.smallpets.core.abilities.Ability;
-import it.smallcode.smallpets.core.manager.AbilityManager;
-import it.smallcode.smallpets.v1_15.abilities.listener.DamageAbilityListenerTest;
+import it.smallcode.smallpets.core.SmallPetsCommons;
+import it.smallcode.smallpets.core.abilities.templates.StatBoostAbility;
+import it.smallcode.smallpets.v1_15.abilities.listener.DamageAbilityListener;
 import org.bukkit.Bukkit;
 
-public class DamageAbility extends Ability {
+public class DamageAbility extends StatBoostAbility {
 
-    public DamageAbility(AbilityManager abilityManager) {
-        super(abilityManager);
+    public DamageAbility() {
+
+        super(15);
+
     }
 
     @Override
     public void registerListeners() {
 
-        Bukkit.getPluginManager().registerEvents(new DamageAbilityListenerTest(), getAbilityManager().getPlugin());
+        Bukkit.getPluginManager().registerEvents(new DamageAbilityListener(this), SmallPetsCommons.getSmallPetsCommons().getJavaPlugin());
 
     }
-
 }

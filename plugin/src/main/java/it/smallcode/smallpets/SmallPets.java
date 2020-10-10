@@ -7,6 +7,7 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.cmds.SmallPetsCMD;
+import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.languages.LanguageManager;
 import it.smallcode.smallpets.listener.JoinListener;
 import it.smallcode.smallpets.listener.QuitListener;
@@ -20,10 +21,7 @@ import it.smallcode.smallpets.v1_12.PetMapManager1_12;
 import it.smallcode.smallpets.v1_13.InventoryManager1_13;
 import it.smallcode.smallpets.v1_13.ListenerManager1_13;
 import it.smallcode.smallpets.v1_13.PetMapManager1_13;
-import it.smallcode.smallpets.v1_15.AbilityManager1_15;
-import it.smallcode.smallpets.v1_15.InventoryManager1_15;
-import it.smallcode.smallpets.v1_15.ListenerManager1_15;
-import it.smallcode.smallpets.v1_15.PetMapManager1_15;
+import it.smallcode.smallpets.v1_15.*;
 import it.smallcode.smallpets.v1_16.InventoryManager1_16;
 import it.smallcode.smallpets.v1_16.ListenerManager1_16;
 import it.smallcode.smallpets.v1_16.PetMapManager1_16;
@@ -43,21 +41,6 @@ public class SmallPets extends JavaPlugin {
 
     private static SmallPets instance;
 
-    private PetMapManager petMapManager;
-
-    private UserManager userManager;
-
-    private InventoryManager inventoryManager;
-    private InventoryCache inventoryCache;
-
-    private ListenerManager listenerManager;
-    private LanguageManager languageManager;
-
-    private ExperienceManager experienceManager;
-    private AbilityManager abilityManager;
-
-    public String prefix = "§e○§6◯  SmallPets §e◆ ";
-
     private double xpMultiplier;
     private boolean registerCraftingRecipes;
 
@@ -68,10 +51,12 @@ public class SmallPets extends JavaPlugin {
 
         instance = this;
 
+        SmallPetsCommons.getSmallPetsCommons().setJavaPlugin(this);
+
         this.initConfig();
         this.loadConfig();
 
-        inventoryCache = new InventoryCache();
+        SmallPetsCommons.getSmallPetsCommons().setInventoryCache(new InventoryCache());
 
         if(Bukkit.getPluginManager().getPlugin("ProtocolLib") != null && Bukkit.getPluginManager().getPlugin("ProtocolLib").isEnabled()){
 
@@ -81,11 +66,11 @@ public class SmallPets extends JavaPlugin {
 
         }
 
-        languageManager = new LanguageManager(this, getPrefix(), this.getConfig().getString("language"));
+        SmallPetsCommons.getSmallPetsCommons().setLanguageManager(new LanguageManager(this, getPrefix(), this.getConfig().getString("language")));
 
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "Loading experience table...");
 
-        this.experienceManager = new ExperienceManager(this);
+        SmallPetsCommons.getSmallPetsCommons().setExperienceManager(new ExperienceManager(this));
 
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "Experience table loaded!");
 
@@ -94,19 +79,19 @@ public class SmallPets extends JavaPlugin {
 
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "Registering abilities...");
 
-        abilityManager.registerAbilities();
+        getAbilityManager().registerAbilities();
 
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "Registered abilities");
 
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "Registering ability listeners...");
 
-        abilityManager.registerListener();
+        getAbilityManager().registerListener();
 
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "Registered ability listeners");
 
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "Registering pets...");
 
-        petMapManager.registerPets();
+        getPetMapManager().registerPets();
 
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "Registered pets");
 
@@ -114,7 +99,7 @@ public class SmallPets extends JavaPlugin {
 
             Bukkit.getConsoleSender().sendMessage(getPrefix() + "Registering crafting recipes...");
 
-            petMapManager.registerCraftingRecipe(this, languageManager);
+            getPetMapManager().registerCraftingRecipe(this, getLanguageManager());
 
             Bukkit.getConsoleSender().sendMessage(getPrefix() + "Registered crafting recipes!");
 
@@ -124,10 +109,10 @@ public class SmallPets extends JavaPlugin {
 
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "Registering listeners...");
 
-        listenerManager.registerListener();
+        getListenerManager().registerListener();
 
-        Bukkit.getPluginManager().registerEvents(new JoinListener(userManager, petMapManager), this);
-        Bukkit.getPluginManager().registerEvents(new QuitListener(userManager, inventoryCache), this);
+        Bukkit.getPluginManager().registerEvents(new JoinListener(getUserManager(), getPetMapManager()), this);
+        Bukkit.getPluginManager().registerEvents(new QuitListener(getUserManager(), getInventoryCache()), this);
         Bukkit.getPluginManager().registerEvents(new WorldSaveListener(), this);
 
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "Registered listeners!");
@@ -178,7 +163,7 @@ public class SmallPets extends JavaPlugin {
 
         }));
 
-        metrics.addCustomChart(new Metrics.SimplePie("languages", () -> languageManager.getLanguage().getLanguageName()));
+        metrics.addCustomChart(new Metrics.SimplePie("languages", () -> getLanguageManager().getLanguage().getLanguageName()));
 
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "Metrics started!");
 
@@ -186,7 +171,7 @@ public class SmallPets extends JavaPlugin {
 
         for(Player all : Bukkit.getOnlinePlayers()){
 
-            userManager.loadUser(all.getUniqueId().toString(), petMapManager);
+            getUserManager().loadUser(all.getUniqueId().toString(), getPetMapManager());
 
         }
 
@@ -207,10 +192,10 @@ public class SmallPets extends JavaPlugin {
     @Override
     public void onDisable() {
 
-        userManager.despawnPets();
-        userManager.saveUsers();
+        getUserManager().despawnPets();
+        getUserManager().saveUsers();
 
-        inventoryCache.removeAll();
+        getInventoryCache().removeAll();
 
     }
 
@@ -236,26 +221,28 @@ public class SmallPets extends JavaPlugin {
 
         FileConfiguration cfg = this.getConfig();
 
-        this.prefix = cfg.getString("prefixPattern");
+        String prefix = cfg.getString("prefixPattern");
 
-        if(!this.prefix.contains("%plugin_name%")) {
+        if(!prefix.contains("%plugin_name%")) {
 
             Bukkit.getConsoleSender().sendMessage( "§c" + getName() + ": deactivating, wrong prefix pattern! ");
-            Bukkit.getConsoleSender().sendMessage( "§c" + getName() + ": PrefixPattern doesn't contain %plugin_name%: " + this.prefix);
+            Bukkit.getConsoleSender().sendMessage( "§c" + getName() + ": PrefixPattern doesn't contain %plugin_name%: " + prefix);
 
             Bukkit.getPluginManager().disablePlugin(this);
 
         }
 
-        this.prefix = this.prefix.replaceAll("%plugin_name%", getName());
-        this.prefix = ChatColor.translateAlternateColorCodes('&', this.prefix);
+        prefix = prefix.replaceAll("%plugin_name%", getName());
+        prefix = ChatColor.translateAlternateColorCodes('&', prefix);
+
+        SmallPetsCommons.getSmallPetsCommons().setPrefix(prefix);
 
         this.xpMultiplier = cfg.getDouble("xpMultiplier");
         this.registerCraftingRecipes = cfg.getBoolean("registerCraftingRecipes");
 
-        if(inventoryManager != null){
+        if(getInventoryManager() != null){
 
-            inventoryManager.setXpMultiplier(xpMultiplier);
+            getInventoryManager().setXpMultiplier(xpMultiplier);
 
         }
 
@@ -277,35 +264,32 @@ public class SmallPets extends JavaPlugin {
 
         if(version.startsWith("1_12")) {
 
-            petMapManager = new PetMapManager1_12();
-            inventoryManager = new InventoryManager1_12(inventoryCache, languageManager, xpMultiplier, this);
-            userManager = new UserManager(this, languageManager, petMapManager, useProtocolLib);
-            listenerManager = new ListenerManager1_12(this, getUserManager(), getPetMapManager(), languageManager, getInventoryCache(), getPrefix(), xpMultiplier, useProtocolLib, inventoryManager, experienceManager);
+            SmallPetsCommons.getSmallPetsCommons().setPetMapManager(new PetMapManager1_12());
+            SmallPetsCommons.getSmallPetsCommons().setInventoryManager(new InventoryManager1_12(getInventoryCache(), getLanguageManager(), xpMultiplier, this));
+            SmallPetsCommons.getSmallPetsCommons().setUserManager(new UserManager(this, getLanguageManager(), getPetMapManager(), useProtocolLib));
+            SmallPetsCommons.getSmallPetsCommons().setListenerManager(new ListenerManager1_12(this, getUserManager(), getPetMapManager(), getLanguageManager(), getInventoryCache(), getPrefix(), xpMultiplier, useProtocolLib, getInventoryManager(), getExperienceManager()));
 
         }else if(version.startsWith("1_13")){
 
-            petMapManager = new PetMapManager1_13();
-            inventoryManager = new InventoryManager1_13(inventoryCache, languageManager, xpMultiplier, this);
-            userManager = new UserManager(this, languageManager, petMapManager, useProtocolLib);
-
-            listenerManager = new ListenerManager1_13(this, getUserManager(), getPetMapManager(), languageManager, getInventoryCache(), getPrefix(), xpMultiplier, useProtocolLib, inventoryManager, experienceManager);
+            SmallPetsCommons.getSmallPetsCommons().setPetMapManager(new PetMapManager1_13());
+            SmallPetsCommons.getSmallPetsCommons().setInventoryManager(new InventoryManager1_13(getInventoryCache(), getLanguageManager(), xpMultiplier, this));
+            SmallPetsCommons.getSmallPetsCommons().setUserManager(new UserManager(this, getLanguageManager(), getPetMapManager(), useProtocolLib));
+            SmallPetsCommons.getSmallPetsCommons().setListenerManager(new ListenerManager1_13(this, getUserManager(), getPetMapManager(), getLanguageManager(), getInventoryCache(), getPrefix(), xpMultiplier, useProtocolLib, getInventoryManager(), getExperienceManager()));
 
         }else if(version.startsWith("1_15") || version.startsWith("1_14")){
 
-            petMapManager = new PetMapManager1_15();
-            abilityManager = new AbilityManager1_15(this);
-            inventoryManager = new InventoryManager1_15(inventoryCache, languageManager, xpMultiplier, this);
-            userManager = new UserManager(this, languageManager, petMapManager, useProtocolLib);
-
-            listenerManager = new ListenerManager1_15(this, getUserManager(), getPetMapManager(), languageManager, getInventoryCache(), getPrefix(), xpMultiplier, useProtocolLib, inventoryManager, experienceManager);
+            SmallPetsCommons.getSmallPetsCommons().setPetMapManager(new PetMapManager1_15());
+            SmallPetsCommons.getSmallPetsCommons().setInventoryManager(new InventoryManager1_15(getInventoryCache(), getLanguageManager(), xpMultiplier, this));
+            SmallPetsCommons.getSmallPetsCommons().setUserManager(new UserManager(this, getLanguageManager(), getPetMapManager(), useProtocolLib));
+            SmallPetsCommons.getSmallPetsCommons().setListenerManager(new ListenerManager1_15(this, getUserManager(), getPetMapManager(), getLanguageManager(), getInventoryCache(), getPrefix(), xpMultiplier, useProtocolLib, getInventoryManager(), getExperienceManager()));
+            SmallPetsCommons.getSmallPetsCommons().setAbilityManager(new AbilityManager1_15(this));
 
         }else if(version.startsWith("1_16")){
 
-            petMapManager = new PetMapManager1_16();
-            inventoryManager = new InventoryManager1_16(inventoryCache, languageManager, xpMultiplier, this);
-            userManager = new UserManager(this, languageManager, petMapManager, useProtocolLib);
-
-            listenerManager = new ListenerManager1_16(this, getUserManager(), getPetMapManager(), languageManager, getInventoryCache(), getPrefix(), xpMultiplier, useProtocolLib, inventoryManager, experienceManager);
+            SmallPetsCommons.getSmallPetsCommons().setPetMapManager(new PetMapManager1_16());
+            SmallPetsCommons.getSmallPetsCommons().setInventoryManager(new InventoryManager1_16(getInventoryCache(), getLanguageManager(), xpMultiplier, this));
+            SmallPetsCommons.getSmallPetsCommons().setUserManager(new UserManager(this, getLanguageManager(), getPetMapManager(), useProtocolLib));
+            SmallPetsCommons.getSmallPetsCommons().setListenerManager(new ListenerManager1_16(this, getUserManager(), getPetMapManager(), getLanguageManager(), getInventoryCache(), getPrefix(), xpMultiplier, useProtocolLib, getInventoryManager(), getExperienceManager()));
 
         }else{
 
@@ -325,7 +309,7 @@ public class SmallPets extends JavaPlugin {
 
     public String getPrefix(){
 
-        return prefix;
+        return SmallPetsCommons.getSmallPetsCommons().getPrefix();
 
     }
 
@@ -334,23 +318,23 @@ public class SmallPets extends JavaPlugin {
     }
 
     public PetMapManager getPetMapManager() {
-        return petMapManager;
+        return SmallPetsCommons.getSmallPetsCommons().getPetMapManager();
     }
 
     public InventoryCache getInventoryCache() {
-        return inventoryCache;
+        return SmallPetsCommons.getSmallPetsCommons().getInventoryCache();
     }
 
     public InventoryManager getInventoryManager() {
-        return inventoryManager;
+        return SmallPetsCommons.getSmallPetsCommons().getInventoryManager();
     }
 
     public UserManager getUserManager() {
-        return userManager;
+        return SmallPetsCommons.getSmallPetsCommons().getUserManager();
     }
 
     public LanguageManager getLanguageManager() {
-        return languageManager;
+        return SmallPetsCommons.getSmallPetsCommons().getLanguageManager();
     }
 
     public double getXpMultiplier() {
@@ -358,6 +342,11 @@ public class SmallPets extends JavaPlugin {
     }
 
     public ExperienceManager getExperienceManager() {
-        return experienceManager;
+        return SmallPetsCommons.getSmallPetsCommons().getExperienceManager();
     }
+
+    public AbilityManager getAbilityManager(){ return SmallPetsCommons.getSmallPetsCommons().getAbilityManager(); }
+
+    public ListenerManager getListenerManager(){ return SmallPetsCommons.getSmallPetsCommons().getListenerManager(); }
+
 }

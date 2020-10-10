@@ -49,9 +49,11 @@ public abstract class AbilityManager {
 
             try {
 
-                Constructor constructor = abilityMap.get(id).getConstructor(AbilityManager.class);
+                //Constructor constructor = abilityMap.get(id).getConstructor();
 
-                Ability ability = (Ability) constructor.newInstance(this);
+                //Ability ability = (Ability) constructor.newInstance();
+
+                Ability ability = (Ability) abilityMap.get(id).newInstance();
 
                 return ability;
 
@@ -63,14 +65,6 @@ public abstract class AbilityManager {
 
                 ex.printStackTrace();
 
-            } catch (NoSuchMethodException ex) {
-
-                ex.printStackTrace();
-
-            } catch (InvocationTargetException ex) {
-                
-                ex.printStackTrace();
-                
             }
 
         }
