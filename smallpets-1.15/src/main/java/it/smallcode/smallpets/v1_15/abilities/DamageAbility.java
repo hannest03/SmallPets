@@ -25,4 +25,12 @@ public class DamageAbility extends StatBoostAbility {
         Bukkit.getPluginManager().registerEvents(new DamageAbilityListener(this), SmallPetsCommons.getSmallPetsCommons().getJavaPlugin());
 
     }
+
+
+    public void handleDamage(){
+
+        Bukkit.getConsoleSender().sendMessage("Test");
+
+    }
+
 }
