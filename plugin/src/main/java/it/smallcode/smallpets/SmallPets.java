@@ -59,11 +59,15 @@ public class SmallPets extends JavaPlugin {
 
         SmallPetsCommons.getSmallPetsCommons().setInventoryCache(new InventoryCache());
 
-        if(Bukkit.getPluginManager().getPlugin("ProtocolLib") != null && Bukkit.getPluginManager().getPlugin("ProtocolLib").isEnabled()){
+        if(getConfig().getBoolean("useProtocolLib")){
 
-            useProtocolLib = true;
+            if(Bukkit.getPluginManager().getPlugin("ProtocolLib") != null && Bukkit.getPluginManager().getPlugin("ProtocolLib").isEnabled()){
 
-            Bukkit.getConsoleSender().sendMessage(getPrefix() + "Found ProtocolLib, now using it.");
+                useProtocolLib = true;
+
+                Bukkit.getConsoleSender().sendMessage(getPrefix() + "Found ProtocolLib, now using it.");
+
+            }
 
         }
 
@@ -202,6 +206,7 @@ public class SmallPets extends JavaPlugin {
         FileConfiguration cfg = this.getConfig();
 
         cfg.addDefault("prefixPattern", "&e○&6◯  %plugin_name% &e◆ &7");
+        cfg.addDefault("useProtocolLib", true);
         cfg.addDefault("xpMultiplier", 1D);
         cfg.addDefault("language", "en");
         cfg.addDefault("registerCraftingRecipes", true);
