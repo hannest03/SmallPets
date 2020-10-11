@@ -79,11 +79,6 @@ public class SmallPets extends JavaPlugin {
 
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "Experience table loaded!");
 
-        inventoryCache = new InventoryCache();
-
-        languageManager = new LanguageManager(this, getPrefix(), this.getConfig().getString("language"));
-
-
         if(!selectRightVersion())
             return;
 
