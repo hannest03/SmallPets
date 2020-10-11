@@ -22,7 +22,6 @@ public abstract class Ability {
     }
 
     public abstract List<String> getAbilityTooltip(Pet pet);
-    public abstract void registerListeners();
 
     public String getID(){ return SmallPetsCommons.getSmallPetsCommons().getAbilityManager().getIDByClass(this.getClass()); }
 

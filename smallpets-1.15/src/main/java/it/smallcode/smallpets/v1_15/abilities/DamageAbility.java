@@ -7,8 +7,9 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.core.SmallPetsCommons;
+import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventHandler;
+import it.smallcode.smallpets.core.abilities.eventsystem.events.DamageEvent;
 import it.smallcode.smallpets.core.abilities.templates.StatBoostAbility;
-import it.smallcode.smallpets.v1_15.abilities.listener.DamageAbilityListener;
 import org.bukkit.Bukkit;
 
 public class DamageAbility extends StatBoostAbility {
@@ -19,17 +20,23 @@ public class DamageAbility extends StatBoostAbility {
 
     }
 
-    @Override
-    public void registerListeners() {
+    @AbilityEventHandler
+    public void handleDamage(DamageEvent e){
 
-        Bukkit.getPluginManager().registerEvents(new DamageAbilityListener(this), SmallPetsCommons.getSmallPetsCommons().getJavaPlugin());
+        if(e.getUser().getSelected().hasAbility(getID())){
 
-    }
+            double damage = e.getDamage();
 
+            double extraDamagePercentage = getExtraStat(e.getUser().getSelected().getLevel());
 
-    public void handleDamage(){
+            double newDamage = damage + (damage / 100 * extraDamagePercentage);
 
-        Bukkit.getConsoleSender().sendMessage("Test");
+            e.setDamage(newDamage);
+
+            if(SmallPetsCommons.debug)
+                Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "§cDEBUG: §7Damage Ability " + damage);
+
+        }
 
     }
 

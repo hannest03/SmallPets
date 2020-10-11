@@ -12,6 +12,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class SmallPetsCommons {
 
+    public static final boolean debug = true;
+
     static {
         
         smallPetsCommons = new SmallPetsCommons();

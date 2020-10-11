@@ -17,14 +17,14 @@ public class AbilityManager1_15 extends AbilityManager {
      *
      * @param plugin
      */
-    public AbilityManager1_15(JavaPlugin plugin) {
-        super(plugin);
+    public AbilityManager1_15() {
+
     }
 
     @Override
     public void registerAbilities() {
 
-        abilityMap.put("damage_ability", DamageAbility.class);
+        registerAbility("damage_ability", DamageAbility.class);
 
     }
 

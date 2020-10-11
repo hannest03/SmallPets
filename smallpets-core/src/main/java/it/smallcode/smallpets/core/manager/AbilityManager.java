@@ -7,6 +7,7 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.core.abilities.Ability;
+import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventBus;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -18,9 +19,7 @@ import java.util.Optional;
 
 public abstract class AbilityManager {
 
-    protected HashMap<String, Class> abilityMap;
-
-    private JavaPlugin plugin;
+    private HashMap<String, Class> abilityMap;
 
     /**
      *
@@ -28,10 +27,9 @@ public abstract class AbilityManager {
      *
      */
 
-    public AbilityManager(JavaPlugin plugin) {
+    public AbilityManager() {
 
         abilityMap = new HashMap<String, Class>();
-        this.plugin = plugin;
 
     }
 
@@ -43,17 +41,31 @@ public abstract class AbilityManager {
 
     public abstract void registerAbilities();
 
+    public void registerAbility(String id, Class clazz){
+
+        abilityMap.put(id, clazz);
+
+        createAbility(id);
+
+    }
+
     public Ability createAbility(String id){
 
         if(abilityMap.get(id) != null){
 
             try {
 
-                //Constructor constructor = abilityMap.get(id).getConstructor();
+                /*
 
-                //Ability ability = (Ability) constructor.newInstance();
+                Constructor constructor = abilityMap.get(id).getConstructor();
+
+                Ability ability = (Ability) constructor.newInstance();
+
+                */
 
                 Ability ability = (Ability) abilityMap.get(id).newInstance();
+
+                AbilityEventBus.register(ability);
 
                 return ability;
 
@@ -73,26 +85,6 @@ public abstract class AbilityManager {
 
     }
 
-    public void registerListener(){
-
-        abilityMap.keySet().stream().forEach(id -> {
-
-           Ability ability = createAbility(id);
-
-           if(ability != null) {
-
-               ability.registerListeners();
-
-           }else{
-
-               Bukkit.getConsoleSender().sendMessage("§cERROR REGISTERING '" + id + "' ABILITY!");
-
-           }
-
-        });
-
-    }
-
     public String getIDByClass(Class clazz){
 
         for(Map.Entry entry : abilityMap.entrySet()){
@@ -109,18 +101,4 @@ public abstract class AbilityManager {
 
     }
 
-    /**
-     *
-     * Returns the abilityMap
-     *
-     * @return the abilityMap
-     */
-
-    public HashMap<String, Class> getAbilityMap() {
-        return abilityMap;
-    }
-
-    public JavaPlugin getPlugin() {
-        return plugin;
-    }
 }

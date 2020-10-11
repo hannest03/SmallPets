@@ -9,6 +9,7 @@ Class created by SmallCode
 import it.smallcode.smallpets.cmds.SmallPetsCMD;
 import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.languages.LanguageManager;
+import it.smallcode.smallpets.listener.EntityDamageListener;
 import it.smallcode.smallpets.listener.JoinListener;
 import it.smallcode.smallpets.listener.QuitListener;
 import it.smallcode.smallpets.listener.WorldSaveListener;
@@ -83,12 +84,6 @@ public class SmallPets extends JavaPlugin {
 
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "Registered abilities");
 
-        Bukkit.getConsoleSender().sendMessage(getPrefix() + "Registering ability listeners...");
-
-        getAbilityManager().registerListener();
-
-        Bukkit.getConsoleSender().sendMessage(getPrefix() + "Registered ability listeners");
-
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "Registering pets...");
 
         getPetMapManager().registerPets();
@@ -114,6 +109,8 @@ public class SmallPets extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new JoinListener(getUserManager(), getPetMapManager()), this);
         Bukkit.getPluginManager().registerEvents(new QuitListener(getUserManager(), getInventoryCache()), this);
         Bukkit.getPluginManager().registerEvents(new WorldSaveListener(), this);
+
+        Bukkit.getPluginManager().registerEvents(new EntityDamageListener(), this);
 
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "Registered listeners!");
 
@@ -282,7 +279,7 @@ public class SmallPets extends JavaPlugin {
             SmallPetsCommons.getSmallPetsCommons().setInventoryManager(new InventoryManager1_15(getInventoryCache(), getLanguageManager(), xpMultiplier, this));
             SmallPetsCommons.getSmallPetsCommons().setUserManager(new UserManager(this, getLanguageManager(), getPetMapManager(), useProtocolLib));
             SmallPetsCommons.getSmallPetsCommons().setListenerManager(new ListenerManager1_15(this, getUserManager(), getPetMapManager(), getLanguageManager(), getInventoryCache(), getPrefix(), xpMultiplier, useProtocolLib, getInventoryManager(), getExperienceManager()));
-            SmallPetsCommons.getSmallPetsCommons().setAbilityManager(new AbilityManager1_15(this));
+            SmallPetsCommons.getSmallPetsCommons().setAbilityManager(new AbilityManager1_15());
 
         }else if(version.startsWith("1_16")){
 
