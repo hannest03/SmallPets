@@ -6,11 +6,9 @@ Class created by SmallCode
 
 */
 
-import it.smallcode.smallpets.core.abilities.Ability;
 import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.abilities.templates.StatBoostAbility;
 import it.smallcode.smallpets.core.manager.types.User;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
