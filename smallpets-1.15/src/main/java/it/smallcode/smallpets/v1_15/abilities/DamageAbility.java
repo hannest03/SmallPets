@@ -16,7 +16,7 @@ public class DamageAbility extends StatBoostAbility {
 
     public DamageAbility() {
 
-        super(15);
+        super(15, NumberDisplayType.TWO_DECIMAL_PLACES);
 
     }
 

@@ -18,13 +18,23 @@ import java.util.List;
 
 public abstract class StatBoostAbility extends Ability {
 
+    protected enum NumberDisplayType{
+
+        INTEGER,
+        TWO_DECIMAL_PLACES,
+        FULL
+
+    }
+
+    private NumberDisplayType numberDisplayType;
     private double maxExtraStat;
 
-    public StatBoostAbility(double maxExtraStat){
+    public StatBoostAbility(double maxExtraStat, NumberDisplayType numberDisplayType){
 
         super(AbilityType.STAT);
 
         this.maxExtraStat = maxExtraStat;
+        this.numberDisplayType = numberDisplayType;
 
     }
 
@@ -36,7 +46,23 @@ public abstract class StatBoostAbility extends Ability {
         String description = SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage()
                 .getStringFormatted("ability." + getID() + ".description");
 
-        description = description.replaceAll("%extraStat%", String.valueOf(DoubleFormater.maxDecimalPlaces(getExtraStat(pet.getLevel()), 2)));
+        String value = "";
+
+        if(numberDisplayType == NumberDisplayType.INTEGER){
+
+            value = String.valueOf((int) getExtraStat(pet.getLevel()));
+
+        }else if(numberDisplayType == NumberDisplayType.TWO_DECIMAL_PLACES){
+
+            value = String.valueOf(DoubleFormater.maxDecimalPlaces(getExtraStat(pet.getLevel()), 2));
+
+        }else if(numberDisplayType == NumberDisplayType.FULL){
+
+            value = String.valueOf(getExtraStat(pet.getLevel()));
+
+        }
+
+        description = description.replaceAll("%extraStat%", value);
 
         lore.add("§7" + description);
 
