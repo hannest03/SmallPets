@@ -124,4 +124,24 @@ public class HealthAbility extends StatBoostAbility {
 
     }
 
+    @AbilityEventHandler
+    public void onShutdown(ServerShutdownEvent e){
+
+        if(e.getUser().getSelected().hasAbility(getID())) {
+
+            Player p = e.getUser().getSelected().getOwner();
+
+            double maxHealth = p.getMaxHealth();
+
+            maxHealth -= (int) getExtraStat(e.getUser().getSelected().getLevel());
+
+            p.setMaxHealth(maxHealth);
+
+            if (SmallPetsCommons.debug)
+                Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "§cDEBUG: server shutdown §7Max Health: " + maxHealth);
+
+        }
+
+    }
+
 }

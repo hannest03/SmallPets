@@ -8,7 +8,11 @@ Class created by SmallCode
 
 import it.smallcode.smallpets.cmds.SmallPetsCMD;
 import it.smallcode.smallpets.core.SmallPetsCommons;
+import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEvent;
+import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventBus;
+import it.smallcode.smallpets.core.abilities.eventsystem.events.ServerShutdownEvent;
 import it.smallcode.smallpets.core.languages.LanguageManager;
+import it.smallcode.smallpets.core.manager.types.User;
 import it.smallcode.smallpets.listener.EntityDamageListener;
 import it.smallcode.smallpets.listener.JoinListener;
 import it.smallcode.smallpets.listener.QuitListener;
@@ -34,6 +38,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class SmallPets extends JavaPlugin {
 
@@ -193,6 +198,13 @@ public class SmallPets extends JavaPlugin {
 
     @Override
     public void onDisable() {
+
+        for(User user : getUserManager().getUsers()){
+
+            if(Bukkit.getPlayer(UUID.fromString(user.getUuid())).isOnline())
+                AbilityEventBus.post(new ServerShutdownEvent(user));
+
+        }
 
         getUserManager().despawnPets();
         getUserManager().saveUsers();
