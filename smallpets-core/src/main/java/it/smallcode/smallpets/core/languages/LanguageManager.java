@@ -105,9 +105,13 @@ public class LanguageManager {
 
         if(newCfg.getConfigurationSection("translations") != null) {
 
-            for (String key : newCfg.getConfigurationSection("translations").getKeys(false)) {
+            for (String key : newCfg.getConfigurationSection("translations").getKeys(true)) {
+
+                System.out.println(key);
 
                 if (!oldCfg.contains("translations." + key)) {
+
+                    System.out.println("Doesn't contain");
 
                     oldCfg.set("translations." + key, newCfg.get("translations." + key));
 
