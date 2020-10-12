@@ -200,7 +200,7 @@ public class SmallPets extends JavaPlugin {
 
         for(User user : getUserManager().getUsers()){
 
-            if(Bukkit.getPlayer(UUID.fromString(user.getUuid())).isOnline())
+            if(Bukkit.getOfflinePlayer(UUID.fromString(user.getUuid())).isOnline())
                 AbilityEventBus.post(new ServerShutdownEvent(user));
 
         }
