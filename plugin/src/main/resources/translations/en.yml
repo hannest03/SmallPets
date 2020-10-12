@@ -41,4 +41,4 @@ translations:
     damage_ability:
       description: '&7Deal &c+%extraStat%%&7 more damage!'
     health_ability:
-      description: '&7Get &a+%extraStat%%&7 more health!'
+      description: '&7Get &a+%extraStat%&7 more health!'
