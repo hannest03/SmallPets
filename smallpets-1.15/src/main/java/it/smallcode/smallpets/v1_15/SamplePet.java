@@ -13,7 +13,9 @@ import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.wrappers.EnumWrappers;
 import com.comphenix.protocol.wrappers.WrappedChatComponent;
 import com.comphenix.protocol.wrappers.WrappedDataWatcher;
+import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.abilities.AbilityType;
+import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventBus;
 import it.smallcode.smallpets.core.animations.FollowPlayerAnimation;
 import it.smallcode.smallpets.core.animations.HoverAnimation;
 import it.smallcode.smallpets.core.animations.WalkAwayFromPlayerAnimation;
@@ -423,6 +425,8 @@ public class SamplePet extends Pet {
         if(level != getLevel()){
 
             //LEVEL UP
+
+            AbilityEventBus.post(new it.smallcode.smallpets.core.abilities.eventsystem.events.PetLevelUpEvent(SmallPetsCommons.getSmallPetsCommons().getUserManager().getUser(getOwner().getUniqueId().toString()), level));
 
             Bukkit.getPluginManager().callEvent(new PetLevelUpEvent(this));
 

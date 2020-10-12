@@ -6,6 +6,10 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEvent;
+import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventBus;
+import it.smallcode.smallpets.core.abilities.eventsystem.events.PetDeselectEvent;
+import it.smallcode.smallpets.core.abilities.eventsystem.events.PetSelectEvent;
 import it.smallcode.smallpets.core.events.DespawnPetEvent;
 import it.smallcode.smallpets.core.events.SpawnPetEvent;
 import it.smallcode.smallpets.core.languages.LanguageManager;
@@ -238,7 +242,21 @@ public class User {
 
         despawnSelected();
 
+        if(this.selected != null) {
+
+            PetDeselectEvent petDeselectEvent = new PetDeselectEvent(this.selected, Bukkit.getPlayer(UUID.fromString(getUuid())));
+            AbilityEventBus.post(petDeselectEvent);
+
+        }
+
         this.selected = selected;
+
+        if(this.selected != null) {
+
+            PetSelectEvent petSelectEvent = new PetSelectEvent(this.selected, Bukkit.getPlayer(UUID.fromString(getUuid())));
+            AbilityEventBus.post(petSelectEvent);
+
+        }
 
         spawnSelected();
 
