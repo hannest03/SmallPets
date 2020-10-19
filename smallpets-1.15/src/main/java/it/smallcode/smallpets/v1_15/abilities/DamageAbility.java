@@ -7,6 +7,7 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.core.SmallPetsCommons;
+import it.smallcode.smallpets.core.abilities.Ability;
 import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventHandler;
 import it.smallcode.smallpets.core.abilities.eventsystem.events.DamageEvent;
 import it.smallcode.smallpets.core.abilities.templates.StatBoostAbility;
@@ -14,9 +15,15 @@ import org.bukkit.Bukkit;
 
 public class DamageAbility extends StatBoostAbility {
 
-    public DamageAbility() {
+    public DamageAbility(){
 
-        super(15, NumberDisplayType.TWO_DECIMAL_PLACES);
+        this(0);
+
+    }
+
+    public DamageAbility(double maxExtraStat) {
+
+        super(maxExtraStat, NumberDisplayType.TWO_DECIMAL_PLACES);
 
     }
 
@@ -25,15 +32,17 @@ public class DamageAbility extends StatBoostAbility {
 
         if(e.getUser().getSelected().hasAbility(getID())){
 
+            DamageAbility ability = (DamageAbility) e.getUser().getSelected().getAbility(getID());
+
             double damage = e.getDamage();
 
-            double extraDamagePercentage = getExtraStat(e.getUser().getSelected().getLevel());
+            double extraDamagePercentage = ability.getExtraStat(e.getUser().getSelected().getLevel());
 
             double newDamage = damage + (damage / 100 * extraDamagePercentage);
 
             e.setDamage(newDamage);
 
-            if(SmallPetsCommons.debug)
+            if(SmallPetsCommons.DEBUG)
                 Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "§cDEBUG: §7Damage Ability " + damage);
 
         }

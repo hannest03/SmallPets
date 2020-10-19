@@ -15,6 +15,12 @@ public abstract class Ability {
 
     private AbilityType abilityType;
 
+    public Ability(){
+
+
+
+    }
+
     public Ability(AbilityType abilityType){
 
         this.abilityType = abilityType;

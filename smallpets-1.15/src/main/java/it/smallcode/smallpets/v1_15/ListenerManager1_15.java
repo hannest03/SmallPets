@@ -54,8 +54,8 @@ public class ListenerManager1_15 extends ListenerManager {
 
         //ABILITIES
 
-        Bukkit.getPluginManager().registerEvents(new EntityDamageListener(userManager), getPlugin());
-        Bukkit.getPluginManager().registerEvents(new PlayerMoveListener(userManager), getPlugin());
+        //Bukkit.getPluginManager().registerEvents(new EntityDamageListener(userManager), getPlugin());
+        //Bukkit.getPluginManager().registerEvents(new PlayerMoveListener(userManager), getPlugin());
 
         //EXPERIENCE
 

@@ -10,6 +10,7 @@ import it.smallcode.smallpets.core.languages.LanguageManager;
 import it.smallcode.smallpets.core.pets.PetType;
 import it.smallcode.smallpets.v1_15.SamplePet;
 import it.smallcode.smallpets.v1_15.SkullCreator;
+import it.smallcode.smallpets.v1_15.abilities.WaterSpeedAbility;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -28,6 +29,8 @@ public class Penguin extends SamplePet {
         super(owner, xp, useProtocolLib, languageManager);
 
         super.setPetType(PetType.fishing);
+
+        super.abilities.add(new WaterSpeedAbility(0.25, 1D));
 
     }
 

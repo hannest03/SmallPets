@@ -16,9 +16,11 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  *
@@ -492,6 +494,17 @@ public abstract class Pet {
     protected void setPetType(PetType petType){
 
         this.petType = petType;
+
+    }
+
+    public Ability getAbility(String id){
+
+        Optional<Ability> optAbility = abilities.stream().filter(ability -> ability.getID().equals(id)).findFirst();
+
+        if(optAbility.isPresent())
+            return optAbility.get();
+
+        return null;
 
     }
 

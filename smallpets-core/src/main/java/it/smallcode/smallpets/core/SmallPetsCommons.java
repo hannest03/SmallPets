@@ -12,7 +12,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class SmallPetsCommons {
 
-    public static final boolean debug = true;
+    public static final boolean DEBUG = true;
 
     static {
         
