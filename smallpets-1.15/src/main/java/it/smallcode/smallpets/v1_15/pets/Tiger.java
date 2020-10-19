@@ -10,6 +10,8 @@ import it.smallcode.smallpets.core.languages.LanguageManager;
 import it.smallcode.smallpets.core.pets.PetType;
 import it.smallcode.smallpets.v1_15.SamplePet;
 import it.smallcode.smallpets.v1_15.SkullCreator;
+import it.smallcode.smallpets.v1_15.abilities.DamageAbility;
+import it.smallcode.smallpets.v1_15.abilities.HealthAbility;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -35,6 +37,9 @@ public class Tiger extends SamplePet {
         super(owner, xp, useProtocolLib, languageManager);
 
         super.setPetType(PetType.combat);
+
+        super.abilities.add(new DamageAbility());
+        super.abilities.add(new HealthAbility());
 
     }
     public ItemStack getItem() {

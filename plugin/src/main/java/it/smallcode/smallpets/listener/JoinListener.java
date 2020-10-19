@@ -7,6 +7,8 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.SmallPets;
+import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventBus;
+import it.smallcode.smallpets.core.abilities.eventsystem.events.JoinEvent;
 import it.smallcode.smallpets.core.manager.PetMapManager;
 import it.smallcode.smallpets.core.manager.UserManager;
 import it.smallcode.smallpets.core.manager.types.User;
@@ -41,7 +43,15 @@ public class JoinListener implements Listener {
                     @Override
                     public void run() {
 
-                        userManager.getUser(e.getPlayer().getUniqueId().toString()).spawnSelected();
+                        User user = userManager.getUser(e.getPlayer().getUniqueId().toString());
+
+                        user.spawnSelected();
+
+                        if(user.getSelected() != null){
+
+                            AbilityEventBus.post(new JoinEvent(user));
+
+                        }
 
                         for(Player all : Bukkit.getOnlinePlayers()){
 
@@ -49,7 +59,7 @@ public class JoinListener implements Listener {
 
                                 if (all.getWorld().getName().equals(e.getPlayer().getWorld().getName())) {
 
-                                    User user = userManager.getUser(all.getUniqueId().toString());
+                                   user = userManager.getUser(all.getUniqueId().toString());
 
                                     if (user != null && user.getSelected() != null) {
 

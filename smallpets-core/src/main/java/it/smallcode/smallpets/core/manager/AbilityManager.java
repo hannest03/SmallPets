@@ -6,15 +6,20 @@ Class created by SmallCode
 
 */
 
-import it.smallcode.smallpets.core.manager.types.Ability;
+import it.smallcode.smallpets.core.abilities.Ability;
+import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventBus;
 import org.bukkit.Bukkit;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 public abstract class AbilityManager {
 
-    protected HashMap<String, Class> abilityMap;
+    private HashMap<String, Class> abilityMap;
 
     /**
      *
@@ -36,47 +41,64 @@ public abstract class AbilityManager {
 
     public abstract void registerAbilities();
 
-    public void registerListener(){
+    public void registerAbility(String id, Class clazz){
 
-        abilityMap.values().stream().forEach(abilityClass -> {
+        abilityMap.put(id, clazz);
 
-            if(abilityClass != null){
-
-                try {
-
-                    Ability ability = (Ability) abilityClass.newInstance();
-
-                    ability.registerListener();
-
-                } catch (InstantiationException ex) {
-
-                    ex.printStackTrace();
-
-                } catch (IllegalAccessException ex) {
-
-                    ex.printStackTrace();
-
-                }
-
-            }else{
-
-                Bukkit.getConsoleSender().sendMessage("§4 ERROR REGISTERING ABILITY!");
-
-            }
-
-        });
+        createAbility(id);
 
     }
 
-    /**
-     *
-     * Returns the abilityMap
-     *
-     * @return the abilityMap
-     */
+    public Ability createAbility(String id){
 
-    public HashMap<String, Class> getAbilityMap() {
-        return abilityMap;
+        if(abilityMap.get(id) != null){
+
+            try {
+
+                /*
+
+                Constructor constructor = abilityMap.get(id).getConstructor();
+
+                Ability ability = (Ability) constructor.newInstance();
+
+                */
+
+                Ability ability = (Ability) abilityMap.get(id).newInstance();
+
+                AbilityEventBus.register(ability);
+
+                return ability;
+
+            } catch (InstantiationException ex) {
+
+                ex.printStackTrace();
+
+            } catch (IllegalAccessException ex) {
+
+                ex.printStackTrace();
+
+            }
+
+        }
+
+        return null;
+
+    }
+
+    public String getIDByClass(Class clazz){
+
+        for(Map.Entry entry : abilityMap.entrySet()){
+
+            if(entry.getValue() == clazz){
+
+                return (String) entry.getKey();
+
+            }
+
+        }
+
+        return "No ID!";
+
     }
 
 }
