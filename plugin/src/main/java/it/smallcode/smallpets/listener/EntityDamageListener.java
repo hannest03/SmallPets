@@ -1,0 +1,49 @@
+package it.smallcode.smallpets.listener;
+/*
+
+Class created by SmallCode
+11.10.2020 19:26
+
+*/
+
+import it.smallcode.smallpets.SmallPets;
+import it.smallcode.smallpets.core.SmallPetsCommons;
+import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventBus;
+import it.smallcode.smallpets.core.abilities.eventsystem.events.DamageEvent;
+import it.smallcode.smallpets.core.manager.types.User;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+
+public class EntityDamageListener implements Listener {
+
+    @EventHandler
+    public void onDamage(EntityDamageByEntityEvent e){
+
+        if(e.getDamager() instanceof Player){
+
+            Player p = (Player) e.getDamager();
+
+            User user = SmallPetsCommons.getSmallPetsCommons().getUserManager().getUser(p.getUniqueId().toString());
+
+            if(user != null){
+
+                if(user.getSelected() != null){
+
+                    DamageEvent damageEvent = new DamageEvent(user, e.getEntity(), e.getDamage());
+
+                    AbilityEventBus.post(damageEvent);
+
+                    e.setDamage(damageEvent.getDamage());
+                    e.setCancelled(damageEvent.isCancelled());
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

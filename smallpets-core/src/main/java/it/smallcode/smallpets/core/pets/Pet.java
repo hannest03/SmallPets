@@ -6,6 +6,7 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.core.abilities.Ability;
 import it.smallcode.smallpets.core.languages.LanguageManager;
 import org.bukkit.Location;
 import org.bukkit.Particle;
@@ -29,13 +30,15 @@ public abstract class Pet {
 
     private LanguageManager languageManager;
 
-    private static final double minLevel = 1;
-    private static final double maxLevel = 101;
-    private static final double xpToLevelTwo = 500;
+    private static final double MINLEVEL = 1;
+    public static final double MAXLEVEL = 101;
+    private static final double XPTOLEVELTWO = 500;
 
     private final double tach;
 
     private Particle particle = Particle.VILLAGER_HAPPY;
+
+    protected List<Ability> abilities;
 
     protected long xp = 0;
 
@@ -84,6 +87,8 @@ public abstract class Pet {
 
     public Pet(Player owner, Long xp, Boolean useProtocolLib, LanguageManager languageManager) {
 
+        abilities = new LinkedList<>();
+
         this.owner = owner;
         this.xp = xp;
 
@@ -91,7 +96,7 @@ public abstract class Pet {
 
         this.languageManager = languageManager;
 
-        tach = -(Math.log(((getLevel() +1) - maxLevel) / -(maxLevel - minLevel)) / xpToLevelTwo);
+        tach = -(Math.log(((getLevel() +1) - MAXLEVEL) / -(MAXLEVEL - MINLEVEL)) / XPTOLEVELTWO);
 
     }
 
@@ -228,7 +233,7 @@ public abstract class Pet {
 
     public int getLevel(){
 
-        return (int) (maxLevel - (maxLevel - minLevel) * Math.pow(Math.E, -tach * xp));
+        return (int) (MAXLEVEL - (MAXLEVEL - MINLEVEL) * Math.pow(Math.E, -tach * xp));
 
     }
 
@@ -242,7 +247,7 @@ public abstract class Pet {
 
     public long getExpForLevel(int level){
 
-        return (int) (Math.log(((level) - maxLevel) / -(maxLevel - minLevel)) / -tach);
+        return (int) (Math.log(((level) - MAXLEVEL) / -(MAXLEVEL - MINLEVEL)) / -tach);
 
     }
 
@@ -427,6 +432,12 @@ public abstract class Pet {
         }
 
         return bar;
+
+    }
+
+    public boolean hasAbility(String abilityID){
+
+        return abilities.stream().filter(ability -> ability.getID().equals(abilityID)).findFirst().isPresent();
 
     }
 

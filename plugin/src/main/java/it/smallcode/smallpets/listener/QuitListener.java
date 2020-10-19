@@ -6,6 +6,9 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventBus;
+import it.smallcode.smallpets.core.abilities.eventsystem.events.JoinEvent;
+import it.smallcode.smallpets.core.abilities.eventsystem.events.QuitEvent;
 import it.smallcode.smallpets.core.manager.InventoryCache;
 import it.smallcode.smallpets.core.manager.UserManager;
 import it.smallcode.smallpets.core.manager.types.User;
@@ -33,8 +36,17 @@ public class QuitListener implements Listener {
 
         User user = userManager.getUser(p.getUniqueId().toString());
 
-        if(user != null)
+        if(user != null) {
+
             user.despawnSelected();
+
+            if(user.getSelected() != null){
+
+                AbilityEventBus.post(new QuitEvent(user));
+
+            }
+
+        }
 
         inventoryCache.removeInventory(p);
 

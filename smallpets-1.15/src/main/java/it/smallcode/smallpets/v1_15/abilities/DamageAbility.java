@@ -6,15 +6,38 @@ Class created by SmallCode
 
 */
 
-import it.smallcode.smallpets.core.manager.types.Ability;
+import it.smallcode.smallpets.core.SmallPetsCommons;
+import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventHandler;
+import it.smallcode.smallpets.core.abilities.eventsystem.events.DamageEvent;
+import it.smallcode.smallpets.core.abilities.templates.StatBoostAbility;
 import org.bukkit.Bukkit;
 
-public class DamageAbility extends Ability {
+public class DamageAbility extends StatBoostAbility {
 
-    @Override
-    public void registerListener() {
+    public DamageAbility() {
 
-        Bukkit.getConsoleSender().sendMessage("§bREGISTERING DAMAGE ABILITY");
+        super(15, NumberDisplayType.TWO_DECIMAL_PLACES);
 
     }
+
+    @AbilityEventHandler
+    public void handleDamage(DamageEvent e){
+
+        if(e.getUser().getSelected().hasAbility(getID())){
+
+            double damage = e.getDamage();
+
+            double extraDamagePercentage = getExtraStat(e.getUser().getSelected().getLevel());
+
+            double newDamage = damage + (damage / 100 * extraDamagePercentage);
+
+            e.setDamage(newDamage);
+
+            if(SmallPetsCommons.debug)
+                Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "§cDEBUG: §7Damage Ability " + damage);
+
+        }
+
+    }
+
 }
