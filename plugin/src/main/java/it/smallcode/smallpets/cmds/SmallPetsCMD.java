@@ -139,8 +139,8 @@ public class SmallPetsCMD implements CommandExecutor {
         s.sendMessage(SmallPets.getInstance().getPrefix() + "/smallpets");
 
         for(SubCommand subCommand : subCommands){
-			
-            s.sendMessage(SmallPets.getInstance().getPrefix() + "/smallpets admin " + subCommand.getHelp());
+
+            s.sendMessage(SmallPets.getInstance().getPrefix() + "/smallpets " + subCommand.getSubCommandType().getName() + " " + subCommand.getHelp());
 
         }
 

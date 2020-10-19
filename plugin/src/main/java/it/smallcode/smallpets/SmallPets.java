@@ -91,8 +91,6 @@ public class SmallPets extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "Registered abilities");
 
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "Registering pets...");
-		
-        Bukkit.getConsoleSender().sendMessage(getPrefix() + "Registering pets...");
 
         getPetMapManager().registerPets();
 
