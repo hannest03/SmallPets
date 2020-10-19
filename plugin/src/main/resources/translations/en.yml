@@ -42,3 +42,5 @@ translations:
       description: '&7Deal &c+%extraStat%%&7 more damage!'
     health_ability:
       description: '&7Get &a+%extraStat%&7 more health!'
+    water_speed_ability:
+      description: '&7Be &a+%extraStat%%&7 faster in water!'

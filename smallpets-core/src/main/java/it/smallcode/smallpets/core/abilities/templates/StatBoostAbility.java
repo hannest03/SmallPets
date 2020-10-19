@@ -9,6 +9,7 @@ Class created by SmallCode
 import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.abilities.Ability;
 import it.smallcode.smallpets.core.abilities.AbilityType;
+import it.smallcode.smallpets.core.manager.types.User;
 import it.smallcode.smallpets.core.pets.Pet;
 import it.smallcode.smallpets.core.utils.DoubleFormater;
 
@@ -28,12 +29,20 @@ public abstract class StatBoostAbility extends Ability {
 
     private NumberDisplayType numberDisplayType;
     private double maxExtraStat;
+    private double minExtraStat;
 
     public StatBoostAbility(double maxExtraStat, NumberDisplayType numberDisplayType){
+
+        this(maxExtraStat, 0, numberDisplayType);
+
+    }
+
+    public StatBoostAbility(double maxExtraStat, double minExtraStat, NumberDisplayType numberDisplayType){
 
         super(AbilityType.STAT);
 
         this.maxExtraStat = maxExtraStat;
+        this.minExtraStat = minExtraStat;
         this.numberDisplayType = numberDisplayType;
 
     }
@@ -72,7 +81,7 @@ public abstract class StatBoostAbility extends Ability {
 
     public double getExtraStat(double level){
 
-        return (maxExtraStat / 100D) * level;
+        return (maxExtraStat / (Pet.MAXLEVEL -1)) * level + minExtraStat;
 
     }
 

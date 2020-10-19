@@ -13,10 +13,7 @@ import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventBus;
 import it.smallcode.smallpets.core.abilities.eventsystem.events.ServerShutdownEvent;
 import it.smallcode.smallpets.core.languages.LanguageManager;
 import it.smallcode.smallpets.core.manager.types.User;
-import it.smallcode.smallpets.listener.EntityDamageListener;
-import it.smallcode.smallpets.listener.JoinListener;
-import it.smallcode.smallpets.listener.QuitListener;
-import it.smallcode.smallpets.listener.WorldSaveListener;
+import it.smallcode.smallpets.listener.*;
 import it.smallcode.smallpets.core.manager.*;
 import it.smallcode.smallpets.metrics.Metrics;
 import it.smallcode.smallpets.placeholderapi.SmallPetsExpansion;
@@ -120,6 +117,7 @@ public class SmallPets extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new WorldSaveListener(), this);
 
         Bukkit.getPluginManager().registerEvents(new EntityDamageListener(), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerMoveListener(), this);
 
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "Registered listeners!");
 

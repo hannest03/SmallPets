@@ -9,14 +9,12 @@ Class created by SmallCode
 import it.smallcode.smallpets.core.manager.AbilityManager;
 import it.smallcode.smallpets.v1_15.abilities.DamageAbility;
 import it.smallcode.smallpets.v1_15.abilities.HealthAbility;
-import org.bukkit.plugin.java.JavaPlugin;
+import it.smallcode.smallpets.v1_15.abilities.WaterSpeedAbility;
 
 public class AbilityManager1_15 extends AbilityManager {
 
     /**
      * Creates an AbilityManager
-     *
-     * @param plugin
      */
     public AbilityManager1_15() {
 
@@ -27,6 +25,7 @@ public class AbilityManager1_15 extends AbilityManager {
 
         registerAbility("damage_ability", DamageAbility.class);
         registerAbility("health_ability", HealthAbility.class);
+        registerAbility("water_speed_ability", WaterSpeedAbility.class);
 
     }
 
