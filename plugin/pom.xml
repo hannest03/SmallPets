@@ -76,15 +76,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <!--This adds the Bukkit API artifact to the build -->
-        <!-- Do not include this in the pom.xml file if the Spigot API is already added -->
-        <dependency>
-            <groupId>org.bukkit</groupId>
-            <artifactId>bukkit</artifactId>
-            <version>1.15.2-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
-
         <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
         <dependency>
             <groupId>com.google.code.gson</groupId>
