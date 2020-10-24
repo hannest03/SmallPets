@@ -8,7 +8,9 @@ Class created by SmallCode
 
 import it.smallcode.smallpets.core.languages.LanguageManager;
 import it.smallcode.smallpets.core.manager.*;
-import it.smallcode.smallpets.core.utils.NBTTagEditor;
+import it.smallcode.smallpets.core.utils.INBTTagEditor;
+import it.smallcode.smallpets.core.utils.IProtocolLibUtils;
+import it.smallcode.smallpets.core.utils.SkullCreator;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class SmallPetsCommons {
@@ -40,7 +42,10 @@ public class SmallPetsCommons {
     private ExperienceManager experienceManager;
     private AbilityManager abilityManager;
 
-    private NBTTagEditor nbtTagEditor;
+    private INBTTagEditor INBTTagEditor;
+    private IProtocolLibUtils protocolLibUtils;
+
+    private SkullCreator skullCreator;
 
     public static SmallPetsCommons getSmallPetsCommons() {
         return smallPetsCommons;
@@ -126,11 +131,27 @@ public class SmallPetsCommons {
         this.javaPlugin = javaPlugin;
     }
 
-    public NBTTagEditor getNbtTagEditor() {
-        return nbtTagEditor;
+    public INBTTagEditor getNbtTagEditor() {
+        return INBTTagEditor;
     }
 
-    public void setNbtTagEditor(NBTTagEditor nbtTagEditor) {
-        this.nbtTagEditor = nbtTagEditor;
+    public void setNbtTagEditor(INBTTagEditor INBTTagEditor) {
+        this.INBTTagEditor = INBTTagEditor;
+    }
+
+    public IProtocolLibUtils getProtocolLibUtils() {
+        return protocolLibUtils;
+    }
+
+    public void setProtocolLibUtils(IProtocolLibUtils protocolLibUtils) {
+        this.protocolLibUtils = protocolLibUtils;
+    }
+
+    public SkullCreator getSkullCreator() {
+        return skullCreator;
+    }
+
+    public void setSkullCreator(SkullCreator skullCreator) {
+        this.skullCreator = skullCreator;
     }
 }

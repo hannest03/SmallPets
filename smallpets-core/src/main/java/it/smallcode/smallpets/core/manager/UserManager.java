@@ -160,47 +160,7 @@ public class UserManager {
      */
     public boolean giveUserPet(String type, String uuid){
 
-        User user = getUser(uuid);
-
-        if(user != null){
-
-            if(SmallPetsCommons.getSmallPetsCommons().getPetMapManager().getPetMap().containsKey(type)){
-
-                if(user.getPetFromType(type) == null) {
-
-                    try {
-
-                        Constructor constructor = SmallPetsCommons.getSmallPetsCommons().getPetMapManager().getPetMap().get(type).getConstructor(Player.class, Long.class, Boolean.class, LanguageManager.class);
-
-                        Pet pet = (Pet) constructor.newInstance(Bukkit.getPlayer(UUID.fromString(uuid)), 0L, useProtocolLib, SmallPetsCommons.getSmallPetsCommons().getLanguageManager());
-
-                        user.getPets().add(pet);
-
-                        return true;
-
-                    } catch (NoSuchMethodException ex) {
-
-                        ex.printStackTrace();
-
-                    } catch (IllegalAccessException ex) {
-
-                        ex.printStackTrace();
-
-                    } catch (InstantiationException ex) {
-
-                        ex.printStackTrace();
-
-                    } catch (InvocationTargetException ex) {
-
-                        ex.printStackTrace();
-
-                    }
-
-                }
-
-            }
-
-        }
+        giveUserPet(type, uuid, 0L);
 
         return false;
 
@@ -227,9 +187,9 @@ public class UserManager {
 
                     try {
 
-                        Constructor constructor = SmallPetsCommons.getSmallPetsCommons().getPetMapManager().getPetMap().get(type).getConstructor(Player.class, Long.class, Boolean.class, LanguageManager.class);
+                        Constructor constructor = SmallPetsCommons.getSmallPetsCommons().getPetMapManager().getPetMap().get(type).getConstructor(String.class, Player.class, Long.class, Boolean.class);
 
-                        Pet pet = (Pet) constructor.newInstance(Bukkit.getPlayer(UUID.fromString(uuid)), exp, useProtocolLib, SmallPetsCommons.getSmallPetsCommons().getLanguageManager());
+                        Pet pet = (Pet) constructor.newInstance(type, Bukkit.getPlayer(UUID.fromString(uuid)), exp, useProtocolLib);
 
                         user.getPets().add(pet);
 
@@ -283,7 +243,7 @@ public class UserManager {
 
                     if(user.getSelected() != null) {
 
-                        if (user.getSelected().getName().equals(type)) {
+                        if (user.getSelected().getID().equals(type)) {
 
                             user.despawnSelected();
 

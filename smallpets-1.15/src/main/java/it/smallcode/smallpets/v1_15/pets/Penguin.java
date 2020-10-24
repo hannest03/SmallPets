@@ -7,9 +7,8 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.core.languages.LanguageManager;
+import it.smallcode.smallpets.core.pets.Pet;
 import it.smallcode.smallpets.core.pets.PetType;
-import it.smallcode.smallpets.v1_15.SamplePet;
-import it.smallcode.smallpets.v1_15.SkullCreator;
 import it.smallcode.smallpets.v1_15.abilities.HealthAbility;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -17,32 +16,19 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 
-public class Penguin extends SamplePet {
+public class Penguin extends Pet {
 
-    public Penguin(Player owner, Long xp, Boolean useProtocolLib, LanguageManager languageManager) {
+    public Penguin(String type, Player owner, Long xp, Boolean useProtocolLib) {
 
-        super(owner, xp, useProtocolLib, languageManager);
+        super(type, owner, xp, useProtocolLib);
 
         super.setPetType(PetType.fishing);
 
         super.abilities.add(new HealthAbility(10));
 
-    }
-
-    public ItemStack getItem() {
-
-        ItemStack skull = SkullCreator.getSkull("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvM2MwZDE2MTA3OTU2ZDc4NTNhMWJlMzE1NDljNDZhMmZmMjBiNDUxZDYzNjA3NTI4ZDVlMTk1YzQ0NTllMWZhMSJ9fX0=");
-
-        ItemMeta skullMeta = skull.getItemMeta();
-
-        skullMeta.setDisplayName(getName());
-
-        skull.setItemMeta(skullMeta);
-
-        return skull;
+        this.textureValue = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvM2MwZDE2MTA3OTU2ZDc4NTNhMWJlMzE1NDljNDZhMmZmMjBiNDUxZDYzNjA3NTI4ZDVlMTk1YzQ0NTllMWZhMSJ9fX0=";
 
     }
 
@@ -61,13 +47,6 @@ public class Penguin extends SamplePet {
         recipe.setIngredient('S', Material.SALMON);
 
         Bukkit.addRecipe(recipe);
-
-    }
-
-    @Override
-    public String getName() {
-
-        return "penguin";
 
     }
 

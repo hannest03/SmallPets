@@ -16,19 +16,10 @@ import it.smallcode.smallpets.listener.*;
 import it.smallcode.smallpets.core.manager.*;
 import it.smallcode.smallpets.metrics.Metrics;
 import it.smallcode.smallpets.placeholderapi.SmallPetsExpansion;
-import it.smallcode.smallpets.v1_12.InventoryManager1_12;
-import it.smallcode.smallpets.v1_12.ListenerManager1_12;
-import it.smallcode.smallpets.v1_12.NBTTagEditor1_12;
-import it.smallcode.smallpets.v1_12.PetMapManager1_12;
-import it.smallcode.smallpets.v1_13.InventoryManager1_13;
-import it.smallcode.smallpets.v1_13.ListenerManager1_13;
-import it.smallcode.smallpets.v1_13.NBTTagEditor1_13;
-import it.smallcode.smallpets.v1_13.PetMapManager1_13;
+import it.smallcode.smallpets.v1_12.*;
+import it.smallcode.smallpets.v1_13.*;
 import it.smallcode.smallpets.v1_15.*;
-import it.smallcode.smallpets.v1_16.InventoryManager1_16;
-import it.smallcode.smallpets.v1_16.ListenerManager1_16;
-import it.smallcode.smallpets.v1_16.NBTTagEditor1_16;
-import it.smallcode.smallpets.v1_16.PetMapManager1_16;
+import it.smallcode.smallpets.v1_16.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -102,7 +93,7 @@ public class SmallPets extends JavaPlugin {
 
             Bukkit.getConsoleSender().sendMessage(getPrefix() + "Registering crafting recipes...");
 
-            getPetMapManager().registerCraftingRecipe(this, getLanguageManager());
+            getPetMapManager().registerCraftingRecipe();
 
             Bukkit.getConsoleSender().sendMessage(getPrefix() + "Registered crafting recipes!");
 
@@ -279,7 +270,11 @@ public class SmallPets extends JavaPlugin {
 
         if(version.startsWith("1_12")) {
 
-            SmallPetsCommons.getSmallPetsCommons().setNbtTagEditor(new NBTTagEditor1_12());
+            if(useProtocolLib)
+                SmallPetsCommons.getSmallPetsCommons().setProtocolLibUtils(new ProtocolLibUtils1_12());
+
+            SmallPetsCommons.getSmallPetsCommons().setSkullCreator(new SkullCreator1_12());
+            SmallPetsCommons.getSmallPetsCommons().setNbtTagEditor(new INBTTagEditor1_12());
 
             SmallPetsCommons.getSmallPetsCommons().setPetMapManager(new PetMapManager1_12());
             SmallPetsCommons.getSmallPetsCommons().setInventoryManager(new InventoryManager1_12(xpMultiplier));
@@ -288,7 +283,11 @@ public class SmallPets extends JavaPlugin {
 
         }else if(version.startsWith("1_13")){
 
-            SmallPetsCommons.getSmallPetsCommons().setNbtTagEditor(new NBTTagEditor1_13());
+            if(useProtocolLib)
+                SmallPetsCommons.getSmallPetsCommons().setProtocolLibUtils(new ProtocolLibUtils1_13());
+
+            SmallPetsCommons.getSmallPetsCommons().setSkullCreator(new SkullCreator1_13());
+            SmallPetsCommons.getSmallPetsCommons().setNbtTagEditor(new INBTTagEditor1_13());
 
             SmallPetsCommons.getSmallPetsCommons().setPetMapManager(new PetMapManager1_13());
             SmallPetsCommons.getSmallPetsCommons().setInventoryManager(new InventoryManager1_13(xpMultiplier));
@@ -297,7 +296,11 @@ public class SmallPets extends JavaPlugin {
 
         }else if(version.startsWith("1_15") || version.startsWith("1_14")){
 
-            SmallPetsCommons.getSmallPetsCommons().setNbtTagEditor(new NBTTagEditor1_15());
+            if(useProtocolLib)
+                SmallPetsCommons.getSmallPetsCommons().setProtocolLibUtils(new ProtocolLibUtils1_15());
+
+            SmallPetsCommons.getSmallPetsCommons().setSkullCreator(new SkullCreator1_15());
+            SmallPetsCommons.getSmallPetsCommons().setNbtTagEditor(new INBTTagEditor1_15());
 
             SmallPetsCommons.getSmallPetsCommons().setPetMapManager(new PetMapManager1_15());
             SmallPetsCommons.getSmallPetsCommons().setInventoryManager(new InventoryManager1_15(xpMultiplier));
@@ -307,7 +310,11 @@ public class SmallPets extends JavaPlugin {
 
         }else if(version.startsWith("1_16")){
 
-            SmallPetsCommons.getSmallPetsCommons().setNbtTagEditor(new NBTTagEditor1_16());
+            if(useProtocolLib)
+                SmallPetsCommons.getSmallPetsCommons().setProtocolLibUtils(new ProtocolLibUtils1_16());
+
+            SmallPetsCommons.getSmallPetsCommons().setSkullCreator(new SkullCreator1_16());
+            SmallPetsCommons.getSmallPetsCommons().setNbtTagEditor(new INBTTagEditor1_16());
 
             SmallPetsCommons.getSmallPetsCommons().setPetMapManager(new PetMapManager1_16());
             SmallPetsCommons.getSmallPetsCommons().setInventoryManager(new InventoryManager1_16(xpMultiplier));

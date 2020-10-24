@@ -91,7 +91,7 @@ public class InventoryManager1_12 extends InventoryManager {
 
     private ItemStack makePetItem(Pet pet, Player p){
 
-        ItemStack itemStack = pet.getDisplayItem(SmallPetsCommons.getSmallPetsCommons().getJavaPlugin());
+        ItemStack itemStack = pet.getDisplayItem();
 
         if(itemStack != null) {
 

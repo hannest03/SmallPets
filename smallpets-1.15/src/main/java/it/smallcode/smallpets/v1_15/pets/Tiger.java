@@ -6,22 +6,18 @@ Class created by SmallCode
 
 */
 
-import it.smallcode.smallpets.core.languages.LanguageManager;
+import it.smallcode.smallpets.core.pets.Pet;
 import it.smallcode.smallpets.core.pets.PetType;
-import it.smallcode.smallpets.v1_15.SamplePet;
-import it.smallcode.smallpets.v1_15.SkullCreator;
 import it.smallcode.smallpets.v1_15.abilities.DamageAbility;
-import it.smallcode.smallpets.v1_15.abilities.HealthAbility;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 
-public class Tiger extends SamplePet {
+public class Tiger extends Pet {
 
     /**
      * Creates a pet
@@ -31,26 +27,15 @@ public class Tiger extends SamplePet {
      * @param useProtocolLib
      * @param languageManager
      */
-    public Tiger(Player owner, Long xp, Boolean useProtocolLib, LanguageManager languageManager) {
-        super(owner, xp, useProtocolLib, languageManager);
+    public Tiger(String type, Player owner, Long xp, Boolean useProtocolLib) {
+
+        super(type, owner, xp, useProtocolLib);
 
         super.setPetType(PetType.combat);
 
         super.abilities.add(new DamageAbility(0.15));
 
-    }
-
-    public ItemStack getItem() {
-
-        ItemStack skull = SkullCreator.getSkull("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZmM0MjYzODc0NDkyMmI1ZmNmNjJjZDliZjI3ZWVhYjkxYjJlNzJkNmM3MGU4NmNjNWFhMzg4Mzk5M2U5ZDg0In19fQ==");
-
-        ItemMeta skullMeta = skull.getItemMeta();
-
-        skullMeta.setDisplayName(getName());
-
-        skull.setItemMeta(skullMeta);
-
-        return skull;
+        super.textureValue = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZmM0MjYzODc0NDkyMmI1ZmNmNjJjZDliZjI3ZWVhYjkxYjJlNzJkNmM3MGU4NmNjNWFhMzg4Mzk5M2U5ZDg0In19fQ==";
 
     }
 
@@ -72,13 +57,6 @@ public class Tiger extends SamplePet {
         recipe.setIngredient('P', Material.PORKCHOP);
 
         Bukkit.addRecipe(recipe);
-
-    }
-
-    @Override
-    public String getName() {
-
-        return "tiger";
 
     }
 

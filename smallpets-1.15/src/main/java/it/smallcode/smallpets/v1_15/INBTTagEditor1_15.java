@@ -7,13 +7,13 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.core.SmallPetsCommons;
-import it.smallcode.smallpets.core.utils.NBTTagEditor;
+import it.smallcode.smallpets.core.utils.INBTTagEditor;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
-public class NBTTagEditor1_15 implements NBTTagEditor {
+public class INBTTagEditor1_15 implements INBTTagEditor {
 
     @Override
     public ItemStack addNBTTag(ItemStack itemStack, String key, String value) {

@@ -50,7 +50,7 @@ public class InventoryClickListener implements Listener {
 
                             if(!inventoryManager.getConvertingPets().contains(p.getUniqueId().toString())) {
 
-                                if (user.getSelected() != null && user.getSelected().getName().equals(type)) {
+                                if (user.getSelected() != null && user.getSelected().getID().equals(type)) {
 
                                     user.setSelected(null);
 
@@ -70,7 +70,7 @@ public class InventoryClickListener implements Listener {
 
                                     if(user.getSelected() != null) {
 
-                                        if (user.getSelected().getName().equalsIgnoreCase(type)) {
+                                        if (user.getSelected().getID().equalsIgnoreCase(type)) {
 
                                             user.setSelected(null);
 

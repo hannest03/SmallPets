@@ -6,21 +6,35 @@ Class created by SmallCode
 
 */
 
+import com.comphenix.protocol.PacketType;
+import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.events.PacketContainer;
+import com.comphenix.protocol.wrappers.EnumWrappers;
+import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.abilities.Ability;
+import it.smallcode.smallpets.core.abilities.AbilityType;
+import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventBus;
+import it.smallcode.smallpets.core.animations.FollowPlayerAnimation;
+import it.smallcode.smallpets.core.animations.HoverAnimation;
+import it.smallcode.smallpets.core.animations.LevelOnehundretAnimation;
+import it.smallcode.smallpets.core.animations.WalkAwayFromPlayerAnimation;
+import it.smallcode.smallpets.core.events.PetLevelUpEvent;
 import it.smallcode.smallpets.core.languages.LanguageManager;
+import it.smallcode.smallpets.core.text.CenteredText;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import javax.swing.text.html.Option;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
+import java.lang.reflect.InvocationTargetException;
+import java.util.*;
 
 /**
  *
@@ -30,13 +44,30 @@ import java.util.Optional;
 
 public abstract class Pet {
 
-    private LanguageManager languageManager;
+    protected static final ArrayList<String> levelColors = new ArrayList<>();
+
+    static {
+
+        levelColors.add("§7");
+        levelColors.add("§2");
+        levelColors.add("§a");
+        levelColors.add("§e");
+        levelColors.add("§6");
+        levelColors.add("§c");
+        levelColors.add("§4");
+        levelColors.add("§d");
+        levelColors.add("§b");
+        levelColors.add("§f");
+
+    }
 
     private static final double MINLEVEL = 1;
     public static final double MAXLEVEL = 100;
     private static final double XPTOLEVELTWO = 500;
 
     private final double tach;
+
+    private final String id;
 
     private Particle particle = Particle.VILLAGER_HAPPY;
 
@@ -61,22 +92,14 @@ public abstract class Pet {
 
     private PetType petType;
 
-    protected static final ArrayList<String> levelColors = new ArrayList<>();
+    protected String textureValue;
 
-    static {
+    protected FollowPlayerAnimation followPlayerArmorStand;
+    protected HoverAnimation hoverAnimation;
+    protected LevelOnehundretAnimation levelOnehundretAnimation;
+    protected WalkAwayFromPlayerAnimation walkAwayFromPlayerAnimation;
 
-        levelColors.add("§7");
-        levelColors.add("§2");
-        levelColors.add("§a");
-        levelColors.add("§e");
-        levelColors.add("§6");
-        levelColors.add("§c");
-        levelColors.add("§4");
-        levelColors.add("§d");
-        levelColors.add("§b");
-        levelColors.add("§f");
-
-    }
+    protected int logicID;
 
     /**
      *
@@ -87,7 +110,7 @@ public abstract class Pet {
      * @param useProtocolLib - boolean if protocolLib is being used
      */
 
-    public Pet(Player owner, Long xp, Boolean useProtocolLib, LanguageManager languageManager) {
+    public Pet(String id, Player owner, Long xp, Boolean useProtocolLib) {
 
         abilities = new LinkedList<>();
 
@@ -96,7 +119,7 @@ public abstract class Pet {
 
         this.useProtocolLib = useProtocolLib;
 
-        this.languageManager = languageManager;
+        this.id = id;
 
         tach = -(Math.log(((getLevel() +1) - (MAXLEVEL +1) ) / -((MAXLEVEL +1) - MINLEVEL)) / XPTOLEVELTWO);
 
@@ -110,9 +133,9 @@ public abstract class Pet {
      * @param useProtocolLib - boolean if protocolLib is being used
      */
 
-    public Pet(Player owner, Boolean useProtocolLib, LanguageManager languageManager) {
+    public Pet(String id, Player owner, Boolean useProtocolLib) {
 
-        this(owner, 0L, useProtocolLib, languageManager);
+        this(id, owner, 0L, useProtocolLib);
 
     }
 
@@ -124,38 +147,24 @@ public abstract class Pet {
      *
      */
 
-    public Pet(Player owner, LanguageManager languageManager) {
+    public Pet(String id, Player owner) {
 
-        this(owner, 0L, false, languageManager);
+        this(id, owner, 0L, false);
 
     }
 
     /**
      *
-     * Spawns an armorstand
+     * Returns the id of the pet
      *
-     * @param players - the players to which it will be sent
-     */
-    protected abstract void spawnArmorstandWithPackets(List<Player> players);
-
-    /**
-     *
-     * Gives exp to the pet
-     *
-     * @param exp - the amount of exp
-     * @param plugin - the plugin
+     * @return the id
      */
 
-    public abstract void giveExp(int exp, JavaPlugin plugin);
+    public String getID(){
 
-    /**
-     *
-     * Returns the type / name of the pet
-     *
-     * @return the type / name
-     */
+        return id;
 
-    public abstract String getName();
+    }
 
     /**
      *
@@ -164,37 +173,379 @@ public abstract class Pet {
      * @param plugin - the plugin
      */
 
-    public abstract void spawn(JavaPlugin plugin);
+    public void spawn(JavaPlugin plugin) {
 
-    /**
-     *
-     * Lets the pet move
-     *
-     */
+        setActivated(true);
 
-    public abstract void move();
+        Location loc = owner.getLocation().clone();
 
-    /**
-     *
-     * Lets the pet idle
-     *
-     */
+        loc.setX(loc.getX() - 1);
+        loc.setY(loc.getY() + 0.75);
 
-    public abstract void idle();
+        setLocation(loc);
 
-    /**
-     *
-     * Despawns the pet
-     *
-     */
+        if(useProtocolLib) {
 
-    public abstract void destroy();
+            spawnPackets(plugin, loc);
 
-    /**
-     *
-     * Registers the crafting recipe
-     *
-     */
+        }else{
+
+            spawnArmorStand(plugin, loc);
+
+        }
+
+    }
+
+    public void spawnToPlayer(Player p, JavaPlugin plugin){
+
+        if(useProtocolLib){
+
+            Bukkit.getScheduler().scheduleAsyncDelayedTask(plugin, new Runnable() {
+                @Override
+                public void run() {
+
+                    List<Player> players = new LinkedList<>();
+
+                    players.add(p);
+
+                    spawnArmorstandWithPackets(players);
+
+                    setCustomName(getCustomeName());
+
+                }
+            });
+
+        }
+
+    }
+
+    public void despawnFromPlayer(Player p, JavaPlugin plugin){
+
+        if(useProtocolLib){
+
+            Bukkit.getScheduler().scheduleAsyncDelayedTask(plugin, new Runnable() {
+                @Override
+                public void run() {
+
+                    PacketContainer entityDestroy = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.ENTITY_DESTROY);
+
+                    int[] entityIDs = new int[1];
+
+                    entityIDs[0] = entityID;
+
+                    entityDestroy.getIntegerArrays().write(0, entityIDs);
+
+                    if(p != null) {
+
+                        sendPacket(entityDestroy, p);
+
+                    }
+
+                }
+            });
+
+        }
+
+    }
+
+
+    protected void spawnPackets(JavaPlugin plugin, Location loc){
+
+        do{
+
+            entityID = (int) (Math.random() * 10000);
+
+        }while(entityIDs.contains(entityID) && entityID >= 0);
+
+        final Pet pet = this;
+
+        Bukkit.getScheduler().scheduleAsyncDelayedTask(plugin, new Runnable() {
+            @Override
+            public void run() {
+
+                spawnArmorstandWithPackets(sendPacketToPlayers(owner));
+
+                setCustomName(getCustomeName());
+
+                followPlayerArmorStand = new FollowPlayerAnimation(pet, 0.5D);
+                walkAwayFromPlayerAnimation = new WalkAwayFromPlayerAnimation(pet, 0.55D);
+
+                hoverAnimation = new HoverAnimation(pet, 0.025, 0.2, -0.5);
+
+                if(getLevel() == 100)
+                    levelOnehundretAnimation = new LevelOnehundretAnimation(pet, getLanguageManager(),  plugin);
+
+                initLogic(plugin);
+
+            }
+        });
+
+    }
+
+    protected void spawnArmorstandWithPackets(List<Player> players) {
+
+        //SPAWN ARMORSTAND
+
+        PacketContainer spawnPacket = SmallPetsCommons.getSmallPetsCommons().getProtocolLibUtils().spawnArmorstand(entityID, location);
+
+        //EQUIPMENT
+
+        PacketContainer entityEquipment = SmallPetsCommons.getSmallPetsCommons().getProtocolLibUtils().equipItem(entityID, EnumWrappers.ItemSlot.HEAD, getItem());
+
+        //METADATA
+
+        PacketContainer entityMetadata = SmallPetsCommons.getSmallPetsCommons().getProtocolLibUtils().standardMetaData(entityID);
+
+        sendPacket(sendPacketToPlayers(owner), spawnPacket);
+        sendPacket(sendPacketToPlayers(owner), entityEquipment);
+        sendPacket(sendPacketToPlayers(owner), entityMetadata);
+
+    }
+
+    protected List<Player> sendPacketToPlayers(Player player){
+
+        List<Player> players = new LinkedList<>();
+
+        for(Player all : Bukkit.getOnlinePlayers())
+            if(all.getWorld().getName().equals(player.getWorld().getName()))
+                players.add(all);
+
+        return players;
+
+    }
+
+    protected void sendPacket(List<Player> players, PacketContainer packetContainer){
+
+        for(Player player : players){
+
+            try {
+                ProtocolLibrary.getProtocolManager().sendServerPacket(player, packetContainer);
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+    }
+
+    protected void sendPacket(PacketContainer packetContainer, Player player){
+
+        List<Player> players = new LinkedList<>();
+
+        players.add(player);
+
+        sendPacket(players, packetContainer);
+
+    }
+
+    private void spawnArmorStand(JavaPlugin plugin, Location loc){
+
+        armorStand = createArmorStand(loc);
+
+        setCustomName(getCustomeName());
+
+        //Please don't ask why
+
+        Bukkit.getScheduler().scheduleAsyncDelayedTask(plugin, new Runnable() {
+            @Override
+            public void run() {
+                armorStand.setCustomNameVisible(true);
+            }
+        }, 1);
+
+        Bukkit.getScheduler().scheduleAsyncDelayedTask(plugin, new Runnable() {
+            @Override
+            public void run() {
+                armorStand.setGravity(false);
+            }
+        }, 3);
+
+        Bukkit.getScheduler().scheduleAsyncDelayedTask(plugin, new Runnable() {
+            @Override
+            public void run() {
+                armorStand.setSmall(true);
+            }
+        }, 4);
+
+        Bukkit.getScheduler().scheduleAsyncDelayedTask(plugin, new Runnable() {
+            @Override
+            public void run() {
+                armorStand.setInvulnerable(true);
+            }
+        }, 5);
+
+        armorStand.getEquipment().setHelmet(getItem());
+
+        Bukkit.getScheduler().scheduleAsyncDelayedTask(plugin, new Runnable() {
+            @Override
+            public void run() {
+
+                armorStand.setVisible(false);
+
+            }
+        }, 6);
+
+        initAnimations(plugin);
+
+    }
+
+    public void setCustomName(String name){
+
+        if(useProtocolLib){
+
+            PacketContainer entityMetadata = SmallPetsCommons.getSmallPetsCommons().getProtocolLibUtils().setCustomName(entityID, name);
+
+            sendPacket(sendPacketToPlayers(owner), entityMetadata);
+
+        }else{
+
+            armorStand.setCustomNameVisible(true);
+            armorStand.setCustomName(name);
+
+        }
+
+    }
+
+    protected void initAnimations(JavaPlugin plugin){
+
+        followPlayerArmorStand = new FollowPlayerAnimation(this, 0.5);
+        walkAwayFromPlayerAnimation = new WalkAwayFromPlayerAnimation(this, 0.55);
+
+        hoverAnimation = new HoverAnimation(this, 0.025, 0.2, -0.5);
+
+        if(getLevel() == 100)
+            levelOnehundretAnimation = new LevelOnehundretAnimation(this, getLanguageManager(), plugin);
+
+        initLogic(plugin);
+
+    }
+
+    private void initLogic(JavaPlugin plugin){
+
+        logicID = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
+            @Override
+            public void run() {
+
+                spawnParticles();
+
+                if(!isPauseLogic()) {
+
+                    double distance = Math.sqrt(Math.pow(getLocation().getX() - owner.getLocation().getX(), 2) + Math.pow(getLocation().getZ() - owner.getLocation().getZ(), 2));
+
+                    if (distance >= 2.5D || Math.abs(owner.getLocation().getY() - getLocation().getY()) > 1D)
+
+                        move();
+
+                    else
+                    if(distance <= 1.0D){
+
+                        moveAway();
+
+                    }else {
+
+                        idle();
+
+                    }
+
+                }
+
+            }
+        }, 0, 0);
+
+    }
+
+    public void moveAway(){
+
+        this.location = walkAwayFromPlayerAnimation.move(owner, location);
+
+    }
+
+    public void move() {
+
+        this.location = followPlayerArmorStand.move(owner, location);
+
+    }
+
+    public void idle() {
+
+        this.location = hoverAnimation.hover(owner, location);
+
+    }
+
+    public void giveExp(int exp, JavaPlugin plugin){
+
+        int level = getLevel();
+
+        if(exp >= 0) {
+            if (level != 100)
+                this.xp += exp;
+
+        }else{
+
+            this.xp += exp;
+
+            if(this.xp < 0)
+                this.xp = 0;
+
+        }
+
+        if(level != getLevel()){
+
+            //LEVEL UP
+
+            AbilityEventBus.post(new it.smallcode.smallpets.core.abilities.eventsystem.events.PetLevelUpEvent(SmallPetsCommons.getSmallPetsCommons().getUserManager().getUser(getOwner().getUniqueId().toString()), level));
+
+            Bukkit.getPluginManager().callEvent(new PetLevelUpEvent(this));
+
+            if(isActivated()) {
+
+                setCustomName(getCustomeName());
+
+                if (getLevel() == 100) {
+
+                    levelOnehundretAnimation = new LevelOnehundretAnimation(this, getLanguageManager(), plugin);
+
+                }else {
+
+                    if (levelOnehundretAnimation != null) {
+
+                        levelOnehundretAnimation.cancel();
+                        levelOnehundretAnimation = null;
+
+                    }
+                }
+
+            }
+
+        }
+
+    }
+
+    public void destroy() {
+
+        setActivated(false);
+
+        Bukkit.getScheduler().cancelTask(logicID);
+
+        if (levelOnehundretAnimation != null)
+            levelOnehundretAnimation.cancel();
+
+        if (armorStand != null)
+            armorStand.remove();
+
+        if(useProtocolLib){
+
+            PacketContainer entityDestroy = SmallPetsCommons.getSmallPetsCommons().getProtocolLibUtils().destroyEntity(entityID);
+
+            if(owner != null) {
+
+                sendPacket(sendPacketToPlayers(owner), entityDestroy);
+
+            }
+
+        }
+
+    }
 
     /**
      *
@@ -203,19 +554,21 @@ public abstract class Pet {
      * @return the head
      */
 
-    public abstract ItemStack getItem();
+    public ItemStack getItem() {
+
+        ItemStack skull = SmallPetsCommons.getSmallPetsCommons().getSkullCreator().createHeadItem(textureValue);
+
+        ItemMeta skullMeta = skull.getItemMeta();
+
+        skullMeta.setDisplayName(getID());
+
+        skull.setItemMeta(skullMeta);
+
+        return skull;
+
+    }
 
     public abstract void registerRecipe(Plugin plugin);
-
-    /**
-     *
-     * Returns the item to unlock the tiger
-     *
-     * @param plugin - the plugin
-     * @return the item to unlock the tiger
-     */
-
-    public abstract ItemStack getUnlockItem(Plugin plugin);
 
     /**
      *
@@ -275,8 +628,6 @@ public abstract class Pet {
 
     }
 
-    protected abstract void spawnParticles();
-
     /**
      *
      * Returns the exp of the pet
@@ -332,22 +683,20 @@ public abstract class Pet {
         return armorStand;
     }
 
-    public abstract ItemStack getDisplayItem(JavaPlugin plugin);
-
     public String getCustomeName(){
 
         String name = "";
 
         if(owner.getName().endsWith("s")){
-            name = languageManager.getLanguage().getStringFormatted("petNameFormatTwoS");
+            name = SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("petNameFormatTwoS");
         }else {
-            name = languageManager.getLanguage().getStringFormatted("petNameFormat");
+            name = SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("petNameFormat");
         }
 
         name = name.replaceAll("%level%", getLevelColor() + getLevel());
         name = name.replaceAll("%player_name%", owner.getName());
 
-        name += languageManager.getLanguage().getStringFormatted("pet." + getName());
+        name += SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("pet." + getID());
 
         return name;
 
@@ -355,11 +704,11 @@ public abstract class Pet {
 
     public String getCustomeNameWithoutPlayername(){
 
-        String name = languageManager.getLanguage().getStringFormatted("petNameWithoutOwner");
+        String name = SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("petNameWithoutOwner");
 
         name = name.replaceAll("%level%", getLevelColor() + getLevel());
 
-        String petName = languageManager.getLanguage().getStringFormatted("pet." + getName());
+        String petName = SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("pet." + getID());
 
         petName = petName.substring(0, 1).toUpperCase() + petName.substring(1);
 
@@ -428,19 +777,199 @@ public abstract class Pet {
 
     }
 
+    public ItemStack getUnlockItem(Plugin plugin) {
+
+        ItemStack item = getDisplayItem();
+
+        ItemMeta itemMeta = item.getItemMeta();
+
+        List<String> lore = itemMeta.getLore();
+
+        lore.add("");
+        lore.add("§6RIGHT CLICK TO UNLOCK");
+
+        itemMeta.setLore(lore);
+
+        item.setItemMeta(itemMeta);
+
+        item = SmallPetsCommons.getSmallPetsCommons().getNbtTagEditor().addNBTTag(item, "petExp", String.valueOf(getXp()));
+
+        return item;
+
+    }
+
+    protected void spawnParticles() {
+
+        Location particleLoc = location.clone();
+
+        particleLoc.setY(particleLoc.getY() + 0.7);
+
+        for(Player p : sendPacketToPlayers(owner)){
+
+            p.spawnParticle(getParticle(), particleLoc, 1);
+
+        }
+
+    }
+
+    public ItemStack getDisplayItem() {
+
+        ItemStack itemStack = getItem();
+
+        if(itemStack != null) {
+
+            ItemMeta itemMeta = itemStack.getItemMeta();
+
+            itemMeta.setDisplayName(getCustomeNameWithoutPlayername());
+
+            ArrayList<String> lore = new ArrayList();
+
+            if(getPetType() != null) {
+
+                lore.add("§8" + getPetType().getName(getLanguageManager()));
+
+            }
+
+            lore.add("");
+
+            abilities.stream().forEach(ability -> {
+
+                if(ability.getAbilityType() == AbilityType.STAT){
+
+                    ability.getAbilityTooltip(this).stream().forEach(line ->{
+
+                        lore.add(line);
+
+                    });
+
+                }
+
+            });
+
+            lore.add("");
+
+            abilities.stream().forEach(ability -> {
+
+                if(ability.getAbilityType() == AbilityType.ABILITY){
+
+                    ability.getAbilityTooltip(this).stream().forEach(line ->{
+
+                        lore.add(line);
+
+                    });
+
+                    lore.add("");
+
+                }
+
+            });
+
+            int maxLength = 0;
+
+            for(String loreString : lore){
+
+                if(ChatColor.stripColor(loreString).length() > maxLength){
+
+                    maxLength = ChatColor.stripColor(loreString).length();
+
+                }
+
+            }
+
+            String progressBar = CenteredText.sendCenteredMessage(generateFinishedProgressbar(), maxLength);
+
+            if(getLevel() != 100) {
+
+                lore.add("  " + CenteredText.sendCenteredMessage(getLevelColor() + getLevel(), ChatColor.stripColor(progressBar).length()));
+                lore.add(progressBar);
+
+                String expB = getLevelColor() + (getXp() - getExpForLevel(getLevel())) + "§8/" + getLevelColor() + (getExpForNextLevel() - getExpForLevel(getLevel()));
+
+                lore.add("  " + CenteredText.sendCenteredMessage(expB, ChatColor.stripColor(progressBar).length()));
+
+            }else{
+
+                lore.add("§8" + getLanguageManager().getLanguage().getStringFormatted("maxLevel"));
+
+            }
+
+            itemMeta.setLore(lore);
+
+            itemStack.setItemMeta(itemMeta);
+
+            itemStack = SmallPetsCommons.getSmallPetsCommons().getNbtTagEditor().addNBTTag(itemStack, "pet", getID());
+
+        }
+
+        return itemStack;
+
+    }
+
+    public void teleport(Location loc) {
+
+        if(useProtocolLib){
+
+            PacketContainer teleportPacket = SmallPetsCommons.getSmallPetsCommons().getProtocolLibUtils().teleportEntity(entityID, loc);
+
+            sendPacket(sendPacketToPlayers(owner), teleportPacket);
+
+        }else{
+
+            loadChunks(location);
+            loadChunks(loc);
+
+            armorStand.teleport(loc);
+
+        }
+
+        setLocation(loc);
+
+    }
+
+    private void loadChunks(Location loc){
+
+        if(!loc.getChunk().isLoaded())
+            loc.getChunk().load();
+
+        if(!loc.getWorld().getChunkAt(loc.getChunk().getX()+1, loc.getChunk().getZ()).isLoaded())
+            loc.getWorld().getChunkAt(loc.getChunk().getX()+1, loc.getChunk().getZ()).load();
+
+        if(!loc.getWorld().getChunkAt(loc.getChunk().getX()-1, loc.getChunk().getZ()).isLoaded())
+            loc.getWorld().getChunkAt(loc.getChunk().getX()-1, loc.getChunk().getZ()).load();
+
+        if(!loc.getWorld().getChunkAt(loc.getChunk().getX(), loc.getChunk().getZ()+1).isLoaded())
+            loc.getWorld().getChunkAt(loc.getChunk().getX(), loc.getChunk().getZ()+1).load();
+
+        if(!loc.getWorld().getChunkAt(loc.getChunk().getX(), loc.getChunk().getZ()-1).isLoaded())
+            loc.getWorld().getChunkAt(loc.getChunk().getX(), loc.getChunk().getZ()-1).load();
+
+        if(!loc.getWorld().getChunkAt(loc.getChunk().getX()+1, loc.getChunk().getZ()+1).isLoaded())
+            loc.getWorld().getChunkAt(loc.getChunk().getX()+1, loc.getChunk().getZ()+1).load();
+
+        if(!loc.getWorld().getChunkAt(loc.getChunk().getX()-1, loc.getChunk().getZ()-1).isLoaded())
+            loc.getWorld().getChunkAt(loc.getChunk().getX()-1, loc.getChunk().getZ()-1).load();
+
+        if(!loc.getWorld().getChunkAt(loc.getChunk().getX() -1, loc.getChunk().getZ() +1).isLoaded())
+            loc.getWorld().getChunkAt(loc.getChunk().getX() -1, loc.getChunk().getZ() +1).load();
+
+        if(!loc.getWorld().getChunkAt(loc.getChunk().getX() +1, loc.getChunk().getZ() -1).isLoaded())
+            loc.getWorld().getChunkAt(loc.getChunk().getX() +1, loc.getChunk().getZ() -1).load();
+
+    }
+
+    protected ArmorStand createArmorStand(Location loc){
+
+        ArmorStand armorStand = (ArmorStand) loc.getWorld().spawnEntity(loc, EntityType.ARMOR_STAND);
+
+        return armorStand;
+
+    }
+
     public boolean hasAbility(String abilityID){
 
         return abilities.stream().filter(ability -> ability.getID().equals(abilityID)).findFirst().isPresent();
 
     }
-
-    public abstract void teleport(Location loc);
-
-    public abstract void spawnToPlayer(Player p, JavaPlugin plugin);
-
-    public abstract void despawnFromPlayer(Player p, JavaPlugin plugin);
-
-    public abstract void setCustomName(String name);
 
     public Location getLocation() {
         return location;
@@ -467,7 +996,7 @@ public abstract class Pet {
     }
 
     public LanguageManager getLanguageManager() {
-        return languageManager;
+        return SmallPetsCommons.getSmallPetsCommons().getLanguageManager();
     }
 
     public Particle getParticle() {

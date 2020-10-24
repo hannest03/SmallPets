@@ -113,7 +113,7 @@ public class User {
      */
     public Pet getPetFromType(String type){
 
-        Optional<Pet> result = pets.stream().filter(p -> p.getName().equals(type)).findFirst();
+        Optional<Pet> result = pets.stream().filter(p -> p.getID().equals(type)).findFirst();
 
         if(result != null)
             if(result.isPresent())
@@ -275,7 +275,7 @@ public class User {
 
         if(selected != null) {
 
-            data.put("selected", selected.getName());
+            data.put("selected", selected.getID());
 
         }else{
 
@@ -309,7 +309,7 @@ public class User {
 
         Map<String, Object> data = new HashMap<>();
 
-        data.put("type", pet.getName());
+        data.put("type", pet.getID());
         data.put("exp", String.valueOf(pet.getXp()));
 
         return data;
@@ -336,9 +336,9 @@ public class User {
 
             try {
 
-                Constructor constructor = petMapManager.getPetMap().get(type).getConstructor(Player.class, Long.class, Boolean.class, LanguageManager.class);
+                Constructor constructor = petMapManager.getPetMap().get(type).getConstructor(String.class, Player.class, Long.class, Boolean.class);
 
-                return (Pet) constructor.newInstance(Bukkit.getPlayer(UUID.fromString(uuid)), exp, useProtocolLib, languageManager);
+                return (Pet) constructor.newInstance(type, Bukkit.getPlayer(UUID.fromString(uuid)), exp, useProtocolLib);
 
             } catch (NoSuchMethodException ex) {
 

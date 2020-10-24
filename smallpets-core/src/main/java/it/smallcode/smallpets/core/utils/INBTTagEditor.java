@@ -8,7 +8,7 @@ Class created by SmallCode
 
 import org.bukkit.inventory.ItemStack;
 
-public interface NBTTagEditor {
+public interface INBTTagEditor {
 
     ItemStack addNBTTag(ItemStack itemStack, String key, String value);
 

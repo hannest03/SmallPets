@@ -76,7 +76,7 @@ public class SmallPetsExpansion extends PlaceholderExpansion {
 
                     if(user.getSelected() != null) {
 
-                        String name = user.getSelected().getName();
+                        String name = user.getSelected().getID();
 
                         name = name.substring(0, 1).toUpperCase() + name.substring(1);
 

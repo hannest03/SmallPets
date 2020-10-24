@@ -6,6 +6,7 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.languages.LanguageManager;
 import it.smallcode.smallpets.core.pets.Pet;
 import org.bukkit.entity.Player;
@@ -62,17 +63,17 @@ public abstract class PetMapManager {
      *
      */
 
-    public void registerCraftingRecipe(Plugin plugin, LanguageManager languageManager){
+    public void registerCraftingRecipe(){
 
-        petMap.values().iterator().forEachRemaining(aClass -> {
+        petMap.keySet().iterator().forEachRemaining(id -> {
 
             try {
 
-                Constructor constructor = aClass.getConstructor(Player.class, Long.class, Boolean.class, LanguageManager.class);
+                Constructor constructor = petMap.get(id).getConstructor(String.class, Player.class, Long.class, Boolean.class);
 
-                Pet pet = (Pet) constructor.newInstance(null, 0L, false, languageManager);
+                Pet pet = (Pet) constructor.newInstance(id, null, 0L, false);
 
-                pet.registerRecipe(plugin);
+                pet.registerRecipe(SmallPetsCommons.getSmallPetsCommons().getJavaPlugin());
 
             } catch (NoSuchMethodException ex) {
 
@@ -101,17 +102,17 @@ public abstract class PetMapManager {
      * Registers a pet
      *
      */
-    public void registerPet(String type, Class clazz, Plugin plugin, LanguageManager languageManager){
+    public void registerPet(String type, Class clazz){
 
         petMap.put(type, clazz);
 
         try {
 
-            Constructor constructor = clazz.getConstructor(Player.class, Long.class, Boolean.class, LanguageManager.class);
+            Constructor constructor = clazz.getConstructor(String.class, Player.class, Long.class, Boolean.class);
 
-            Pet pet = (Pet) constructor.newInstance(null, 0L, false, languageManager);
+            Pet pet = (Pet) constructor.newInstance(type, null, 0L, false);
 
-            pet.registerRecipe(plugin);
+            pet.registerRecipe(SmallPetsCommons.getSmallPetsCommons().getJavaPlugin());
 
         } catch (NoSuchMethodException ex) {
 

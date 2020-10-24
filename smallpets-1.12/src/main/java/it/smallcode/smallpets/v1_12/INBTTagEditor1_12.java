@@ -6,12 +6,12 @@ Class created by SmallCode
 
 */
 
-import it.smallcode.smallpets.core.utils.NBTTagEditor;
+import it.smallcode.smallpets.core.utils.INBTTagEditor;
 import net.minecraft.server.v1_12_R1.NBTTagCompound;
 import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemStack;
 
-public class NBTTagEditor1_12 implements NBTTagEditor {
+public class INBTTagEditor1_12 implements INBTTagEditor {
 
 
     @Override
