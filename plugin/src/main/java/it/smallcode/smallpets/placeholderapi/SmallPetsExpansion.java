@@ -52,43 +52,51 @@ public class SmallPetsExpansion extends PlaceholderExpansion {
     @Override
     public String onRequest(OfflinePlayer player, String params) {
 
-        if(params.equals("unlocked")){
+        switch (params){
 
-            User user = SmallPets.getInstance().getUserManager().getUser(player.getUniqueId().toString());
+            case "unlocked":{
 
-            if(user != null){
+                User user = SmallPets.getInstance().getUserManager().getUser(player.getUniqueId().toString());
 
-                return String.valueOf(user.getPets().size());
+                if(user != null){
 
-            }
-
-        }
-
-        if(params.equals("selected")){
-
-            User user = SmallPets.getInstance().getUserManager().getUser(player.getUniqueId().toString());
-
-            if(user != null){
-
-                if(user.getSelected() != null) {
-
-                    String name = user.getSelected().getName();
-
-                    name = name.substring(0, 1).toUpperCase() + name.substring(1);
-
-                    return name;
+                    return String.valueOf(user.getPets().size());
 
                 }
 
-                return "-";
+                break;
 
             }
 
-        }
+            case "selected":{
 
-        if(params.equals("registeredPets")){
+                User user = SmallPets.getInstance().getUserManager().getUser(player.getUniqueId().toString());
 
-            return String.valueOf(SmallPets.getInstance().getPetMapManager().getPetMap().size());
+                if(user != null){
+
+                    if(user.getSelected() != null) {
+
+                        String name = user.getSelected().getName();
+
+                        name = name.substring(0, 1).toUpperCase() + name.substring(1);
+
+                        return name;
+
+                    }
+
+                    return "-";
+
+                }
+
+                break;
+
+            }
+
+            case "registeredPets":{
+
+                return String.valueOf(SmallPets.getInstance().getPetMapManager().getPetMap().size());
+
+            }
 
         }
 
