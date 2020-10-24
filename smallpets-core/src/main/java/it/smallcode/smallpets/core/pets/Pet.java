@@ -42,7 +42,7 @@ import java.util.*;
  *
  */
 
-public abstract class Pet {
+public class Pet {
 
     protected static final ArrayList<String> levelColors = new ArrayList<>();
 
@@ -568,7 +568,7 @@ public abstract class Pet {
 
     }
 
-    public abstract void registerRecipe(Plugin plugin);
+    public void registerRecipe(Plugin plugin){}
 
     /**
      *
