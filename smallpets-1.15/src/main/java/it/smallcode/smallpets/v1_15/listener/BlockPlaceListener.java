@@ -6,6 +6,7 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.core.SmallPetsCommons;
 import org.bukkit.NamespacedKey;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -17,14 +18,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class BlockPlaceListener implements Listener {
 
-    private JavaPlugin plugin;
-
-    public BlockPlaceListener(JavaPlugin plugin){
-
-        this.plugin = plugin;
-
-    }
-
     @EventHandler
     public void onPlace(BlockPlaceEvent e){
 
@@ -32,23 +25,8 @@ public class BlockPlaceListener implements Listener {
 
             ItemStack item = e.getItemInHand();
 
-            if(item.getItemMeta() != null){
-
-                ItemMeta itemMeta = item.getItemMeta();
-
-                if(itemMeta.getPersistentDataContainer() != null){
-
-                    NamespacedKey key = new NamespacedKey(plugin, "pet");
-
-                    if(itemMeta.getPersistentDataContainer().has(key, PersistentDataType.STRING)){
-
-                        e.setCancelled(true);
-
-                    }
-
-                }
-
-            }
+            if(SmallPetsCommons.getSmallPetsCommons().getNbtTagEditor().hasNBTTag(item, "pet"))
+                e.setCancelled(true);
 
         }
 

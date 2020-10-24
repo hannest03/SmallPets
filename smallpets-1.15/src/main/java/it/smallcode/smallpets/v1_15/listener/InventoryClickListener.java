@@ -6,6 +6,7 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.languages.LanguageManager;
 import it.smallcode.smallpets.core.manager.InventoryManager;
 import it.smallcode.smallpets.core.manager.UserManager;
@@ -24,26 +25,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class InventoryClickListener implements Listener {
 
-    private UserManager userManager;
-    private LanguageManager languageManager;
-    private JavaPlugin plugin;
-
-    private InventoryManager inventoryManager;
-
-    private String prefix;
-
-    public InventoryClickListener(UserManager userManager, String prefix, LanguageManager languageManager, JavaPlugin plugin, InventoryManager inventoryManager){
-
-        this.userManager = userManager;
-        this.languageManager = languageManager;
-        this.plugin = plugin;
-
-        this.inventoryManager = inventoryManager;
-
-        this.prefix = prefix;
-
-    }
-
     @EventHandler
     public void onClick(InventoryClickEvent e){
 
@@ -51,70 +32,78 @@ public class InventoryClickListener implements Listener {
 
             Player p = (Player) e.getWhoClicked();
 
+            UserManager userManager = SmallPetsCommons.getSmallPetsCommons().getUserManager();
+            InventoryManager inventoryManager = SmallPetsCommons.getSmallPetsCommons().getInventoryManager();
+            LanguageManager languageManager = SmallPetsCommons.getSmallPetsCommons().getLanguageManager();
+
             e.setCancelled(true);
 
             if(e.getCurrentItem() != null && e.getCurrentItem().getItemMeta() != null && e.getCurrentItem().getItemMeta().getDisplayName() != null) {
 
                 if (e.getCurrentItem().getType() == Material.PLAYER_HEAD) {
 
-                    String type = e.getCurrentItem().getItemMeta().getPersistentDataContainer().get(new NamespacedKey(plugin, "pet"), PersistentDataType.STRING);
+                    if(SmallPetsCommons.getSmallPetsCommons().getNbtTagEditor().hasNBTTag(e.getCurrentItem(), "pet")){
 
-                    if(type != null && type.trim().length() != 0){
+                        String type = SmallPetsCommons.getSmallPetsCommons().getNbtTagEditor().getNBTTagValue(e.getCurrentItem(), "pet");
 
-                        User user = userManager.getUser(p.getUniqueId().toString());
+                        if(type != null && type.trim().length() != 0){
 
-                        if(user != null) {
+                            User user = userManager.getUser(p.getUniqueId().toString());
 
-                            if(!inventoryManager.getConvertingPets().contains(p.getUniqueId().toString())) {
+                            if(user != null) {
 
-                                if (user.getSelected() != null && user.getSelected().getName().equals(type)) {
+                                if(!inventoryManager.getConvertingPets().contains(p.getUniqueId().toString())) {
 
-                                    user.setSelected(null);
+                                    if (user.getSelected() != null && user.getSelected().getName().equals(type)) {
 
-                                    e.getWhoClicked().sendMessage(prefix + languageManager.getLanguage().getStringFormatted("petDespawned"));
+                                        user.setSelected(null);
 
-                                } else {
+                                        e.getWhoClicked().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + languageManager.getLanguage().getStringFormatted("petDespawned"));
 
-                                    user.setSelected(user.getPetFromType(type));
+                                    } else {
 
-                                    e.getWhoClicked().sendMessage(prefix + languageManager.getLanguage().getStringFormatted("petSpawned"));
+                                        user.setSelected(user.getPetFromType(type));
 
-                                }
+                                        e.getWhoClicked().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + languageManager.getLanguage().getStringFormatted("petSpawned"));
 
-                            }else{
-
-                                if(p.getInventory().firstEmpty() != -1) {
-
-                                    if(user.getSelected() != null) {
-
-                                        if (user.getSelected().getName().equalsIgnoreCase(type)) {
-
-                                            user.setSelected(null);
-
-                                        }
                                     }
-
-                                    ItemStack petItem = user.getPetFromType(type).getUnlockItem(plugin);
-
-                                    userManager.removeUserPet(type, p.getUniqueId().toString());
-
-                                    p.getInventory().addItem(petItem);
-
-                                    p.closeInventory();
 
                                 }else{
 
-                                    p.sendMessage(prefix + languageManager.getLanguage().getStringFormatted("inventoryFull"));
+                                    if(p.getInventory().firstEmpty() != -1) {
+
+                                        if(user.getSelected() != null) {
+
+                                            if (user.getSelected().getName().equalsIgnoreCase(type)) {
+
+                                                user.setSelected(null);
+
+                                            }
+                                        }
+
+                                        ItemStack petItem = user.getPetFromType(type).getUnlockItem(SmallPetsCommons.getSmallPetsCommons().getJavaPlugin());
+
+                                        userManager.removeUserPet(type, p.getUniqueId().toString());
+
+                                        p.getInventory().addItem(petItem);
+
+                                        p.closeInventory();
+
+                                    }else{
+
+                                        p.sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + languageManager.getLanguage().getStringFormatted("inventoryFull"));
+
+                                    }
 
                                 }
 
                             }
 
+                            p.playSound(p.getLocation(), Sound.ENTITY_PLAYER_BURP, 1,1 );
+
+                            p.closeInventory();
+
                         }
-
-                        p.playSound(p.getLocation(), Sound.ENTITY_PLAYER_BURP, 1,1 );
-
-                        p.closeInventory();
 
                     }
 

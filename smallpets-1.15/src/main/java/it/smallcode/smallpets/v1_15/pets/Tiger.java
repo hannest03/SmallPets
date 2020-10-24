@@ -23,8 +23,6 @@ import org.bukkit.plugin.Plugin;
 
 public class Tiger extends SamplePet {
 
-    public static final float MAXDAMAGEMULTIPLIER = 0.15F;
-
     /**
      * Creates a pet
      *
@@ -41,6 +39,7 @@ public class Tiger extends SamplePet {
         super.abilities.add(new DamageAbility(0.15));
 
     }
+
     public ItemStack getItem() {
 
         ItemStack skull = SkullCreator.getSkull("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZmM0MjYzODc0NDkyMmI1ZmNmNjJjZDliZjI3ZWVhYjkxYjJlNzJkNmM3MGU4NmNjNWFhMzg4Mzk5M2U5ZDg0In19fQ==");
@@ -73,13 +72,6 @@ public class Tiger extends SamplePet {
         recipe.setIngredient('P', Material.PORKCHOP);
 
         Bukkit.addRecipe(recipe);
-
-    }
-
-    @Override
-    public String getAbility() {
-
-        return "§c+" + (int) ((MAXDAMAGEMULTIPLIER / 100D * getLevel() * 100) * 100) / 100D + "%§7 more damage";
 
     }
 

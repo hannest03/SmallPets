@@ -13,7 +13,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class ListenerManager1_16 extends ListenerManager1_15 {
 
-    public ListenerManager1_16(JavaPlugin plugin, UserManager userManager, PetMapManager petMapManager, LanguageManager languageManager, InventoryCache inventoryCache, String prefix, double xpMultiplier, boolean useProtocollib, InventoryManager inventoryManager, ExperienceManager experienceManager) {
-        super(plugin, userManager, petMapManager, languageManager, inventoryCache, prefix, xpMultiplier, useProtocollib, inventoryManager, experienceManager);
+    public ListenerManager1_16(double xpMultiplier, boolean useProtocollib) {
+        super(xpMultiplier, useProtocollib);
     }
 }

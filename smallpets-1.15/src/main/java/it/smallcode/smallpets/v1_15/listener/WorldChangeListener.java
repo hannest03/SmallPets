@@ -6,6 +6,7 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.events.PetChangeWorldEvent;
 import it.smallcode.smallpets.core.manager.UserManager;
 import it.smallcode.smallpets.core.manager.types.User;
@@ -19,17 +20,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class WorldChangeListener implements Listener {
 
-    private JavaPlugin plugin;
-
-    private UserManager userManager;
-
     private boolean useProtocollib;
 
-    public WorldChangeListener(UserManager userManager, JavaPlugin plugin, boolean useProtocollib){
-
-        this.userManager = userManager;
-
-        this.plugin = plugin;
+    public WorldChangeListener(boolean useProtocollib){
 
         this.useProtocollib = useProtocollib;
 
@@ -38,7 +31,7 @@ public class WorldChangeListener implements Listener {
     @EventHandler
     public void onWorldChange(PlayerChangedWorldEvent e){
 
-        User user = userManager.getUser(e.getPlayer().getUniqueId().toString());
+        User user = SmallPetsCommons.getSmallPetsCommons().getUserManager().getUser(e.getPlayer().getUniqueId().toString());
 
         if(user != null){
 
@@ -56,19 +49,19 @@ public class WorldChangeListener implements Listener {
 
                             if (all.getWorld().getName().equals(e.getFrom().getName())) {
 
-                                user.getSelected().despawnFromPlayer(all, plugin);
+                                user.getSelected().despawnFromPlayer(all, SmallPetsCommons.getSmallPetsCommons().getJavaPlugin());
 
                             }
 
                             if (all.getWorld().getName().equals(e.getPlayer().getWorld().getName())) {
 
-                                user.getSelected().spawnToPlayer(all, plugin);
+                                user.getSelected().spawnToPlayer(all, SmallPetsCommons.getSmallPetsCommons().getJavaPlugin());
 
-                                User userAll = userManager.getUser(all.getUniqueId().toString());
+                                User userAll = SmallPetsCommons.getSmallPetsCommons().getUserManager().getUser(all.getUniqueId().toString());
 
                                 if (userAll != null && userAll.getSelected() != null) {
 
-                                    userAll.getSelected().spawnToPlayer(e.getPlayer(), plugin);
+                                    userAll.getSelected().spawnToPlayer(e.getPlayer(), SmallPetsCommons.getSmallPetsCommons().getJavaPlugin());
 
                                 }
 

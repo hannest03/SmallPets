@@ -6,6 +6,7 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.manager.UserManager;
 import it.smallcode.smallpets.core.manager.types.User;
 import org.bukkit.Bukkit;
@@ -18,22 +19,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class PlayerDeathListener implements Listener {
 
-    private JavaPlugin plugin;
-
-    private UserManager userManager;
-
-    public PlayerDeathListener(UserManager userManager, JavaPlugin plugin){
-
-        this.userManager = userManager;
-
-        this.plugin = plugin;
-
-    }
-
     @EventHandler
     public void onDeath(PlayerRespawnEvent e){
 
-        User user = userManager.getUser(e.getPlayer().getUniqueId().toString());
+        User user = SmallPetsCommons.getSmallPetsCommons().getUserManager().getUser(e.getPlayer().getUniqueId().toString());
 
         if(user != null && user.getSelected() != null){
 
@@ -42,7 +31,7 @@ public class PlayerDeathListener implements Listener {
             loc.setX(loc.getX() - 1);
             loc.setY(loc.getY() + 0.75);
 
-            user.getSelected().spawnToPlayer(e.getPlayer(), plugin);
+            user.getSelected().spawnToPlayer(e.getPlayer(), SmallPetsCommons.getSmallPetsCommons().getJavaPlugin());
 
             user.getSelected().setPauseLogic(true);
 
@@ -58,11 +47,11 @@ public class PlayerDeathListener implements Listener {
 
                 if (all.getWorld().getName().equals(e.getPlayer().getWorld().getName())) {
 
-                    User userAll = userManager.getUser(all.getUniqueId().toString());
+                    User userAll = SmallPetsCommons.getSmallPetsCommons().getUserManager().getUser(all.getUniqueId().toString());
 
                     if (userAll != null && userAll.getSelected() != null) {
 
-                        userAll.getSelected().spawnToPlayer(e.getPlayer(), plugin);
+                        userAll.getSelected().spawnToPlayer(e.getPlayer(), SmallPetsCommons.getSmallPetsCommons().getJavaPlugin());
 
                     }
 

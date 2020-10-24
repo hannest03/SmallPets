@@ -9,6 +9,7 @@ Class created by SmallCode
 import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventBus;
 import it.smallcode.smallpets.core.events.PetLevelUpEvent;
+import it.smallcode.smallpets.core.languages.Language;
 import it.smallcode.smallpets.core.languages.LanguageManager;
 import it.smallcode.smallpets.core.text.CenteredText;
 import org.bukkit.Sound;
@@ -18,18 +19,12 @@ import org.bukkit.event.Listener;
 
 public class PetLevelUpListener implements Listener {
 
-    private LanguageManager languageManager;
-
-    public PetLevelUpListener(LanguageManager languageManager){
-
-        this.languageManager = languageManager;
-
-    }
-
     @EventHandler
     public void onLevelUP(PetLevelUpEvent e){
 
         Player p = e.getPet().getOwner();
+
+        LanguageManager languageManager = SmallPetsCommons.getSmallPetsCommons().getLanguageManager();
 
         p.playSound(p.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
 

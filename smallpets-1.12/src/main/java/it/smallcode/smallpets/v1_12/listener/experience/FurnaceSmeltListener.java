@@ -6,6 +6,7 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.itemIDs.ItemIDs;
 import it.smallcode.smallpets.core.manager.ExperienceManager;
 import it.smallcode.smallpets.core.manager.UserManager;
@@ -18,17 +19,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class FurnaceSmeltListener implements Listener {
 
-    private JavaPlugin plugin;
-
-    private UserManager userManager;
-    private ExperienceManager experienceManager;
-
     private double xpMultiplier;
 
-    public FurnaceSmeltListener(JavaPlugin plugin, UserManager userManager, ExperienceManager experienceManager, double xpMultiplier){
-
-        this.userManager = userManager;
-        this.experienceManager = experienceManager;
+    public FurnaceSmeltListener(double xpMultiplier){
 
         this.xpMultiplier = xpMultiplier;
 
@@ -39,7 +32,9 @@ public class FurnaceSmeltListener implements Listener {
 
         Player p = e.getPlayer();
 
-        User user = userManager.getUser(p.getUniqueId().toString());
+        ExperienceManager experienceManager = SmallPetsCommons.getSmallPetsCommons().getExperienceManager();
+
+        User user = SmallPetsCommons.getSmallPetsCommons().getUserManager().getUser(p.getUniqueId().toString());
 
         if(user != null){
 
@@ -57,7 +52,7 @@ public class FurnaceSmeltListener implements Listener {
 
                     }
 
-                    user.getSelected().giveExp((int) (exp * xpMultiplier) * e.getItemAmount(), plugin);
+                    user.getSelected().giveExp((int) (exp * xpMultiplier) * e.getItemAmount(), SmallPetsCommons.getSmallPetsCommons().getJavaPlugin());
 
                 }
 

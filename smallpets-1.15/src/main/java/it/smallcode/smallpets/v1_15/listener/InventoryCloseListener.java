@@ -6,6 +6,7 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.manager.InventoryManager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -13,18 +14,12 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 
 public class InventoryCloseListener implements Listener {
 
-    private InventoryManager inventoryManager;
-
-    public InventoryCloseListener(InventoryManager inventoryManager){
-
-        this.inventoryManager = inventoryManager;
-
-    }
-
     @EventHandler
     public void onClose(InventoryCloseEvent e){
 
         if(e.getView().getTitle().equals("§eSmallPets")){
+
+            InventoryManager inventoryManager = SmallPetsCommons.getSmallPetsCommons().getInventoryManager();
 
             if(inventoryManager.getConvertingPets().contains(e.getPlayer().getUniqueId().toString())){
 

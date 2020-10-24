@@ -219,15 +219,6 @@ public abstract class Pet {
 
     /**
      *
-     * Returns the ability of the pet
-     *
-     * @return the ability
-     */
-
-    public abstract String getAbility();
-
-    /**
-     *
      * Returns the level of the pet
      *
      * @return the level

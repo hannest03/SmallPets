@@ -6,6 +6,7 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.manager.ExperienceManager;
 import it.smallcode.smallpets.core.manager.UserManager;
 import it.smallcode.smallpets.core.manager.types.User;
@@ -15,19 +16,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class EntityDeathLListener implements Listener {
-
-    private JavaPlugin plugin;
-
-    private UserManager userManager;
-    private ExperienceManager experienceManager;
+public class EntityDeathListener implements Listener {
 
     private double xpMultiplier;
 
-    public EntityDeathLListener(JavaPlugin plugin, UserManager userManager, ExperienceManager experienceManager, double xpMultiplier){
-
-        this.userManager = userManager;
-        this.experienceManager = experienceManager;
+    public EntityDeathListener(double xpMultiplier){
 
         this.xpMultiplier = xpMultiplier;
 
@@ -39,6 +32,9 @@ public class EntityDeathLListener implements Listener {
         Player p = e.getEntity().getKiller();
 
         if(p != null) {
+
+            UserManager userManager = SmallPetsCommons.getSmallPetsCommons().getUserManager();
+            ExperienceManager experienceManager = SmallPetsCommons.getSmallPetsCommons().getExperienceManager();
 
             User user = userManager.getUser(p.getUniqueId().toString());
 
@@ -58,7 +54,7 @@ public class EntityDeathLListener implements Listener {
 
                         }
 
-                        user.getSelected().giveExp((int) (exp * xpMultiplier), plugin);
+                        user.getSelected().giveExp((int) (exp * xpMultiplier), SmallPetsCommons.getSmallPetsCommons().getJavaPlugin());
 
                     }
 

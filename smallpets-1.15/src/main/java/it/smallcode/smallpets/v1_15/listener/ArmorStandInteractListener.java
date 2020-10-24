@@ -6,6 +6,7 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.languages.LanguageManager;
 import it.smallcode.smallpets.core.manager.PetMapManager;
 import org.bukkit.event.EventHandler;
@@ -14,20 +15,13 @@ import org.bukkit.event.player.PlayerArmorStandManipulateEvent;
 
 public class ArmorStandInteractListener implements Listener {
 
-    private PetMapManager petMapManager;
-    private LanguageManager languageManager;
-
-    public ArmorStandInteractListener(PetMapManager petMapManager, LanguageManager languageManager){
-
-        this.petMapManager = petMapManager;
-        this.languageManager = languageManager;
-
-    }
-
     @EventHandler
     public void onInteract(PlayerArmorStandManipulateEvent e){
 
         if(e.getRightClicked().getCustomName() != null){
+
+            PetMapManager petMapManager = SmallPetsCommons.getSmallPetsCommons().getPetMapManager();
+            LanguageManager languageManager = SmallPetsCommons.getSmallPetsCommons().getLanguageManager();
 
             for(String types : petMapManager.getPetMap().keySet()){
 

@@ -22,8 +22,6 @@ import org.bukkit.plugin.Plugin;
 
 public class Penguin extends SamplePet {
 
-    public static final float MAXSWIMMINGSPEED = 0.25F;
-
     public Penguin(Player owner, Long xp, Boolean useProtocolLib, LanguageManager languageManager) {
 
         super(owner, xp, useProtocolLib, languageManager);
@@ -63,13 +61,6 @@ public class Penguin extends SamplePet {
         recipe.setIngredient('S', Material.SALMON);
 
         Bukkit.addRecipe(recipe);
-
-    }
-
-    @Override
-    public String getAbility() {
-
-        return "§7Makes you swim faster";
 
     }
 

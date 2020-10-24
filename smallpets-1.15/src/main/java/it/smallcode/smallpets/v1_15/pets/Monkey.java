@@ -21,8 +21,6 @@ import org.bukkit.plugin.Plugin;
 
 public class Monkey extends SamplePet {
 
-    public static double MAXJUMPHEIGHT = 0.05;
-
     public Monkey(Player owner, Long xp, Boolean useProtocolLib, LanguageManager languageManager) {
 
         super(owner, xp, useProtocolLib, languageManager);
@@ -60,13 +58,6 @@ public class Monkey extends SamplePet {
         recipe.setIngredient('L', Material.LEATHER);
 
         Bukkit.addRecipe(recipe);
-
-    }
-
-    @Override
-    public String getAbility() {
-
-        return "§c+" + (int) (((MAXJUMPHEIGHT / 100D) * getLevel() * 100D) * 100D) / 100D  + "%§7 jump height";
 
     }
 

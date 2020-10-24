@@ -510,17 +510,12 @@ public class SamplePet extends Pet {
 
         itemMeta.setLore(lore);
 
-        itemMeta.getPersistentDataContainer().set(new NamespacedKey(plugin, "petExp"), PersistentDataType.LONG, getXp());
-
         item.setItemMeta(itemMeta);
+
+        item = SmallPetsCommons.getSmallPetsCommons().getNbtTagEditor().addNBTTag(item, "petExp", String.valueOf(getXp()));
 
         return item;
 
-    }
-
-    @Override
-    public String getAbility() {
-        return "";
     }
 
     @Override
@@ -591,11 +586,19 @@ public class SamplePet extends Pet {
 
             });
 
-            //lore.add(getAbility());
+            int maxLength = 0;
 
-            //lore.add("");
+            for(String loreString : lore){
 
-            String progressBar = CenteredText.sendCenteredMessage(generateFinishedProgressbar(), ChatColor.stripColor(getAbility()).length());
+                if(ChatColor.stripColor(loreString).length() > maxLength){
+
+                    maxLength = ChatColor.stripColor(loreString).length();
+
+                }
+
+            }
+
+            String progressBar = CenteredText.sendCenteredMessage(generateFinishedProgressbar(), maxLength);
 
             if(getLevel() != 100) {
 
@@ -614,9 +617,9 @@ public class SamplePet extends Pet {
 
             itemMeta.setLore(lore);
 
-            itemMeta.getPersistentDataContainer().set(new NamespacedKey(plugin, "pet"), PersistentDataType.STRING, getName());
-
             itemStack.setItemMeta(itemMeta);
+
+            itemStack = SmallPetsCommons.getSmallPetsCommons().getNbtTagEditor().addNBTTag(itemStack, "pet", getName());
 
         }
 

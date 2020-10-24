@@ -6,21 +6,8 @@ Class created by SmallCode
 
 */
 
-import org.bukkit.plugin.java.JavaPlugin;
-
 public abstract class ListenerManager {
-
-    private JavaPlugin plugin;
-
-    public ListenerManager(JavaPlugin plugin){
-
-        this.plugin = plugin;
-
-    }
 
     public abstract void registerListener();
 
-    public JavaPlugin getPlugin() {
-        return plugin;
-    }
 }

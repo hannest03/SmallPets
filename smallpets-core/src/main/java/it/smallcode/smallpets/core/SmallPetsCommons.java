@@ -8,6 +8,7 @@ Class created by SmallCode
 
 import it.smallcode.smallpets.core.languages.LanguageManager;
 import it.smallcode.smallpets.core.manager.*;
+import it.smallcode.smallpets.core.utils.NBTTagEditor;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class SmallPetsCommons {
@@ -38,6 +39,8 @@ public class SmallPetsCommons {
 
     private ExperienceManager experienceManager;
     private AbilityManager abilityManager;
+
+    private NBTTagEditor nbtTagEditor;
 
     public static SmallPetsCommons getSmallPetsCommons() {
         return smallPetsCommons;
@@ -121,5 +124,13 @@ public class SmallPetsCommons {
 
     public void setJavaPlugin(JavaPlugin javaPlugin) {
         this.javaPlugin = javaPlugin;
+    }
+
+    public NBTTagEditor getNbtTagEditor() {
+        return nbtTagEditor;
+    }
+
+    public void setNbtTagEditor(NBTTagEditor nbtTagEditor) {
+        this.nbtTagEditor = nbtTagEditor;
     }
 }

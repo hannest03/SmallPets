@@ -8,7 +8,6 @@ Class created by SmallCode
 
 import it.smallcode.smallpets.cmds.SmallPetsCMD;
 import it.smallcode.smallpets.core.SmallPetsCommons;
-import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEvent;
 import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventBus;
 import it.smallcode.smallpets.core.abilities.eventsystem.events.ServerShutdownEvent;
 import it.smallcode.smallpets.core.languages.LanguageManager;
@@ -19,13 +18,16 @@ import it.smallcode.smallpets.metrics.Metrics;
 import it.smallcode.smallpets.placeholderapi.SmallPetsExpansion;
 import it.smallcode.smallpets.v1_12.InventoryManager1_12;
 import it.smallcode.smallpets.v1_12.ListenerManager1_12;
+import it.smallcode.smallpets.v1_12.NBTTagEditor1_12;
 import it.smallcode.smallpets.v1_12.PetMapManager1_12;
 import it.smallcode.smallpets.v1_13.InventoryManager1_13;
 import it.smallcode.smallpets.v1_13.ListenerManager1_13;
+import it.smallcode.smallpets.v1_13.NBTTagEditor1_13;
 import it.smallcode.smallpets.v1_13.PetMapManager1_13;
 import it.smallcode.smallpets.v1_15.*;
 import it.smallcode.smallpets.v1_16.InventoryManager1_16;
 import it.smallcode.smallpets.v1_16.ListenerManager1_16;
+import it.smallcode.smallpets.v1_16.NBTTagEditor1_16;
 import it.smallcode.smallpets.v1_16.PetMapManager1_16;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -118,6 +120,8 @@ public class SmallPets extends JavaPlugin {
 
         Bukkit.getPluginManager().registerEvents(new EntityDamageListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerMoveListener(), this);
+
+        Bukkit.getPluginManager().registerEvents(new UnlockListener(), this);
 
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "Registered listeners!");
 
@@ -275,32 +279,40 @@ public class SmallPets extends JavaPlugin {
 
         if(version.startsWith("1_12")) {
 
+            SmallPetsCommons.getSmallPetsCommons().setNbtTagEditor(new NBTTagEditor1_12());
+
             SmallPetsCommons.getSmallPetsCommons().setPetMapManager(new PetMapManager1_12());
             SmallPetsCommons.getSmallPetsCommons().setInventoryManager(new InventoryManager1_12(getInventoryCache(), getLanguageManager(), xpMultiplier, this));
             SmallPetsCommons.getSmallPetsCommons().setUserManager(new UserManager(this, getLanguageManager(), getPetMapManager(), useProtocolLib));
-            SmallPetsCommons.getSmallPetsCommons().setListenerManager(new ListenerManager1_12(this, getUserManager(), getPetMapManager(), getLanguageManager(), getInventoryCache(), getPrefix(), xpMultiplier, useProtocolLib, getInventoryManager(), getExperienceManager()));
+            SmallPetsCommons.getSmallPetsCommons().setListenerManager(new ListenerManager1_12(xpMultiplier, useProtocolLib));
 
         }else if(version.startsWith("1_13")){
+
+            SmallPetsCommons.getSmallPetsCommons().setNbtTagEditor(new NBTTagEditor1_13());
 
             SmallPetsCommons.getSmallPetsCommons().setPetMapManager(new PetMapManager1_13());
             SmallPetsCommons.getSmallPetsCommons().setInventoryManager(new InventoryManager1_13(getInventoryCache(), getLanguageManager(), xpMultiplier, this));
             SmallPetsCommons.getSmallPetsCommons().setUserManager(new UserManager(this, getLanguageManager(), getPetMapManager(), useProtocolLib));
-            SmallPetsCommons.getSmallPetsCommons().setListenerManager(new ListenerManager1_13(this, getUserManager(), getPetMapManager(), getLanguageManager(), getInventoryCache(), getPrefix(), xpMultiplier, useProtocolLib, getInventoryManager(), getExperienceManager()));
+            SmallPetsCommons.getSmallPetsCommons().setListenerManager(new ListenerManager1_13(xpMultiplier, useProtocolLib));
 
         }else if(version.startsWith("1_15") || version.startsWith("1_14")){
+
+            SmallPetsCommons.getSmallPetsCommons().setNbtTagEditor(new NBTTagEditor1_15());
 
             SmallPetsCommons.getSmallPetsCommons().setPetMapManager(new PetMapManager1_15());
             SmallPetsCommons.getSmallPetsCommons().setInventoryManager(new InventoryManager1_15(getInventoryCache(), getLanguageManager(), xpMultiplier, this));
             SmallPetsCommons.getSmallPetsCommons().setUserManager(new UserManager(this, getLanguageManager(), getPetMapManager(), useProtocolLib));
-            SmallPetsCommons.getSmallPetsCommons().setListenerManager(new ListenerManager1_15(this, getUserManager(), getPetMapManager(), getLanguageManager(), getInventoryCache(), getPrefix(), xpMultiplier, useProtocolLib, getInventoryManager(), getExperienceManager()));
+            SmallPetsCommons.getSmallPetsCommons().setListenerManager(new ListenerManager1_15(xpMultiplier, useProtocolLib));
             SmallPetsCommons.getSmallPetsCommons().setAbilityManager(new AbilityManager1_15());
 
         }else if(version.startsWith("1_16")){
 
+            SmallPetsCommons.getSmallPetsCommons().setNbtTagEditor(new NBTTagEditor1_16());
+
             SmallPetsCommons.getSmallPetsCommons().setPetMapManager(new PetMapManager1_16());
             SmallPetsCommons.getSmallPetsCommons().setInventoryManager(new InventoryManager1_16(getInventoryCache(), getLanguageManager(), xpMultiplier, this));
             SmallPetsCommons.getSmallPetsCommons().setUserManager(new UserManager(this, getLanguageManager(), getPetMapManager(), useProtocolLib));
-            SmallPetsCommons.getSmallPetsCommons().setListenerManager(new ListenerManager1_16(this, getUserManager(), getPetMapManager(), getLanguageManager(), getInventoryCache(), getPrefix(), xpMultiplier, useProtocolLib, getInventoryManager(), getExperienceManager()));
+            SmallPetsCommons.getSmallPetsCommons().setListenerManager(new ListenerManager1_16(xpMultiplier, useProtocolLib));
 
         }else{
 

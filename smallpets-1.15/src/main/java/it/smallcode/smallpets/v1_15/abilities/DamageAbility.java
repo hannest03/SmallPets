@@ -43,7 +43,7 @@ public class DamageAbility extends StatBoostAbility {
             e.setDamage(newDamage);
 
             if(SmallPetsCommons.DEBUG)
-                Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "§cDEBUG: §7Damage Ability " + damage);
+                Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "§cDEBUG: §7Damage Ability " + e.getDamage());
 
         }
 
