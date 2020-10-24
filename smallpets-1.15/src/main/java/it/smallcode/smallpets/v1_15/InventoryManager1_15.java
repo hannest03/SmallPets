@@ -6,6 +6,7 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.languages.LanguageManager;
 import it.smallcode.smallpets.core.manager.InventoryCache;
 import it.smallcode.smallpets.core.manager.InventoryManager;
@@ -23,16 +24,16 @@ import java.util.List;
 
 public class InventoryManager1_15 extends InventoryManager {
 
-    public InventoryManager1_15(InventoryCache inventoryCache, LanguageManager languageManager, double xpMultiplier, JavaPlugin plugin) {
+    public InventoryManager1_15(double xpMultiplier) {
 
-        super(inventoryCache, languageManager, xpMultiplier, plugin);
+        super(xpMultiplier);
 
     }
 
     @Override
     public void openPetsMenu(List<Pet> pets, Player p) {
 
-        Inventory inventory = inventoryCache.getInventory(p);
+        Inventory inventory = SmallPetsCommons.getSmallPetsCommons().getInventoryCache().getInventory(p);
 
         inventory.clear();
 
@@ -54,11 +55,11 @@ public class InventoryManager1_15 extends InventoryManager {
 
         if(convertingPets.contains(p.getUniqueId().toString())){
 
-            inventory.setItem(44, createItem(languageManager.getLanguage().getStringFormatted("convertToItem"), Material.LIME_DYE));
+            inventory.setItem(44, createItem(SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("convertToItem"), Material.LIME_DYE));
 
         }else{
 
-            inventory.setItem(44, createItem(languageManager.getLanguage().getStringFormatted("convertToItem"), Material.GRAY_DYE));
+            inventory.setItem(44, createItem(SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("convertToItem"), Material.GRAY_DYE));
 
         }
 
@@ -66,14 +67,14 @@ public class InventoryManager1_15 extends InventoryManager {
 
         ItemMeta itemMeta = stats.getItemMeta();
 
-        itemMeta.setDisplayName("§6" + languageManager.getLanguage().getStringFormatted("stats"));
+        itemMeta.setDisplayName("§6" + SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("stats"));
 
         List<String> lore = new LinkedList<>();
 
         double experienceMultiplier = (int) (xpMultiplier * 100D) /100D;
 
         lore.add("");
-        lore.add("§e" + languageManager.getLanguage().getStringFormatted("experienceMultiplier") + "§8: §7" + experienceMultiplier);
+        lore.add("§e" + SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("experienceMultiplier") + "§8: §7" + experienceMultiplier);
         lore.add("");
 
         itemMeta.setLore(lore);
@@ -90,7 +91,7 @@ public class InventoryManager1_15 extends InventoryManager {
 
     private ItemStack makePetItem(Pet pet, Player p){
 
-        ItemStack itemStack = pet.getDisplayItem(plugin);
+        ItemStack itemStack = pet.getDisplayItem(SmallPetsCommons.getSmallPetsCommons().getJavaPlugin());
 
         if(itemStack != null) {
 
@@ -101,9 +102,9 @@ public class InventoryManager1_15 extends InventoryManager {
             lore.add("");
 
             if(pet.isActivated())
-                lore.add(languageManager.getLanguage().getStringFormatted("clickToDeselect"));
+                lore.add(SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("clickToDeselect"));
             else
-                lore.add(languageManager.getLanguage().getStringFormatted("clickToSelect"));
+                lore.add(SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("clickToSelect"));
 
             itemMeta.setLore(lore);
 

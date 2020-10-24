@@ -6,6 +6,7 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.languages.LanguageManager;
 import it.smallcode.smallpets.core.manager.types.User;
 import it.smallcode.smallpets.core.pets.Pet;
@@ -31,11 +32,6 @@ import java.util.UUID;
  */
 public class UserManager {
 
-    private JavaPlugin plugin;
-
-    private LanguageManager languageManager;
-    private PetMapManager petMapManager;
-
     private ArrayList<User> users;
 
     private boolean useProtocolLib;
@@ -45,12 +41,7 @@ public class UserManager {
      * Creates a user manager object
      *
      */
-    public UserManager(JavaPlugin plugin, LanguageManager languageManager, PetMapManager petMapManager, boolean useProtocolLib){
-
-        this.plugin = plugin;
-
-        this.languageManager = languageManager;
-        this.petMapManager = petMapManager;
+    public UserManager(boolean useProtocolLib){
 
         this.useProtocolLib = useProtocolLib;
 
@@ -70,14 +61,14 @@ public class UserManager {
 
         if(!alreadyLoaded(uuid)) {
 
-            if (!new File(plugin.getDataFolder().getPath() + "/users").exists())
-                new File(plugin.getDataFolder().getPath() + "/users").mkdirs();
+            if (!new File(SmallPetsCommons.getSmallPetsCommons().getJavaPlugin().getDataFolder().getPath() + "/users").exists())
+                new File(SmallPetsCommons.getSmallPetsCommons().getJavaPlugin().getDataFolder().getPath() + "/users").mkdirs();
 
-            File userFile = new File(plugin.getDataFolder().getPath() + "/users", uuid + ".yml");
+            File userFile = new File(SmallPetsCommons.getSmallPetsCommons().getJavaPlugin().getDataFolder().getPath() + "/users", uuid + ".yml");
 
             if (!userFile.exists()) {
 
-                users.add(new User(uuid, plugin));
+                users.add(new User(uuid, SmallPetsCommons.getSmallPetsCommons().getJavaPlugin()));
 
             } else {
 
@@ -85,7 +76,7 @@ public class UserManager {
 
                 Map<String, Object> data = cfg.getValues(true);
 
-                users.add(new User(userFile.getName().replaceFirst("[.][^.]+$", ""), data, petMapManager, plugin, useProtocolLib, languageManager));
+                users.add(new User(userFile.getName().replaceFirst("[.][^.]+$", ""), data, SmallPetsCommons.getSmallPetsCommons().getPetMapManager(), SmallPetsCommons.getSmallPetsCommons().getJavaPlugin(), useProtocolLib, SmallPetsCommons.getSmallPetsCommons().getLanguageManager()));
 
             }
 
@@ -118,12 +109,12 @@ public class UserManager {
      */
     public void saveUsers(){
 
-        if(!new File(plugin.getDataFolder().getPath() + "/users").exists())
-            new File(plugin.getDataFolder().getPath() + "/users").mkdirs();
+        if(!new File(SmallPetsCommons.getSmallPetsCommons().getJavaPlugin().getDataFolder().getPath() + "/users").exists())
+            new File(SmallPetsCommons.getSmallPetsCommons().getJavaPlugin().getDataFolder().getPath() + "/users").mkdirs();
 
         for(User user : users){
 
-            File userFile = new File(plugin.getDataFolder().getPath() + "/users", user.getUuid() + ".yml");
+            File userFile = new File(SmallPetsCommons.getSmallPetsCommons().getJavaPlugin().getDataFolder().getPath() + "/users", user.getUuid() + ".yml");
 
             if(!userFile.exists()) {
 
@@ -173,15 +164,15 @@ public class UserManager {
 
         if(user != null){
 
-            if(petMapManager.getPetMap().containsKey(type)){
+            if(SmallPetsCommons.getSmallPetsCommons().getPetMapManager().getPetMap().containsKey(type)){
 
                 if(user.getPetFromType(type) == null) {
 
                     try {
 
-                        Constructor constructor = petMapManager.getPetMap().get(type).getConstructor(Player.class, Long.class, Boolean.class, LanguageManager.class);
+                        Constructor constructor = SmallPetsCommons.getSmallPetsCommons().getPetMapManager().getPetMap().get(type).getConstructor(Player.class, Long.class, Boolean.class, LanguageManager.class);
 
-                        Pet pet = (Pet) constructor.newInstance(Bukkit.getPlayer(UUID.fromString(uuid)), 0L, useProtocolLib, languageManager);
+                        Pet pet = (Pet) constructor.newInstance(Bukkit.getPlayer(UUID.fromString(uuid)), 0L, useProtocolLib, SmallPetsCommons.getSmallPetsCommons().getLanguageManager());
 
                         user.getPets().add(pet);
 
@@ -230,15 +221,15 @@ public class UserManager {
 
         if(user != null){
 
-            if(petMapManager.getPetMap().containsKey(type)){
+            if(SmallPetsCommons.getSmallPetsCommons().getPetMapManager().getPetMap().containsKey(type)){
 
                 if(user.getPetFromType(type) == null) {
 
                     try {
 
-                        Constructor constructor = petMapManager.getPetMap().get(type).getConstructor(Player.class, Long.class, Boolean.class, LanguageManager.class);
+                        Constructor constructor = SmallPetsCommons.getSmallPetsCommons().getPetMapManager().getPetMap().get(type).getConstructor(Player.class, Long.class, Boolean.class, LanguageManager.class);
 
-                        Pet pet = (Pet) constructor.newInstance(Bukkit.getPlayer(UUID.fromString(uuid)), exp, useProtocolLib, languageManager);
+                        Pet pet = (Pet) constructor.newInstance(Bukkit.getPlayer(UUID.fromString(uuid)), exp, useProtocolLib, SmallPetsCommons.getSmallPetsCommons().getLanguageManager());
 
                         user.getPets().add(pet);
 
@@ -286,7 +277,7 @@ public class UserManager {
 
         if(user != null){
 
-            if(petMapManager.getPetMap().containsKey(type)){
+            if(SmallPetsCommons.getSmallPetsCommons().getPetMapManager().getPetMap().containsKey(type)){
 
                 if(user.getPetFromType(type) != null) {
 

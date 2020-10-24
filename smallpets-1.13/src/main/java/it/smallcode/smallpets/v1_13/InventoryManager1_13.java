@@ -13,7 +13,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class InventoryManager1_13 extends InventoryManager1_15 {
 
-    public InventoryManager1_13(InventoryCache inventoryCache, LanguageManager languageManager, double xpMultiplier, JavaPlugin plugin) {
-        super(inventoryCache, languageManager, xpMultiplier, plugin);
+    public InventoryManager1_13(double xpMultiplier) {
+        super(xpMultiplier);
     }
 }

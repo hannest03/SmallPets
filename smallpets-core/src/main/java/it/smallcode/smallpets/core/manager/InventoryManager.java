@@ -21,12 +21,7 @@ import java.util.List;
  */
 public abstract class InventoryManager {
 
-    protected JavaPlugin plugin;
-
-    protected InventoryCache inventoryCache;
     protected ArrayList<String> convertingPets;
-
-    protected LanguageManager languageManager;
 
     protected double xpMultiplier;
 
@@ -37,12 +32,7 @@ public abstract class InventoryManager {
      * @param inventoryCache - the inventoryCache
      */
 
-    public InventoryManager(InventoryCache inventoryCache, LanguageManager languageManager, double xpMultiplier, JavaPlugin plugin){
-
-        this.plugin = plugin;
-
-        this.inventoryCache = inventoryCache;
-        this.languageManager = languageManager;
+    public InventoryManager(double xpMultiplier){
 
         this.xpMultiplier = xpMultiplier;
 
