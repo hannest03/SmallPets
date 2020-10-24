@@ -43,4 +43,4 @@ translations:
     health_ability:
       description: '&7Get &a+%extraStat%&7 more health!'
     water_speed_ability:
-      description: '&7Be &a+%extraStat%%&7 faster in water!'
+      description: '&7Walk &a+%extraStat%%&7 faster in water!'

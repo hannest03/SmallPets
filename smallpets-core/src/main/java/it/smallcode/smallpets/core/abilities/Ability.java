@@ -8,6 +8,7 @@ Class created by SmallCode
 
 import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.pets.Pet;
+import org.bukkit.Bukkit;
 
 import java.util.List;
 
@@ -15,15 +16,18 @@ public abstract class Ability {
 
     private AbilityType abilityType;
 
-    public Ability(){
-
-
-
-    }
+    public Ability(){}
 
     public Ability(AbilityType abilityType){
 
         this.abilityType = abilityType;
+
+    }
+
+    protected void debug(String msg){
+
+        if(SmallPetsCommons.DEBUG)
+            Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "§cDEBUG: " + getID() + "§7 " + msg);
 
     }
 

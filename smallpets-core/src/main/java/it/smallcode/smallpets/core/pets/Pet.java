@@ -33,7 +33,7 @@ public abstract class Pet {
     private LanguageManager languageManager;
 
     private static final double MINLEVEL = 1;
-    public static final double MAXLEVEL = 101;
+    public static final double MAXLEVEL = 100;
     private static final double XPTOLEVELTWO = 500;
 
     private final double tach;
@@ -98,7 +98,7 @@ public abstract class Pet {
 
         this.languageManager = languageManager;
 
-        tach = -(Math.log(((getLevel() +1) - MAXLEVEL) / -(MAXLEVEL - MINLEVEL)) / XPTOLEVELTWO);
+        tach = -(Math.log(((getLevel() +1) - (MAXLEVEL +1) ) / -((MAXLEVEL +1) - MINLEVEL)) / XPTOLEVELTWO);
 
     }
 
@@ -235,7 +235,7 @@ public abstract class Pet {
 
     public int getLevel(){
 
-        return (int) (MAXLEVEL - (MAXLEVEL - MINLEVEL) * Math.pow(Math.E, -tach * xp));
+        return (int) ((MAXLEVEL +1) - ((MAXLEVEL +1) - MINLEVEL) * Math.pow(Math.E, -tach * xp));
 
     }
 
@@ -249,7 +249,7 @@ public abstract class Pet {
 
     public long getExpForLevel(int level){
 
-        return (int) (Math.log(((level) - MAXLEVEL) / -(MAXLEVEL - MINLEVEL)) / -tach);
+        return (int) (Math.log(((level) - (MAXLEVEL +1)) / -((MAXLEVEL +1) - MINLEVEL)) / -tach);
 
     }
 

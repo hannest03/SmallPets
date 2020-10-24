@@ -38,7 +38,7 @@ public class DamageAbility extends StatBoostAbility {
 
             double extraDamagePercentage = ability.getExtraStat(e.getUser().getSelected().getLevel());
 
-            double newDamage = damage + (damage / 100 * extraDamagePercentage);
+            double newDamage = damage + (damage * extraDamagePercentage);
 
             e.setDamage(newDamage);
 

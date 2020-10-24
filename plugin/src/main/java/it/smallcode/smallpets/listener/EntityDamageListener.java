@@ -32,6 +32,7 @@ public class EntityDamageListener implements Listener {
                 if(user.getSelected() != null){
 
                     DamageEvent damageEvent = new DamageEvent(user, e.getEntity(), e.getDamage());
+                    damageEvent.setCancelled(e.isCancelled());
 
                     AbilityEventBus.post(damageEvent);
 

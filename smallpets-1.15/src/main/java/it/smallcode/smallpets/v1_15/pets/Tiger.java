@@ -38,8 +38,7 @@ public class Tiger extends SamplePet {
 
         super.setPetType(PetType.combat);
 
-        super.abilities.add(new DamageAbility(15));
-        super.abilities.add(new HealthAbility(4));
+        super.abilities.add(new DamageAbility(0.15));
 
     }
     public ItemStack getItem() {
