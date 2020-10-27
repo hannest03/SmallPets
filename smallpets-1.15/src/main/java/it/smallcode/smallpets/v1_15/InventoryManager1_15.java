@@ -12,6 +12,7 @@ import it.smallcode.smallpets.manager.InventoryCache;
 import it.smallcode.smallpets.manager.InventoryManager;
 import it.smallcode.smallpets.pets.Pet;
 import it.smallcode.smallpets.text.CenteredText;
+import it.smallcode.smallpets.utils.ProgressbarUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -146,62 +147,12 @@ public class InventoryManager1_15 extends InventoryManager {
 
     }
 
-    private String generateFinishedProgressbar(Pet pet){
+    private String generateFinishedProgressbar(Pet pet) {
 
-        if(pet.getLevel() == 100)
-            return generateProgressBar(pet);
+        if (pet.getLevel() == 100)
+            return ProgressbarUtils.generateProgressBar(pet);
 
-        return pet.getLevelColor() + pet.getLevel() + " " + generateProgressBar(pet) + " " + pet.getLevelColor() + (pet.getLevel() +1);
-
-    }
-
-    private String generateProgressBar(Pet pet){
-
-        String bar = "";
-
-        int bars = 35;
-
-        long lastExp = pet.getExpForLevel(pet.getLevel());
-        long nextExp = pet.getExpForNextLevel();
-
-        if(pet.getLevel() == 100){
-
-            int color = (int) (Math.random() * colors.size()-1);
-
-            for(int i = 0; i < bars; i++) {
-
-                bar += colors.get(color) + "|";
-
-                color++;
-
-                if(color == colors.size())
-                    color = 0;
-
-            }
-
-            return bar;
-
-        }
-
-        long oneBar = (nextExp - lastExp) / bars;
-
-        long nextBar = 0;
-
-        while(nextBar <= (pet.getXp() - lastExp) && bar.length() < (bars*3)){
-
-            nextBar += oneBar;
-
-            bar += pet.getLevelColor() + "|";
-
-        }
-
-        while(bar.length() < (bars*3)){
-
-            bar += "§8|";
-
-        }
-
-        return bar;
+        return pet.getLevelColor() + pet.getLevel() + " " + ProgressbarUtils.generateProgressBar(pet) + " " + pet.getLevelColor() + (pet.getLevel() + 1);
 
     }
 
