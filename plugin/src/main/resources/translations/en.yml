@@ -44,3 +44,6 @@ translations:
       description: '&7Get &a+%extraStat%&7 more health!'
     water_speed_ability:
       description: '&7Walk &a+%extraStat%%&7 faster in water!'
+    speed_in_biome_ability:
+      name: 'At home'
+      description: 'Makes you faster in the %biomes% biomes'
