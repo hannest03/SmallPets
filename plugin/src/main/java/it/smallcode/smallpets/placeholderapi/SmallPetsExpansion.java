@@ -116,6 +116,12 @@ public class SmallPetsExpansion extends PlaceholderExpansion {
 
                         switch (information) {
 
+                            case "level":{
+
+                                return String.valueOf(pet.getLevel());
+
+                            }
+
                             case "exp":{
 
                                 return String.valueOf((pet.getXp() - pet.getExpForLevel(pet.getLevel())));

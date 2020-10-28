@@ -80,6 +80,63 @@ public class SmallPetsCMD implements CommandExecutor {
 
         } else if (args.length >= 2) {
 
+            if(args[0].equalsIgnoreCase("select")){
+
+                if(s instanceof Player) {
+
+                    Player p = (Player) s;
+
+                    if (args.length == 2) {
+
+                        String type = args[1];
+
+                        if (SmallPets.getInstance().getPetMapManager().getPetMap().containsKey(type)) {
+
+                            User user = SmallPets.getInstance().getUserManager().getUser(p.getUniqueId().toString());
+
+                            if(user != null){
+
+                                if(user.getPetFromType(type) != null){
+
+                                    user.setSelected(user.getPetFromType(type));
+
+                                    p.sendMessage(SmallPets.getInstance().getPrefix() + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("petSpawned"));
+
+                                }else{
+
+                                    p.sendMessage(SmallPets.getInstance().getPrefix() + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("petNotUnlocked"));
+
+                                }
+
+                            }else{
+
+                                p.sendMessage(SmallPets.getInstance().getPrefix() + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("userDataNotFound"));
+
+                            }
+
+
+                        }else{
+
+                            p.sendMessage(SmallPets.getInstance().getPrefix() + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("petNotUnlocked"));
+
+                        }
+
+                    }else{
+
+                        s.sendMessage(SmallPets.getInstance().getPrefix() + "/smallpets select <type>");
+
+                    }
+
+                } else {
+
+                    s.sendMessage(SmallPets.getInstance().getPrefix() + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("commandIsOnlyForPlayers"));
+
+                }
+
+                return false;
+
+            }
+
             if(args[0].equalsIgnoreCase("admin")){
 
                 Optional<SubCommand> optSubCommand = subAdminCommands.stream().filter(subCommand -> subCommand.getName().equalsIgnoreCase(args[1])).findFirst();
@@ -114,6 +171,7 @@ public class SmallPetsCMD implements CommandExecutor {
     private void sendHelp(CommandSender s){
 
         s.sendMessage(SmallPets.getInstance().getPrefix() + "/smallpets");
+        s.sendMessage(SmallPets.getInstance().getPrefix() + "/smallpets select <type>");
 
         for(SubCommand subCommand : subAdminCommands){
 
