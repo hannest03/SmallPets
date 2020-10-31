@@ -727,7 +727,7 @@ public class Pet {
 
     }
 
-    private String generateProgressBar(){
+    public String generateProgressBar(){
 
         String bar = "";
 

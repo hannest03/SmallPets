@@ -37,6 +37,7 @@ public class SmallPetsCMD implements CommandExecutor {
 
         subCommands.add(new DiscordSubCMD("discord", ""));
         subCommands.add(new DonateSubCMD("donate", ""));
+        subCommands.add(new SelectSubCMD("select", ""));
 
     }
 
@@ -82,9 +83,6 @@ public class SmallPetsCMD implements CommandExecutor {
             return false;
 
         }
-
-        //smallpets admin test
-        //smallpets discord
 
         Optional<SubCommand> optionalSubCommand = subCommands.stream().filter(subCommand -> {
 
@@ -137,6 +135,7 @@ public class SmallPetsCMD implements CommandExecutor {
     private void sendHelp(CommandSender s){
 
         s.sendMessage(SmallPets.getInstance().getPrefix() + "/smallpets");
+        s.sendMessage(SmallPets.getInstance().getPrefix() + "/smallpets select <type>");
 
         for(SubCommand subCommand : subCommands){
 

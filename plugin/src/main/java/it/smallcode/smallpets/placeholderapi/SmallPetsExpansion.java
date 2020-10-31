@@ -8,6 +8,7 @@ Class created by SmallCode
 
 import it.smallcode.smallpets.SmallPets;
 import it.smallcode.smallpets.core.manager.types.User;
+import it.smallcode.smallpets.core.pets.Pet;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.OfflinePlayer;
 
@@ -88,13 +89,80 @@ public class SmallPetsExpansion extends PlaceholderExpansion {
 
                 }
 
-                break;
+                return "none";
 
             }
 
             case "registeredPets":{
 
                 return String.valueOf(SmallPets.getInstance().getPetMapManager().getPetMap().size());
+
+            }
+
+        }
+
+        String[] paramsArray = params.split("_");
+
+        if(paramsArray.length > 0){
+
+            if(SmallPets.getInstance().getPetMapManager().getPetMap().containsKey(paramsArray[0].toLowerCase())){
+
+                User user = SmallPets.getInstance().getUserManager().getUser(player.getUniqueId().toString());
+
+                String type = paramsArray[0].toLowerCase();
+
+                Pet pet = user.getPetFromType(type);
+
+                if(pet != null) {
+
+                    if (paramsArray.length >= 2) {
+
+                        String information = "";
+
+                        for(int i = 1; i < paramsArray.length; i++)
+                            information += paramsArray[i] + "_";
+
+                        information = information.substring(0, information.length()-1);
+                        information = information.toLowerCase();
+
+                        switch (information) {
+
+                            case "level":{
+
+                                return String.valueOf(pet.getLevel());
+
+                            }
+
+                            case "exp":{
+
+                                return String.valueOf((pet.getXp() - pet.getExpForLevel(pet.getLevel())));
+
+                            }
+
+                            case "required_exp":{
+
+                                return String.valueOf(pet.getExpForNextLevel() - pet.getExpForLevel(pet.getLevel()));
+
+                            }
+
+                            case "exp_all":{
+
+                                return String.valueOf(pet.getXp());
+
+                            }
+
+                            case "progressbar":{
+
+                                return pet.generateProgressBar();
+
+                            }
+
+                        }
+
+                    }
+
+                }else
+                    return "";
 
             }
 
