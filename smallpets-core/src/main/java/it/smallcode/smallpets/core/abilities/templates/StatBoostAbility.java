@@ -12,6 +12,7 @@ import it.smallcode.smallpets.core.abilities.AbilityType;
 import it.smallcode.smallpets.core.manager.types.User;
 import it.smallcode.smallpets.core.pets.Pet;
 import it.smallcode.smallpets.core.utils.DoubleFormater;
+import it.smallcode.smallpets.core.utils.StringUtils;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -73,7 +74,10 @@ public abstract class StatBoostAbility extends Ability {
 
         description = description.replaceAll("%extraStat%", value);
 
-        lore.add("§7" + description);
+        description = StringUtils.addLineBreaks(description, 30);
+
+        for(String s : description.split("\n"))
+            lore.add(s);
 
         return lore;
 
