@@ -6,8 +6,20 @@ Class created by SmallCode
 
 */
 
-public class Panda {
+import it.smallcode.smallpets.core.pets.Pet;
+import it.smallcode.smallpets.core.pets.PetType;
+import org.bukkit.entity.Player;
 
-    
+public class Panda extends Pet {
 
+
+    public Panda(String id, Player owner, Long xp, Boolean useProtocolLib) {
+
+        super(id, owner, xp, useProtocolLib);
+
+        super.setPetType(PetType.farming);
+
+        super.textureValue = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZGNhMDk2ZWVhNTA2MzAxYmVhNmQ0YjE3ZWUxNjA1NjI1YTZmNTA4MmM3MWY3NGE2MzljYzk0MDQzOWY0NzE2NiJ9fX0=";
+
+    }
 }

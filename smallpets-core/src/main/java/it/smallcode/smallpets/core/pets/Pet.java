@@ -21,6 +21,7 @@ import it.smallcode.smallpets.core.animations.WalkAwayFromPlayerAnimation;
 import it.smallcode.smallpets.core.events.PetLevelUpEvent;
 import it.smallcode.smallpets.core.languages.LanguageManager;
 import it.smallcode.smallpets.core.text.CenteredText;
+import net.minecraft.server.v1_15_R1.PacketPlayOutWorldParticles;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -92,7 +93,7 @@ public class Pet {
 
     private PetType petType;
 
-    protected String textureValue;
+    protected String textureValue = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGI3ZjY2M2Q2NWNkZWQ3YmQzNjUxYmRkZDZkYjU0NjM2MGRkNzczYWJiZGFmNDhiODNhZWUwOGUxY2JlMTQifX19";
 
     protected FollowPlayerAnimation followPlayerArmorStand;
     protected HoverAnimation hoverAnimation;
@@ -806,7 +807,7 @@ public class Pet {
 
         for(Player p : sendPacketToPlayers(owner)){
 
-            p.spawnParticle(getParticle(), particleLoc, 1);
+            p.spawnParticle(getParticle(), particleLoc, 0);
 
         }
 

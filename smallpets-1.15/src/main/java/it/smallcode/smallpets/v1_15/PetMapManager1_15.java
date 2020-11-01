@@ -7,9 +7,7 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.core.manager.PetMapManager;
-import it.smallcode.smallpets.v1_15.pets.Monkey;
-import it.smallcode.smallpets.v1_15.pets.Penguin;
-import it.smallcode.smallpets.v1_15.pets.Tiger;
+import it.smallcode.smallpets.v1_15.pets.*;
 
 public class PetMapManager1_15 extends PetMapManager {
 
@@ -18,6 +16,10 @@ public class PetMapManager1_15 extends PetMapManager {
         petMap.put("tiger", Tiger.class);
         petMap.put("penguin", Penguin.class);
         petMap.put("monkey", Monkey.class);
+        petMap.put("skeleton", Skeleton.class);
+        petMap.put("silverfish", Silverfish.class);
+        petMap.put("fish", Fish.class);
+        petMap.put("panda", Panda.class);
 
     }
 

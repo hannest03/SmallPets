@@ -13,6 +13,7 @@ import it.smallcode.smallpets.v1_15.abilities.HealthAbility;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
@@ -25,6 +26,8 @@ public class Penguin extends Pet {
         super(type, owner, xp, useProtocolLib);
 
         super.setPetType(PetType.fishing);
+
+        super.setParticle(Particle.WATER_BUBBLE);
 
         super.abilities.add(new HealthAbility(10));
 

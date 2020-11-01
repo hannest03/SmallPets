@@ -31,6 +31,10 @@ translations:
     tiger: 'tiger'
     penguin: 'penguin'
     monkey: 'monkey'
+    skeleton: 'Skeleton'
+    panda: 'Panda'
+    fish: 'Fish'
+    silverfish: 'Silverfish'
   petType:
     combat: 'Combat pet'
     mining: 'Mining pet'
