@@ -16,7 +16,11 @@ import org.bukkit.entity.Player;
 public class SelectSubCMD extends SubCommand {
 
     public SelectSubCMD(String name, String permission) {
+
         super(name, permission, SubCommandType.NONE);
+
+        help += " <type>";
+
     }
 
     @Override
