@@ -50,4 +50,6 @@ translations:
       description: '&7Walk &a+%extraStat%%&7 faster in water!'
     speed_in_biome_ability:
       name: 'Natural habitat'
-      description: 'Makes you faster in the %biomes% &7biomes'
+      description: '&7Makes you faster in the %biomes% &7biomes'
+    dont_consume_arrow:
+      description: "&c%extraStat%% &7chance not to consume arrows"

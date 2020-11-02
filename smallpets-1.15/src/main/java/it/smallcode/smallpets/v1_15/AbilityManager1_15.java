@@ -8,6 +8,7 @@ Class created by SmallCode
 
 import it.smallcode.smallpets.core.manager.AbilityManager;
 import it.smallcode.smallpets.v1_15.abilities.DamageAbility;
+import it.smallcode.smallpets.v1_15.abilities.DontConsumeArrowAbility;
 import it.smallcode.smallpets.v1_15.abilities.HealthAbility;
 import it.smallcode.smallpets.v1_15.abilities.SpeedBoostInBiomeAbility;
 
@@ -26,6 +27,7 @@ public class AbilityManager1_15 extends AbilityManager {
         registerAbility("damage_ability", DamageAbility.class);
         registerAbility("health_ability", HealthAbility.class);
         registerAbility("speed_in_biome_ability", SpeedBoostInBiomeAbility.class);
+        registerAbility("dont_consume_arrow", DontConsumeArrowAbility.class);
 
     }
 

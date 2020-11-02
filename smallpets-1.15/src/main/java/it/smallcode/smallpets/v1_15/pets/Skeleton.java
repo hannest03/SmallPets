@@ -8,6 +8,7 @@ Class created by SmallCode
 
 import it.smallcode.smallpets.core.pets.Pet;
 import it.smallcode.smallpets.core.pets.PetType;
+import it.smallcode.smallpets.v1_15.abilities.DontConsumeArrowAbility;
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 
@@ -19,6 +20,8 @@ public class Skeleton extends Pet {
 
         super.setPetType(PetType.combat);
         super.setParticle(Particle.CLOUD);
+
+        super.abilities.add(new DontConsumeArrowAbility(10, 1));
 
         super.textureValue = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzAxMjY4ZTljNDkyZGExZjBkODgyNzFjYjQ5MmE0YjMwMjM5NWY1MTVhN2JiZjc3ZjRhMjBiOTVmYzAyZWIyIn19fQ==";
 

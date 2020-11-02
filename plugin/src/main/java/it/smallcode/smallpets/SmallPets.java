@@ -111,6 +111,7 @@ public class SmallPets extends JavaPlugin {
 
         Bukkit.getPluginManager().registerEvents(new EntityDamageListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerMoveListener(), this);
+        Bukkit.getPluginManager().registerEvents(new ShootProjectileListener(), this);
 
         Bukkit.getPluginManager().registerEvents(new UnlockListener(), this);
 

@@ -77,7 +77,7 @@ public abstract class StatBoostAbility extends Ability {
         description = StringUtils.addLineBreaks(description, 30);
 
         for(String s : description.split("\n"))
-            lore.add(s);
+            lore.add("§7" + s);
 
         return lore;
 
@@ -85,7 +85,7 @@ public abstract class StatBoostAbility extends Ability {
 
     public double getExtraStat(double level){
 
-        return (maxExtraStat / (Pet.MAXLEVEL -1)) * level + minExtraStat;
+        return ((maxExtraStat-minExtraStat) / (Pet.MAXLEVEL-1)) * (level-1) + minExtraStat;
 
     }
 
