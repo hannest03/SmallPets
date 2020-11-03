@@ -33,7 +33,7 @@ public class Tiger extends Pet {
 
         super.setPetType(PetType.combat);
 
-        super.abilities.add(new DamageAbility(15));
+        super.abilities.add(new DamageAbility(20));
 
         super.textureValue = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZmM0MjYzODc0NDkyMmI1ZmNmNjJjZDliZjI3ZWVhYjkxYjJlNzJkNmM3MGU4NmNjNWFhMzg4Mzk5M2U5ZDg0In19fQ==";
 

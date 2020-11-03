@@ -16,15 +16,15 @@ import org.bukkit.entity.Player;
 public class HealthAbility extends StatBoostAbility {
 
     public HealthAbility(){
-
         this(0);
-
     }
 
     public HealthAbility(double maxExtraStat) {
+        this(maxExtraStat, 0);
+    }
 
-        super(maxExtraStat, NumberDisplayType.INTEGER);
-
+    public HealthAbility(double maxExtraStat, double minExtraStat) {
+        super(maxExtraStat, minExtraStat, NumberDisplayType.INTEGER);
     }
 
     @AbilityEventHandler

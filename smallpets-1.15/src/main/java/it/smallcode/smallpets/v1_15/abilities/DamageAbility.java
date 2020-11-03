@@ -16,15 +16,15 @@ import org.bukkit.Bukkit;
 public class DamageAbility extends StatBoostAbility {
 
     public DamageAbility(){
-
         this(0);
-
     }
 
     public DamageAbility(double maxExtraStat) {
+        this(maxExtraStat, 0);
+    }
 
-        super(maxExtraStat, NumberDisplayType.TWO_DECIMAL_PLACES);
-
+    public DamageAbility(double maxExtraStat, double minExtraStat) {
+        super(maxExtraStat, minExtraStat, NumberDisplayType.TWO_DECIMAL_PLACES);
     }
 
     @AbilityEventHandler

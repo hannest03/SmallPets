@@ -29,7 +29,7 @@ public class Penguin extends Pet {
 
         super.setParticle(Particle.WATER_BUBBLE);
 
-        super.abilities.add(new HealthAbility(10));
+        super.abilities.add(new HealthAbility(10, 2));
 
         this.textureValue = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvM2MwZDE2MTA3OTU2ZDc4NTNhMWJlMzE1NDljNDZhMmZmMjBiNDUxZDYzNjA3NTI4ZDVlMTk1YzQ0NTllMWZhMSJ9fX0=";
 
