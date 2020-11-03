@@ -51,5 +51,8 @@ translations:
     speed_in_biome_ability:
       name: 'Natural habitat'
       description: '&7Makes you faster in the %biomes% &7biomes'
-    dont_consume_arrow:
+    dont_consume_arrow_ability:
       description: "&c%extraStat%% &7chance not to consume arrows"
+    unbreakable_bow_ability:
+      name: 'Experienced'
+      description: "&7Your bow doesn't get damaged when shooting"

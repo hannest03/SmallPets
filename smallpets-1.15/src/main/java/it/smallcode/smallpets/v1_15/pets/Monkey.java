@@ -40,7 +40,7 @@ public class Monkey extends Pet {
 
         ItemStack item = getUnlockItem(plugin);
 
-        NamespacedKey key = new NamespacedKey(plugin, "pet_monkey");
+        NamespacedKey key = new NamespacedKey(plugin, "pet_" + getID());
 
         ShapedRecipe recipe = new ShapedRecipe(key, item);
 

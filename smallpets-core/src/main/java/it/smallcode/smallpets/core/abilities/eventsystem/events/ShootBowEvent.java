@@ -10,18 +10,23 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.Cancellable;
+import org.bukkit.inventory.ItemStack;
 
 public class ShootBowEvent implements Cancellable {
 
     private LivingEntity attacker;
     private Projectile projectile;
 
+    private ItemStack bow;
+
     private boolean cancelled;
 
-    public ShootBowEvent(LivingEntity attacker, Projectile projectile) {
+    public ShootBowEvent(LivingEntity attacker, Projectile projectile, ItemStack bow) {
 
         this.attacker = attacker;
         this.projectile = projectile;
+
+        this.bow = bow;
 
     }
 
@@ -31,6 +36,10 @@ public class ShootBowEvent implements Cancellable {
 
     public Projectile getProjectile() {
         return projectile;
+    }
+
+    public ItemStack getBow() {
+        return bow;
     }
 
     @Override

@@ -44,7 +44,7 @@ public class Tiger extends Pet {
 
         ItemStack item = getUnlockItem(plugin);
 
-        NamespacedKey key = new NamespacedKey(plugin, "pet_tiger");
+        NamespacedKey key = new NamespacedKey(plugin, "pet_" + getID());
 
         ShapedRecipe recipe = new ShapedRecipe(key, item);
 

@@ -18,7 +18,7 @@ public class ShootProjectileListener implements Listener {
     @EventHandler
     public void onShoot(EntityShootBowEvent e){
 
-        ShootBowEvent shootProjectileEvent = new ShootBowEvent(e.getEntity(), (Projectile) e.getProjectile());
+        ShootBowEvent shootProjectileEvent = new ShootBowEvent(e.getEntity(), (Projectile) e.getProjectile(), e.getBow());
         shootProjectileEvent.setCancelled(e.isCancelled());
 
         AbilityEventBus.post(shootProjectileEvent);
