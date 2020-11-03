@@ -65,8 +65,7 @@ public class DolphinAbility extends SpeedBoostAbility {
 
             e.getPlayer().setVelocity(changed);
 
-            if (SmallPetsCommons.DEBUG)
-                Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "§cDEBUG: dolphin multiplier " + ability.getExtraStat(e.getUser().getSelected().getLevel()));
+            debug("dolphin multiplier " + ability.getExtraStat(e.getUser().getSelected().getLevel()));
 
         }
 

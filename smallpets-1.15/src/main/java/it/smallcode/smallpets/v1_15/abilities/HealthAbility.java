@@ -49,8 +49,7 @@ public class HealthAbility extends StatBoostAbility {
 
                     p.setMaxHealth(maxHealth);
 
-                    if (SmallPetsCommons.DEBUG)
-                        Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "§cDEBUG: petlevelup §7Max Health: " + maxHealth);
+                    debug("petlevelup Max Health: " + maxHealth);
 
                 }
 
@@ -75,8 +74,7 @@ public class HealthAbility extends StatBoostAbility {
 
             p.setMaxHealth(maxHealth);
 
-            if (SmallPetsCommons.DEBUG)
-                Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "§cDEBUG: select §7Max Health: " + maxHealth);
+            debug("select Max Health: " + maxHealth);
 
         }
 
@@ -97,8 +95,7 @@ public class HealthAbility extends StatBoostAbility {
 
             p.setMaxHealth(maxHealth);
 
-            if (SmallPetsCommons.DEBUG)
-                Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "§cDEBUG: deselect §7Max Health: " + maxHealth);
+            debug("deselect Max Health: " + maxHealth);
 
         }
 
@@ -119,9 +116,7 @@ public class HealthAbility extends StatBoostAbility {
 
             p.setMaxHealth(maxHealth);
 
-            if (SmallPetsCommons.DEBUG)
-                Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "§cDEBUG: quit §7Max Health: " + maxHealth);
-
+            debug("quit Max Health: " + maxHealth);
         }
 
     }
@@ -141,8 +136,7 @@ public class HealthAbility extends StatBoostAbility {
 
             p.setMaxHealth(maxHealth);
 
-            if (SmallPetsCommons.DEBUG)
-                Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "§cDEBUG: join §7Max Health: " + maxHealth);
+            debug("join §7Max Health: " + maxHealth);
 
         }
 
@@ -164,8 +158,7 @@ public class HealthAbility extends StatBoostAbility {
 
             p.setMaxHealth(maxHealth);
 
-            if (SmallPetsCommons.DEBUG)
-                Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "§cDEBUG: server shutdown §7Max Health: " + maxHealth);
+            debug("server shutdown §7Max Health: " + maxHealth);
 
         }
 
