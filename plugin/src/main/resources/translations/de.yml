@@ -1,9 +1,9 @@
 translations:
-  noPerms: "Dafür hast du keine Rechte!"
+  noPerms: 'Dafür hast du keine Rechte!'
   petSpawned: 'Dein Haustier wurde beschwört'
   petDespawned: 'Dein Haustier wurde eingepackt'
-  petNotUnlocked: "Haustier wurde noch nicht freigeschalten"
-  notInteger: "Zahl muss eine Ganzzahl sein"
+  petNotUnlocked: 'Haustier wurde noch nicht freigeschalten'
+  notInteger: 'Zahl muss eine Ganzzahl sein'
   experienceSummary: '§fErfahrungspunkte Zusammenfassung'
   levelupText: '&eDein Haustier ist jet Level &6&l%pet_level%&e!'
   nextLevel: '&eDein Haustier braucht noch &6%exp_next_level%&6 xp &eum Level &6%pet_next_level%&e zu erreichen'
@@ -14,9 +14,9 @@ translations:
   givePetReciever: 'Dir wurde das %pet_type% Haustier von %sender% gegeben!'
   removePetSender: 'Das %pet_type% Haustier wurde %player% genommen!'
   removePetReciever: 'Dir wurde das %pet_type% Haustier von %sender% genommen!'
-  playerIsntOnline: "Der Spieler ist nicht online!"
-  userDataNotFound: "Nutzerdaten wurden nicht gefunden!"
-  commandIsOnlyForPlayers: "Dieser Befehl ist nur für Spieler"
+  playerIsntOnline: 'Der Spieler ist nicht online!'
+  userDataNotFound: 'Nutzerdaten wurden nicht gefunden!'
+  commandIsOnlyForPlayers: 'Dieser Befehl ist nur für Spieler'
   reloaded: '%type% wurde neugeladen'
   maxLevel: '&d&kS&d MAX LEVEL &d&kS'
   experienceMultiplier: 'Erfahrungsmultiplikator'
@@ -28,3 +28,38 @@ translations:
     tiger: 'Tiger'
     penguin: 'Pinguin'
     monkey: 'Affe'
+    panda: 'Panda'
+    fish: 'Fisch'
+    skeleton: 'Skelett'
+    silverfish: 'Silberfisch'
+  ability:
+    speed_in_biome_ability:
+      name: 'Natürlicher Lebensraum'
+      description: '&7Lässt dich in den %biomes% &7Biomen schneller laufen'
+    damage_ability:
+      description: '&7Mach &c+%extraStat%%&7 mehr schaden!'
+    faster_mining_speed_ability:
+      name: 'Trainiert'
+      description: '&7Gibt dir einen permanenten &cEile %extraStat% &7Effekt'
+    dont_consume_arrow_ability:
+      description: '&c%extraStat%% &7Chance keine Pfeile zu verbrauchen'
+    unbreakable_bow_ability:
+      description: '&7Dein Bogen bekommt beim benutzen keinen Schaden'
+      name: 'Erfahren'
+    heal_while_in_water_ability:
+      description: '&7Gibt dir einen &cRegeneration %extraStat% &7Effekt während du
+        im Wasser bist'
+      name: 'Natürlicher Lebensraum'
+    health_ability:
+      description: '&7Gibt dir &a+%extraStat%&7 mehr Leben'
+  petType:
+    foraging: 'Holzfäller Haustier'
+    fishing: 'Fischen Haustier'
+    mining: 'Minenarbeiten Haustier'
+    farming: 'Landwirtschafts Haustier'
+    combat: 'Kampf Haustier'
+  convertToItem: '&7Konvertiere zu Gegenstand'
+  savingLanguage: '&7Speichere %language%...'
+  petNameWithoutOwner: '&7[%level%&7] '
+  inventoryFull: '&7Dein Inventar ist voll!'
+  savedLanguage: '&7Gespeichert %language%!'
