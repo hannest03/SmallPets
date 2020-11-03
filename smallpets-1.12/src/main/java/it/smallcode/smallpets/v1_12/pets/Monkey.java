@@ -6,31 +6,30 @@ Class created by SmallCode
 
 */
 
-import com.comphenix.protocol.PacketType;
-import com.comphenix.protocol.ProtocolLibrary;
-import com.comphenix.protocol.ProtocolManager;
-import com.comphenix.protocol.events.PacketContainer;
-import com.comphenix.protocol.wrappers.EnumWrappers;
-import com.comphenix.protocol.wrappers.WrappedDataWatcher;
-import it.smallcode.smallpets.core.languages.LanguageManager;
+import it.smallcode.smallpets.core.pets.Pet;
 import it.smallcode.smallpets.core.pets.PetType;
+import it.smallcode.smallpets.v1_15.abilities.SpeedBoostInBiomeAbility;
 import org.bukkit.*;
+import org.bukkit.block.Biome;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.Arrays;
+import java.util.LinkedList;
 
-public class Monkey extends it.smallcode.smallpets.v1_15.pets.Monkey {
+public class Monkey extends Pet {
 
     public Monkey(String type, Player owner, Long xp, Boolean useProtocolLib) {
 
         super(type, owner, xp, useProtocolLib);
 
         super.setPetType(PetType.foraging);
+
+        this.textureValue = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTNkNGExNTYwM2Y5NTFkZTJlMmFiODBlZWQxNmJiYjVhNTgyM2JmNGFjYjhjNDYzMzQyNWQ1NDIxMGNmMGFkNSJ9fX0=";
+
+        super.abilities.add(new SpeedBoostInBiomeAbility(new LinkedList<>(Arrays.asList(Biome.JUNGLE, Biome.JUNGLE_HILLS)), 0.2D));
 
     }
 

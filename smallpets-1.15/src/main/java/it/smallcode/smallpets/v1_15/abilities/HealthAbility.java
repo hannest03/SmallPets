@@ -30,23 +30,31 @@ public class HealthAbility extends StatBoostAbility {
     @AbilityEventHandler
     public void onLevelUp(PetLevelUpEvent e){
 
-        if(e.getUser().getSelected().hasAbility(getID())) {
+        if(e.getUser().getSelected() != null) {
 
-            StatBoostAbility ability = (StatBoostAbility) e.getUser().getSelected().getAbility(getID());
+            if (e.getPet().getID().equalsIgnoreCase(e.getUser().getSelected().getID())) {
 
-            int level = e.getUser().getSelected().getLevel();
+                if (e.getUser().getSelected().hasAbility(getID())) {
 
-            Player p = e.getUser().getSelected().getOwner();
+                    StatBoostAbility ability = (StatBoostAbility) e.getUser().getSelected().getAbility(getID());
 
-            double maxHealth = p.getMaxHealth();
+                    int level = e.getUser().getSelected().getLevel();
 
-            maxHealth -= (int) ability.getExtraStat(e.getLevelBefore());
-            maxHealth += (int) ability.getExtraStat(level);
+                    Player p = e.getUser().getSelected().getOwner();
 
-            p.setMaxHealth(maxHealth);
+                    double maxHealth = p.getMaxHealth();
 
-            if (SmallPetsCommons.DEBUG)
-                Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "§cDEBUG: petlevelup §7Max Health: " + maxHealth);
+                    maxHealth -= (int) ability.getExtraStat(e.getLevelBefore());
+                    maxHealth += (int) ability.getExtraStat(level);
+
+                    p.setMaxHealth(maxHealth);
+
+                    if (SmallPetsCommons.DEBUG)
+                        Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "§cDEBUG: petlevelup §7Max Health: " + maxHealth);
+
+                }
+
+            }
 
         }
 

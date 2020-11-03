@@ -282,6 +282,8 @@ public class SmallPets extends JavaPlugin {
             SmallPetsCommons.getSmallPetsCommons().setUserManager(new UserManager( useProtocolLib));
             SmallPetsCommons.getSmallPetsCommons().setListenerManager(new ListenerManager1_12(xpMultiplier, useProtocolLib));
 
+            SmallPetsCommons.getSmallPetsCommons().setAbilityManager(new AbilityManager1_12());
+
         }else if(version.startsWith("1_13")){
 
             if(useProtocolLib)
@@ -295,6 +297,8 @@ public class SmallPets extends JavaPlugin {
             SmallPetsCommons.getSmallPetsCommons().setUserManager(new UserManager(useProtocolLib));
             SmallPetsCommons.getSmallPetsCommons().setListenerManager(new ListenerManager1_13(xpMultiplier, useProtocolLib));
 
+            SmallPetsCommons.getSmallPetsCommons().setAbilityManager(new AbilityManager1_13());
+
         }else if(version.startsWith("1_15") || version.startsWith("1_14")){
 
             if(useProtocolLib)
@@ -307,6 +311,7 @@ public class SmallPets extends JavaPlugin {
             SmallPetsCommons.getSmallPetsCommons().setInventoryManager(new InventoryManager1_15(xpMultiplier));
             SmallPetsCommons.getSmallPetsCommons().setUserManager(new UserManager( useProtocolLib));
             SmallPetsCommons.getSmallPetsCommons().setListenerManager(new ListenerManager1_15(xpMultiplier, useProtocolLib));
+
             SmallPetsCommons.getSmallPetsCommons().setAbilityManager(new AbilityManager1_15());
 
         }else if(version.startsWith("1_16")){
@@ -321,6 +326,8 @@ public class SmallPets extends JavaPlugin {
             SmallPetsCommons.getSmallPetsCommons().setInventoryManager(new InventoryManager1_16(xpMultiplier));
             SmallPetsCommons.getSmallPetsCommons().setUserManager(new UserManager( useProtocolLib));
             SmallPetsCommons.getSmallPetsCommons().setListenerManager(new ListenerManager1_16(xpMultiplier, useProtocolLib));
+
+            SmallPetsCommons.getSmallPetsCommons().setAbilityManager(new AbilityManager1_16());
 
         }else{
 

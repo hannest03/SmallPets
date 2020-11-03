@@ -1,15 +1,15 @@
-package it.smallcode.smallpets.v1_15;
+package it.smallcode.smallpets.v1_13;
 /*
 
 Class created by SmallCode
-13.09.2020 17:50
+03.11.2020 18:10
 
 */
 
-import it.smallcode.smallpets.core.manager.AbilityManager;
+import it.smallcode.smallpets.v1_15.AbilityManager1_15;
 import it.smallcode.smallpets.v1_15.abilities.*;
 
-public class AbilityManager1_15 extends AbilityManager {
+public class AbilityManager1_13 extends AbilityManager1_15 {
 
     @Override
     public void registerAbilities() {
@@ -23,5 +23,4 @@ public class AbilityManager1_15 extends AbilityManager {
         registerAbility("heal_while_in_water_ability", HealWhileInWaterAbility.class);
 
     }
-
 }

@@ -7,20 +7,11 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.core.manager.PetMapManager;
+import it.smallcode.smallpets.v1_15.PetMapManager1_15;
 import it.smallcode.smallpets.v1_15.pets.Monkey;
 import it.smallcode.smallpets.v1_15.pets.Penguin;
 import it.smallcode.smallpets.v1_15.pets.Tiger;
 
-public class PetMapManager1_16 extends PetMapManager {
-
-
-    @Override
-    public void registerPets() {
-
-        petMap.put("tiger", Tiger.class);
-        petMap.put("penguin", Penguin.class);
-        petMap.put("monkey", Monkey.class);
-
-    }
+public class PetMapManager1_16 extends PetMapManager1_15 {
 
 }

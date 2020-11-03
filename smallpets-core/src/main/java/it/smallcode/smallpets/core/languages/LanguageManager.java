@@ -109,8 +109,6 @@ public class LanguageManager {
 
                 if (!oldCfg.contains("translations." + key)) {
 
-                    System.out.println("Doesn't contain");
-
                     oldCfg.set("translations." + key, newCfg.get("translations." + key));
 
                 }

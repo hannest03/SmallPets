@@ -15,6 +15,7 @@ import it.smallcode.smallpets.core.manager.types.User;
 import it.smallcode.smallpets.core.pets.Pet;
 import it.smallcode.smallpets.core.utils.StringUtils;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -40,27 +41,33 @@ public class UnbreakableBowAbility extends Ability {
 
             if(user != null && user.getSelected() != null && user.getSelected().hasAbility(getID())){
 
-                if(e.getBow().getItemMeta() != null){
+                preventDurabilityChange(e.getBow());
 
-                    ItemMeta itemMeta = e.getBow().getItemMeta();
+            }
 
-                    if(itemMeta instanceof Damageable) {
+        }
 
-                        if (((Damageable) itemMeta).hasDamage()) {
+    }
 
-                            ((Damageable) itemMeta).setDamage(((Damageable) itemMeta).getDamage() - 1);
+    protected void preventDurabilityChange(ItemStack itemStack){
 
-                        }
+        if(itemStack.getItemMeta() != null){
 
-                        debug("onshoot restored damage");
+            ItemMeta itemMeta = itemStack.getItemMeta();
 
-                    }
+            if(itemMeta instanceof Damageable) {
 
-                    e.getBow().setItemMeta(itemMeta);
+                if (((Damageable) itemMeta).hasDamage()) {
+
+                    ((Damageable) itemMeta).setDamage(((Damageable) itemMeta).getDamage() - 1);
 
                 }
 
+                debug("onshoot restored damage");
+
             }
+
+            itemStack.setItemMeta(itemMeta);
 
         }
 
