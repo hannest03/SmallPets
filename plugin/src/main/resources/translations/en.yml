@@ -59,3 +59,6 @@ translations:
     faster_mining_speed_ability:
       name: 'Trained'
       description: "&7Gives you a permanent &chaste %extraStat% &7effect"
+    heal_while_in_water_ability:
+      name: 'Natural habitat'
+      description: "&7Gives you a &cregeneration %extraStat% &7effect while in water"
