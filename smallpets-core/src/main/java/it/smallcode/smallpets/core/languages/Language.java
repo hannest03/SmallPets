@@ -77,6 +77,34 @@ public class Language {
 
     /**
      *
+     * Saves all the strings in the language file
+     *
+     */
+
+    public void save(){
+
+        FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
+
+        for(String key : translations.keySet()){
+
+            cfg.set(key, translations.get(key));
+
+        }
+
+        try {
+
+            cfg.save(file);
+
+        } catch (IOException ex) {
+
+            ex.printStackTrace();
+
+        }
+
+    }
+
+    /**
+     *
      * Loads a the language file recursively
      *
      * @param keyPre - the key before

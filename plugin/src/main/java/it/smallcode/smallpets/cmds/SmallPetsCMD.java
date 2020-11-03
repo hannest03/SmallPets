@@ -34,6 +34,7 @@ public class SmallPetsCMD implements CommandExecutor {
         subCommands.add(new GiveExperienceSubCMD("giveexp", "smallpets.giveexp"));
         subCommands.add(new SetLevelSubCMD("setlevel", "smallpets.setlevel"));
         subCommands.add(new ReloadSubCMD("reload", "smallpets.reload"));
+        subCommands.add(new SaveLanguagesCMD("savelanguages", "smallpets.savelanguages"));
 
         subCommands.add(new DiscordSubCMD("discord", ""));
         subCommands.add(new DonateSubCMD("donate", ""));
