@@ -27,6 +27,8 @@ translations:
   petNameFormat: "&7[%level%&7] &7%player_name%'s "
   petNameFormatTwoS: "&7[%level%&7] &7%player_name%' "
   petNameWithoutOwner: "&7[%level%&7] "
+  savingLanguage: "&7Saving %language%..."
+  savedLanguage: "&7Saved %language%!"
   pet:
     tiger: 'tiger'
     penguin: 'penguin'
