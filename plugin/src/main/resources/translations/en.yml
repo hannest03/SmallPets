@@ -56,3 +56,6 @@ translations:
     unbreakable_bow_ability:
       name: 'Experienced'
       description: "&7Your bow doesn't get damaged when shooting"
+    faster_mining_speed_ability:
+      name: 'Trained'
+      description: "&7Gives you a permanent &chaste %extraStat% &7effect"

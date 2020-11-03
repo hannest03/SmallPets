@@ -143,6 +143,7 @@ public class HealthAbility extends StatBoostAbility {
     @AbilityEventHandler
     public void onShutdown(ServerShutdownEvent e){
 
+        if(e.getUser() != null && e.getUser().getSelected() != null)
         if(e.getUser().getSelected().hasAbility(getID())) {
 
             StatBoostAbility ability = (StatBoostAbility) e.getUser().getSelected().getAbility(getID());

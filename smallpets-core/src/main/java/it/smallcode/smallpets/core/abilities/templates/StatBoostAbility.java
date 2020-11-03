@@ -53,6 +53,9 @@ public abstract class StatBoostAbility extends Ability {
 
         List<String> lore = new ArrayList<>();
 
+        if(getAbilityType() == AbilityType.ABILITY)
+            lore.add("§6" + SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("ability." + getID() + ".name"));
+
         String description = SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage()
                 .getStringFormatted("ability." + getID() + ".description");
 

@@ -80,6 +80,7 @@ public class SpeedBoostInBiomeAbility extends InBiomeAbility {
     @AbilityEventHandler
     public void onServerShutdown(ServerShutdownEvent e){
 
+        if(e.getUser() != null && e.getUser().getSelected() != null)
         if(e.getUser().getSelected().hasAbility(getID())){
 
             Player p = Bukkit.getPlayer(UUID.fromString(e.getUser().getUuid()));

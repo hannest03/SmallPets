@@ -26,6 +26,7 @@ public class AbilityManager1_15 extends AbilityManager {
         registerAbility("speed_in_biome_ability", SpeedBoostInBiomeAbility.class);
         registerAbility("dont_consume_arrow_ability", DontConsumeArrowAbility.class);
         registerAbility("unbreakable_bow_ability", UnbreakableBowAbility.class);
+        registerAbility("faster_mining_speed_ability", FasterMiningSpeedAbility.class);
 
     }
 
