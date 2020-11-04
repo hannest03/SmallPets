@@ -40,13 +40,13 @@ translations:
     damage_ability:
       description: '&7Deal &c+%extraStat%%&7 più danni!'
     faster_mining_speed_ability:
-      description: '&7Ti dà un &cfretta %extraStat% &7effetto'
+      description: '&7Ti dà un &cfretta &c%extraStat% &7effetto'
       name: Addestrato
     unbreakable_bow_ability:
       description: '&7L'' arco non si danneggia quando si spara'
       name: Esperto
     heal_while_in_water_ability:
-      description: '&7Dà un &cregenerazione %extraStat% &7effetto mentre sei nel acqua'
+      description: '&7Dà un &cregenerazione &c%extraStat% &7effetto mentre sei nel acqua'
       name: Habitat naturale
     health_ability:
       description: '&7Ottenere &a+%extraStat%&7 più salute!'

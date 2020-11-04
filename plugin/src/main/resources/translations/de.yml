@@ -40,14 +40,14 @@ translations:
       description: '&7Mach &c+%extraStat%%&7 mehr schaden!'
     faster_mining_speed_ability:
       name: 'Trainiert'
-      description: '&7Gibt dir einen permanenten &cEile %extraStat% &7Effekt'
+      description: '&7Gibt dir einen permanenten &cEile &c%extraStat% &7Effekt'
     dont_consume_arrow_ability:
       description: '&c%extraStat%% &7Chance keine Pfeile zu verbrauchen'
     unbreakable_bow_ability:
       description: '&7Dein Bogen bekommt beim benutzen keinen Schaden'
       name: 'Erfahren'
     heal_while_in_water_ability:
-      description: '&7Gibt dir einen &cRegeneration %extraStat% &7Effekt während du
+      description: '&7Gibt dir einen &cRegeneration &c%extraStat% &7Effekt während du
         im Wasser bist'
       name: 'Natürlicher Lebensraum'
     health_ability:
