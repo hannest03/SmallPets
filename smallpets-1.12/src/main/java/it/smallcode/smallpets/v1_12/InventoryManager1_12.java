@@ -78,9 +78,9 @@ public class InventoryManager1_12 extends InventoryManager {
 
         stats.setItemMeta(itemMeta);
 
-        inventory.setItem(39, createItem("§6Sort", 154, (short) 0, "§cNot implemented yet"));
+        inventory.setItem(39, createItem(SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("inventory.sort.name"), 154, (short) 0, SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("inventory.sort.description")));
         inventory.setItem(40, stats);
-        inventory.setItem(41, createItem("§6Recipe book", 340, (short) 0, "§cNot implemented yet"));
+        inventory.setItem(41, createItem(SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("inventory.recipebook.name"), 340, (short) 0, SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("inventory.recipebook.description")));
 
         p.openInventory(inventory);
 

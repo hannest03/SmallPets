@@ -68,3 +68,10 @@ translations:
   givePetUnlockItemReciever: "Avete ricevuto il %pet_type% unlock item da %sender%!"
   givePetUnlockItemSender: "Dato il %pet_type% unlock item a %player%!"
   petNotRegistered: "Pet non registrato"
+  inventory:
+    recipebook:
+      description: '&cNon ancora implementato!'
+      name: '&6Ricettario'
+    sort:
+      name: '&6Ordina'
+      description: '&cNon ancora implementato!'
