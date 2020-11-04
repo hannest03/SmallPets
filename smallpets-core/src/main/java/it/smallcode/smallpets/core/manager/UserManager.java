@@ -183,6 +183,27 @@ public class UserManager {
 
             if(SmallPetsCommons.getSmallPetsCommons().getPetMapManager().getPetMap().containsKey(type)){
 
+                Player p = Bukkit.getPlayer(UUID.fromString(uuid));
+
+                if(p == null || !p.isOnline())
+                    return false;
+
+                if(SmallPetsCommons.getSmallPetsCommons().isRequirePermission() && !p.hasPermission("smallpets.allow." + type)) {
+
+                    p.sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("noPerms"));
+
+                    return false;
+
+                }
+
+                if(!SmallPetsCommons.getSmallPetsCommons().isRequirePermission() && (p.hasPermission("smallpets.forbid." + type))) {
+
+                    p.sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("noPerms"));
+
+                    return false;
+
+                }
+
                 if(user.getPetFromType(type) == null) {
 
                     try {
@@ -370,4 +391,5 @@ public class UserManager {
     public ArrayList<User> getUsers() {
         return users;
     }
+
 }

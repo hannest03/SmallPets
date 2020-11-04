@@ -214,6 +214,7 @@ public class SmallPets extends JavaPlugin {
         cfg.addDefault("xpMultiplier", 1D);
         cfg.addDefault("language", "en");
         cfg.addDefault("registerCraftingRecipes", true);
+        cfg.addDefault("requirePermission", false);
 
         getConfig().options().copyDefaults(true);
 
@@ -246,6 +247,8 @@ public class SmallPets extends JavaPlugin {
 
         this.xpMultiplier = cfg.getDouble("xpMultiplier");
         this.registerCraftingRecipes = cfg.getBoolean("registerCraftingRecipes");
+
+        SmallPetsCommons.getSmallPetsCommons().setRequirePermission(cfg.getBoolean("requirePermission"));
 
         if(getInventoryManager() != null){
 

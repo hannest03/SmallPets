@@ -6,6 +6,7 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEvent;
 import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventBus;
 import it.smallcode.smallpets.core.abilities.eventsystem.events.PetDeselectEvent;
@@ -238,7 +239,28 @@ public class User {
      * @param selected - the new selected pet
      */
 
-    public void setSelected(Pet selected) {
+    public boolean setSelected(Pet selected) {
+
+        Player p = Bukkit.getPlayer(UUID.fromString(getUuid()));
+
+        if(p == null || !p.isOnline())
+            return false;
+
+        if(SmallPetsCommons.getSmallPetsCommons().isRequirePermission() && selected != null && !p.hasPermission("smallpets.allow." + selected.getID())) {
+
+            p.sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("noPerms"));
+
+            return false;
+
+        }
+
+        if(!SmallPetsCommons.getSmallPetsCommons().isRequirePermission() && selected != null && p.hasPermission("smallpets.forbid." + selected.getID())) {
+
+            p.sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("noPerms"));
+
+            return false;
+
+        }
 
         despawnSelected();
 
@@ -259,6 +281,8 @@ public class User {
         }
 
         spawnSelected();
+
+        return true;
 
     }
 

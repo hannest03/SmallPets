@@ -52,15 +52,19 @@ public class InventoryClickListener implements Listener {
 
                                 if (user.getSelected() != null && user.getSelected().getID().equals(type)) {
 
-                                    user.setSelected(null);
+                                    if(user.setSelected(null)) {
 
-                                    e.getWhoClicked().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + languageManager.getLanguage().getStringFormatted("petDespawned"));
+                                        e.getWhoClicked().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + languageManager.getLanguage().getStringFormatted("petDespawned"));
+
+                                    }
 
                                 } else {
 
-                                    user.setSelected(user.getPetFromType(type));
+                                    if (user.setSelected(user.getPetFromType(type))) {
 
-                                    e.getWhoClicked().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + languageManager.getLanguage().getStringFormatted("petSpawned"));
+                                        e.getWhoClicked().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + languageManager.getLanguage().getStringFormatted("petSpawned"));
+
+                                    }
 
                                 }
 

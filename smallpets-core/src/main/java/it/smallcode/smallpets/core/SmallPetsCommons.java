@@ -29,6 +29,8 @@ public class SmallPetsCommons {
 
     private String prefix;
 
+    private boolean requirePermission;
+
     private PetMapManager petMapManager;
 
     private UserManager userManager;
@@ -153,5 +155,13 @@ public class SmallPetsCommons {
 
     public void setSkullCreator(SkullCreator skullCreator) {
         this.skullCreator = skullCreator;
+    }
+
+    public boolean isRequirePermission() {
+        return requirePermission;
+    }
+
+    public void setRequirePermission(boolean requirePermission) {
+        this.requirePermission = requirePermission;
     }
 }

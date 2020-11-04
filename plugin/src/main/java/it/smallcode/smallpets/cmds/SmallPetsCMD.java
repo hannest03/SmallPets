@@ -52,7 +52,7 @@ public class SmallPetsCMD implements CommandExecutor {
 
                 Player p = (Player) s;
 
-                if(p.hasPermission("smallpets.useInventory")) {
+                if(!p.hasPermission("smallpets.dontUseInventory") || p.isOp()) {
 
                     User user = SmallPets.getInstance().getUserManager().getUser(p.getUniqueId().toString());
 
