@@ -23,7 +23,7 @@ public class Panda extends it.smallcode.smallpets.v1_15.pets.Panda {
     @Override
     public void registerRecipe(Plugin plugin) {
 
-        ItemStack item = getUnlockItem(plugin);
+        ItemStack item = getUnlockItem();
 
         NamespacedKey key = new NamespacedKey(plugin, "pet_" + getID());
 

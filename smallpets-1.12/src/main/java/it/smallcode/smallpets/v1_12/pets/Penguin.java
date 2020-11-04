@@ -31,7 +31,7 @@ public class Penguin extends it.smallcode.smallpets.v1_15.pets.Penguin {
     @Override
     public void registerRecipe(Plugin plugin) {
 
-        ItemStack item = getUnlockItem(plugin);
+        ItemStack item = getUnlockItem();
 
         NamespacedKey key = new NamespacedKey(plugin, "pet_penguin");
 

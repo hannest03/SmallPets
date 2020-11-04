@@ -778,7 +778,7 @@ public class Pet {
 
     }
 
-    public ItemStack getUnlockItem(Plugin plugin) {
+    public ItemStack getUnlockItem() {
 
         ItemStack item = getDisplayItem();
 

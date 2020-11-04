@@ -30,6 +30,7 @@ public class SmallPetsCMD implements CommandExecutor {
 
         subCommands.add(new PetTypesSubCMD("pettypes", "smallpets.pettypes"));
         subCommands.add(new GivePetSubCMD("givepet", "smallpets.givepet"));
+        subCommands.add(new GiveUnlockItemSubCMD("giveunlockitem", "smallpets.giveunlockitem"));
         subCommands.add(new RemovePetSubCMD("removePet", "smallpets.removepet"));
         subCommands.add(new GiveExperienceSubCMD("giveexp", "smallpets.giveexp"));
         subCommands.add(new SetLevelSubCMD("setlevel", "smallpets.setlevel"));

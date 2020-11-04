@@ -23,7 +23,7 @@ public class Fish extends it.smallcode.smallpets.v1_15.pets.Fish {
     @Override
     public void registerRecipe(Plugin plugin) {
 
-        ItemStack item = getUnlockItem(plugin);
+        ItemStack item = getUnlockItem();
 
         NamespacedKey key = new NamespacedKey(plugin, "pet_" + getID());
 

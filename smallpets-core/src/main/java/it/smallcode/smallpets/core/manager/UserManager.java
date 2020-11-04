@@ -225,6 +225,54 @@ public class UserManager {
 
     /**
      *
+     * Gives the player a unlock item
+     *
+     * @param type - the type of the pet
+     * @param p - the player
+     * @param exp - the amount of exp the pet has
+     * @return the boolean is true if the unlock item was successfully given to the player,<br> if there was an error false will be returned
+     */
+    public boolean giveUserUnlockPetItem(String type, Player p, Long exp){
+
+        if(SmallPetsCommons.getSmallPetsCommons().getPetMapManager().getPetMap().containsKey(type)){
+
+            try {
+
+                Constructor constructor = SmallPetsCommons.getSmallPetsCommons().getPetMapManager().getPetMap().get(type).getConstructor(String.class, Player.class, Long.class, Boolean.class);
+
+                Pet pet = (Pet) constructor.newInstance(type, p, exp, useProtocolLib);
+
+                p.getInventory().addItem(pet.getUnlockItem());
+
+                return true;
+
+            } catch (NoSuchMethodException ex) {
+
+                ex.printStackTrace();
+
+            } catch (IllegalAccessException ex) {
+
+                ex.printStackTrace();
+
+            } catch (InstantiationException ex) {
+
+                ex.printStackTrace();
+
+            } catch (InvocationTargetException ex) {
+
+                ex.printStackTrace();
+
+            }
+
+        }else
+            throw new IllegalArgumentException("Pet id isn't registered");
+
+        return false;
+
+    }
+
+    /**
+     *
      * Removes a player a pet
      *
      * @param type - the type of the pet

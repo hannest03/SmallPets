@@ -42,7 +42,7 @@ public class Tiger extends Pet {
     @Override
     public void registerRecipe(Plugin plugin) {
 
-        ItemStack item = getUnlockItem(plugin);
+        ItemStack item = getUnlockItem();
 
         NamespacedKey key = new NamespacedKey(plugin, "pet_" + getID());
 

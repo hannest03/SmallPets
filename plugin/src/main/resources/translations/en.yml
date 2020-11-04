@@ -5,6 +5,7 @@ translations:
   petSpawned: 'Your pet was summoned'
   petDespawned: 'Your pet was despawned'
   petNotUnlocked: "Pet not unlocked"
+  petNotRegistered: "Pet not registered"
   notInteger: "Number must be a integer"
   experienceSummary: '§fExperience Summary'
   levelupText: '&eYour pet is now level &6&l%pet_level%&e!'
@@ -12,6 +13,8 @@ translations:
   petUnlock: 'Unlocked %pet_type% pet!'
   clickToSelect: '&6CLICK TO SELECT'
   clickToDeselect: '&cCLICK TO DESELECT'
+  givePetUnlockItemSender: 'Gave the %pet_type% unlock item to %player%!'
+  givePetUnlockItemReciever: 'You received the %pet_type% unlock item from %sender%!'
   givePetSender: 'Gave the %pet_type% pet to %player%!'
   givePetReciever: 'You received the %pet_type% pet from %sender%!'
   removePetSender: 'The %pet_type% pet was taken from %player%!'

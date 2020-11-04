@@ -65,3 +65,6 @@ translations:
   petNameWithoutOwner: '&7[%level%&7] '
   inventoryFull: '&7Il vostro inventario è pieno'
   savedLanguage: '&7Salvato %language%!'
+  givePetUnlockItemReciever: "Avete ricevuto il %pet_type% unlock item da %sender%!"
+  givePetUnlockItemSender: "Dato il %pet_type% unlock item a %player%!"
+  petNotRegistered: "Pet non registrato"

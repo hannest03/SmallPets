@@ -81,7 +81,7 @@ public class InventoryClickListener implements Listener {
                                             }
                                         }
 
-                                        ItemStack petItem = user.getPetFromType(type).getUnlockItem(SmallPetsCommons.getSmallPetsCommons().getJavaPlugin());
+                                        ItemStack petItem = user.getPetFromType(type).getUnlockItem();
 
                                         userManager.removeUserPet(type, p.getUniqueId().toString());
 
