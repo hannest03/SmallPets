@@ -8,8 +8,9 @@ Class created by SmallCode
 
 import it.smallcode.smallpets.core.pets.Pet;
 import it.smallcode.smallpets.core.pets.PetType;
-import it.smallcode.smallpets.v1_15.abilities.DamageAbility;
-import it.smallcode.smallpets.v1_15.abilities.HealthAbility;
+import it.smallcode.smallpets.v1_15.abilities.aureliumskills.AureliumSkillsHealthAbility;
+import it.smallcode.smallpets.v1_15.abilities.standard.DamageAbility;
+import it.smallcode.smallpets.v1_15.abilities.standard.HealthAbility;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -17,6 +18,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.plugin.Plugin;
+
+import java.util.Objects;
 
 public class Panda extends Pet {
 
@@ -27,7 +30,16 @@ public class Panda extends Pet {
 
         super.setPetType(PetType.farming);
 
-        super.abilities.add(new HealthAbility(4));
+        if(Bukkit.getPluginManager().getPlugin("AureliumSkills") != null && Bukkit.getPluginManager().getPlugin("AureliumSkills").isEnabled()) {
+
+            super.abilities.add(new AureliumSkillsHealthAbility(4));
+
+        }else{
+
+            super.abilities.add(new HealthAbility(4));
+
+        }
+
         super.abilities.add(new DamageAbility(5, 1));
 
         super.textureValue = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZGNhMDk2ZWVhNTA2MzAxYmVhNmQ0YjE3ZWUxNjA1NjI1YTZmNTA4MmM3MWY3NGE2MzljYzk0MDQzOWY0NzE2NiJ9fX0=";

@@ -1,4 +1,4 @@
-package it.smallcode.smallpets.v1_15.abilities;
+package it.smallcode.smallpets.v1_15.abilities.standard;
 /*
 
 Class created by SmallCode

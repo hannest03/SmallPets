@@ -8,8 +8,8 @@ Class created by SmallCode
 
 import it.smallcode.smallpets.core.pets.Pet;
 import it.smallcode.smallpets.core.pets.PetType;
-import it.smallcode.smallpets.v1_15.abilities.DontConsumeArrowAbility;
-import it.smallcode.smallpets.v1_15.abilities.UnbreakableBowAbility;
+import it.smallcode.smallpets.v1_15.abilities.standard.DontConsumeArrowAbility;
+import it.smallcode.smallpets.v1_15.abilities.standard.UnbreakableBowAbility;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;

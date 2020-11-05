@@ -8,7 +8,7 @@ Class created by SmallCode
 
 import it.smallcode.smallpets.core.pets.Pet;
 import it.smallcode.smallpets.core.pets.PetType;
-import it.smallcode.smallpets.v1_15.abilities.HealWhileInWaterAbility;
+import it.smallcode.smallpets.v1_15.abilities.standard.HealWhileInWaterAbility;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;

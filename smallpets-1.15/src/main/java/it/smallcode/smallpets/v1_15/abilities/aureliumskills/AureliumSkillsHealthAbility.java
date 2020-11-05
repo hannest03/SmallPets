@@ -1,11 +1,13 @@
-package it.smallcode.smallpets.v1_15.abilities;
+package it.smallcode.smallpets.v1_15.abilities.aureliumskills;
 /*
 
 Class created by SmallCode
-12.10.2020 09:22
+05.11.2020 17:02
 
 */
 
+import com.archyx.aureliumskills.api.AureliumAPI;
+import com.archyx.aureliumskills.stats.Stat;
 import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventHandler;
 import it.smallcode.smallpets.core.abilities.eventsystem.events.*;
@@ -13,17 +15,17 @@ import it.smallcode.smallpets.core.abilities.templates.StatBoostAbility;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-public class HealthAbility extends StatBoostAbility {
+public class AureliumSkillsHealthAbility extends StatBoostAbility {
 
-    public HealthAbility(){
+    public AureliumSkillsHealthAbility(){
         this(0);
     }
 
-    public HealthAbility(double maxExtraStat) {
+    public AureliumSkillsHealthAbility(double maxExtraStat) {
         this(maxExtraStat, 0);
     }
 
-    public HealthAbility(double maxExtraStat, double minExtraStat) {
+    public AureliumSkillsHealthAbility(double maxExtraStat, double minExtraStat) {
         super(maxExtraStat, minExtraStat, NumberDisplayType.INTEGER);
     }
 
@@ -42,14 +44,13 @@ public class HealthAbility extends StatBoostAbility {
 
                     Player p = e.getUser().getSelected().getOwner();
 
-                    double maxHealth = p.getMaxHealth();
+                    removeStatModifier(p);
 
-                    maxHealth -= (int) ability.getExtraStat(e.getLevelBefore());
-                    maxHealth += (int) ability.getExtraStat(level);
+                    int modifier = (int) ability.getExtraStat(e.getPet().getLevel());
 
-                    p.setMaxHealth(maxHealth);
+                    addStatModifier(p, modifier);
 
-                    debug("petlevelup Max Health: " + maxHealth);
+                    debug("petlevelup add modifier " + modifier);
 
                 }
 
@@ -68,13 +69,11 @@ public class HealthAbility extends StatBoostAbility {
 
             Player p = e.getOwner();
 
-            double maxHealth = p.getMaxHealth();
+            int modifier = (int) ability.getExtraStat(e.getPet().getLevel());
 
-            maxHealth += (int) ability.getExtraStat(e.getPet().getLevel());
+            addStatModifier(p, modifier);
 
-            p.setMaxHealth(maxHealth);
-
-            debug("select Max Health: " + maxHealth);
+            debug("select modifier: " + modifier);
 
         }
 
@@ -89,13 +88,9 @@ public class HealthAbility extends StatBoostAbility {
 
             Player p = e.getOwner();
 
-            double maxHealth = p.getMaxHealth();
+            removeStatModifier(p);
 
-            maxHealth -= (int) ability.getExtraStat(e.getPet().getLevel());
-
-            p.setMaxHealth(maxHealth);
-
-            debug("deselect Max Health: " + maxHealth);
+            debug("deselect remove modifier");
 
         }
 
@@ -110,13 +105,9 @@ public class HealthAbility extends StatBoostAbility {
 
             Player p = e.getUser().getSelected().getOwner();
 
-            double maxHealth = p.getMaxHealth();
+            removeStatModifier(p);
 
-            maxHealth -= (int) ability.getExtraStat(e.getUser().getSelected().getLevel());
-
-            p.setMaxHealth(maxHealth);
-
-            debug("quit Max Health: " + maxHealth);
+            debug("quit remove modifier");
         }
 
     }
@@ -130,13 +121,11 @@ public class HealthAbility extends StatBoostAbility {
 
             Player p = e.getUser().getSelected().getOwner();
 
-            double maxHealth = p.getMaxHealth();
+            int modifier = (int) ability.getExtraStat(e.getUser().getSelected().getLevel());
 
-            maxHealth += (int) ability.getExtraStat(e.getUser().getSelected().getLevel());
+            addStatModifier(p, modifier);
 
-            p.setMaxHealth(maxHealth);
-
-            debug("join §7Max Health: " + maxHealth);
+            debug("join add modifier: " + modifier);
 
         }
 
@@ -146,19 +135,35 @@ public class HealthAbility extends StatBoostAbility {
     public void onShutdown(ServerShutdownEvent e){
 
         if(e.getUser() != null && e.getUser().getSelected() != null)
-        if(e.getUser().getSelected().hasAbility(getID())) {
+            if(e.getUser().getSelected().hasAbility(getID())) {
 
-            StatBoostAbility ability = (StatBoostAbility) e.getUser().getSelected().getAbility(getID());
+                StatBoostAbility ability = (StatBoostAbility) e.getUser().getSelected().getAbility(getID());
 
-            Player p = e.getUser().getSelected().getOwner();
+                Player p = e.getUser().getSelected().getOwner();
 
-            double maxHealth = p.getMaxHealth();
+                removeStatModifier(p);
 
-            maxHealth -= (int) ability.getExtraStat(e.getUser().getSelected().getLevel());
+                debug("server shutdown remove modifier");
 
-            p.setMaxHealth(maxHealth);
+            }
 
-            debug("server shutdown §7Max Health: " + maxHealth);
+    }
+
+    public void addStatModifier(Player p, int value){
+
+        if(!AureliumAPI.addStatModifier(p, getID(), Stat.HEALTH, value)){
+
+            Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "§cERROR AureliumSkills add Health Modifier");
+
+        }
+
+    }
+
+    public void removeStatModifier(Player p){
+
+        if(!AureliumAPI.removeStatModifier(p, getID())){
+
+            Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "§cERROR AureliumSkills remove Health Modifier");
 
         }
 

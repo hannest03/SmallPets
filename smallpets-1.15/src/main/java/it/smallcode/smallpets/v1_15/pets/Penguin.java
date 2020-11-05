@@ -6,10 +6,10 @@ Class created by SmallCode
 
 */
 
-import it.smallcode.smallpets.core.languages.LanguageManager;
 import it.smallcode.smallpets.core.pets.Pet;
 import it.smallcode.smallpets.core.pets.PetType;
-import it.smallcode.smallpets.v1_15.abilities.HealthAbility;
+import it.smallcode.smallpets.v1_15.abilities.aureliumskills.AureliumSkillsHealthAbility;
+import it.smallcode.smallpets.v1_15.abilities.standard.HealthAbility;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -29,7 +29,15 @@ public class Penguin extends Pet {
 
         super.setParticle(Particle.WATER_BUBBLE);
 
-        super.abilities.add(new HealthAbility(10, 2));
+        if(Bukkit.getPluginManager().getPlugin("AureliumSkills") != null && Bukkit.getPluginManager().getPlugin("AureliumSkills").isEnabled()) {
+
+            super.abilities.add(new AureliumSkillsHealthAbility(10, 2));
+
+        }else{
+
+            super.abilities.add(new HealthAbility(10, 2));
+
+        }
 
         this.textureValue = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvM2MwZDE2MTA3OTU2ZDc4NTNhMWJlMzE1NDljNDZhMmZmMjBiNDUxZDYzNjA3NTI4ZDVlMTk1YzQ0NTllMWZhMSJ9fX0=";
 

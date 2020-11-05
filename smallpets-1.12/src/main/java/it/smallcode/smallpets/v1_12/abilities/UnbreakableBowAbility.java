@@ -8,7 +8,7 @@ Class created by SmallCode
 
 import org.bukkit.inventory.ItemStack;
 
-public class UnbreakableBowAbility extends it.smallcode.smallpets.v1_15.abilities.UnbreakableBowAbility {
+public class UnbreakableBowAbility extends it.smallcode.smallpets.v1_15.abilities.standard.UnbreakableBowAbility {
 
     @Override
     protected void preventDurabilityChange(ItemStack itemStack) {

@@ -8,7 +8,11 @@ Class created by SmallCode
 
 import it.smallcode.smallpets.v1_12.abilities.UnbreakableBowAbility;
 import it.smallcode.smallpets.v1_15.AbilityManager1_15;
-import it.smallcode.smallpets.v1_15.abilities.*;
+import it.smallcode.smallpets.v1_15.abilities.aureliumskills.AureliumSkillsHealthAbility;
+import it.smallcode.smallpets.v1_15.abilities.standard.*;
+import org.bukkit.Bukkit;
+
+import java.util.Objects;
 
 public class AbilityManager1_12 extends AbilityManager1_15 {
 
@@ -22,6 +26,12 @@ public class AbilityManager1_12 extends AbilityManager1_15 {
         registerAbility("unbreakable_bow_ability", UnbreakableBowAbility.class);
         registerAbility("faster_mining_speed_ability", FasterMiningSpeedAbility.class);
         registerAbility("heal_while_in_water_ability", HealWhileInWaterAbility.class);
+
+        if(Bukkit.getPluginManager().getPlugin("AureliumSkills") != null && Bukkit.getPluginManager().getPlugin("AureliumSkills").isEnabled()){
+
+            registerAbility("aurelium_skills_health_ability", AureliumSkillsHealthAbility.class);
+
+        }
 
     }
 }

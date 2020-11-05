@@ -7,7 +7,7 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.v1_15.AbilityManager1_15;
-import it.smallcode.smallpets.v1_15.abilities.*;
+import it.smallcode.smallpets.v1_15.abilities.standard.*;
 
 public class AbilityManager1_13 extends AbilityManager1_15 {
 

@@ -55,6 +55,8 @@ translations:
       name: 'Natürlicher Lebensraum'
     health_ability:
       description: '&7Gibt dir &a+%extraStat%&7 mehr Leben'
+    aurelium_skills_health_ability:
+      description: '&7Gibt dir &a+%extraStat%&7 mehr Leben'
   petType:
     foraging: 'Holzfäller Haustier'
     fishing: 'Fischen Haustier'

@@ -50,6 +50,8 @@ translations:
       name: Habitat naturale
     health_ability:
       description: '&7Ottenere &a+%extraStat%&7 più salute!'
+    aurelium_skills_health_ability:
+      description: '&7Ottenere &a+%extraStat%&7 più salute!'
     water_speed_ability:
       description: '&7Cammina &a+%extraStat%%&7 più veloce in acqua!'
     dont_consume_arrow_ability:

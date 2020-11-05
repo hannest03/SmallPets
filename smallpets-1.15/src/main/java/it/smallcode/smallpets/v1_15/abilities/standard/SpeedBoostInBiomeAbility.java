@@ -1,4 +1,4 @@
-package it.smallcode.smallpets.v1_15.abilities;
+package it.smallcode.smallpets.v1_15.abilities.standard;
 /*
 
 Class created by SmallCode
@@ -6,11 +6,9 @@ Class created by SmallCode
 
 */
 
-import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventHandler;
 import it.smallcode.smallpets.core.abilities.eventsystem.events.*;
 import it.smallcode.smallpets.core.abilities.templates.InBiomeAbility;
-import it.smallcode.smallpets.core.abilities.templates.StatBoostAbility;
 import org.bukkit.Bukkit;
 import org.bukkit.block.Biome;
 import org.bukkit.entity.Player;

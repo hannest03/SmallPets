@@ -7,14 +7,8 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.v1_12.abilities.UnbreakableBowAbility;
-import it.smallcode.smallpets.v1_15.abilities.DontConsumeArrowAbility;
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
+import it.smallcode.smallpets.v1_15.abilities.standard.DontConsumeArrowAbility;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.ShapedRecipe;
-import org.bukkit.plugin.Plugin;
 
 public class Skeleton extends it.smallcode.smallpets.v1_15.pets.Skeleton {
 

@@ -42,6 +42,13 @@
         </dependency>
 
         <dependency>
+            <groupId>archyx</groupId>
+            <artifactId>aureliumskills</artifactId>
+            <version>LATEST</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
             <groupId>it.smallcode</groupId>
             <artifactId>smallpets-core</artifactId>
             <version>core</version>
