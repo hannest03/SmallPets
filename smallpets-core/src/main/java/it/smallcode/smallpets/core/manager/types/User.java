@@ -254,7 +254,7 @@ public class User {
 
         }
 
-        if(!SmallPetsCommons.getSmallPetsCommons().isRequirePermission() && selected != null && p.hasPermission("smallpets.forbid." + selected.getID())) {
+        if(!SmallPetsCommons.getSmallPetsCommons().isRequirePermission() && selected != null && (p.hasPermission("smallpets.forbid." + selected.getID()) && !p.isOp())) {
 
             p.sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("noPerms"));
 
