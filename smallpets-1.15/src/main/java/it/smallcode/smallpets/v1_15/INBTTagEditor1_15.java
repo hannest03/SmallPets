@@ -45,9 +45,23 @@ public class INBTTagEditor1_15 implements INBTTagEditor {
     @Override
     public boolean hasNBTTag(ItemStack itemStack, String key) {
 
-        ItemMeta itemMeta = itemStack.getItemMeta();
+        if(itemStack.hasItemMeta()){
 
-        return itemMeta.getPersistentDataContainer().has(new NamespacedKey(SmallPetsCommons.getSmallPetsCommons().getJavaPlugin(), key), PersistentDataType.STRING);
+            ItemMeta itemMeta = itemStack.getItemMeta();
+
+            if(itemMeta != null){
+
+                if(itemMeta.getPersistentDataContainer() != null){
+
+                    return itemMeta.getPersistentDataContainer().has(new NamespacedKey(SmallPetsCommons.getSmallPetsCommons().getJavaPlugin(), key), PersistentDataType.STRING);
+
+                }
+
+            }
+
+        }
+
+        return false;
 
     }
 }
