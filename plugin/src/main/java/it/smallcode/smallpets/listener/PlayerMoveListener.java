@@ -16,6 +16,7 @@ import org.bukkit.Material;
 import org.bukkit.block.Biome;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 
@@ -28,7 +29,7 @@ public class PlayerMoveListener implements Listener {
 
     private HashMap<Player, Biome> biomeHashMap = new HashMap<>();
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onMove(PlayerMoveEvent e){
 
         Player p = e.getPlayer();
@@ -39,55 +40,59 @@ public class PlayerMoveListener implements Listener {
 
             if (user.getSelected() != null) {
 
-                if(p.getLocation().getBlock().getType() == Material.WATER){
+                if (!e.isCancelled()) {
 
-                    InWaterMoveEvent inWaterMoveEvent = new InWaterMoveEvent(user, p, e.getFrom(), e.getTo());
-                    inWaterMoveEvent.setCancelled(e.isCancelled());
+                    if (p.getLocation().getBlock().getType() == Material.WATER) {
 
-                    AbilityEventBus.post(inWaterMoveEvent);
+                        InWaterMoveEvent inWaterMoveEvent = new InWaterMoveEvent(user, p, e.getFrom(), e.getTo());
+                        inWaterMoveEvent.setCancelled(e.isCancelled());
 
-                    e.setCancelled(inWaterMoveEvent.isCancelled());
-                    e.setTo(inWaterMoveEvent.getTo());
+                        AbilityEventBus.post(inWaterMoveEvent);
 
-                    if(!inWater.contains(e.getPlayer())){
+                        e.setCancelled(inWaterMoveEvent.isCancelled());
+                        e.setTo(inWaterMoveEvent.getTo());
 
-                        inWater.add(e.getPlayer());
+                        if (!inWater.contains(e.getPlayer())) {
 
-                        EnterWaterEvent enterWaterEvent = new EnterWaterEvent(user, p.getPlayer());
-                        AbilityEventBus.post(enterWaterEvent);
+                            inWater.add(e.getPlayer());
+
+                            EnterWaterEvent enterWaterEvent = new EnterWaterEvent(user, p.getPlayer());
+                            AbilityEventBus.post(enterWaterEvent);
+
+                        }
+
+                    } else {
+
+                        if (inWater.contains(e.getPlayer())) {
+
+                            inWater.remove(e.getPlayer());
+
+                            ExitWaterEvent exitWaterEvent = new ExitWaterEvent(user, p.getPlayer());
+                            AbilityEventBus.post(exitWaterEvent);
+
+                        }
 
                     }
 
-                }else{
+                    if (!biomeHashMap.containsKey(e.getPlayer())) {
 
-                    if(inWater.contains(e.getPlayer())){
+                        biomeHashMap.put(e.getPlayer(), e.getTo().getBlock().getBiome());
 
-                        inWater.remove(e.getPlayer());
-
-                        ExitWaterEvent exitWaterEvent = new ExitWaterEvent(user, p.getPlayer());
-                        AbilityEventBus.post(exitWaterEvent);
+                        EnterBiomeEvent enterBiomeEvent = new EnterBiomeEvent(user, e.getPlayer(), e.getTo().getBlock().getBiome());
+                        AbilityEventBus.post(enterBiomeEvent);
 
                     }
 
-                }
 
-                if(!biomeHashMap.containsKey(e.getPlayer())){
-
-                    biomeHashMap.put(e.getPlayer(), e.getTo().getBlock().getBiome());
+                    ExitBiomeEvent exitBiomeEvent = new ExitBiomeEvent(user, e.getPlayer(), e.getFrom().getBlock().getBiome());
+                    AbilityEventBus.post(exitBiomeEvent);
 
                     EnterBiomeEvent enterBiomeEvent = new EnterBiomeEvent(user, e.getPlayer(), e.getTo().getBlock().getBiome());
                     AbilityEventBus.post(enterBiomeEvent);
 
+                    biomeHashMap.put(e.getPlayer(), e.getTo().getBlock().getBiome());
+
                 }
-
-
-                ExitBiomeEvent exitBiomeEvent = new ExitBiomeEvent(user, e.getPlayer(), e.getFrom().getBlock().getBiome());
-                AbilityEventBus.post(exitBiomeEvent);
-
-                EnterBiomeEvent enterBiomeEvent = new EnterBiomeEvent(user, e.getPlayer(), e.getTo().getBlock().getBiome());
-                AbilityEventBus.post(enterBiomeEvent);
-
-                biomeHashMap.put(e.getPlayer(), e.getTo().getBlock().getBiome());
 
             }
 

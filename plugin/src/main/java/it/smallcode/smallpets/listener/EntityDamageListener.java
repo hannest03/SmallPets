@@ -6,19 +6,19 @@ Class created by SmallCode
 
 */
 
-import it.smallcode.smallpets.SmallPets;
 import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventBus;
 import it.smallcode.smallpets.core.abilities.eventsystem.events.DamageEvent;
 import it.smallcode.smallpets.core.manager.types.User;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 public class EntityDamageListener implements Listener {
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onDamage(EntityDamageByEntityEvent e){
 
         if(e.getDamager() instanceof Player){
@@ -31,13 +31,17 @@ public class EntityDamageListener implements Listener {
 
                 if(user.getSelected() != null){
 
-                    DamageEvent damageEvent = new DamageEvent(user, e.getEntity(), e.getDamage());
-                    damageEvent.setCancelled(e.isCancelled());
+                    if(!e.isCancelled()) {
 
-                    AbilityEventBus.post(damageEvent);
+                        DamageEvent damageEvent = new DamageEvent(user, e.getEntity(), e.getDamage());
+                        damageEvent.setCancelled(e.isCancelled());
 
-                    e.setDamage(damageEvent.getDamage());
-                    e.setCancelled(damageEvent.isCancelled());
+                        AbilityEventBus.post(damageEvent);
+
+                        e.setDamage(damageEvent.getDamage());
+                        e.setCancelled(damageEvent.isCancelled());
+
+                    }
 
                 }
 

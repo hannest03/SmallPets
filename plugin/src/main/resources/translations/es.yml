@@ -1,30 +1,78 @@
 translations:
-  petSpawned: 'Tu mascota fue convocada'
-  petDespawned: 'Tu mascota ha desaparecido'
-  experienceSummary: '&fResumen de la Experiencia'
+  noPerms: No tenes permiso para hacer eso!
+  convertToItem: '&7Convertir a item'
+  inventoryFull: '&7Tu inventario esta lleno'
+  petSpawned: Tu mascota apareció
+  petDespawned: Tu mascota desapareció
+  petNotUnlocked: Mascota no desbloqueada
+  petNotRegistered: Mascota no registrada
+  notInteger: El numero debe ser un integer
+  experienceSummary: §fTotal de experiencia
   levelupText: '&eTu mascota ahora es nivel &6&l%pet_level%&e!'
-  nextLevel: '&eTu mascota necesita &6%exp_next_level%&6 xp &epara alcanzar el nivel &6%pet_next_level%&e'
-  petUnlock: 'Desbloqueaste la mascota %pet_type%!'
+  nextLevel: '&eTu mascota necesita &6%exp_next_level%&6 &ede experiencia para llegar al nivel &6%pet_next_level%&e'
+  petUnlock: Desbloqueaste la mascota %pet_type%!
   clickToSelect: '&6CLICK PARA SELECCIONAR'
   clickToDeselect: '&cCLICK PARA DESELECCIONAR'
-  givePetSender: 'Dar mascota %pet_type% a %player%!'
-  givePetReciever: 'Has recivido la mascota %pet_type% de %sender%!'
-  removePetSender: 'la mascota %pet_type% fue tomada de %player%!'
-  removePetReciever: 'Tu mascota %pet_type% fue tomada por %sender%!'
-  playerIsntOnline: 'El jugador no esta en linea!'
-  userDataNotFound: 'Tu data de usuario no pudo ser encontrada!'
-  commandIsOnlyForPlayers: 'Este comando es solo para jugadores'
-  reloaded: 'Recargado %type%'
-  maxLevel: '&d&kS&d NIVEL MÁXIMO &d&kS'
-  experienceMultiplier: 'Multiplicador de EXP'
-  stats: 'Stats'
-  experienceBooster: 'Booster de EXP'
-  petNameFormat: '&8[%level%&8] &7%player_name%''s '
-  petNameFormatTwoS: '&8[%level%&8] &7%player_name%'' '
+  givePetUnlockItemSender: Se le dio el item de desbloqueo de la mascota %pet_type% al jugador %player%!
+  givePetUnlockItemReciever: Recibiste un item de desbloqueo de %pet_type% de %sender%!
+  givePetSender: Se le dio la mascota %pet_type% al jugador %player%!
+  givePetReciever: Recibiste la mascota %pet_type% de %sender%!
+  removePetSender: La mascota %pet_type% fue tomada de %player%!
+  removePetReciever: Tu mascota %pet_type% fue tomada por %sender%!
+  playerIsntOnline: El jugador no esta conectado!
+  userDataNotFound: No se encontraron datos del jugador!
+  commandIsOnlyForPlayers: Este comando solo es para jugadores
+  reloaded: Se recargo %type%
+  maxLevel: '&d&kS&d MAXIMO NIVEL &d&kS'
+  experienceMultiplier: Multiplicador De Experiencia
+  stats: Estadisticas
+  experienceBooster: Aumentador De Experiencia
+  petNameFormat: '&7[%level%&7] &7%player_name% '
+  petNameFormatTwoS: '&7[%level%&7] &7%player_name% '
+  petNameWithoutOwner: '&7[%level%&7] '
+  savingLanguage: '&7Guardando %language%...'
+  savedLanguage: '&7Guardado %language%!'
   pet:
-    tiger: 'tiger'
-    penguin: 'penguin'
-    monkey: 'monkey'
-  noPerms: 'No tienes permiso para hacer eso!'
-  petNotUnlocked: 'Mascota no desbloqueada'
-  notInteger: 'El número debe ser un número entero'
+    tiger: tigre
+    penguin: pinguino
+    monkey: mono
+    skeleton: esqueleto
+    panda: panda
+    fish: pez
+    silverfish: pez de plata
+  petType:
+    combat: Mascota de combate
+    mining: Mascota de mineria
+    farming: Mascota de granja
+    fishing: Mascota de pesca
+    foraging: Mascota forrajera
+  ability:
+    damage_ability:
+      description: '&7Causa &c+%extraStat%%&7 de daño!'
+    health_ability:
+      description: '&7Da &a+%extraStat%&7 de vida!'
+    aurelium_skills_health_ability:
+      description: '&7Da &a+%extraStat%&7 de vida!'
+    water_speed_ability:
+      description: '&7Camina &a+%extraStat%%&7 rapido en agua!'
+    speed_in_biome_ability:
+      name: Habitat natural
+      description: '&7Te hace mas rapido en los biomas %biomes%&7.'
+    dont_consume_arrow_ability:
+      description: 'Da un &c%extraStat%% &7de probabilidad de no consumir flechas'
+    unbreakable_bow_ability:
+      name: Experimentado
+      description: '&7Tu arco no recibe daño al disparar'
+    faster_mining_speed_ability:
+      name: Entrenado
+      description: '&7Te da el efecto de &chaste &c%extraStat% &7permanente'
+    heal_while_in_water_ability:
+      name: Habitat natural
+      description: '&7Te da el efecto de &cregeneracion &c%extraStat% &7mientras estas en agua'
+  inventory:
+    sort:
+      name: '&6Ordenar'
+      description: '&cNo esta implementado todavia!'
+    recipebook:
+      name: '&6Libro de recetas'
+      description: '&cNo esta implementado todavia!'

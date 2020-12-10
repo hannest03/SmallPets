@@ -62,11 +62,11 @@ public class Pet {
 
     }
 
-    private static final double MINLEVEL = 1;
-    public static final double MAXLEVEL = 100;
-    private static final double XPTOLEVELTWO = 500;
+    private static final int MINLEVEL = 1;
+    public static final int MAXLEVEL = 100;
+    private static long xpToLevelTwo = 500;
 
-    private final double tach;
+    private static double tach = 0;
 
     private final String id;
 
@@ -121,8 +121,6 @@ public class Pet {
         this.useProtocolLib = useProtocolLib;
 
         this.id = id;
-
-        tach = -(Math.log(((getLevel() +1) - (MAXLEVEL +1) ) / -((MAXLEVEL +1) - MINLEVEL)) / XPTOLEVELTWO);
 
     }
 
@@ -580,7 +578,7 @@ public class Pet {
 
     public int getLevel(){
 
-        return (int) ((MAXLEVEL +1) - ((MAXLEVEL +1) - MINLEVEL) * Math.pow(Math.E, -tach * xp));
+        return (int) ((MAXLEVEL) * (1 - Math.pow(Math.E, -tach * xp)) + MINLEVEL);
 
     }
 
@@ -594,7 +592,7 @@ public class Pet {
 
     public long getExpForLevel(int level){
 
-        return (int) (Math.log(((level) - (MAXLEVEL +1)) / -((MAXLEVEL +1) - MINLEVEL)) / -tach);
+        return (long) (Math.log(((level) - (MAXLEVEL +1D)) / -((MAXLEVEL +1D) - MINLEVEL)) / -tach);
 
     }
 
@@ -1029,4 +1027,18 @@ public class Pet {
 
     }
 
+    public static long getXpToLevelTwo() {
+        return xpToLevelTwo;
+    }
+
+    public static void setXpToLevelTwo(long xpToLevelTwo) {
+
+        if(xpToLevelTwo > 0) {
+
+            Pet.xpToLevelTwo = xpToLevelTwo;
+            tach = -(Math.log(((MINLEVEL+1D) - (MAXLEVEL +1D) ) / -((MAXLEVEL +1D) - MINLEVEL)) / (double) xpToLevelTwo);
+
+        }
+
+    }
 }

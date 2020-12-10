@@ -10,20 +10,25 @@ import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventBus;
 import it.smallcode.smallpets.core.abilities.eventsystem.events.ShootBowEvent;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityShootBowEvent;
 
 public class ShootProjectileListener implements Listener {
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onShoot(EntityShootBowEvent e){
 
-        ShootBowEvent shootProjectileEvent = new ShootBowEvent(e.getEntity(), (Projectile) e.getProjectile(), e.getBow());
-        shootProjectileEvent.setCancelled(e.isCancelled());
+        if(!e.isCancelled()) {
 
-        AbilityEventBus.post(shootProjectileEvent);
+            ShootBowEvent shootProjectileEvent = new ShootBowEvent(e.getEntity(), (Projectile) e.getProjectile(), e.getBow());
+            shootProjectileEvent.setCancelled(e.isCancelled());
 
-        e.setCancelled(shootProjectileEvent.isCancelled());
+            AbilityEventBus.post(shootProjectileEvent);
+
+            e.setCancelled(shootProjectileEvent.isCancelled());
+
+        }
 
     }
 

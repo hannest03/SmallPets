@@ -12,6 +12,7 @@ import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventBus;
 import it.smallcode.smallpets.core.abilities.eventsystem.events.ServerShutdownEvent;
 import it.smallcode.smallpets.core.languages.LanguageManager;
 import it.smallcode.smallpets.core.manager.types.User;
+import it.smallcode.smallpets.core.pets.Pet;
 import it.smallcode.smallpets.listener.*;
 import it.smallcode.smallpets.core.manager.*;
 import it.smallcode.smallpets.metrics.Metrics;
@@ -215,6 +216,7 @@ public class SmallPets extends JavaPlugin {
         cfg.addDefault("language", "en");
         cfg.addDefault("registerCraftingRecipes", true);
         cfg.addDefault("requirePermission", false);
+        cfg.addDefault("xpToLevelTwo", 500);
 
         getConfig().options().copyDefaults(true);
 
@@ -228,6 +230,8 @@ public class SmallPets extends JavaPlugin {
         reloadConfig();
 
         FileConfiguration cfg = this.getConfig();
+
+        Pet.setXpToLevelTwo(cfg.getLong("xpToLevelTwo"));
 
         String prefix = cfg.getString("prefixPattern");
 

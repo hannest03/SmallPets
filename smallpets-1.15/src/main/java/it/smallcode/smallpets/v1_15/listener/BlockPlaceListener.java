@@ -9,6 +9,7 @@ Class created by SmallCode
 import it.smallcode.smallpets.core.SmallPetsCommons;
 import org.bukkit.NamespacedKey;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
@@ -18,7 +19,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class BlockPlaceListener implements Listener {
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onPlace(BlockPlaceEvent e){
 
         if(e.getPlayer() != null){

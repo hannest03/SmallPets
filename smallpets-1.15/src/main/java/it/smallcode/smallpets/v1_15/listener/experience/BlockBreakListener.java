@@ -13,6 +13,7 @@ import it.smallcode.smallpets.core.manager.types.User;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -27,8 +28,11 @@ public class BlockBreakListener implements Listener {
 
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onBlockBreak(BlockBreakEvent e){
+
+        if(e.isCancelled())
+            return;
 
         Player p = e.getPlayer();
 

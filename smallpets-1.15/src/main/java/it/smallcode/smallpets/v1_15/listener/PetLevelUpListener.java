@@ -15,11 +15,12 @@ import it.smallcode.smallpets.core.text.CenteredText;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 
 public class PetLevelUpListener implements Listener {
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onLevelUP(PetLevelUpEvent e){
 
         Player p = e.getPet().getOwner();
