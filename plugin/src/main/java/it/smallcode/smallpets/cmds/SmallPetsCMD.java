@@ -40,6 +40,7 @@ public class SmallPetsCMD implements CommandExecutor {
         subCommands.add(new DiscordSubCMD("discord", ""));
         subCommands.add(new DonateSubCMD("donate", ""));
         subCommands.add(new SelectSubCMD("select", ""));
+        subCommands.add(new CreditsSubCMD("credits", ""));
 
     }
 
