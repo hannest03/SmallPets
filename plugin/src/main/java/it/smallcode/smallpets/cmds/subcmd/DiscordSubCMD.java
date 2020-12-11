@@ -21,7 +21,10 @@ public class DiscordSubCMD extends SubCommand {
     @Override
     protected void handleCommand(CommandSender s, String[] args) {
 
-        s.sendMessage("§f[§dDiscord§7] §d" + SmallPets.DISCORD_LINK);
+        final String prefix = "§f[§dDiscord§7] §d";
+
+        s.sendMessage(prefix + "Join the discord for the latest news on SmallPets!");
+        s.sendMessage(prefix + SmallPets.DISCORD_LINK);
 
     }
 
