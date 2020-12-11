@@ -20,7 +20,10 @@ public class DonateSubCMD extends SubCommand {
     @Override
     protected void handleCommand(CommandSender s, String[] args) {
 
-        s.sendMessage("§e[§6Donate§e] " + SmallPets.DONATION_LINK);
+        final String prefix = "§e[§6Donate§e] ";
+
+        s.sendMessage(prefix + "With this link you can support the development of SmallPets!");
+        s.sendMessage(prefix + SmallPets.DONATION_LINK);
 
     }
 
