@@ -17,6 +17,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.plugin.Plugin;
 
+import java.util.Date;
+
 public class Silverfish extends Pet {
 
     public Silverfish(String id, Player owner, Long xp, Boolean useProtocolLib) {
@@ -27,7 +29,15 @@ public class Silverfish extends Pet {
 
         super.abilities.add(new FasterMiningSpeedAbility(4, 1));
 
+    }
+
+    @Override
+    protected void updateTexture(){
+
         super.textureValue = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZGE5MWRhYjgzOTFhZjVmZGE1NGFjZDJjMGIxOGZiZDgxOWI4NjVlMWE4ZjFkNjIzODEzZmE3NjFlOTI0NTQwIn19fQ==";
+
+        if(new Date(System.currentTimeMillis()).getMonth() == 11)
+            super.textureValue = "ewogICJ0aW1lc3RhbXAiIDogMTYwNzY5Njc0OTc2NSwKICAicHJvZmlsZUlkIiA6ICJhYzczNzMyYmEzZTY0M2IxODE2ZDA2MDQ0M2U3ODhkOCIsCiAgInByb2ZpbGVOYW1lIiA6ICJUZXhXYXJkIiwKICAic2lnbmF0dXJlUmVxdWlyZWQiIDogdHJ1ZSwKICAidGV4dHVyZXMiIDogewogICAgIlNLSU4iIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzhhNWIzMDdhNTRjZDQwYzIxNWQ2MGJlMzEzYzA1NDY2YWZkNjU5YWEwOTI1MTA5ZjRmZTRhY2EzZmIxZGExMmMiCiAgICB9CiAgfQp9";
 
     }
 

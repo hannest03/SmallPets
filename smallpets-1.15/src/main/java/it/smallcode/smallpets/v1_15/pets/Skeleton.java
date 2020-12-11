@@ -19,6 +19,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.plugin.Plugin;
 
+import java.util.Date;
+
 public class Skeleton extends Pet {
 
     public Skeleton(String id, Player owner, Long xp, Boolean useProtocolLib) {
@@ -31,7 +33,15 @@ public class Skeleton extends Pet {
         super.abilities.add(new DontConsumeArrowAbility(10, 1));
         super.abilities.add(new UnbreakableBowAbility());
 
+    }
+
+    @Override
+    protected void updateTexture() {
+
         super.textureValue = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzAxMjY4ZTljNDkyZGExZjBkODgyNzFjYjQ5MmE0YjMwMjM5NWY1MTVhN2JiZjc3ZjRhMjBiOTVmYzAyZWIyIn19fQ==";
+
+        if (new Date(System.currentTimeMillis()).getMonth() == 11)
+            super.textureValue = "ewogICJ0aW1lc3RhbXAiIDogMTYwNzY5NjU4MDM0MSwKICAicHJvZmlsZUlkIiA6ICJiYzRlZGZiNWYzNmM0OGE3YWM5ZjFhMzlkYzIzZjRmOCIsCiAgInByb2ZpbGVOYW1lIiA6ICI4YWNhNjgwYjIyNDYxMzQwIiwKICAic2lnbmF0dXJlUmVxdWlyZWQiIDogdHJ1ZSwKICAidGV4dHVyZXMiIDogewogICAgIlNLSU4iIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzNjMzJhMWZiMmVhNWIzOWUzZDg3ZDNkYmU3ZDg0ODk4NTNiNjA3OWE4M2E5YzcwNjMxNjk1ZDFlNTdmMzk4ZDgiCiAgICB9CiAgfQp9";
 
     }
 

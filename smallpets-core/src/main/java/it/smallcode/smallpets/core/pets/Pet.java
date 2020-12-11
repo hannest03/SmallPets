@@ -93,7 +93,7 @@ public class Pet {
 
     private PetType petType;
 
-    protected String textureValue = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGI3ZjY2M2Q2NWNkZWQ3YmQzNjUxYmRkZDZkYjU0NjM2MGRkNzczYWJiZGFmNDhiODNhZWUwOGUxY2JlMTQifX19";
+    protected String textureValue;
 
     protected FollowPlayerAnimation followPlayerArmorStand;
     protected HoverAnimation hoverAnimation;
@@ -122,6 +122,8 @@ public class Pet {
 
         this.id = id;
 
+        updateTexture();
+
     }
 
     /**
@@ -149,6 +151,12 @@ public class Pet {
     public Pet(String id, Player owner) {
 
         this(id, owner, 0L, false);
+
+    }
+
+    protected void updateTexture(){
+
+        textureValue = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGI3ZjY2M2Q2NWNkZWQ3YmQzNjUxYmRkZDZkYjU0NjM2MGRkNzczYWJiZGFmNDhiODNhZWUwOGUxY2JlMTQifX19";
 
     }
 
@@ -554,6 +562,8 @@ public class Pet {
      */
 
     public ItemStack getItem() {
+
+        updateTexture();
 
         ItemStack skull = SmallPetsCommons.getSmallPetsCommons().getSkullCreator().createHeadItem(textureValue);
 

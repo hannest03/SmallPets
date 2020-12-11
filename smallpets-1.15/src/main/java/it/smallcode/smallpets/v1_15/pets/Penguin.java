@@ -19,6 +19,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.plugin.Plugin;
 
+import java.util.Date;
+
 public class Penguin extends Pet {
 
     public Penguin(String type, Player owner, Long xp, Boolean useProtocolLib) {
@@ -39,7 +41,15 @@ public class Penguin extends Pet {
 
         }
 
+    }
+
+    @Override
+    protected void updateTexture(){
+
         this.textureValue = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvM2MwZDE2MTA3OTU2ZDc4NTNhMWJlMzE1NDljNDZhMmZmMjBiNDUxZDYzNjA3NTI4ZDVlMTk1YzQ0NTllMWZhMSJ9fX0=";
+
+        if(new Date(System.currentTimeMillis()).getMonth() == 11)
+            super.textureValue = "ewogICJ0aW1lc3RhbXAiIDogMTYwNzY5Njg5MTQ2NSwKICAicHJvZmlsZUlkIiA6ICI5MWYwNGZlOTBmMzY0M2I1OGYyMGUzMzc1Zjg2ZDM5ZSIsCiAgInByb2ZpbGVOYW1lIiA6ICJTdG9ybVN0b3JteSIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS8yZmZlNjdkMzhlOGNiZDM4NjJlYzJhY2VkNjc5YWE1ODcxMmRmMzdmNmI5MDI5ZTFlNjM2ZmQ0NDE4ZWVmYTE2IgogICAgfQogIH0KfQ==";
 
     }
 

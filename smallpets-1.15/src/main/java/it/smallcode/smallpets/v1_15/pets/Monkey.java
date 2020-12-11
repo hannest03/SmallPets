@@ -19,6 +19,7 @@ import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.plugin.Plugin;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.LinkedList;
 
 public class Monkey extends Pet {
@@ -29,9 +30,17 @@ public class Monkey extends Pet {
 
         super.setPetType(PetType.foraging);
 
+        super.abilities.add(new SpeedBoostInBiomeAbility(new LinkedList<>(Arrays.asList(Biome.JUNGLE, Biome.JUNGLE_HILLS, Biome.BAMBOO_JUNGLE, Biome.BAMBOO_JUNGLE_HILLS, Biome.MODIFIED_JUNGLE)), 0.2D));
+
+    }
+
+    @Override
+    protected void updateTexture(){
+
         this.textureValue = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTNkNGExNTYwM2Y5NTFkZTJlMmFiODBlZWQxNmJiYjVhNTgyM2JmNGFjYjhjNDYzMzQyNWQ1NDIxMGNmMGFkNSJ9fX0=";
 
-        super.abilities.add(new SpeedBoostInBiomeAbility(new LinkedList<>(Arrays.asList(Biome.JUNGLE, Biome.JUNGLE_HILLS, Biome.BAMBOO_JUNGLE, Biome.BAMBOO_JUNGLE_HILLS, Biome.MODIFIED_JUNGLE)), 0.2D));
+        if(new Date(System.currentTimeMillis()).getMonth() == 11)
+            super.textureValue = "ewogICJ0aW1lc3RhbXAiIDogMTYwNzY5NzE4MzE5NiwKICAicHJvZmlsZUlkIiA6ICI5MThhMDI5NTU5ZGQ0Y2U2YjE2ZjdhNWQ1M2VmYjQxMiIsCiAgInByb2ZpbGVOYW1lIiA6ICJCZWV2ZWxvcGVyIiwKICAic2lnbmF0dXJlUmVxdWlyZWQiIDogdHJ1ZSwKICAidGV4dHVyZXMiIDogewogICAgIlNLSU4iIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzQ5NDdiODU5MmI1NDZmNTY5OWU1YjE0YmI3MGM3YmRjZWZiZDMyNjNhYTRmZjFhNzk0NWNlZmMxNWE2NmQ1ZjQiCiAgICB9CiAgfQp9";
 
     }
 
