@@ -51,7 +51,7 @@ public class SmallPets extends JavaPlugin {
         SmallPetsCommons.getSmallPetsCommons().setJavaPlugin(this);
 
         this.initConfig();
-        this.loadConfig();
+        if(!this.loadConfig()) return;
 
         SmallPetsCommons.getSmallPetsCommons().setInventoryCache(new InventoryCache());
 
@@ -192,17 +192,22 @@ public class SmallPets extends JavaPlugin {
     @Override
     public void onDisable() {
 
-        for(User user : getUserManager().getUsers()){
+        if(getUserManager() != null) {
 
-            if(Bukkit.getOfflinePlayer(UUID.fromString(user.getUuid())).isOnline())
-                AbilityEventBus.post(new ServerShutdownEvent(user));
+            for (User user : getUserManager().getUsers()) {
+
+                if (Bukkit.getOfflinePlayer(UUID.fromString(user.getUuid())).isOnline())
+                    AbilityEventBus.post(new ServerShutdownEvent(user));
+
+            }
+
+            getUserManager().despawnPets();
+            getUserManager().saveUsers();
 
         }
 
-        getUserManager().despawnPets();
-        getUserManager().saveUsers();
-
-        getInventoryCache().removeAll();
+        if(getInventoryCache() != null)
+            getInventoryCache().removeAll();
 
     }
 
@@ -225,7 +230,7 @@ public class SmallPets extends JavaPlugin {
 
     }
 
-    public void loadConfig(){
+    public boolean loadConfig(){
 
         reloadConfig();
 
@@ -241,6 +246,7 @@ public class SmallPets extends JavaPlugin {
             Bukkit.getConsoleSender().sendMessage( "§c" + getName() + ": PrefixPattern doesn't contain %plugin_name%: " + prefix);
 
             Bukkit.getPluginManager().disablePlugin(this);
+            return false;
 
         }
 
@@ -259,6 +265,8 @@ public class SmallPets extends JavaPlugin {
             getInventoryManager().setXpMultiplier(xpMultiplier);
 
         }
+
+        return true;
 
     }
 
