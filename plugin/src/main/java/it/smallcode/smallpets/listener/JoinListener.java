@@ -37,7 +37,7 @@ public class JoinListener implements Listener {
             @Override
             public void run() {
 
-                userManager.loadUser(e.getPlayer().getUniqueId().toString(), petMapManager);
+                userManager.loadUser(e.getPlayer().getUniqueId().toString());
 
                 Bukkit.getScheduler().scheduleSyncDelayedTask(SmallPets.getInstance(), new Runnable() {
                     @Override

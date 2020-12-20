@@ -57,7 +57,7 @@ public class UserManager {
      * @param uuid - the uuid of the player which should be loaded
      * @param petMapManager - the petMapManager to check if the pet is registered
      */
-    public void loadUser(String uuid, PetMapManager petMapManager){
+    public void loadUser(String uuid){
 
         if(!alreadyLoaded(uuid)) {
 

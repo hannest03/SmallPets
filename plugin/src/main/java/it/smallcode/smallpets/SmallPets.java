@@ -50,6 +50,8 @@ public class SmallPets extends JavaPlugin {
 
         SmallPetsCommons.getSmallPetsCommons().setJavaPlugin(this);
 
+        SmallPetsCommons.getSmallPetsCommons().setAutoSaveManager(new AutoSaveManager());
+
         this.initConfig();
         if(!this.loadConfig()) return;
 
@@ -172,7 +174,7 @@ public class SmallPets extends JavaPlugin {
 
         for(Player all : Bukkit.getOnlinePlayers()){
 
-            getUserManager().loadUser(all.getUniqueId().toString(), getPetMapManager());
+            getUserManager().loadUser(all.getUniqueId().toString());
 
         }
 
@@ -191,6 +193,9 @@ public class SmallPets extends JavaPlugin {
 
     @Override
     public void onDisable() {
+
+        if(SmallPetsCommons.getSmallPetsCommons().getAutoSaveManager() != null)
+            SmallPetsCommons.getSmallPetsCommons().getAutoSaveManager().stop();
 
         if(getUserManager() != null) {
 
@@ -223,6 +228,11 @@ public class SmallPets extends JavaPlugin {
         cfg.addDefault("requirePermission", false);
         cfg.addDefault("xpToLevelTwo", 500);
 
+        // --- Auto Save
+
+        cfg.addDefault("autosave.enabled", true);
+        cfg.addDefault("autosave.interval", 15);
+
         getConfig().options().copyDefaults(true);
 
         saveConfig();
@@ -231,6 +241,9 @@ public class SmallPets extends JavaPlugin {
     }
 
     public boolean loadConfig(){
+
+        if(SmallPetsCommons.getSmallPetsCommons().getAutoSaveManager() != null)
+            SmallPetsCommons.getSmallPetsCommons().getAutoSaveManager().stop();
 
         reloadConfig();
 
@@ -263,6 +276,13 @@ public class SmallPets extends JavaPlugin {
         if(getInventoryManager() != null){
 
             getInventoryManager().setXpMultiplier(xpMultiplier);
+
+        }
+
+        if(cfg.getBoolean("autosave.enabled")){
+
+            SmallPetsCommons.getSmallPetsCommons().getAutoSaveManager().setInterval(cfg.getLong("autosave.interval"));
+            SmallPetsCommons.getSmallPetsCommons().getAutoSaveManager().start();
 
         }
 

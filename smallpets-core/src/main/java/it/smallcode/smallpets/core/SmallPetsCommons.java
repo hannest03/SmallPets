@@ -34,6 +34,7 @@ public class SmallPetsCommons {
     private PetMapManager petMapManager;
 
     private UserManager userManager;
+    private AutoSaveManager autoSaveManager;
 
     private InventoryManager inventoryManager;
     private InventoryCache inventoryCache;
@@ -163,5 +164,13 @@ public class SmallPetsCommons {
 
     public void setRequirePermission(boolean requirePermission) {
         this.requirePermission = requirePermission;
+    }
+
+    public AutoSaveManager getAutoSaveManager() {
+        return autoSaveManager;
+    }
+
+    public void setAutoSaveManager(AutoSaveManager autoSaveManager) {
+        this.autoSaveManager = autoSaveManager;
     }
 }
