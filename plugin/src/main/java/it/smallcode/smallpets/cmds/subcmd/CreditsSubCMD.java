@@ -35,6 +35,7 @@ public class CreditsSubCMD extends SubCommand {
         s.sendMessage(prefix + "§7 -WildSquirrel");
         s.sendMessage(prefix + "§7 -vgtom4");
         s.sendMessage(prefix + "§7 -Plebexer");
+        s.sendMessage(prefix + "§7 -SwiftlyMC");
         s.sendMessage("");
 
     }

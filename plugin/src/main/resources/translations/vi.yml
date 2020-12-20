@@ -1,28 +1,79 @@
 translations:
-  noPerms: "You haven't got the permission to do that!"
-  petSpawned: 'Bạn đã triệu hồi thú cưng'
-  petDespawned: 'Bạn đã cất thú cưng'
-  experienceSummary: '&fKinh Nghiệm'
+  noPerms: Bạn không có quyền để sử dụng lệnh
+  convertToItem: '&7Nhặt vật phẩm thay bạn'
+  inventoryFull: '&cTúi đồ của bạn đã đầy'
+  petSpawned: Bạn đã triệu hồi thú cưng
+  petDespawned: Bạn đã cất thú cưng
+  petNotUnlocked: Thú cưng này chưa được mở khóa
+  petNotRegistered: Không có thú cưng nào tên vậy
+  notInteger: Hãy điền một con số
+  experienceSummary: §fTóm tắt kinh nghiệm
   levelupText: '&eCHÚC MỪNG!&b Thú cưng của bạn đã lên cấp &6&l%pet_level%&e!'
-  nextLevel: '&7Thú cưng của bạn cần &6%exp_next_level%&6 XP &7để lên cấp &6%pet_next_level%&e'
-  petUnlock: '&3&l&k||&6&l MỞ KHÓA THÚ CƯNG:&e %pet_type%! &3&l&k||&r'
-  clickToSelect: '&8&l(&a✔️&8&l) &aNhấn vào để triệu hồi'
+  nextLevel: '&eThú cưng của bạn cần &6%exp_next_level%&6 XP &eđể đạt cấp bậc &6%pet_next_level%&e'
+  petUnlock: Mở khóa thú cưng %pet_type%!
+  clickToSelect: '&8&l(&a✔&8&l) &aNhấn vào để triệu hồi'
   clickToDeselect: '&8&l(&c✘&8&l) &cNhấn vào để cất'
-  givePetSender: 'Đã gửi thú cưng %pet_type% từ %player%!'
-  givePetReciever: 'Bạn đã nhận được %pet_type% từ người chơi %sender%!'
-  removePetSender: 'Thú cưng %pet_type% đã bị lấy từ %player%!'
-  removePetReciever: 'Thú cưng %pet_type% của bạn đã bị lấy bởi %sender%!'
-  playerIsntOnline: 'Người chơi này không hoạt động!'
-  userDataNotFound: 'Người chơi này không có trong dữ liệu!'
-  commandIsOnlyForPlayers: 'Câu lệnh chỉ dành cho người chơi'
-  reloaded: 'Khởi động lại %type%'
-  maxLevel: '&d&kS&d CẤP ĐỘ TỐI ĐA &d&kS'
-  experienceMultiplier: 'x2 Kinh Nghiệm'
-  stats: 'THÔNG SỐ'
-  experienceBooster: 'Tăng Cường Kinh Nghiệm'
-  petNameFormat: '&8&l(%level%&8&l) &7%player_name%''s '
-  petNameFormatTwoS: '&8&l(%level%&8&l) &7%player_name%'' '
+  givePetUnlockItemSender: Đã gửi %pet_type% cho người chơi %player%!
+  givePetUnlockItemReciever: Bạn đã nhận được %pet_type% từ người chơi %sender%!
+  givePetSender: Gửi thú cưng %pet_type% đến %player%!
+  givePetReciever: Bạn đã nhận được %pet_type% từ %sender%!
+  removePetSender: The %pet_type% pet was taken from %player%!
+  removePetReciever: Your %pet_type% pet was taken by %sender%!
+  playerIsntOnline: Người chơi này không hoạt động!
+  userDataNotFound: Không tìm thấy người chơi!
+  commandIsOnlyForPlayers: Câu lệnh này không dành cho người chơi
+  reloaded: Khởi động lại %type%
+  maxLevel: '&d&kS&d ĐẠT CẤP TỐI ĐA &d&kS'
+  experienceMultiplier: x2 Kinh nghiệm
+  stats: Stats
+  experienceBooster: Tăng kinh nghiệm
+  petNameFormat: '&8&l(&7Lv.%level%&8&l) &a%player_name%''s '
+  petNameFormatTwoS: '&8&l(&7Lv.%level%&8&l) &7%player_name%'' '
+  petNameWithoutOwner: '&8&l(&7Lv.%level%&8&l) '
+  savingLanguage: '&7Saving %language%...'
+  savedLanguage: '&7Saved %language%!'
   pet:
-    tiger: 'Hổ'
-    penguin: 'Chim Cánh Cụt'
-    monkey: 'Khỉ'
+    tiger: Hổ Vằn
+    penguin: Chim Cánh Cụt
+    monkey: Khỉ Đột
+    skeleton: Người Xương
+    panda: Gấu Trúc
+    fish: Cá Đại Dương
+    silverfish: Cá Bạc
+  petType:
+    combat: Chiến đấu
+    mining: Khai thác
+    farming: Cày cuốc
+    fishing: Đánh Cá
+    foraging: Chặt cây
+  ability:
+    damage_ability:
+      description: '&7Gây thêm &c+%extraStat%%&7 về sát thương!'
+    health_ability:
+      description: '&7Nhận thêm &a+%extraStat%&7 về sức lực!'
+    aurelium_skills_health_ability:
+      description: '&7Nhận thêm &a+%extraStat%&7 về máu!'
+    water_speed_ability:
+      description: '&7Tăng thêm &a+%extraStat%%&7 khi đi trên nước!'
+    speed_in_biome_ability:
+      name: Tăng Cơ
+      description: '&7Giúp bạn chạy nhanh hơn trong &7môi trường&a %biomes%'
+    dont_consume_arrow_ability:
+      description: '&c%extraStat%% &7tăng cơ hội không tốn mũi tên khi bắn'
+    unbreakable_bow_ability:
+      name: Kinh Nghiệm
+      description: '&7Cung của bạn không bị hư hại khi bắn'
+    faster_mining_speed_ability:
+      name: Thuần Phục
+      description: '&7Trao cho bạn hiệu ứng &e⚒ đào nhanh &c%extraStat%'
+    heal_while_in_water_ability:
+      name: Natural habitat
+      description: '&Trao cho bạn hiệu ứng &c❤ hồi phục &c%extraStat% &7khi ở trong
+        nước'
+  inventory:
+    sort:
+      name: '&6Sắp Xếp'
+      description: '&cChưa có!'
+    recipebook:
+      name: '&6Danh Sách Chế Tạo'
+      description: '&cChưa có!'
