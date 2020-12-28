@@ -8,6 +8,7 @@ Class created by SmallCode
 
 import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.manager.InventoryManager;
+import it.smallcode.smallpets.core.manager.types.User;
 import it.smallcode.smallpets.core.pets.Pet;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -31,6 +32,8 @@ public class InventoryManager1_15 extends InventoryManager {
     public void openPetsMenu(List<Pet> pets, Player p) {
 
         Inventory inventory = SmallPetsCommons.getSmallPetsCommons().getInventoryCache().getInventory(p);
+
+        User user = SmallPetsCommons.getSmallPetsCommons().getUserManager().getUser(p.getUniqueId().toString());
 
         inventory.clear();
 
@@ -57,6 +60,26 @@ public class InventoryManager1_15 extends InventoryManager {
         }else{
 
             inventory.setItem(44, createItem(SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("convertToItem"), Material.GRAY_DYE));
+
+        }
+
+        if(SmallPetsCommons.getSmallPetsCommons().isUseProtocollib()){
+
+            ItemStack item;
+
+            if(user.getSettings().isShowPets()) {
+
+                item = createItem(SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("visibility.hidePets"), Material.STONE_BUTTON);
+
+            }else{
+
+                item =  createItem(SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("visibility.showPets"), Material.STONE_BUTTON);
+
+            }
+
+            item = SmallPetsCommons.getSmallPetsCommons().getNbtTagEditor().addNBTTag(item, "showPets", String.valueOf(user.getSettings().isShowPets()));
+
+            inventory.setItem(36, item);
 
         }
 

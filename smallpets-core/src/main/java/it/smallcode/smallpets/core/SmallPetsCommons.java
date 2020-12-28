@@ -30,6 +30,7 @@ public class SmallPetsCommons {
     private String prefix;
 
     private boolean requirePermission;
+    private boolean useProtocollib;
 
     private PetMapManager petMapManager;
 
@@ -164,6 +165,14 @@ public class SmallPetsCommons {
 
     public void setRequirePermission(boolean requirePermission) {
         this.requirePermission = requirePermission;
+    }
+
+    public boolean isUseProtocollib() {
+        return useProtocollib;
+    }
+
+    public void setUseProtocollib(boolean useProtocollib) {
+        this.useProtocollib = useProtocollib;
     }
 
     public AutoSaveManager getAutoSaveManager() {

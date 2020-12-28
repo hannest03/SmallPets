@@ -20,6 +20,7 @@ import it.smallcode.smallpets.core.animations.LevelOnehundretAnimation;
 import it.smallcode.smallpets.core.animations.WalkAwayFromPlayerAnimation;
 import it.smallcode.smallpets.core.events.PetLevelUpEvent;
 import it.smallcode.smallpets.core.languages.LanguageManager;
+import it.smallcode.smallpets.core.manager.types.User;
 import it.smallcode.smallpets.core.text.CenteredText;
 import net.minecraft.server.v1_15_R1.PacketPlayOutWorldParticles;
 import org.bukkit.Bukkit;
@@ -207,20 +208,26 @@ public class Pet {
 
         if(useProtocolLib){
 
-            Bukkit.getScheduler().scheduleAsyncDelayedTask(plugin, new Runnable() {
-                @Override
-                public void run() {
+            User user = SmallPetsCommons.getSmallPetsCommons().getUserManager().getUser(p.getUniqueId().toString());
 
-                    List<Player> players = new LinkedList<>();
+            if(user != null && user.getSettings().isShowPets()) {
 
-                    players.add(p);
+                Bukkit.getScheduler().scheduleAsyncDelayedTask(plugin, new Runnable() {
+                    @Override
+                    public void run() {
 
-                    spawnArmorstandWithPackets(players);
+                        List<Player> players = new LinkedList<>();
 
-                    setCustomName(getCustomeName());
+                        players.add(p);
 
-                }
-            });
+                        spawnArmorstandWithPackets(players);
+
+                        setCustomName(getCustomeName());
+
+                    }
+                });
+
+            }
 
         }
 
@@ -314,8 +321,17 @@ public class Pet {
         List<Player> players = new LinkedList<>();
 
         for(Player all : Bukkit.getOnlinePlayers())
-            if(all.getWorld().getName().equals(player.getWorld().getName()))
-                players.add(all);
+            if(all.getWorld().getName().equals(player.getWorld().getName())){
+
+                User user = SmallPetsCommons.getSmallPetsCommons().getUserManager().getUser(all.getUniqueId().toString());
+
+                if(user != null && user.getSettings().isShowPets()) {
+
+                    players.add(all);
+
+                }
+
+            }
 
         return players;
 
@@ -815,7 +831,13 @@ public class Pet {
 
         for(Player p : sendPacketToPlayers(owner)){
 
-            p.spawnParticle(getParticle(), particleLoc, 0);
+            User user = SmallPetsCommons.getSmallPetsCommons().getUserManager().getUser(p.getUniqueId().toString());
+
+            if(!useProtocolLib || (user != null && user.getSettings().isShowPets())) {
+
+                p.spawnParticle(getParticle(), particleLoc, 0);
+
+            }
 
         }
 

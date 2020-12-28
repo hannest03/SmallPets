@@ -41,8 +41,6 @@ public class SmallPets extends JavaPlugin {
     private double xpMultiplier;
     private boolean registerCraftingRecipes;
 
-    public static boolean useProtocolLib = false;
-
     @Override
     public void onEnable() {
 
@@ -61,7 +59,7 @@ public class SmallPets extends JavaPlugin {
 
             if(Bukkit.getPluginManager().getPlugin("ProtocolLib") != null && Bukkit.getPluginManager().getPlugin("ProtocolLib").isEnabled()){
 
-                useProtocolLib = true;
+                SmallPetsCommons.getSmallPetsCommons().setUseProtocollib(true);
 
                 Bukkit.getConsoleSender().sendMessage(getPrefix() + "Found ProtocolLib, now using it.");
 
@@ -152,7 +150,7 @@ public class SmallPets extends JavaPlugin {
 
             entry.put(version, 1);
 
-            if(useProtocolLib){
+            if(SmallPetsCommons.getSmallPetsCommons().isUseProtocollib()){
 
                 map.put("Uses protocollib", entry);
 
@@ -306,7 +304,7 @@ public class SmallPets extends JavaPlugin {
 
         if(version.startsWith("1_12")) {
 
-            if(useProtocolLib)
+            if(SmallPetsCommons.getSmallPetsCommons().isUseProtocollib())
                 SmallPetsCommons.getSmallPetsCommons().setProtocolLibUtils(new ProtocolLibUtils1_12());
 
             SmallPetsCommons.getSmallPetsCommons().setSkullCreator(new SkullCreator1_12());
@@ -314,14 +312,14 @@ public class SmallPets extends JavaPlugin {
 
             SmallPetsCommons.getSmallPetsCommons().setPetMapManager(new PetMapManager1_12());
             SmallPetsCommons.getSmallPetsCommons().setInventoryManager(new InventoryManager1_12(xpMultiplier));
-            SmallPetsCommons.getSmallPetsCommons().setUserManager(new UserManager( useProtocolLib));
-            SmallPetsCommons.getSmallPetsCommons().setListenerManager(new ListenerManager1_12(xpMultiplier, useProtocolLib));
+            SmallPetsCommons.getSmallPetsCommons().setUserManager(new UserManager( SmallPetsCommons.getSmallPetsCommons().isUseProtocollib()));
+            SmallPetsCommons.getSmallPetsCommons().setListenerManager(new ListenerManager1_12(xpMultiplier, SmallPetsCommons.getSmallPetsCommons().isUseProtocollib()));
 
             SmallPetsCommons.getSmallPetsCommons().setAbilityManager(new AbilityManager1_12());
 
         }else if(version.startsWith("1_13")){
 
-            if(useProtocolLib)
+            if(SmallPetsCommons.getSmallPetsCommons().isUseProtocollib())
                 SmallPetsCommons.getSmallPetsCommons().setProtocolLibUtils(new ProtocolLibUtils1_13());
 
             SmallPetsCommons.getSmallPetsCommons().setSkullCreator(new SkullCreator1_13());
@@ -329,14 +327,14 @@ public class SmallPets extends JavaPlugin {
 
             SmallPetsCommons.getSmallPetsCommons().setPetMapManager(new PetMapManager1_13());
             SmallPetsCommons.getSmallPetsCommons().setInventoryManager(new InventoryManager1_13(xpMultiplier));
-            SmallPetsCommons.getSmallPetsCommons().setUserManager(new UserManager(useProtocolLib));
-            SmallPetsCommons.getSmallPetsCommons().setListenerManager(new ListenerManager1_13(xpMultiplier, useProtocolLib));
+            SmallPetsCommons.getSmallPetsCommons().setUserManager(new UserManager(SmallPetsCommons.getSmallPetsCommons().isUseProtocollib()));
+            SmallPetsCommons.getSmallPetsCommons().setListenerManager(new ListenerManager1_13(xpMultiplier, SmallPetsCommons.getSmallPetsCommons().isUseProtocollib()));
 
             SmallPetsCommons.getSmallPetsCommons().setAbilityManager(new AbilityManager1_13());
 
         }else if(version.startsWith("1_15") || version.startsWith("1_14")){
 
-            if(useProtocolLib)
+            if(SmallPetsCommons.getSmallPetsCommons().isUseProtocollib())
                 SmallPetsCommons.getSmallPetsCommons().setProtocolLibUtils(new ProtocolLibUtils1_15());
 
             SmallPetsCommons.getSmallPetsCommons().setSkullCreator(new SkullCreator1_15());
@@ -344,14 +342,14 @@ public class SmallPets extends JavaPlugin {
 
             SmallPetsCommons.getSmallPetsCommons().setPetMapManager(new PetMapManager1_15());
             SmallPetsCommons.getSmallPetsCommons().setInventoryManager(new InventoryManager1_15(xpMultiplier));
-            SmallPetsCommons.getSmallPetsCommons().setUserManager(new UserManager( useProtocolLib));
-            SmallPetsCommons.getSmallPetsCommons().setListenerManager(new ListenerManager1_15(xpMultiplier, useProtocolLib));
+            SmallPetsCommons.getSmallPetsCommons().setUserManager(new UserManager( SmallPetsCommons.getSmallPetsCommons().isUseProtocollib()));
+            SmallPetsCommons.getSmallPetsCommons().setListenerManager(new ListenerManager1_15(xpMultiplier, SmallPetsCommons.getSmallPetsCommons().isUseProtocollib()));
 
             SmallPetsCommons.getSmallPetsCommons().setAbilityManager(new AbilityManager1_15());
 
         }else if(version.startsWith("1_16")){
 
-            if(useProtocolLib)
+            if(SmallPetsCommons.getSmallPetsCommons().isUseProtocollib())
                 SmallPetsCommons.getSmallPetsCommons().setProtocolLibUtils(new ProtocolLibUtils1_16());
 
             SmallPetsCommons.getSmallPetsCommons().setSkullCreator(new SkullCreator1_16());
@@ -359,8 +357,8 @@ public class SmallPets extends JavaPlugin {
 
             SmallPetsCommons.getSmallPetsCommons().setPetMapManager(new PetMapManager1_16());
             SmallPetsCommons.getSmallPetsCommons().setInventoryManager(new InventoryManager1_16(xpMultiplier));
-            SmallPetsCommons.getSmallPetsCommons().setUserManager(new UserManager( useProtocolLib));
-            SmallPetsCommons.getSmallPetsCommons().setListenerManager(new ListenerManager1_16(xpMultiplier, useProtocolLib));
+            SmallPetsCommons.getSmallPetsCommons().setUserManager(new UserManager( SmallPetsCommons.getSmallPetsCommons().isUseProtocollib()));
+            SmallPetsCommons.getSmallPetsCommons().setListenerManager(new ListenerManager1_16(xpMultiplier, SmallPetsCommons.getSmallPetsCommons().isUseProtocollib()));
 
             SmallPetsCommons.getSmallPetsCommons().setAbilityManager(new AbilityManager1_16());
 

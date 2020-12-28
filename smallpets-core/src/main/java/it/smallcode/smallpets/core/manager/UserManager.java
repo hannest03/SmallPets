@@ -133,8 +133,11 @@ public class UserManager {
 
             Map<String, Object> data = user.serialize();
 
-            cfg.set("selected", data.get("selected"));
-            cfg.set("pets", data.get("pets"));
+            for(String key : data.keySet()){
+
+                cfg.set(key, data.get(key));
+
+            }
 
             try {
 
@@ -347,6 +350,22 @@ public class UserManager {
         for(User user : users){
 
             user.despawnSelected();
+
+        }
+
+    }
+
+    /**
+     *
+     * Update pets for player
+     *
+     */
+    public void updatePets(Player player){
+
+        for(User user : users){
+
+            user.despawnSelected(player);
+            user.spawnSelected(player);
 
         }
 

@@ -17,6 +17,7 @@ import it.smallcode.smallpets.core.languages.LanguageManager;
 import it.smallcode.smallpets.core.manager.PetMapManager;
 import it.smallcode.smallpets.core.pets.Pet;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.MemorySection;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -36,6 +37,7 @@ public class User {
     private String uuid;
 
     private Pet selected;
+    private Settings settings = new Settings();
 
     private List<Pet> pets;
 
@@ -87,20 +89,7 @@ public class User {
 
         this.uuid = uuid;
 
-        this.pets = new ArrayList<>();
-
-        List<Map<String, Object>> petDatas = (List<Map<String, Object>>) data.get("pets");
-
-        for(Map<String, Object> petData : petDatas){
-
-            Pet pet = unserializePet(petData, petMapManager, uuid, useProtocolLib, languageManager);
-
-            if(pet != null)
-                pets.add(pet);
-
-        }
-
-        this.selected = getPetFromType((String) data.get("selected"));
+        unserialize(data);
 
     }
 
@@ -143,6 +132,58 @@ public class User {
             if(!spawnPetEvent.isCancelled()) {
 
                 selected.spawn(plugin);
+
+            }
+
+        }
+
+    }
+
+    /**
+     *
+     * Spawns the selected pet if one was selected.
+     *
+     */
+
+    public void spawnSelected(Player player){
+
+        if(selected != null){
+
+            selected.setOwner(Bukkit.getPlayer(UUID.fromString(uuid)));
+
+            SpawnPetEvent spawnPetEvent = new SpawnPetEvent(selected, Bukkit.getPlayer(UUID.fromString(uuid)));
+
+            Bukkit.getPluginManager().callEvent(spawnPetEvent);
+
+            if(!spawnPetEvent.isCancelled()) {
+
+                selected.spawnToPlayer(player, plugin);
+
+            }
+
+        }
+
+    }
+
+    /**
+     *
+     * Despawn the selected pet if one was selected.
+     *
+     */
+
+    public void despawnSelected(Player player){
+
+        if(selected != null){
+
+            selected.setOwner(Bukkit.getPlayer(UUID.fromString(uuid)));
+
+            DespawnPetEvent despawnPetEvent = new DespawnPetEvent(selected, Bukkit.getPlayer(UUID.fromString(uuid)));
+
+            Bukkit.getPluginManager().callEvent(despawnPetEvent);
+
+            if(!despawnPetEvent.isCancelled()) {
+
+                selected.despawnFromPlayer(player, plugin);
 
             }
 
@@ -232,6 +273,14 @@ public class User {
         return selected;
     }
 
+    public Settings getSettings() {
+        return settings;
+    }
+
+    public void setSettings(Settings settings) {
+        this.settings = settings;
+    }
+
     /**
      *
      * Sets the selected pet, despawns the old pet and spawns the new selected pet.
@@ -301,11 +350,13 @@ public class User {
 
             data.put("selected", selected.getID());
 
-        }else{
+        }else {
 
             data.put("selected", "null");
 
         }
+
+        data.put("settings", settings.serialize());
 
         List<Map<String, Object>> petList = new LinkedList<>();
 
@@ -318,6 +369,42 @@ public class User {
         data.put("pets", petList);
 
         return data;
+
+    }
+
+    public void unserialize(Map<String, Object> data){
+
+        if(data.get("settings") != null){
+
+            settings.unserialize(memorySectionToMap((MemorySection) data.get("settings")));
+
+        }
+
+        this.pets = new ArrayList<>();
+
+        List<Map<String, Object>> petDatas = (List<Map<String, Object>>) data.get("pets");
+
+        for(Map<String, Object> petData : petDatas){
+
+            Pet pet = unserializePet(petData);
+
+            if(pet != null)
+                pets.add(pet);
+
+        }
+
+        this.selected = getPetFromType((String) data.get("selected"));
+
+    }
+
+    private Map<String, Object> memorySectionToMap(MemorySection memorySection){
+
+        Map<String, Object> map = new HashMap<>();
+
+        for(String key : memorySection.getKeys(true))
+            map.put(key, memorySection.get(key));
+
+        return map;
 
     }
 
@@ -350,19 +437,19 @@ public class User {
      * @return - the unserialized pet
      */
 
-    private Pet unserializePet(Map<String, Object> data, PetMapManager petMapManager, String uuid, boolean useProtocolLib, LanguageManager languageManager){
+    private Pet unserializePet(Map<String, Object> data){
 
         String type = (String) data.get("type");
 
         long exp = Long.valueOf((String) data.get("exp"));
 
-        if(petMapManager.getPetMap().containsKey(type)){
+        if(SmallPetsCommons.getSmallPetsCommons().getPetMapManager().getPetMap().containsKey(type)){
 
             try {
 
-                Constructor constructor = petMapManager.getPetMap().get(type).getConstructor(String.class, Player.class, Long.class, Boolean.class);
+                Constructor constructor = SmallPetsCommons.getSmallPetsCommons().getPetMapManager().getPetMap().get(type).getConstructor(String.class, Player.class, Long.class, Boolean.class);
 
-                return (Pet) constructor.newInstance(type, Bukkit.getPlayer(UUID.fromString(uuid)), exp, useProtocolLib);
+                return (Pet) constructor.newInstance(type, Bukkit.getPlayer(UUID.fromString(uuid)), exp, SmallPetsCommons.getSmallPetsCommons().isUseProtocollib());
 
             } catch (NoSuchMethodException ex) {
 

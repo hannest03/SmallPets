@@ -7,6 +7,7 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.SmallPets;
+import it.smallcode.smallpets.core.SmallPetsCommons;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -19,7 +20,7 @@ public class WorldSaveListener implements Listener {
     @EventHandler
     public void onSave(WorldSaveEvent e){
 
-        if(!SmallPets.useProtocolLib) {
+        if(!SmallPetsCommons.getSmallPetsCommons().isUseProtocollib()) {
 
             SmallPets.getInstance().getUserManager().despawnPets();
 
