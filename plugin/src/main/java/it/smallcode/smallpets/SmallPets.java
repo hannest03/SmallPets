@@ -106,6 +106,8 @@ public class SmallPets extends JavaPlugin {
 
         getListenerManager().registerListener();
 
+        Bukkit.getPluginManager().registerEvents(new BlockInteractListener(), this);
+
         Bukkit.getPluginManager().registerEvents(new JoinListener(getUserManager(), getPetMapManager()), this);
         Bukkit.getPluginManager().registerEvents(new QuitListener(getUserManager(), getInventoryCache()), this);
         Bukkit.getPluginManager().registerEvents(new WorldSaveListener(), this);
@@ -291,6 +293,7 @@ public class SmallPets extends JavaPlugin {
 
             SmallPetsCommons.getSmallPetsCommons().setSkullCreator(new SkullCreator1_12());
             SmallPetsCommons.getSmallPetsCommons().setNbtTagEditor(new INBTTagEditor1_12());
+            SmallPetsCommons.getSmallPetsCommons().setMetaDataUtils(new MetaDataUtils1_15());
 
             SmallPetsCommons.getSmallPetsCommons().setPetMapManager(new PetMapManager1_12());
             SmallPetsCommons.getSmallPetsCommons().setInventoryManager(new InventoryManager1_12(xpMultiplier));
@@ -306,6 +309,7 @@ public class SmallPets extends JavaPlugin {
 
             SmallPetsCommons.getSmallPetsCommons().setSkullCreator(new SkullCreator1_13());
             SmallPetsCommons.getSmallPetsCommons().setNbtTagEditor(new INBTTagEditor1_13());
+            SmallPetsCommons.getSmallPetsCommons().setMetaDataUtils(new MetaDataUtils1_15());
 
             SmallPetsCommons.getSmallPetsCommons().setPetMapManager(new PetMapManager1_13());
             SmallPetsCommons.getSmallPetsCommons().setInventoryManager(new InventoryManager1_13(xpMultiplier));
@@ -321,6 +325,7 @@ public class SmallPets extends JavaPlugin {
 
             SmallPetsCommons.getSmallPetsCommons().setSkullCreator(new SkullCreator1_15());
             SmallPetsCommons.getSmallPetsCommons().setNbtTagEditor(new INBTTagEditor1_15());
+            SmallPetsCommons.getSmallPetsCommons().setMetaDataUtils(new MetaDataUtils1_15());
 
             SmallPetsCommons.getSmallPetsCommons().setPetMapManager(new PetMapManager1_15());
             SmallPetsCommons.getSmallPetsCommons().setInventoryManager(new InventoryManager1_15(xpMultiplier));
@@ -336,6 +341,7 @@ public class SmallPets extends JavaPlugin {
 
             SmallPetsCommons.getSmallPetsCommons().setSkullCreator(new SkullCreator1_16());
             SmallPetsCommons.getSmallPetsCommons().setNbtTagEditor(new INBTTagEditor1_16());
+            SmallPetsCommons.getSmallPetsCommons().setMetaDataUtils(new MetaDataUtils1_15());
 
             SmallPetsCommons.getSmallPetsCommons().setPetMapManager(new PetMapManager1_16());
             SmallPetsCommons.getSmallPetsCommons().setInventoryManager(new InventoryManager1_16(xpMultiplier));

@@ -9,6 +9,7 @@ Class created by SmallCode
 public enum SubCommandType {
 
     ADMIN("admin", 1),
+    DEBUG("debug", 1),
     NONE("", 0);
 
     private String name;

@@ -8,6 +8,7 @@ Class created by SmallCode
 
 import it.smallcode.smallpets.core.languages.LanguageManager;
 import it.smallcode.smallpets.core.manager.*;
+import it.smallcode.smallpets.core.utils.IMetaDataUtils;
 import it.smallcode.smallpets.core.utils.INBTTagEditor;
 import it.smallcode.smallpets.core.utils.IProtocolLibUtils;
 import it.smallcode.smallpets.core.utils.SkullCreator;
@@ -15,7 +16,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class SmallPetsCommons {
 
-    public static final boolean DEBUG = false;
+    public static final boolean DEBUG = true;
 
     static {
         
@@ -46,6 +47,7 @@ public class SmallPetsCommons {
 
     private INBTTagEditor INBTTagEditor;
     private IProtocolLibUtils protocolLibUtils;
+    private IMetaDataUtils metaDataUtils;
 
     private SkullCreator skullCreator;
 
@@ -163,5 +165,13 @@ public class SmallPetsCommons {
 
     public void setRequirePermission(boolean requirePermission) {
         this.requirePermission = requirePermission;
+    }
+
+    public IMetaDataUtils getMetaDataUtils() {
+        return metaDataUtils;
+    }
+
+    public void setMetaDataUtils(IMetaDataUtils metaDataUtils) {
+        this.metaDataUtils = metaDataUtils;
     }
 }

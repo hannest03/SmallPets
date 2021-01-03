@@ -8,6 +8,8 @@ Class created by SmallCode
 
 import it.smallcode.smallpets.SmallPets;
 import it.smallcode.smallpets.cmds.subcmd.*;
+import it.smallcode.smallpets.cmds.subcmd.debug.TestMetaDataSubCMD;
+import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.manager.types.User;
 import it.smallcode.smallpets.core.pets.Pet;
 import org.bukkit.Sound;
@@ -36,6 +38,12 @@ public class SmallPetsCMD implements CommandExecutor {
         subCommands.add(new SetLevelSubCMD("setlevel", "smallpets.setlevel"));
         subCommands.add(new ReloadSubCMD("reload", "smallpets.reload"));
         subCommands.add(new SaveLanguagesCMD("savelanguages", "smallpets.savelanguages"));
+
+        if(SmallPetsCommons.DEBUG) {
+
+            subCommands.add(new TestMetaDataSubCMD("testmetadata", "smallpets.debug.testmetadata"));
+
+        }
 
         subCommands.add(new DiscordSubCMD("discord", ""));
         subCommands.add(new DonateSubCMD("donate", ""));

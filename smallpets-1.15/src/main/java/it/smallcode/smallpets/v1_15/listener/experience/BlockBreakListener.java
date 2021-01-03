@@ -8,7 +8,6 @@ Class created by SmallCode
 
 import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.manager.ExperienceManager;
-import it.smallcode.smallpets.core.manager.UserManager;
 import it.smallcode.smallpets.core.manager.types.User;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -16,7 +15,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.plugin.java.JavaPlugin;
 
 public class BlockBreakListener implements Listener {
 
@@ -28,7 +26,7 @@ public class BlockBreakListener implements Listener {
 
     }
 
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.HIGH)
     public void onBlockBreak(BlockBreakEvent e){
 
         if(e.isCancelled())
@@ -95,6 +93,10 @@ public class BlockBreakListener implements Listener {
                         }
 
                     }else {
+
+                        //CHECK IF BLOCK WAS PLACED BY PLAYER (RESETS WHEN SERVER RESTARTS)
+                        if(SmallPetsCommons.getSmallPetsCommons().getMetaDataUtils().getMetaData(e.getBlock(), "playerPlaced") != null)
+                            return;
 
                         int exp = experienceManager.getExperienceTableAll().get(type);
 

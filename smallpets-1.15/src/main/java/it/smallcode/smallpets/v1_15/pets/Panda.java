@@ -20,7 +20,6 @@ import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.plugin.Plugin;
 
 import java.util.Date;
-import java.util.Objects;
 
 public class Panda extends Pet {
 

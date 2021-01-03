@@ -6,7 +6,6 @@ Class created by SmallCode
 
 */
 
-import it.smallcode.smallpets.SmallPets;
 import it.smallcode.smallpets.cmds.SubCommand;
 import it.smallcode.smallpets.cmds.SubCommandType;
 import it.smallcode.smallpets.core.SmallPetsCommons;
@@ -35,6 +34,9 @@ public class CreditsSubCMD extends SubCommand {
         s.sendMessage(prefix + "§7 -WildSquirrel");
         s.sendMessage(prefix + "§7 -vgtom4");
         s.sendMessage(prefix + "§7 -Plebexer");
+        s.sendMessage("");
+        s.sendMessage(prefix + "§aDonator§8: ");
+        s.sendMessage(prefix + "§7 -Eden");
         s.sendMessage("");
 
     }
