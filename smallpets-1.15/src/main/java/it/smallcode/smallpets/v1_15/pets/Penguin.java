@@ -31,15 +31,7 @@ public class Penguin extends Pet {
 
         super.setParticle(Particle.WATER_BUBBLE);
 
-        if(Bukkit.getPluginManager().getPlugin("AureliumSkills") != null && Bukkit.getPluginManager().getPlugin("AureliumSkills").isEnabled()) {
-
-            super.abilities.add(new AureliumSkillsHealthAbility(10, 2));
-
-        }else{
-
-            super.abilities.add(new HealthAbility(10, 2));
-
-        }
+        super.abilities.add(new HealthAbility(10, 2));
 
     }
 

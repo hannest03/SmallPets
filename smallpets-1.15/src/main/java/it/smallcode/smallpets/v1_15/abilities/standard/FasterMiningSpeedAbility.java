@@ -44,7 +44,7 @@ public class FasterMiningSpeedAbility extends StatBoostAbility {
 
             p.removePotionEffect(PotionEffectType.FAST_DIGGING);
 
-            PotionEffect potionEffect = new PotionEffect(PotionEffectType.FAST_DIGGING, 1000000000, (int) ability.getExtraStat(level), false, false);
+            PotionEffect potionEffect = new PotionEffect(PotionEffectType.FAST_DIGGING, 1000000000, (int) ability.getExtraStat(level) -1, false, false);
 
             p.addPotionEffect(potionEffect);
 
@@ -63,7 +63,7 @@ public class FasterMiningSpeedAbility extends StatBoostAbility {
 
             Player p = e.getOwner();
 
-            PotionEffect potionEffect = new PotionEffect(PotionEffectType.FAST_DIGGING, 1000000000, (int) ability.getExtraStat(e.getPet().getLevel()), false, false);
+            PotionEffect potionEffect = new PotionEffect(PotionEffectType.FAST_DIGGING, 1000000000, (int) ability.getExtraStat(e.getPet().getLevel()) -1, false, false);
 
             p.addPotionEffect(potionEffect);
 
@@ -116,7 +116,7 @@ public class FasterMiningSpeedAbility extends StatBoostAbility {
 
             Player p = e.getUser().getSelected().getOwner();
 
-            PotionEffect potionEffect = new PotionEffect(PotionEffectType.FAST_DIGGING, 1000000000, (int) getExtraStat(e.getUser().getSelected().getLevel()), false, false);
+            PotionEffect potionEffect = new PotionEffect(PotionEffectType.FAST_DIGGING, 1000000000, (int) getExtraStat(e.getUser().getSelected().getLevel()) -1, false, false);
 
             p.addPotionEffect(potionEffect);
 

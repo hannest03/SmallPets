@@ -30,15 +30,7 @@ public class Panda extends Pet {
 
         super.setPetType(PetType.farming);
 
-        if(Bukkit.getPluginManager().getPlugin("AureliumSkills") != null && Bukkit.getPluginManager().getPlugin("AureliumSkills").isEnabled()) {
-
-            super.abilities.add(new AureliumSkillsHealthAbility(4));
-
-        }else{
-
-            super.abilities.add(new HealthAbility(4));
-
-        }
+        super.abilities.add(new HealthAbility(4));
 
         super.abilities.add(new DamageAbility(5, 1));
 

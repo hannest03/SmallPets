@@ -6,9 +6,11 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventHandler;
 import it.smallcode.smallpets.core.abilities.eventsystem.events.*;
 import it.smallcode.smallpets.core.abilities.templates.StatBoostAbility;
+import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.entity.Player;
 
 public class HealthAbility extends StatBoostAbility {
@@ -40,14 +42,10 @@ public class HealthAbility extends StatBoostAbility {
 
                     Player p = e.getUser().getSelected().getOwner();
 
-                    double maxHealth = p.getMaxHealth();
+                    SmallPetsCommons.getSmallPetsCommons().getHealthModifierUtils().removeModifier(p, getID());
+                    SmallPetsCommons.getSmallPetsCommons().getHealthModifierUtils().addModifier(p, getID(), ability.getExtraStat(level), AttributeModifier.Operation.ADD_NUMBER);
 
-                    maxHealth -= (int) ability.getExtraStat(e.getLevelBefore());
-                    maxHealth += (int) ability.getExtraStat(level);
-
-                    p.setMaxHealth(maxHealth);
-
-                    debug("petlevelup Max Health: " + maxHealth);
+                    debug("petlevelup modifier ");
 
                 }
 
@@ -66,13 +64,9 @@ public class HealthAbility extends StatBoostAbility {
 
             Player p = e.getOwner();
 
-            double maxHealth = p.getMaxHealth();
+            SmallPetsCommons.getSmallPetsCommons().getHealthModifierUtils().addModifier(p, getID(), ability.getExtraStat(e.getPet().getLevel()), AttributeModifier.Operation.ADD_NUMBER);
 
-            maxHealth += (int) ability.getExtraStat(e.getPet().getLevel());
-
-            p.setMaxHealth(maxHealth);
-
-            debug("select Max Health: " + maxHealth);
+            debug("select added modifier ");
 
         }
 
@@ -87,13 +81,9 @@ public class HealthAbility extends StatBoostAbility {
 
             Player p = e.getOwner();
 
-            double maxHealth = p.getMaxHealth();
+            SmallPetsCommons.getSmallPetsCommons().getHealthModifierUtils().removeModifier(p, getID());
 
-            maxHealth -= (int) ability.getExtraStat(e.getPet().getLevel());
-
-            p.setMaxHealth(maxHealth);
-
-            debug("deselect Max Health: " + maxHealth);
+            debug("deselect modifier");
 
         }
 
@@ -108,13 +98,9 @@ public class HealthAbility extends StatBoostAbility {
 
             Player p = e.getUser().getSelected().getOwner();
 
-            double maxHealth = p.getMaxHealth();
+            SmallPetsCommons.getSmallPetsCommons().getHealthModifierUtils().removeModifier(p, getID());
 
-            maxHealth -= (int) ability.getExtraStat(e.getUser().getSelected().getLevel());
-
-            p.setMaxHealth(maxHealth);
-
-            debug("quit Max Health: " + maxHealth);
+            debug("quit modifier");
         }
 
     }
@@ -128,13 +114,9 @@ public class HealthAbility extends StatBoostAbility {
 
             Player p = e.getUser().getSelected().getOwner();
 
-            double maxHealth = p.getMaxHealth();
+            SmallPetsCommons.getSmallPetsCommons().getHealthModifierUtils().addModifier(p, getID(), ability.getExtraStat(e.getUser().getSelected().getLevel()), AttributeModifier.Operation.ADD_NUMBER);
 
-            maxHealth += (int) ability.getExtraStat(e.getUser().getSelected().getLevel());
-
-            p.setMaxHealth(maxHealth);
-
-            debug("join §7Max Health: " + maxHealth);
+            debug("join modifier");
 
         }
 
@@ -150,13 +132,9 @@ public class HealthAbility extends StatBoostAbility {
 
             Player p = e.getUser().getSelected().getOwner();
 
-            double maxHealth = p.getMaxHealth();
+            SmallPetsCommons.getSmallPetsCommons().getHealthModifierUtils().removeModifier(p, getID());
 
-            maxHealth -= (int) ability.getExtraStat(e.getUser().getSelected().getLevel());
-
-            p.setMaxHealth(maxHealth);
-
-            debug("server shutdown §7Max Health: " + maxHealth);
+            debug("server shutdown modifier");
 
         }
 
