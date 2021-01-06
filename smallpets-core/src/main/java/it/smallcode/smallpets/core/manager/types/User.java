@@ -103,7 +103,7 @@ public class User {
      */
     public Pet getPetFromType(String type){
 
-        Optional<Pet> result = pets.stream().filter(p -> p.getID().equals(type)).findFirst();
+        Optional<Pet> result = pets.stream().filter(p -> p.getID().equalsIgnoreCase(type)).findFirst();
 
         if(result != null)
             if(result.isPresent())

@@ -21,6 +21,9 @@ public class ShootProjectileListener implements Listener {
 
         if(!e.isCancelled()) {
 
+            if(!(e.getProjectile() instanceof Projectile))
+                return;
+
             ShootBowEvent shootProjectileEvent = new ShootBowEvent(e.getEntity(), (Projectile) e.getProjectile(), e.getBow());
             shootProjectileEvent.setCancelled(e.isCancelled());
 
