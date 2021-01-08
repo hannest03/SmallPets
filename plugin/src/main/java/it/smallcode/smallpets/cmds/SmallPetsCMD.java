@@ -16,13 +16,14 @@ import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class SmallPetsCMD implements CommandExecutor {
+public class SmallPetsCMD implements CommandExecutor, TabCompleter {
 
     private ArrayList<SubCommand> subCommands;
 
@@ -39,11 +40,7 @@ public class SmallPetsCMD implements CommandExecutor {
         subCommands.add(new ReloadSubCMD("reload", "smallpets.reload"));
         subCommands.add(new SaveLanguagesCMD("savelanguages", "smallpets.savelanguages"));
 
-        if(SmallPetsCommons.DEBUG) {
-
-            subCommands.add(new TestMetaDataSubCMD("testmetadata", "smallpets.debug.testmetadata"));
-
-        }
+        subCommands.add(new TestMetaDataSubCMD("testmetadata", "smallpets.debug.testmetadata"));
 
         subCommands.add(new DiscordSubCMD("discord", ""));
         subCommands.add(new DonateSubCMD("donate", ""));
@@ -96,6 +93,9 @@ public class SmallPetsCMD implements CommandExecutor {
         }
 
         Optional<SubCommand> optionalSubCommand = subCommands.stream().filter(subCommand -> {
+
+            if(!subCommand.getSubCommandType().isActive())
+                return false;
 
             if(args.length >= subCommand.getSubCommandType().getMinArgs() +1){
 
@@ -156,4 +156,60 @@ public class SmallPetsCMD implements CommandExecutor {
 
     }
 
+    @Override
+    public List<String> onTabComplete(CommandSender s, Command c, String label, String[] args) {
+
+        List<String> options = SubCommandType.handleAutoComplete(s, args);
+
+        subCommands.stream()
+                .filter(subCommand -> subCommand.getSubCommandType().getMinArgs() < args.length)
+                .forEach(subCommand ->  {
+
+                    if(!subCommand.getSubCommandType().isActive())
+                        return;
+
+                    String[] name = subCommand.getSubCommandType().getName().split(" ");
+
+                    //Remove wrong commands with wrong subcommand type
+                    for(int i = 0; i < subCommand.getSubCommandType().getMinArgs(); i++){
+
+                        if(args.length >= i && name.length >= i)
+                            if(!args[i].equalsIgnoreCase(name[i]))
+                                return;
+
+                    }
+
+                    //Remove wrong subcommands
+                    if(args.length > (subCommand.getSubCommandType().getMinArgs() +1))
+                        if (!args[subCommand.getSubCommandType().getMinArgs()].equalsIgnoreCase(subCommand.getName()))
+                            return;
+
+                    String[] passArgs = new String[0];
+
+                    if(args.length - (subCommand.getSubCommandType().getMinArgs()+1) > 0)
+                        passArgs = new String[args.length - (subCommand.getSubCommandType().getMinArgs() +1)];
+
+                    if(passArgs.length > 0)
+                        for(int i = 0; i < passArgs.length; i++){
+
+                            passArgs[i] = args[i + (subCommand.getSubCommandType().getMinArgs()+1)];
+
+                        }
+
+                    List<String> optionsSubCommand = subCommand.handleAutoComplete(s, passArgs);
+
+                    if(optionsSubCommand == null)
+                        return;
+
+                    //No doubled options
+                    options.removeAll(optionsSubCommand);
+                    options.addAll(optionsSubCommand);
+
+                }
+        );
+
+
+        return options;
+
+    }
 }

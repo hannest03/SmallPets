@@ -9,9 +9,13 @@ Class created by SmallCode
 import it.smallcode.smallpets.SmallPets;
 import it.smallcode.smallpets.cmds.SubCommand;
 import it.smallcode.smallpets.cmds.SubCommandType;
+import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.manager.types.User;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class GiveExperienceSubCMD extends SubCommand {
 
@@ -71,6 +75,47 @@ public class GiveExperienceSubCMD extends SubCommand {
             s.sendMessage(SmallPets.getInstance().getPrefix() + "/smallpets admin " + getHelp());
 
         }
+
+    }
+
+    @Override
+    public List<String> handleAutoComplete(CommandSender s, String[] args) {
+
+        List<String> options = super.handleAutoComplete(s, args);
+
+        if(args.length == 1){
+
+            options = new LinkedList<>();
+
+            List<String> finalOptions = options;
+            Bukkit.getOnlinePlayers().forEach(player -> finalOptions.add(player.getName()));
+
+            options = finalOptions;
+
+        }
+
+        if(args.length == 2){
+
+            options = new LinkedList<>();
+
+            if(Bukkit.getOfflinePlayer(args[0]) != null && Bukkit.getOfflinePlayer(args[0]).isOnline()) {
+
+                User user = SmallPetsCommons.getSmallPetsCommons().getUserManager().getUser(Bukkit.getOfflinePlayer(args[0]).getUniqueId().toString());
+
+                if (user != null) {
+
+                    List<String> finalOptions = options;
+                    user.getPets().forEach(pet -> finalOptions.add(pet.getID()));
+
+                    options = finalOptions;
+
+                }
+
+            }
+
+        }
+
+        return options;
 
     }
 

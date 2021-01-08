@@ -11,6 +11,10 @@ import it.smallcode.smallpets.cmds.SubCommandType;
 import it.smallcode.smallpets.core.SmallPetsCommons;
 import org.bukkit.command.CommandSender;
 
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+
 public class CreditsSubCMD extends SubCommand {
 
     public CreditsSubCMD(String name, String permission) {

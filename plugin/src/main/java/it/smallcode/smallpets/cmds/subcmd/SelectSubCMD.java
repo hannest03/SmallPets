@@ -7,11 +7,17 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.SmallPets;
+import it.smallcode.smallpets.cmds.SmallPetsCMD;
 import it.smallcode.smallpets.cmds.SubCommand;
 import it.smallcode.smallpets.cmds.SubCommandType;
+import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.manager.types.User;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 public class SelectSubCMD extends SubCommand {
 
@@ -20,6 +26,34 @@ public class SelectSubCMD extends SubCommand {
         super(name, permission, SubCommandType.NONE);
 
         help += " <type>";
+
+    }
+
+    @Override
+    public List<String> handleAutoComplete(CommandSender s, String[] args) {
+
+        List<String> options = super.handleAutoComplete(s, args);
+
+        if(!(s instanceof Player))
+            return null;
+
+        if(args.length == 0)
+            return new LinkedList<String>(Collections.singleton(getName()));
+
+        if(args.length == 1){
+
+            options = new LinkedList<>();
+            List<String> petOptions = new LinkedList<>();
+
+            User user = SmallPetsCommons.getSmallPetsCommons().getUserManager().getUser(((Player) s).getUniqueId().toString());
+
+            user.getPets().forEach(pet -> petOptions.add(pet.getID()));
+
+            options.addAll(petOptions);
+
+        }
+
+        return options;
 
     }
 

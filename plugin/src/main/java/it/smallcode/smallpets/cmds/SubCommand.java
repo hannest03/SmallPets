@@ -10,6 +10,10 @@ import it.smallcode.smallpets.SmallPets;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+
 public abstract class SubCommand {
 
     private String name;
@@ -53,6 +57,15 @@ public abstract class SubCommand {
         }
 
         return false;
+
+    }
+
+    public List<String> handleAutoComplete(CommandSender s, String[] args){
+
+        if(args.length == 0)
+            return new LinkedList<>(Collections.singleton(getName()));
+
+        return null;
 
     }
 

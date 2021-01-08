@@ -122,7 +122,10 @@ public class SmallPets extends JavaPlugin {
 
         //Registering all commands
 
-        Bukkit.getPluginCommand("smallpets").setExecutor(new SmallPetsCMD());
+        SmallPetsCMD smallPetsCMD = new SmallPetsCMD();
+
+        getCommand("smallpets").setExecutor(smallPetsCMD);
+        getCommand("smallpets").setTabCompleter(smallPetsCMD);
 
         //Registering PlaceholderAPI
 

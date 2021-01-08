@@ -14,6 +14,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class GiveUnlockItemSubCMD extends SubCommand {
 
 
@@ -64,4 +67,36 @@ public class GiveUnlockItemSubCMD extends SubCommand {
         }
 
     }
+
+    @Override
+    public List<String> handleAutoComplete(CommandSender s, String[] args) {
+
+        List<String> options = super.handleAutoComplete(s, args);
+
+        if(args.length == 1){
+
+            options = new LinkedList<>();
+
+            List<String> finalOptions = options;
+            Bukkit.getOnlinePlayers().forEach(player -> finalOptions.add(player.getName()));
+
+            options = finalOptions;
+
+        }
+
+        if(args.length == 2){
+
+            options = new LinkedList<>();
+
+            List<String> finalOptions = options;
+            SmallPetsCommons.getSmallPetsCommons().getPetMapManager().getPetMap().keySet().forEach(key -> finalOptions.add(key));
+
+            options = finalOptions;
+
+        }
+
+        return options;
+
+    }
+
 }

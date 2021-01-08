@@ -11,6 +11,10 @@ import it.smallcode.smallpets.cmds.SubCommand;
 import it.smallcode.smallpets.cmds.SubCommandType;
 import org.bukkit.command.CommandSender;
 
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+
 public class ReloadSubCMD extends SubCommand {
 
     public ReloadSubCMD(String name, String permission) {
@@ -18,6 +22,25 @@ public class ReloadSubCMD extends SubCommand {
 
         help += " <all/config/experienceTable/language>";
 
+    }
+
+    @Override
+    public List<String> handleAutoComplete(CommandSender s, String[] args) {
+
+        List<String> options = super.handleAutoComplete(s, args);
+
+        if(args.length == 1){
+
+            options = new LinkedList<>();
+
+            options.add("all");
+            options.add("config");
+            options.add("experienceTable");
+            options.add("language");
+
+        }
+
+        return options;
     }
 
     @Override
