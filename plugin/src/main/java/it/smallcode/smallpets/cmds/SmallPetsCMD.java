@@ -200,6 +200,9 @@ public class SmallPetsCMD implements CommandExecutor, TabCompleter {
                     if(optionsSubCommand == null)
                         return;
 
+                    //Check if contains in string already given
+                    optionsSubCommand.removeIf(string -> !string.contains(args[args.length-1]) && !string.isEmpty());
+
                     //No doubled options
                     options.removeAll(optionsSubCommand);
                     options.addAll(optionsSubCommand);

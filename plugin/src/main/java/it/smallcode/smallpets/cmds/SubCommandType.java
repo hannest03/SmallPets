@@ -48,7 +48,7 @@ public enum SubCommandType {
         List<String> options = new LinkedList<>();
 
         Arrays.stream(SubCommandType.values())
-                .filter(subCommandType -> (args.length <= subCommandType.getMinArgs() && subCommandType.active))
+                .filter(subCommandType -> (args.length <= subCommandType.getMinArgs() && subCommandType.active && subCommandType.getName().contains(args[args.length-1])))
                 .forEach(subCommandType -> options.add(subCommandType.getName())
         );
 
