@@ -77,7 +77,7 @@ public class InventoryManager1_15 extends InventoryManager {
 
             }
 
-            item = SmallPetsCommons.getSmallPetsCommons().getNbtTagEditor().addNBTTag(item, "showPets", String.valueOf(user.getSettings().isShowPets()));
+            item = SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().addNBTTag(item, "showPets", String.valueOf(user.getSettings().isShowPets()));
 
             inventory.setItem(36, item);
 

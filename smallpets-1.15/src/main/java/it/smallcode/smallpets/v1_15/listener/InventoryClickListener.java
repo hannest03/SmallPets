@@ -40,7 +40,7 @@ public class InventoryClickListener implements Listener {
 
             if(e.getCurrentItem() != null && e.getCurrentItem().getItemMeta() != null && e.getCurrentItem().getItemMeta().getDisplayName() != null) {
 
-                if(SmallPetsCommons.getSmallPetsCommons().getNbtTagEditor().hasNBTTag(e.getCurrentItem(), "showPets")){
+                if(SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().hasNBTTag(e.getCurrentItem(), "showPets")){
 
                     User user = userManager.getUser(p.getUniqueId().toString());
 
@@ -54,9 +54,9 @@ public class InventoryClickListener implements Listener {
 
                 if (e.getCurrentItem().getType() == Material.PLAYER_HEAD) {
 
-                    if(SmallPetsCommons.getSmallPetsCommons().getNbtTagEditor().hasNBTTag(e.getCurrentItem(), "pet")){
+                    if(SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().hasNBTTag(e.getCurrentItem(), "pet")){
 
-                        String type = SmallPetsCommons.getSmallPetsCommons().getNbtTagEditor().getNBTTagValue(e.getCurrentItem(), "pet");
+                        String type = SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().getNBTTagValue(e.getCurrentItem(), "pet");
 
                         if(type != null && type.trim().length() != 0){
 

@@ -40,9 +40,9 @@ public class InventoryClickListener implements Listener {
 
                     Player p = (Player) e.getWhoClicked();
 
-                    if(SmallPetsCommons.getSmallPetsCommons().getNbtTagEditor().hasNBTTag(e.getCurrentItem(), "pet")){
+                    if(SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().hasNBTTag(e.getCurrentItem(), "pet")){
 
-                        String type = SmallPetsCommons.getSmallPetsCommons().getNbtTagEditor().getNBTTagValue(e.getCurrentItem(), "pet");
+                        String type = SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().getNBTTagValue(e.getCurrentItem(), "pet");
 
                         User user = userManager.getUser(p.getUniqueId().toString());
 

@@ -24,7 +24,6 @@ public class InventoryManager1_12 extends InventoryManager {
     /**
      * Creates a inventory manager object
      *
-     * @param inventoryCache - the inventoryCache
      */
     public InventoryManager1_12(double xpMultiplier) {
 

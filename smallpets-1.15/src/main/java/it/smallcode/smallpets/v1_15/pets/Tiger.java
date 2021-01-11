@@ -27,7 +27,6 @@ public class Tiger extends Pet {
      * @param owner           - the pet owner
      * @param xp              - the xp
      * @param useProtocolLib
-     * @param languageManager
      */
     public Tiger(String type, Player owner, Long xp, Boolean useProtocolLib) {
 

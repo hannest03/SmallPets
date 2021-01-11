@@ -26,7 +26,7 @@ public class BlockPlaceListener implements Listener {
 
             ItemStack item = e.getItemInHand();
 
-            if(SmallPetsCommons.getSmallPetsCommons().getNbtTagEditor().hasNBTTag(item, "pet"))
+            if(SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().hasNBTTag(item, "pet"))
                 e.setCancelled(true);
 
         }
