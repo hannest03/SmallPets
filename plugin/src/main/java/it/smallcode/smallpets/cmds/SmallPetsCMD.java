@@ -9,7 +9,6 @@ Class created by SmallCode
 import it.smallcode.smallpets.SmallPets;
 import it.smallcode.smallpets.cmds.subcmd.*;
 import it.smallcode.smallpets.cmds.subcmd.debug.TestMetaDataSubCMD;
-import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.manager.types.User;
 import it.smallcode.smallpets.core.pets.Pet;
 import org.bukkit.Sound;

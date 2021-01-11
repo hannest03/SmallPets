@@ -313,7 +313,7 @@ public class SmallPets extends JavaPlugin {
                 SmallPetsCommons.getSmallPetsCommons().setProtocolLibUtils(new ProtocolLibUtils1_12());
 
             SmallPetsCommons.getSmallPetsCommons().setSkullCreator(new SkullCreator1_12());
-            SmallPetsCommons.getSmallPetsCommons().setNbtTagEditor(new INBTTagEditor1_12());
+            SmallPetsCommons.getSmallPetsCommons().setINBTTagEditor(new INBTTagEditor1_12());
             SmallPetsCommons.getSmallPetsCommons().setMetaDataUtils(new MetaDataUtils1_15());
             SmallPetsCommons.getSmallPetsCommons().setHealthModifierUtils(new HealthModifierUtils1_15());
 
@@ -330,7 +330,7 @@ public class SmallPets extends JavaPlugin {
                 SmallPetsCommons.getSmallPetsCommons().setProtocolLibUtils(new ProtocolLibUtils1_13());
 
             SmallPetsCommons.getSmallPetsCommons().setSkullCreator(new SkullCreator1_13());
-            SmallPetsCommons.getSmallPetsCommons().setNbtTagEditor(new INBTTagEditor1_13());
+            SmallPetsCommons.getSmallPetsCommons().setINBTTagEditor(new INBTTagEditor1_13());
             SmallPetsCommons.getSmallPetsCommons().setMetaDataUtils(new MetaDataUtils1_15());
             SmallPetsCommons.getSmallPetsCommons().setHealthModifierUtils(new HealthModifierUtils1_15());
 
@@ -347,7 +347,7 @@ public class SmallPets extends JavaPlugin {
                 SmallPetsCommons.getSmallPetsCommons().setProtocolLibUtils(new ProtocolLibUtils1_15());
 
             SmallPetsCommons.getSmallPetsCommons().setSkullCreator(new SkullCreator1_15());
-            SmallPetsCommons.getSmallPetsCommons().setNbtTagEditor(new INBTTagEditor1_15());
+            SmallPetsCommons.getSmallPetsCommons().setINBTTagEditor(new INBTTagEditor1_15());
             SmallPetsCommons.getSmallPetsCommons().setMetaDataUtils(new MetaDataUtils1_15());
             SmallPetsCommons.getSmallPetsCommons().setHealthModifierUtils(new HealthModifierUtils1_15());
 
@@ -364,7 +364,7 @@ public class SmallPets extends JavaPlugin {
                 SmallPetsCommons.getSmallPetsCommons().setProtocolLibUtils(new ProtocolLibUtils1_16());
 
             SmallPetsCommons.getSmallPetsCommons().setSkullCreator(new SkullCreator1_16());
-            SmallPetsCommons.getSmallPetsCommons().setNbtTagEditor(new INBTTagEditor1_16());
+            SmallPetsCommons.getSmallPetsCommons().setINBTTagEditor(new INBTTagEditor1_16());
             SmallPetsCommons.getSmallPetsCommons().setMetaDataUtils(new MetaDataUtils1_15());
             SmallPetsCommons.getSmallPetsCommons().setHealthModifierUtils(new HealthModifierUtils1_15());
 

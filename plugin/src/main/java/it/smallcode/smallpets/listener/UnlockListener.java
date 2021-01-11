@@ -24,17 +24,17 @@ public class UnlockListener implements Listener {
 
                 ItemStack item = e.getItem();
 
-                if(SmallPetsCommons.getSmallPetsCommons().getNbtTagEditor().hasNBTTag(item, "pet")) {
+                if(SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().hasNBTTag(item, "pet")) {
 
-                    String type = SmallPetsCommons.getSmallPetsCommons().getNbtTagEditor().getNBTTagValue(item, "pet");
+                    String type = SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().getNBTTagValue(item, "pet");
 
                     long exp = 0;
 
-                    if(SmallPetsCommons.getSmallPetsCommons().getNbtTagEditor().hasNBTTag(item, "petExp")){
+                    if(SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().hasNBTTag(item, "petExp")){
 
                         try {
 
-                            exp = Long.parseLong(SmallPetsCommons.getSmallPetsCommons().getNbtTagEditor().getNBTTagValue(item, "petExp"));
+                            exp = Long.parseLong(SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().getNBTTagValue(item, "petExp"));
 
                         }catch(Exception ex){ exp = 0; }
 

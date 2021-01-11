@@ -817,7 +817,7 @@ public class Pet {
 
         item.setItemMeta(itemMeta);
 
-        item = SmallPetsCommons.getSmallPetsCommons().getNbtTagEditor().addNBTTag(item, "petExp", String.valueOf(getXp()));
+        item = SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().addNBTTag(item, "petExp", String.valueOf(getXp()));
 
         return item;
 
@@ -928,7 +928,7 @@ public class Pet {
 
             itemStack.setItemMeta(itemMeta);
 
-            itemStack = SmallPetsCommons.getSmallPetsCommons().getNbtTagEditor().addNBTTag(itemStack, "pet", getID());
+            itemStack = SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().addNBTTag(itemStack, "pet", getID());
 
         }
 
