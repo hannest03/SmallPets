@@ -6,7 +6,7 @@ Class created by SmallCode
 
 */
 
-public class SpeedBoostAbility extends StatBoostAbility {
+public abstract class SpeedBoostAbility extends StatBoostAbility {
 
     private double speedBoostCap = 0;
 
@@ -27,7 +27,5 @@ public class SpeedBoostAbility extends StatBoostAbility {
     public double getSpeedBoostCap() {
         return speedBoostCap;
     }
-
-
 
 }

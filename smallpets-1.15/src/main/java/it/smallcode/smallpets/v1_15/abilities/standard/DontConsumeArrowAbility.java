@@ -7,6 +7,7 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.core.SmallPetsCommons;
+import it.smallcode.smallpets.core.abilities.Ability;
 import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventHandler;
 import it.smallcode.smallpets.core.abilities.eventsystem.events.ShootBowEvent;
 import it.smallcode.smallpets.core.abilities.templates.StatBoostAbility;
@@ -60,4 +61,15 @@ public class DontConsumeArrowAbility extends StatBoostAbility {
 
     }
 
+    @Override
+    public void addBoost(Player p, Ability ability) {
+
+    }
+
+    @Override
+    public void removeBoost(Player p, Ability ability) {
+
+        //Nothing needs to be changed
+
+    }
 }

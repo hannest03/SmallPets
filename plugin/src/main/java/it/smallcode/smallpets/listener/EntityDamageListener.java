@@ -27,9 +27,13 @@ public class EntityDamageListener implements Listener {
 
             Player p = (Player) e.getDamager();
 
+            /*
+
             //Skip if worldguard isn't activated or the flag is deactivated
             if(SmallPetsCommons.getSmallPetsCommons().isUseWorldGuard() && !WorldGuardImp.checkStateFlag(p, SmallFlags.ALLOW_ABILITIES))
                 return;
+
+             */
 
             User user = SmallPetsCommons.getSmallPetsCommons().getUserManager().getUser(p.getUniqueId().toString());
 

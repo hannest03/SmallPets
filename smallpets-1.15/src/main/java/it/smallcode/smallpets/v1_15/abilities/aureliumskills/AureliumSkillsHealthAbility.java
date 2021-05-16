@@ -9,9 +9,11 @@ Class created by SmallCode
 import com.archyx.aureliumskills.api.AureliumAPI;
 import com.archyx.aureliumskills.stats.Stat;
 import it.smallcode.smallpets.core.SmallPetsCommons;
+import it.smallcode.smallpets.core.abilities.Ability;
 import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventHandler;
 import it.smallcode.smallpets.core.abilities.eventsystem.events.*;
 import it.smallcode.smallpets.core.abilities.templates.StatBoostAbility;
+import it.smallcode.smallpets.core.manager.types.User;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -38,19 +40,8 @@ public class AureliumSkillsHealthAbility extends StatBoostAbility {
 
                 if (e.getUser().getSelected().hasAbility(getID())) {
 
-                    StatBoostAbility ability = (StatBoostAbility) e.getUser().getSelected().getAbility(getID());
-
-                    int level = e.getUser().getSelected().getLevel();
-
-                    Player p = e.getUser().getSelected().getOwner();
-
-                    removeStatModifier(p);
-
-                    int modifier = (int) ability.getExtraStat(e.getPet().getLevel());
-
-                    addStatModifier(p, modifier);
-
-                    debug("petlevelup add modifier " + modifier);
+                    removeBoost(e.getPet().getOwner(), e.getPet().getAbility(getID()));
+                    addBoost(e.getPet().getOwner(), e.getPet().getAbility(getID()));
 
                 }
 
@@ -65,15 +56,7 @@ public class AureliumSkillsHealthAbility extends StatBoostAbility {
 
         if(e.getPet().hasAbility(getID())) {
 
-            StatBoostAbility ability = (StatBoostAbility) e.getPet().getAbility(getID());
-
-            Player p = e.getOwner();
-
-            int modifier = (int) ability.getExtraStat(e.getPet().getLevel());
-
-            addStatModifier(p, modifier);
-
-            debug("select modifier: " + modifier);
+            addBoost(e.getOwner(), e.getPet().getAbility(getID()));
 
         }
 
@@ -84,13 +67,7 @@ public class AureliumSkillsHealthAbility extends StatBoostAbility {
 
         if(e.getPet().hasAbility(getID())) {
 
-            StatBoostAbility ability = (StatBoostAbility) e.getPet().getAbility(getID());
-
-            Player p = e.getOwner();
-
-            removeStatModifier(p);
-
-            debug("deselect remove modifier");
+            removeBoost(e.getOwner(), e.getPet().getAbility(getID()));
 
         }
 
@@ -101,13 +78,8 @@ public class AureliumSkillsHealthAbility extends StatBoostAbility {
 
         if(e.getUser().getSelected().hasAbility(getID())) {
 
-            StatBoostAbility ability = (StatBoostAbility) e.getUser().getSelected().getAbility(getID());
+            removeBoost(e.getUser().getSelected().getOwner(), e.getUser().getSelected().getAbility(getID()));
 
-            Player p = e.getUser().getSelected().getOwner();
-
-            removeStatModifier(p);
-
-            debug("quit remove modifier");
         }
 
     }
@@ -117,15 +89,7 @@ public class AureliumSkillsHealthAbility extends StatBoostAbility {
 
         if(e.getUser().getSelected().hasAbility(getID())) {
 
-            StatBoostAbility ability = (StatBoostAbility) e.getUser().getSelected().getAbility(getID());
-
-            Player p = e.getUser().getSelected().getOwner();
-
-            int modifier = (int) ability.getExtraStat(e.getUser().getSelected().getLevel());
-
-            addStatModifier(p, modifier);
-
-            debug("join add modifier: " + modifier);
+            addBoost(e.getUser().getSelected().getOwner(), e.getUser().getSelected().getAbility(getID()));
 
         }
 
@@ -137,13 +101,7 @@ public class AureliumSkillsHealthAbility extends StatBoostAbility {
         if(e.getUser() != null && e.getUser().getSelected() != null)
             if(e.getUser().getSelected().hasAbility(getID())) {
 
-                StatBoostAbility ability = (StatBoostAbility) e.getUser().getSelected().getAbility(getID());
-
-                Player p = e.getUser().getSelected().getOwner();
-
-                removeStatModifier(p);
-
-                debug("server shutdown remove modifier");
+                removeBoost(e.getUser().getSelected().getOwner(), e.getUser().getSelected().getAbility(getID()));
 
             }
 
@@ -169,4 +127,27 @@ public class AureliumSkillsHealthAbility extends StatBoostAbility {
 
     }
 
+    @Override
+    public void addBoost(Player p, Ability ability) {
+
+        StatBoostAbility statBoostAbility = (StatBoostAbility) ability;
+
+        User user = SmallPetsCommons.getSmallPetsCommons().getUserManager().getUser(p.getUniqueId().toString());
+
+        int modifier = (int) statBoostAbility.getExtraStat(user.getSelected().getLevel());
+
+        addStatModifier(p, modifier);
+
+        debug(getID() + " add modifier: " + modifier);
+
+    }
+
+    @Override
+    public void removeBoost(Player p, Ability ability) {
+
+        removeStatModifier(p);
+
+        debug(getID() + " remove modifier");
+
+    }
 }

@@ -6,10 +6,13 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.core.SmallPetsCommons;
+import it.smallcode.smallpets.core.abilities.Ability;
 import it.smallcode.smallpets.core.abilities.AbilityType;
 import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventHandler;
 import it.smallcode.smallpets.core.abilities.eventsystem.events.*;
 import it.smallcode.smallpets.core.abilities.templates.StatBoostAbility;
+import it.smallcode.smallpets.core.manager.types.User;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -36,19 +39,8 @@ public class FasterMiningSpeedAbility extends StatBoostAbility {
 
         if(e.getUser().getSelected().hasAbility(getID())) {
 
-            StatBoostAbility ability = (StatBoostAbility) e.getUser().getSelected().getAbility(getID());
-
-            int level = e.getUser().getSelected().getLevel();
-
-            Player p = e.getUser().getSelected().getOwner();
-
-            p.removePotionEffect(PotionEffectType.FAST_DIGGING);
-
-            PotionEffect potionEffect = new PotionEffect(PotionEffectType.FAST_DIGGING, 1000000000, (int) ability.getExtraStat(level) -1, false, false);
-
-            p.addPotionEffect(potionEffect);
-
-            debug("levelup give effect " + p.hasPotionEffect(PotionEffectType.FAST_DIGGING));
+            removeBoost(e.getPet().getOwner(), e.getPet().getAbility(getID()));
+            addBoost(e.getPet().getOwner(), e.getPet().getAbility(getID()));
 
         }
 
@@ -59,16 +51,7 @@ public class FasterMiningSpeedAbility extends StatBoostAbility {
 
         if(e.getPet().hasAbility(getID())) {
 
-            StatBoostAbility ability = (StatBoostAbility) e.getPet().getAbility(getID());
-
-            Player p = e.getOwner();
-
-            PotionEffect potionEffect = new PotionEffect(PotionEffectType.FAST_DIGGING, 1000000000, (int) ability.getExtraStat(e.getPet().getLevel()) -1, false, false);
-
-            p.addPotionEffect(potionEffect);
-
-            debug("select give effect " + p.hasPotionEffect(PotionEffectType.FAST_DIGGING));
-
+            addBoost(e.getOwner(), e.getPet().getAbility(getID()));
         }
 
     }
@@ -78,14 +61,7 @@ public class FasterMiningSpeedAbility extends StatBoostAbility {
 
         if(e.getPet().hasAbility(getID())) {
 
-            StatBoostAbility ability = (StatBoostAbility) e.getPet().getAbility(getID());
-
-            Player p = e.getOwner();
-
-            p.removePotionEffect(PotionEffectType.FAST_DIGGING);
-
-            debug("deselect remove effect " + p.hasPotionEffect(PotionEffectType.FAST_DIGGING));
-
+            removeBoost(e.getOwner(), e.getPet().getAbility(getID()));
         }
 
     }
@@ -95,13 +71,7 @@ public class FasterMiningSpeedAbility extends StatBoostAbility {
 
         if(e.getUser().getSelected().hasAbility(getID())) {
 
-            StatBoostAbility ability = (StatBoostAbility) e.getUser().getSelected().getAbility(getID());
-
-            Player p = e.getUser().getSelected().getOwner();
-
-            p.removePotionEffect(PotionEffectType.FAST_DIGGING);
-
-            debug("quit remove effect " + p.hasPotionEffect(PotionEffectType.FAST_DIGGING));
+            removeBoost(e.getUser().getSelected().getOwner(), e.getUser().getSelected().getAbility(getID()));
 
         }
 
@@ -112,15 +82,7 @@ public class FasterMiningSpeedAbility extends StatBoostAbility {
 
         if(e.getUser().getSelected().hasAbility(getID())) {
 
-            StatBoostAbility ability = (StatBoostAbility) e.getUser().getSelected().getAbility(getID());
-
-            Player p = e.getUser().getSelected().getOwner();
-
-            PotionEffect potionEffect = new PotionEffect(PotionEffectType.FAST_DIGGING, 1000000000, (int) getExtraStat(e.getUser().getSelected().getLevel()) -1, false, false);
-
-            p.addPotionEffect(potionEffect);
-
-            debug("join give effect " + p.hasPotionEffect(PotionEffectType.FAST_DIGGING));
+            addBoost(e.getUser().getSelected().getOwner(), e.getUser().getSelected().getAbility(getID()));
 
         }
 
@@ -132,16 +94,32 @@ public class FasterMiningSpeedAbility extends StatBoostAbility {
         if(e.getUser() != null && e.getUser().getSelected() != null)
         if(e.getUser().getSelected().hasAbility(getID())) {
 
-            StatBoostAbility ability = (StatBoostAbility) e.getUser().getSelected().getAbility(getID());
-
-            Player p = e.getUser().getSelected().getOwner();
-
-            p.removePotionEffect(PotionEffectType.FAST_DIGGING);
-
-            debug("shutdown remove effect " + p.hasPotionEffect(PotionEffectType.FAST_DIGGING));
-
+            removeBoost(e.getUser().getSelected().getOwner(), e.getUser().getSelected().getAbility(getID()));
         }
 
     }
 
+    @Override
+    public void addBoost(Player p, Ability ability) {
+
+        User user = SmallPetsCommons.getSmallPetsCommons().getUserManager().getUser(p.getUniqueId().toString());
+
+        if(user == null)
+            return;
+
+        PotionEffect potionEffect = new PotionEffect(PotionEffectType.FAST_DIGGING, 1000000000, (int) getExtraStat(user.getSelected().getLevel()) -1, false, false);
+
+        p.addPotionEffect(potionEffect);
+
+        debug(getID() + " give effect " + p.hasPotionEffect(PotionEffectType.FAST_DIGGING));
+
+    }
+
+    @Override
+    public void removeBoost(Player p, Ability ability) {
+
+        p.removePotionEffect(PotionEffectType.FAST_DIGGING);
+        debug(getID() + " remove effect " + p.hasPotionEffect(PotionEffectType.FAST_DIGGING));
+
+    }
 }

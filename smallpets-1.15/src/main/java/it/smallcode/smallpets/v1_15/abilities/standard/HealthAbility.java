@@ -7,9 +7,11 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.core.SmallPetsCommons;
+import it.smallcode.smallpets.core.abilities.Ability;
 import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventHandler;
 import it.smallcode.smallpets.core.abilities.eventsystem.events.*;
 import it.smallcode.smallpets.core.abilities.templates.StatBoostAbility;
+import it.smallcode.smallpets.core.manager.types.User;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.entity.Player;
 
@@ -36,16 +38,8 @@ public class HealthAbility extends StatBoostAbility {
 
                 if (e.getUser().getSelected().hasAbility(getID())) {
 
-                    StatBoostAbility ability = (StatBoostAbility) e.getUser().getSelected().getAbility(getID());
-
-                    int level = e.getUser().getSelected().getLevel();
-
-                    Player p = e.getUser().getSelected().getOwner();
-
-                    SmallPetsCommons.getSmallPetsCommons().getHealthModifierUtils().removeModifier(p, getID());
-                    SmallPetsCommons.getSmallPetsCommons().getHealthModifierUtils().addModifier(p, getID(), ability.getExtraStat(level), AttributeModifier.Operation.ADD_NUMBER);
-
-                    debug("petlevelup modifier ");
+                    removeBoost(e.getPet().getOwner(), e.getPet().getAbility(getID()));
+                    addBoost(e.getPet().getOwner(), e.getPet().getAbility(getID()));
 
                 }
 
@@ -60,13 +54,7 @@ public class HealthAbility extends StatBoostAbility {
 
         if(e.getPet().hasAbility(getID())) {
 
-            StatBoostAbility ability = (StatBoostAbility) e.getPet().getAbility(getID());
-
-            Player p = e.getOwner();
-
-            SmallPetsCommons.getSmallPetsCommons().getHealthModifierUtils().addModifier(p, getID(), ability.getExtraStat(e.getPet().getLevel()), AttributeModifier.Operation.ADD_NUMBER);
-
-            debug("select added modifier ");
+            addBoost(e.getOwner(), e.getPet().getAbility(getID()));
 
         }
 
@@ -77,13 +65,7 @@ public class HealthAbility extends StatBoostAbility {
 
         if(e.getPet().hasAbility(getID())) {
 
-            StatBoostAbility ability = (StatBoostAbility) e.getPet().getAbility(getID());
-
-            Player p = e.getOwner();
-
-            SmallPetsCommons.getSmallPetsCommons().getHealthModifierUtils().removeModifier(p, getID());
-
-            debug("deselect modifier");
+            removeBoost(e.getOwner(), e.getPet().getAbility(getID()));
 
         }
 
@@ -94,13 +76,8 @@ public class HealthAbility extends StatBoostAbility {
 
         if(e.getUser().getSelected().hasAbility(getID())) {
 
-            StatBoostAbility ability = (StatBoostAbility) e.getUser().getSelected().getAbility(getID());
+            removeBoost(e.getUser().getSelected().getOwner(), e.getUser().getSelected().getAbility(getID()));
 
-            Player p = e.getUser().getSelected().getOwner();
-
-            SmallPetsCommons.getSmallPetsCommons().getHealthModifierUtils().removeModifier(p, getID());
-
-            debug("quit modifier");
         }
 
     }
@@ -110,13 +87,7 @@ public class HealthAbility extends StatBoostAbility {
 
         if(e.getUser().getSelected().hasAbility(getID())) {
 
-            StatBoostAbility ability = (StatBoostAbility) e.getUser().getSelected().getAbility(getID());
-
-            Player p = e.getUser().getSelected().getOwner();
-
-            SmallPetsCommons.getSmallPetsCommons().getHealthModifierUtils().addModifier(p, getID(), ability.getExtraStat(e.getUser().getSelected().getLevel()), AttributeModifier.Operation.ADD_NUMBER);
-
-            debug("join modifier");
+            addBoost(e.getUser().getSelected().getOwner(), e.getUser().getSelected().getAbility(getID()));
 
         }
 
@@ -128,16 +99,34 @@ public class HealthAbility extends StatBoostAbility {
         if(e.getUser() != null && e.getUser().getSelected() != null)
         if(e.getUser().getSelected().hasAbility(getID())) {
 
-            StatBoostAbility ability = (StatBoostAbility) e.getUser().getSelected().getAbility(getID());
-
-            Player p = e.getUser().getSelected().getOwner();
-
-            SmallPetsCommons.getSmallPetsCommons().getHealthModifierUtils().removeModifier(p, getID());
-
-            debug("server shutdown modifier");
+            removeBoost(e.getUser().getSelected().getOwner(), e.getUser().getSelected().getAbility(getID()));
 
         }
 
     }
 
+    @Override
+    public void addBoost(Player p, Ability ability) {
+
+        StatBoostAbility statBoostAbility = (StatBoostAbility) ability;
+
+        User user = SmallPetsCommons.getSmallPetsCommons().getUserManager().getUser(p.getUniqueId().toString());
+
+        if(user == null)
+            return;
+
+        SmallPetsCommons.getSmallPetsCommons().getHealthModifierUtils().addModifier(p, getID(), statBoostAbility.getExtraStat(user.getSelected().getLevel()), AttributeModifier.Operation.ADD_NUMBER);
+
+        debug(getID() + " add modifier");
+
+    }
+
+    @Override
+    public void removeBoost(Player p, Ability ability) {
+
+        SmallPetsCommons.getSmallPetsCommons().getHealthModifierUtils().removeModifier(p, getID());
+
+        debug(getID() + " remove modifier");
+
+    }
 }

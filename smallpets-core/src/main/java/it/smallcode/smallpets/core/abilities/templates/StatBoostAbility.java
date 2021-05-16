@@ -13,6 +13,7 @@ import it.smallcode.smallpets.core.manager.types.User;
 import it.smallcode.smallpets.core.pets.Pet;
 import it.smallcode.smallpets.core.utils.DoubleFormater;
 import it.smallcode.smallpets.core.utils.StringUtils;
+import org.bukkit.entity.Player;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -85,6 +86,9 @@ public abstract class StatBoostAbility extends Ability {
         return lore;
 
     }
+
+    public abstract void addBoost(Player p, Ability ability);
+    public abstract void removeBoost(Player p, Ability ability);
 
     public double getExtraStat(double level){
 

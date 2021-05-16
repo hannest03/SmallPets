@@ -18,13 +18,15 @@ import org.bukkit.plugin.java.JavaPlugin;
 @Setter(AccessLevel.PUBLIC)
 public class SmallPetsCommons {
 
-    public static final boolean DEBUG = false;
+    public static final boolean DEBUG = true;
 
     static {
         
         smallPetsCommons = new SmallPetsCommons();
         
     }
+
+    private SmallPetsCommons(){}
 
     @Getter(AccessLevel.PUBLIC)
     private static SmallPetsCommons smallPetsCommons;

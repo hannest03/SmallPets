@@ -6,9 +6,11 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.core.abilities.Ability;
 import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventHandler;
 import it.smallcode.smallpets.core.abilities.eventsystem.events.DamageEvent;
 import it.smallcode.smallpets.core.abilities.templates.StatBoostAbility;
+import org.bukkit.entity.Player;
 
 public class DamageAbility extends StatBoostAbility {
 
@@ -45,4 +47,15 @@ public class DamageAbility extends StatBoostAbility {
 
     }
 
+    @Override
+    public void addBoost(Player p, Ability ability) {
+
+    }
+
+    @Override
+    public void removeBoost(Player p, Ability ability) {
+
+        //Nothing needs to be changed
+
+    }
 }

@@ -9,6 +9,7 @@ Class created by SmallCode
 import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventBus;
 import it.smallcode.smallpets.core.abilities.eventsystem.events.ShootBowEvent;
+import it.smallcode.smallpets.core.manager.types.User;
 import it.smallcode.smallpets.core.worldguard.SmallFlags;
 import it.smallcode.smallpets.core.worldguard.WorldGuardImp;
 import org.bukkit.entity.Player;
@@ -23,17 +24,30 @@ public class ShootProjectileListener implements Listener {
     @EventHandler(priority = EventPriority.MONITOR)
     public void onShoot(EntityShootBowEvent e){
 
-        //Skip if worldguard isn't activated or the flag is deactivated
+        /*
         if(e.getEntity() instanceof Player)
-            if(SmallPetsCommons.getSmallPetsCommons().isUseWorldGuard() && !WorldGuardImp.checkStateFlag((Player) e.getEntity(), SmallFlags.ALLOW_ABILITIES))
+
+            //Skip if worldguard isn't activated or the flag is deactivated
+            if(SmallPetsCommons.getSmallPetsCommons().isUseWorldGuard() && !WorldGuardImp.checkStateFlag(p, SmallFlags.ALLOW_ABILITIES))
                 return;
+
+        */
 
         if(!e.isCancelled()) {
 
             if(!(e.getProjectile() instanceof Projectile))
                 return;
+            if(!(e.getEntity() instanceof Player))
+                return;
 
-            ShootBowEvent shootProjectileEvent = new ShootBowEvent(e.getEntity(), (Projectile) e.getProjectile(), e.getBow());
+            Player p = (Player) e.getEntity();
+
+            User user = SmallPetsCommons.getSmallPetsCommons().getUserManager().getUser(p.getUniqueId().toString());
+
+            if(user == null)
+                return;
+
+            ShootBowEvent shootProjectileEvent = new ShootBowEvent(user, e.getEntity(), (Projectile) e.getProjectile(), e.getBow());
             shootProjectileEvent.setCancelled(e.isCancelled());
 
             AbilityEventBus.post(shootProjectileEvent);

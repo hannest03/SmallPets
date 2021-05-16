@@ -17,6 +17,7 @@ import com.sk89q.worldguard.protection.regions.RegionContainer;
 import com.sk89q.worldguard.protection.regions.RegionQuery;
 import com.sk89q.worldguard.session.SessionManager;
 import it.smallcode.smallpets.core.SmallPetsCommons;
+import it.smallcode.smallpets.core.worldguard.handlers.AllowAbilitiesHandler;
 import it.smallcode.smallpets.core.worldguard.handlers.ShowPetsHandler;
 import org.bukkit.entity.Player;
 
@@ -33,6 +34,7 @@ public class WorldGuardImp {
         SessionManager sessionManager = WorldGuard.getInstance().getPlatform().getSessionManager();
 
         sessionManager.registerHandler(ShowPetsHandler.FACTORY, null);
+        sessionManager.registerHandler(AllowAbilitiesHandler.FACTORY, null);
 
     }
 

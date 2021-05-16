@@ -6,13 +6,17 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEvent;
+import it.smallcode.smallpets.core.manager.types.User;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.Cancellable;
 import org.bukkit.inventory.ItemStack;
 
-public class ShootBowEvent implements Cancellable {
+public class ShootBowEvent extends AbilityEvent implements Cancellable {
+
+    private User user;
 
     private LivingEntity attacker;
     private Projectile projectile;
@@ -21,7 +25,9 @@ public class ShootBowEvent implements Cancellable {
 
     private boolean cancelled;
 
-    public ShootBowEvent(LivingEntity attacker, Projectile projectile, ItemStack bow) {
+    public ShootBowEvent(User user, LivingEntity attacker, Projectile projectile, ItemStack bow) {
+
+        super(user);
 
         this.attacker = attacker;
         this.projectile = projectile;

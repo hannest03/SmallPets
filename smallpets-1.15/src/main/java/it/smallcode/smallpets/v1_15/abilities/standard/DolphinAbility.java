@@ -7,11 +7,13 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.core.SmallPetsCommons;
+import it.smallcode.smallpets.core.abilities.Ability;
 import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventHandler;
 import it.smallcode.smallpets.core.abilities.eventsystem.events.InWaterMoveEvent;
 import it.smallcode.smallpets.core.abilities.templates.SpeedBoostAbility;
 import it.smallcode.smallpets.core.pets.Pet;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
 public class DolphinAbility extends SpeedBoostAbility {
@@ -71,4 +73,15 @@ public class DolphinAbility extends SpeedBoostAbility {
 
     }
 
+    @Override
+    public void addBoost(Player p, Ability ability) {
+
+    }
+
+    @Override
+    public void removeBoost(Player p, Ability ability) {
+
+        //Nothing needs to be changed
+
+    }
 }

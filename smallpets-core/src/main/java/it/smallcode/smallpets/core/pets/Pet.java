@@ -1059,6 +1059,10 @@ public class Pet {
 
     }
 
+    public List<Ability> getAbilities() {
+        return abilities;
+    }
+
     public static long getXpToLevelTwo() {
         return xpToLevelTwo;
     }

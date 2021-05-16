@@ -6,10 +6,13 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.core.SmallPetsCommons;
+import it.smallcode.smallpets.core.abilities.Ability;
 import it.smallcode.smallpets.core.abilities.AbilityType;
 import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventHandler;
 import it.smallcode.smallpets.core.abilities.eventsystem.events.*;
 import it.smallcode.smallpets.core.abilities.templates.StatBoostAbility;
+import it.smallcode.smallpets.core.manager.types.User;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
@@ -39,13 +42,7 @@ public class HealWhileInWaterAbility extends StatBoostAbility {
 
         if(e.getUser().getSelected().hasAbility(getID())){
 
-            StatBoostAbility ability = (StatBoostAbility) e.getUser().getSelected().getAbility(getID());
-
-            PotionEffect potionEffect = new PotionEffect(PotionEffectType.REGENERATION, 1000000, (int) ability.getExtraStat(e.getUser().getSelected().getLevel()), false, false);
-
-            e.getPlayer().addPotionEffect(potionEffect);
-
-            debug("enter water add effect " + e.getPlayer().hasPotionEffect(PotionEffectType.REGENERATION));
+            addBoost(e.getPlayer(), e.getUser().getSelected().getAbility(getID()));
 
         }
 
@@ -56,11 +53,7 @@ public class HealWhileInWaterAbility extends StatBoostAbility {
 
         if(e.getUser().getSelected().hasAbility(getID())){
 
-            StatBoostAbility ability = (StatBoostAbility) e.getUser().getSelected().getAbility(getID());
-
-            e.getPlayer().removePotionEffect(PotionEffectType.REGENERATION);
-
-            debug("exit water remove effect " + e.getPlayer().hasPotionEffect(PotionEffectType.REGENERATION));
+            removeBoost(e.getPlayer(), e.getUser().getSelected().getAbility(getID()));
 
         }
 
@@ -78,9 +71,7 @@ public class HealWhileInWaterAbility extends StatBoostAbility {
 
                     if(p.getLocation().getBlock().isLiquid()){
 
-                        p.removePotionEffect(PotionEffectType.REGENERATION);
-
-                        debug("shutdown remove effect " + p.hasPotionEffect(PotionEffectType.REGENERATION));
+                        removeBoost(e.getUser().getSelected().getOwner(), e.getUser().getSelected().getAbility(getID()));
 
                     }
 
@@ -101,9 +92,7 @@ public class HealWhileInWaterAbility extends StatBoostAbility {
 
                 if(p.getLocation().getBlock().isLiquid()){
 
-                    p.removePotionEffect(PotionEffectType.REGENERATION);
-
-                    debug("quit remove effect " + p.hasPotionEffect(PotionEffectType.REGENERATION));
+                    removeBoost(e.getUser().getSelected().getOwner(), e.getUser().getSelected().getAbility(getID()));
 
                 }
 
@@ -120,9 +109,7 @@ public class HealWhileInWaterAbility extends StatBoostAbility {
 
             if(e.getOwner().getLocation().getBlock().isLiquid()){
 
-                e.getOwner().removePotionEffect(PotionEffectType.REGENERATION);
-
-                debug("deselect remove effect " + e.getOwner().hasPotionEffect(PotionEffectType.REGENERATION));
+                removeBoost(e.getOwner(), e.getPet().getAbility(getID()));
 
             }
 
@@ -130,4 +117,29 @@ public class HealWhileInWaterAbility extends StatBoostAbility {
 
     }
 
+    @Override
+    public void addBoost(Player p, Ability ability) {
+
+        StatBoostAbility statBoostAbility = (StatBoostAbility) ability;
+
+        User user = SmallPetsCommons.getSmallPetsCommons().getUserManager().getUser(p.getUniqueId().toString());
+
+        if(user == null)
+            return;
+
+        PotionEffect potionEffect = new PotionEffect(PotionEffectType.REGENERATION, 1000000, (int) statBoostAbility.getExtraStat(user.getSelected().getLevel()), false, false);
+
+        p.addPotionEffect(potionEffect);
+
+    }
+
+    @Override
+    public void removeBoost(Player p, Ability ability) {
+
+        p.removePotionEffect(PotionEffectType.REGENERATION);
+
+        debug(getID() + " remove effect " + p.hasPotionEffect(PotionEffectType.REGENERATION));
+
+
+    }
 }
