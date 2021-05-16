@@ -13,9 +13,6 @@ import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.LinkedList;
-import java.util.List;
-
 public class TestMetaDataSubCMD extends SubCommand {
 
     public TestMetaDataSubCMD(String name, String permission) {

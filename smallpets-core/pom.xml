@@ -50,6 +50,14 @@
             <version>2.8.6</version>
         </dependency>
 
+        <!-- WorldGuard -->
+        <dependency>
+            <groupId>com.sk89q.worldguard</groupId>
+            <artifactId>worldguard-bukkit</artifactId>
+            <version>LATEST</version>
+            <scope>provided</scope>
+        </dependency>
+
     </dependencies>
 
 

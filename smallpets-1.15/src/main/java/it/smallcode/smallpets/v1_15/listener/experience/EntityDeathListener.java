@@ -10,6 +10,8 @@ import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.manager.ExperienceManager;
 import it.smallcode.smallpets.core.manager.UserManager;
 import it.smallcode.smallpets.core.manager.types.User;
+import it.smallcode.smallpets.core.worldguard.SmallFlags;
+import it.smallcode.smallpets.core.worldguard.WorldGuardImp;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -31,6 +33,13 @@ public class EntityDeathListener implements Listener {
         Player p = e.getEntity().getKiller();
 
         if(p != null) {
+
+            if(SmallPetsCommons.getSmallPetsCommons().isUseWorldGuard()){
+
+                if(!WorldGuardImp.checkStateFlag(p, SmallFlags.GIVE_EXP))
+                    return;
+
+            }
 
             UserManager userManager = SmallPetsCommons.getSmallPetsCommons().getUserManager();
             ExperienceManager experienceManager = SmallPetsCommons.getSmallPetsCommons().getExperienceManager();

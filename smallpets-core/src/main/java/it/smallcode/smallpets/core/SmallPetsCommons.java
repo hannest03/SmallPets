@@ -35,6 +35,7 @@ public class SmallPetsCommons {
 
     private boolean requirePermission;
     private boolean useProtocollib;
+    private boolean useWorldGuard = false;
 
     private PetMapManager petMapManager;
 

@@ -12,6 +12,8 @@ import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEvent;
 import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventBus;
 import it.smallcode.smallpets.core.abilities.eventsystem.events.*;
 import it.smallcode.smallpets.core.manager.types.User;
+import it.smallcode.smallpets.core.worldguard.SmallFlags;
+import it.smallcode.smallpets.core.worldguard.WorldGuardImp;
 import org.bukkit.Material;
 import org.bukkit.block.Biome;
 import org.bukkit.entity.Player;
@@ -33,6 +35,10 @@ public class PlayerMoveListener implements Listener {
     public void onMove(PlayerMoveEvent e){
 
         Player p = e.getPlayer();
+
+        //Skip if worldguard isn't activated or the flag is deactivated
+        if(SmallPetsCommons.getSmallPetsCommons().isUseWorldGuard() && !WorldGuardImp.checkStateFlag(p, SmallFlags.ALLOW_ABILITIES))
+            return;
 
         User user = SmallPetsCommons.getSmallPetsCommons().getUserManager().getUser(p.getUniqueId().toString());
 

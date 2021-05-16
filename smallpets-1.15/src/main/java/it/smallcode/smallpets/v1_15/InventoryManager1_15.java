@@ -43,7 +43,7 @@ public class InventoryManager1_15 extends InventoryManager {
 
         for(Pet pet : pets){
 
-            ItemStack itemStack = makePetItem(pet, p);
+            ItemStack itemStack = makePetItem(pet, user);
 
             if(itemStack != null) {
 
@@ -109,7 +109,7 @@ public class InventoryManager1_15 extends InventoryManager {
 
     }
 
-    private ItemStack makePetItem(Pet pet, Player p){
+    private ItemStack makePetItem(Pet pet, User user){
 
         ItemStack itemStack = pet.getDisplayItem();
 
@@ -121,7 +121,7 @@ public class InventoryManager1_15 extends InventoryManager {
 
             lore.add("");
 
-            if(pet.isActivated())
+            if(user.getSelected() == pet)
                 lore.add(SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("clickToDeselect"));
             else
                 lore.add(SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("clickToSelect"));

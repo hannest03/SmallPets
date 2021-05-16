@@ -6,6 +6,7 @@ Class created by SmallCode
 
 */
 
+import com.sk89q.worldguard.protection.flags.StateFlag;
 import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEvent;
 import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventBus;
@@ -16,6 +17,8 @@ import it.smallcode.smallpets.core.events.SpawnPetEvent;
 import it.smallcode.smallpets.core.languages.LanguageManager;
 import it.smallcode.smallpets.core.manager.PetMapManager;
 import it.smallcode.smallpets.core.pets.Pet;
+import it.smallcode.smallpets.core.worldguard.SmallFlags;
+import it.smallcode.smallpets.core.worldguard.WorldGuardImp;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.MemorySection;
 import org.bukkit.entity.Player;
@@ -125,7 +128,9 @@ public class User {
 
             selected.setOwner(Bukkit.getPlayer(UUID.fromString(uuid)));
 
-            SpawnPetEvent spawnPetEvent = new SpawnPetEvent(selected, Bukkit.getPlayer(UUID.fromString(uuid)));
+            Player p = Bukkit.getPlayer(UUID.fromString(uuid));
+
+            SpawnPetEvent spawnPetEvent = new SpawnPetEvent(selected, p);
 
             Bukkit.getPluginManager().callEvent(spawnPetEvent);
 

@@ -10,6 +10,8 @@ import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventBus;
 import it.smallcode.smallpets.core.abilities.eventsystem.events.DamageEvent;
 import it.smallcode.smallpets.core.manager.types.User;
+import it.smallcode.smallpets.core.worldguard.SmallFlags;
+import it.smallcode.smallpets.core.worldguard.WorldGuardImp;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -24,6 +26,10 @@ public class EntityDamageListener implements Listener {
         if(e.getDamager() instanceof Player){
 
             Player p = (Player) e.getDamager();
+
+            //Skip if worldguard isn't activated or the flag is deactivated
+            if(SmallPetsCommons.getSmallPetsCommons().isUseWorldGuard() && !WorldGuardImp.checkStateFlag(p, SmallFlags.ALLOW_ABILITIES))
+                return;
 
             User user = SmallPetsCommons.getSmallPetsCommons().getUserManager().getUser(p.getUniqueId().toString());
 

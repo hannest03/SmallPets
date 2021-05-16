@@ -11,6 +11,8 @@ import it.smallcode.smallpets.core.itemIDs.ItemIDs;
 import it.smallcode.smallpets.core.manager.ExperienceManager;
 import it.smallcode.smallpets.core.manager.UserManager;
 import it.smallcode.smallpets.core.manager.types.User;
+import it.smallcode.smallpets.core.worldguard.SmallFlags;
+import it.smallcode.smallpets.core.worldguard.WorldGuardImp;
 import org.bukkit.entity.Item;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -34,6 +36,13 @@ public class PlayerFishListener implements Listener {
         if(e.getState() == PlayerFishEvent.State.CAUGHT_FISH){
 
             if(e.getCaught() != null){
+
+                if(SmallPetsCommons.getSmallPetsCommons().isUseWorldGuard()){
+
+                    if(!WorldGuardImp.checkStateFlag(e.getPlayer(), SmallFlags.GIVE_EXP))
+                        return;
+
+                }
 
                 ExperienceManager experienceManager = SmallPetsCommons.getSmallPetsCommons().getExperienceManager();
 

@@ -6,8 +6,12 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventBus;
 import it.smallcode.smallpets.core.abilities.eventsystem.events.ShootBowEvent;
+import it.smallcode.smallpets.core.worldguard.SmallFlags;
+import it.smallcode.smallpets.core.worldguard.WorldGuardImp;
+import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -18,6 +22,11 @@ public class ShootProjectileListener implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onShoot(EntityShootBowEvent e){
+
+        //Skip if worldguard isn't activated or the flag is deactivated
+        if(e.getEntity() instanceof Player)
+            if(SmallPetsCommons.getSmallPetsCommons().isUseWorldGuard() && !WorldGuardImp.checkStateFlag((Player) e.getEntity(), SmallFlags.ALLOW_ABILITIES))
+                return;
 
         if(!e.isCancelled()) {
 

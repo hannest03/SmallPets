@@ -42,6 +42,11 @@
             <url>https://repo.dmulloy2.net/nexus/repository/public/</url>
         </repository>
 
+        <repository>
+            <id>sk89q-repo</id>
+            <url>https://maven.enginehub.org/repo/</url>
+        </repository>
+
     </repositories>
 
     <dependencies>

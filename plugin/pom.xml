@@ -19,6 +19,11 @@
             <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
         </repository>
 
+        <repository>
+            <id>sk89q-repo</id>
+            <url>https://maven.enginehub.org/repo/</url>
+        </repository>
+
     </repositories>
 
     <dependencies>
@@ -90,6 +95,14 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- WorldGuard -->
+        <dependency>
+            <groupId>com.sk89q.worldguard</groupId>
+            <artifactId>worldguard-bukkit</artifactId>
+            <version>LATEST</version>
+            <scope>provided</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -112,6 +125,14 @@
                     <include>translations/vi.yml</include>
                     <include>translations/es.yml</include>
                     <include>translations/fr.yml</include>
+                </includes>
+            </resource>
+            <resource>
+                <targetPath>.</targetPath>
+                <filtering>true</filtering>
+                <directory>../</directory>
+                <includes>
+                    <include>LICENSE</include>
                 </includes>
             </resource>
         </resources>

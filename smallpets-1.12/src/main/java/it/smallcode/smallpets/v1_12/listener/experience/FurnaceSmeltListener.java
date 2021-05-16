@@ -11,6 +11,8 @@ import it.smallcode.smallpets.core.itemIDs.ItemIDs;
 import it.smallcode.smallpets.core.manager.ExperienceManager;
 import it.smallcode.smallpets.core.manager.UserManager;
 import it.smallcode.smallpets.core.manager.types.User;
+import it.smallcode.smallpets.core.worldguard.SmallFlags;
+import it.smallcode.smallpets.core.worldguard.WorldGuardImp;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -31,6 +33,13 @@ public class FurnaceSmeltListener implements Listener {
     public void onSmelt(FurnaceExtractEvent e){
 
         Player p = e.getPlayer();
+
+        if(SmallPetsCommons.getSmallPetsCommons().isUseWorldGuard()){
+
+            if(!WorldGuardImp.checkStateFlag(p, SmallFlags.GIVE_EXP))
+                return;
+
+        }
 
         ExperienceManager experienceManager = SmallPetsCommons.getSmallPetsCommons().getExperienceManager();
 

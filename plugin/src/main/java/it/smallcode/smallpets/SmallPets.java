@@ -6,8 +6,9 @@ Class created by SmallCode
 
 */
 
-import it.smallcode.smallpets.cmds.SmallPetsCMD;
+import it.smallcode.smallpets.cmds.*;
 import it.smallcode.smallpets.core.SmallPetsCommons;
+import it.smallcode.smallpets.core.worldguard.WorldGuardImp;
 import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventBus;
 import it.smallcode.smallpets.core.abilities.eventsystem.events.ServerShutdownEvent;
 import it.smallcode.smallpets.core.languages.LanguageManager;
@@ -15,8 +16,8 @@ import it.smallcode.smallpets.core.manager.types.User;
 import it.smallcode.smallpets.core.pets.Pet;
 import it.smallcode.smallpets.listener.*;
 import it.smallcode.smallpets.core.manager.*;
-import it.smallcode.smallpets.metrics.Metrics;
-import it.smallcode.smallpets.placeholderapi.SmallPetsExpansion;
+import it.smallcode.smallpets.metrics.*;
+import it.smallcode.smallpets.placeholderapi.*;
 import it.smallcode.smallpets.v1_12.*;
 import it.smallcode.smallpets.v1_13.*;
 import it.smallcode.smallpets.v1_15.*;
@@ -30,6 +31,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class SmallPets extends JavaPlugin {
 
@@ -41,19 +43,57 @@ public class SmallPets extends JavaPlugin {
     private double xpMultiplier;
     private boolean registerCraftingRecipes;
 
+    private WorldGuardImp worldGuardImp;
+
     @Override
-    public void onEnable() {
+    public void onLoad() {
 
         instance = this;
+
+        Bukkit.getConsoleSender().sendMessage("");
+        Bukkit.getConsoleSender().sendMessage("  §e ___  §6 ____");
+        Bukkit.getConsoleSender().sendMessage("  §e|     §6|    |  §e" + getDescription().getName() + " §7v" + getDescription().getVersion());
+        Bukkit.getConsoleSender().sendMessage("  §e|___  §6|____|  §8Made by " + getDescription().getAuthors().stream().collect(Collectors.joining(", ")));
+        Bukkit.getConsoleSender().sendMessage("  §e    | §6|");
+        Bukkit.getConsoleSender().sendMessage("  §e ___| §6|");
+        Bukkit.getConsoleSender().sendMessage("");
 
         SmallPetsCommons.getSmallPetsCommons().setJavaPlugin(this);
 
         SmallPetsCommons.getSmallPetsCommons().setAutoSaveManager(new AutoSaveManager());
+        SmallPetsCommons.getSmallPetsCommons().setInventoryCache(new InventoryCache());
 
         this.initConfig();
         if(!this.loadConfig()) return;
 
-        SmallPetsCommons.getSmallPetsCommons().setInventoryCache(new InventoryCache());
+        //Registering WorldGuard
+
+        if(Bukkit.getPluginManager().getPlugin("WorldGuard") != null){
+
+            Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "Adding WorldGuard hook...");
+
+            worldGuardImp = new WorldGuardImp();
+
+            SmallPetsCommons.getSmallPetsCommons().setUseWorldGuard(true);
+
+            Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "Added WorldGuard hook!");
+
+        }
+
+        SmallPetsCommons.getSmallPetsCommons().setLanguageManager(new LanguageManager(this, getPrefix(), this.getConfig().getString("language")));
+
+        Bukkit.getConsoleSender().sendMessage(getPrefix() + "Loading experience table...");
+
+        SmallPetsCommons.getSmallPetsCommons().setExperienceManager(new ExperienceManager(this));
+
+        Bukkit.getConsoleSender().sendMessage(getPrefix() + "Experience table loaded!");
+
+    }
+
+    @Override
+    public void onEnable() {
+
+        SmallPetsCommons.getSmallPetsCommons().getAutoSaveManager().start();
 
         if(getConfig().getBoolean("useProtocolLib")){
 
@@ -66,14 +106,6 @@ public class SmallPets extends JavaPlugin {
             }
 
         }
-
-        SmallPetsCommons.getSmallPetsCommons().setLanguageManager(new LanguageManager(this, getPrefix(), this.getConfig().getString("language")));
-
-        Bukkit.getConsoleSender().sendMessage(getPrefix() + "Loading experience table...");
-
-        SmallPetsCommons.getSmallPetsCommons().setExperienceManager(new ExperienceManager(this));
-
-        Bukkit.getConsoleSender().sendMessage(getPrefix() + "Experience table loaded!");
 
         if(!selectRightVersion())
             return;
@@ -126,6 +158,8 @@ public class SmallPets extends JavaPlugin {
 
         getCommand("smallpets").setExecutor(smallPetsCMD);
         getCommand("smallpets").setTabCompleter(smallPetsCMD);
+
+        //--------------------- Third Party Plugins
 
         //Registering PlaceholderAPI
 
@@ -182,6 +216,9 @@ public class SmallPets extends JavaPlugin {
         }
 
         Bukkit.getPluginManager().registerEvents(new WorldSaveListener(), this);
+
+        if(worldGuardImp != null)
+            worldGuardImp.registerSessionHandlers();
 
         Bukkit.getConsoleSender().sendMessage("");
 
@@ -245,7 +282,7 @@ public class SmallPets extends JavaPlugin {
 
     public boolean loadConfig(){
 
-        if(SmallPetsCommons.getSmallPetsCommons().getAutoSaveManager() != null)
+        if(SmallPetsCommons.getSmallPetsCommons().getAutoSaveManager() != null && this.isEnabled())
             SmallPetsCommons.getSmallPetsCommons().getAutoSaveManager().stop();
 
         reloadConfig();
@@ -285,7 +322,9 @@ public class SmallPets extends JavaPlugin {
         if(cfg.getBoolean("autosave.enabled")){
 
             SmallPetsCommons.getSmallPetsCommons().getAutoSaveManager().setInterval(cfg.getLong("autosave.interval"));
-            SmallPetsCommons.getSmallPetsCommons().getAutoSaveManager().start();
+
+            if(this.isEnabled())
+                SmallPetsCommons.getSmallPetsCommons().getAutoSaveManager().start();
 
         }
 

@@ -11,6 +11,8 @@ import it.smallcode.smallpets.core.itemIDs.ItemIDs;
 import it.smallcode.smallpets.core.manager.ExperienceManager;
 import it.smallcode.smallpets.core.manager.UserManager;
 import it.smallcode.smallpets.core.manager.types.User;
+import it.smallcode.smallpets.core.worldguard.SmallFlags;
+import it.smallcode.smallpets.core.worldguard.WorldGuardImp;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -33,6 +35,13 @@ public class BlockBreakListener implements Listener {
     public void onBlockBreak(BlockBreakEvent e){
 
         Player p = e.getPlayer();
+
+        if(SmallPetsCommons.getSmallPetsCommons().isUseWorldGuard()){
+
+            if(!WorldGuardImp.checkStateFlag(p, SmallFlags.GIVE_EXP))
+                return;
+
+        }
 
         ExperienceManager experienceManager = SmallPetsCommons.getSmallPetsCommons().getExperienceManager();
 

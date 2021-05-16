@@ -8,6 +8,7 @@ Class created by SmallCode
 
 import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.manager.InventoryManager;
+import it.smallcode.smallpets.core.manager.types.User;
 import it.smallcode.smallpets.core.pets.Pet;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -39,9 +40,11 @@ public class InventoryManager1_12 extends InventoryManager {
 
         inventory = makeEdges(inventory);
 
+        User user = SmallPetsCommons.getSmallPetsCommons().getUserManager().getUser(p.getUniqueId().toString());
+
         for(Pet pet : pets){
 
-            ItemStack itemStack = makePetItem(pet, p);
+            ItemStack itemStack = makePetItem(pet, user);
 
             if(itemStack != null) {
 
@@ -85,7 +88,7 @@ public class InventoryManager1_12 extends InventoryManager {
 
     }
 
-    private ItemStack makePetItem(Pet pet, Player p){
+    private ItemStack makePetItem(Pet pet, User user){
 
         ItemStack itemStack = pet.getDisplayItem();
 
@@ -97,7 +100,7 @@ public class InventoryManager1_12 extends InventoryManager {
 
             lore.add("");
 
-            if(pet.isActivated())
+            if(user.getSelected() == pet)
                 lore.add(SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("clickToDeselect"));
             else
                 lore.add(SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("clickToSelect"));
