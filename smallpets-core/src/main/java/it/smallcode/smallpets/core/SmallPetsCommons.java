@@ -18,7 +18,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 @Setter(AccessLevel.PUBLIC)
 public class SmallPetsCommons {
 
-    public static final boolean DEBUG = true;
+    public static final boolean DEBUG = false;
 
     static {
         
@@ -43,6 +43,7 @@ public class SmallPetsCommons {
 
     private UserManager userManager;
     private AutoSaveManager autoSaveManager;
+    private BackupManager backupManager;
 
     private InventoryManager inventoryManager;
     private InventoryCache inventoryCache;
