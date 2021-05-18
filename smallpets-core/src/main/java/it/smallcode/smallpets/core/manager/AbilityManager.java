@@ -80,6 +80,12 @@ public abstract class AbilityManager {
 
     }
 
+    public boolean hasID(String id){
+
+        return abilityMap.get(id) != null;
+
+    }
+
     public String getIDByClass(Class clazz){
 
         for(Map.Entry entry : abilityMap.entrySet()){
