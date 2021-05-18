@@ -53,6 +53,8 @@ public class FurnaceSmeltListener implements Listener {
 
                 if(experienceManager.getExperienceTableAll().containsKey(type)){
 
+                    double extraMultiplier = WorldGuardImp.getDoubleFlagValue(p, SmallFlags.EXP_MODIFIER, 1D);
+
                     int exp = experienceManager.getExperienceTableAll().get(type);
 
                     if(experienceManager.getPetTypeOfType(type) != user.getSelected().getPetType()) {
@@ -61,7 +63,7 @@ public class FurnaceSmeltListener implements Listener {
 
                     }
 
-                    user.getSelected().giveExp((int) (exp * xpMultiplier) * e.getItemAmount(), SmallPetsCommons.getSmallPetsCommons().getJavaPlugin());
+                    user.getSelected().giveExp((int) (exp * xpMultiplier * extraMultiplier) * e.getItemAmount(), SmallPetsCommons.getSmallPetsCommons().getJavaPlugin());
 
                 }
 

@@ -65,6 +65,8 @@ public class BlockBreakListener implements Listener {
 
                 if(experienceManager.getExperienceTableAll().containsKey(type)){
 
+                    double extraMultiplier = WorldGuardImp.getDoubleFlagValue(p, SmallFlags.EXP_MODIFIER, 1D);
+
                     if(isFarmingBlock(e.getBlock().getType())){
 
                         String blockData = e.getBlock().getBlockData().getAsString();
@@ -89,7 +91,7 @@ public class BlockBreakListener implements Listener {
 
                                 }
 
-                                user.getSelected().giveExp((int) (exp * xpMultiplier), SmallPetsCommons.getSmallPetsCommons().getJavaPlugin());
+                                user.getSelected().giveExp((int) (exp * xpMultiplier * extraMultiplier), SmallPetsCommons.getSmallPetsCommons().getJavaPlugin());
 
                             }
 
@@ -105,7 +107,7 @@ public class BlockBreakListener implements Listener {
 
                                 }
 
-                                user.getSelected().giveExp((int) (exp * xpMultiplier), SmallPetsCommons.getSmallPetsCommons().getJavaPlugin());
+                                user.getSelected().giveExp((int) (exp * xpMultiplier * extraMultiplier), SmallPetsCommons.getSmallPetsCommons().getJavaPlugin());
 
                             }
 
@@ -125,7 +127,7 @@ public class BlockBreakListener implements Listener {
 
                         }
 
-                        user.getSelected().giveExp((int) (exp * xpMultiplier), SmallPetsCommons.getSmallPetsCommons().getJavaPlugin());
+                        user.getSelected().giveExp((int) (exp * xpMultiplier * extraMultiplier), SmallPetsCommons.getSmallPetsCommons().getJavaPlugin());
 
                     }
 

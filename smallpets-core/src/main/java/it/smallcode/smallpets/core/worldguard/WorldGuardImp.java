@@ -12,6 +12,7 @@ import com.sk89q.worldguard.LocalPlayer;
 import com.sk89q.worldguard.WorldGuard;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.sk89q.worldguard.protection.ApplicableRegionSet;
+import com.sk89q.worldguard.protection.flags.DoubleFlag;
 import com.sk89q.worldguard.protection.flags.StateFlag;
 import com.sk89q.worldguard.protection.regions.RegionContainer;
 import com.sk89q.worldguard.protection.regions.RegionQuery;
@@ -66,6 +67,38 @@ public class WorldGuardImp {
         }
 
         return false;
+
+    }
+
+    public static double getDoubleFlagValue(Player p, DoubleFlag flag, double defaultValue){
+
+        if(!SmallPetsCommons.getSmallPetsCommons().isUseWorldGuard())
+            return defaultValue;
+
+        LocalPlayer localPlayer = WorldGuardPlugin.inst().wrapPlayer(p);
+
+        return getDoubleFlagValue(localPlayer, BukkitAdapter.adapt(p.getLocation()), flag, defaultValue);
+
+    }
+
+    public static double getDoubleFlagValue(LocalPlayer localPlayer, Location location, DoubleFlag flag, double defaultValue){
+
+        if(!SmallPetsCommons.getSmallPetsCommons().isUseWorldGuard())
+            return defaultValue;
+
+        RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
+        RegionQuery query = container.createQuery();
+
+        ApplicableRegionSet set = query.getApplicableRegions(location);
+
+        Double value = set.queryValue(localPlayer, flag);
+
+        if(value == null)
+            return defaultValue;
+
+        return value;
+
+
 
     }
 

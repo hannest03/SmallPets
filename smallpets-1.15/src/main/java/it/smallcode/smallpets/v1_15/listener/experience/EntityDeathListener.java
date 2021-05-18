@@ -54,6 +54,8 @@ public class EntityDeathListener implements Listener {
 
                     if(experienceManager.getExperienceTableAll().containsKey(type)){
 
+                        double extraMultiplier = WorldGuardImp.getDoubleFlagValue(p, SmallFlags.EXP_MODIFIER, 1D);
+
                         int exp = experienceManager.getExperienceTableAll().get(type);
 
                         if(experienceManager.getPetTypeOfType(type) != user.getSelected().getPetType()) {
@@ -62,7 +64,7 @@ public class EntityDeathListener implements Listener {
 
                         }
 
-                        user.getSelected().giveExp((int) (exp * xpMultiplier), SmallPetsCommons.getSmallPetsCommons().getJavaPlugin());
+                        user.getSelected().giveExp((int) (exp * xpMultiplier * extraMultiplier), SmallPetsCommons.getSmallPetsCommons().getJavaPlugin());
 
                     }
 

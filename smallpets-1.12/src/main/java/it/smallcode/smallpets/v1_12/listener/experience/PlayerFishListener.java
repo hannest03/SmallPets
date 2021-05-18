@@ -60,6 +60,8 @@ public class PlayerFishListener implements Listener {
 
                         if(experienceManager.getExperienceTableAll().containsKey(type)){
 
+                            double extraMultiplier = WorldGuardImp.getDoubleFlagValue(e.getPlayer(), SmallFlags.EXP_MODIFIER, 1D);
+
                             int exp = experienceManager.getExperienceTableAll().get(type);
 
                             if (experienceManager.getPetTypeOfType(type) != user.getSelected().getPetType()) {
@@ -68,7 +70,7 @@ public class PlayerFishListener implements Listener {
 
                             }
 
-                            user.getSelected().giveExp((int) (exp * xpMultiplier), SmallPetsCommons.getSmallPetsCommons().getJavaPlugin());
+                            user.getSelected().giveExp((int) (exp * xpMultiplier * extraMultiplier), SmallPetsCommons.getSmallPetsCommons().getJavaPlugin());
 
                         }
 
