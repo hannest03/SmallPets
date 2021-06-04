@@ -59,7 +59,13 @@ public class SmallFlags {
             final Number[] suggestedValues = { defaultValue };
 
             DoubleFlag flag = new DoubleFlag(name);
-            flag.setSuggestedValues(suggestedValues);
+
+            try {
+
+                if(DoubleFlag.class.getMethod("setSuggestedValues", Number[].class) != null)
+                    flag.setSuggestedValues(suggestedValues);
+
+            }catch(Exception ex){}
 
             registry.register(flag);
 
