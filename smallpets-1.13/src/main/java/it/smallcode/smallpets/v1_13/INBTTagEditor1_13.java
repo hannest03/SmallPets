@@ -8,6 +8,7 @@ Class created by SmallCode
 
 import it.smallcode.smallpets.core.utils.INBTTagEditor;
 import net.minecraft.server.v1_13_R2.NBTTagCompound;
+import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_13_R2.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemStack;
 
@@ -52,7 +53,7 @@ public class INBTTagEditor1_13 implements INBTTagEditor {
 
         if(item.getTag() != null) {
 
-            return item.getTag().hasKey("pet");
+            return item.getTag().hasKey(key);
 
         }
 

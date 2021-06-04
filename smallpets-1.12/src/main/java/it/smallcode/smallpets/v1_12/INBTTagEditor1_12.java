@@ -53,7 +53,7 @@ public class INBTTagEditor1_12 implements INBTTagEditor {
 
         if(item.getTag() != null) {
 
-            return item.getTag().hasKey("pet");
+            return item.getTag().hasKey(key);
 
         }
 
