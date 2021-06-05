@@ -77,3 +77,6 @@ translations:
     sort:
       name: '&6Ordina'
       description: '&cNon ancora implementato!'
+  visibility:
+    showPets: '&7Mostra pets'
+    hidePets: '&7Nascondi pets'

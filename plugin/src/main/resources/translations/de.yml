@@ -75,3 +75,6 @@ translations:
     sort:
       name: '&6Sortieren'
       description: '&cNicht implementiert!'
+  visibility:
+    showPets: '&7Haustiere anzeigen'
+    hidePets: '&7Haustiere verstecken'
