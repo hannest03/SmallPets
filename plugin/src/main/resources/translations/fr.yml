@@ -1,12 +1,20 @@
 translations:
+  noPerms: "Vous n'avez pas la permission de faire ça!"
+  convertToItem: "&7Converti en item"
+  inventoryFull: "&7Votre inventaire est plein"
   petSpawned: 'Votre compagnon a été invoqué'
   petDespawned: 'Votre compagnon a disparu'
-  experienceSummary: '§fStatistiques compagnon'
+  petNotUnlocked: "Compagnon non débloqué"
+  petNotRegistered: "Compagnon non enregistré"
+  notInteger: "Le nombre doit être un entier"
+  experienceSummary: '§fStatistiques Compagnon'
   levelupText: '&eVotre compagnon est maintenant niveau &6&l%pet_level%&e!'
   nextLevel: '&eVotre compagnon a besoin de &6%exp_next_level%&6 xp &epour atteindre le niveau &6%pet_next_level%&e'
   petUnlock: 'Compagnon %pet_type% débloqué!'
   clickToSelect: '&6CLIQUEZ POUR ÉQUIPER'
   clickToDeselect: '&cCLIQUEZ POUR DÉSÉQUIPER'
+  givePetUnlockItemSender: "Vous avez donné l'item de déblocage du %pet_type% à %player%!"
+  givePetUnlockItemReciever: "Vous avez reçu l'item de déblocage du %pet_type% de %sender%!"
   givePetSender: 'Vous avez donné le compagnon %pet_type% à %player%!'
   givePetReciever: 'Vous avez reçu le compagnon %pet_type% de %sender%!'
   removePetSender: 'Le compagnon %pet_type% a été pris par %player%!'
@@ -14,14 +22,61 @@ translations:
   playerIsntOnline: "Le joueur n'est pas connecter!"
   userDataNotFound: "Vos données d'utilisateur sont introuvables!"
   commandIsOnlyForPlayers: "Cette commande est réservée aux joueurs"
-  reloaded: 'Rechargé %type%'
+  reloaded: '%type% rechargé'
   maxLevel: '&d&kS&d NIVEAU MAX &d&kS'
   experienceMultiplier: "Multiplicateur d'expérience"
   stats: 'Statistiques'
   experienceBooster: "Boosteur d'expérience"
   petNameFormat: "&8[%level%&8] &7%player_name%'s "
   petNameFormatTwoS: "&8[%level%&8] &7%player_name%' "
+  petNameWithoutOwner: "&7[%level%&7] "
+  savingLanguage: "&7%language% en cours d'enregistrement..."
+  savedLanguage: "&7%language%! enregistré"
+  visibility:
+    hidePets: "&7Compagnons cachés"
+    showPets: "&7Compagnons montrés"
+    
   pet:
-    tiger: 'tigre'
-    penguin: 'manchot'
-    monkey: 'singe'
+    tiger: 'Tigre'
+    penguin: 'Manchot'
+    monkey: 'Singe'
+    skeleton: 'Squelette'
+    panda: 'Panda'
+    fish: 'Poisson'
+    silverfish: 'Silverfish'
+  petType:
+    combat: 'Combat'
+    mining: 'Minage'
+    farming: 'Récolte'
+    fishing: 'Pêche'
+    foraging: 'Recherche'
+  ability:
+    damage_ability:
+      description: '&7Inflige &c+%extraStat%%&7 de dégâts supplémentaires!'
+    health_ability:
+      description: '&7Donne &a+%extraStat%&7 points de vie supplémentaires!'
+    aurelium_skills_health_ability:
+      description: '&7Donne &a+%extraStat%&7 points de vie supplémentaires!'
+    water_speed_ability:
+      description: "&7Marchez &a+%extraStat%%&7 plus vite dans l'eau!"
+    speed_in_biome_ability:
+      name: 'Habitat naturel'
+      description: '&7Rend plus rapide dans les &7biomes %biomes% '
+    dont_consume_arrow_ability:
+      description: "&c%extraStat%% &7de chance de ne pas utiliser de flèches"
+    unbreakable_bow_ability:
+      name: "Expert de l'arc"
+      description: "&7Votre arc ne s'abîme pas lorsque vous tirez"
+    faster_mining_speed_ability:
+      name: 'Mineur professionnel'
+      description: "&7Vous donne l'&7effet permanent &ccélérité &c%extraStat%"
+    heal_while_in_water_ability:
+      name: 'Habitat naturel'
+      description: "&7Vous donne l'&7effet &cregeneration &c%extraStat% tant que vous êtes dans l'eau"
+  inventory:
+    sort:
+      name: "&6Sort"
+      description: "&cPas encore implémenté!"
+    recipebook:
+      name: "&6Livre de recette"
+      description: "&cPas encore implémenté!"
