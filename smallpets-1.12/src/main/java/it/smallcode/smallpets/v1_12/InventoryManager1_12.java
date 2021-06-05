@@ -64,6 +64,26 @@ public class InventoryManager1_12 extends InventoryManager {
 
         }
 
+        if(SmallPetsCommons.getSmallPetsCommons().isUseProtocollib()){
+
+            ItemStack item;
+
+            if(user.getSettings().isShowPets()) {
+
+                item = createItem(SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("visibility.hidePets"), 77);
+
+            }else{
+
+                item =  createItem(SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("visibility.showPets"), 77);
+
+            }
+
+            item = SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().addNBTTag(item, "showPets", String.valueOf(user.getSettings().isShowPets()));
+
+            inventory.setItem(36, item);
+
+        }
+
         ItemStack stats = new ItemStack(Material.REDSTONE_TORCH_ON);
 
         ItemMeta itemMeta = stats.getItemMeta();
@@ -139,6 +159,12 @@ public class InventoryManager1_12 extends InventoryManager {
         inventory.setItem(9 * 3 + 8, createItem("§8", 160, (short) 15));
 
         return inventory;
+
+    }
+
+    private ItemStack createItem(String name, int id){
+
+        return this.createItem(name, id, (short) 0);
 
     }
 

@@ -54,7 +54,9 @@ public class EntityDeathLListener implements Listener {
 
                     if(experienceManager.getExperienceTableAll().containsKey(type)){
 
-                        double extraMultiplier = WorldGuardImp.getDoubleFlagValue(p, SmallFlags.EXP_MODIFIER, 1D);
+                        double extraMultiplier = 1;
+                        if(SmallPetsCommons.getSmallPetsCommons().isUseWorldGuard())
+                            extraMultiplier = WorldGuardImp.getDoubleFlagValue(p, SmallFlags.EXP_MODIFIER, 1D);
 
                         int exp = experienceManager.getExperienceTableAll().get(type);
 

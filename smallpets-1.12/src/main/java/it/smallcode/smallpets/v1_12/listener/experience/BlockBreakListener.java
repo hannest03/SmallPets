@@ -62,7 +62,9 @@ public class BlockBreakListener implements Listener {
 
                     if(experienceManager.getExperienceTableAll().containsKey(type)){
 
-                        double extraMultiplier = WorldGuardImp.getDoubleFlagValue(p, SmallFlags.EXP_MODIFIER, 1D);
+                        double extraMultiplier = 1;
+                        if(SmallPetsCommons.getSmallPetsCommons().isUseWorldGuard())
+                            extraMultiplier = WorldGuardImp.getDoubleFlagValue(p, SmallFlags.EXP_MODIFIER, 1D);
 
                         if(isFarmingBlock(e.getBlock().getType())){
 

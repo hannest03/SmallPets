@@ -69,7 +69,7 @@ public class SmallPets extends JavaPlugin {
 
         //Registering WorldGuard
 
-        if(Bukkit.getPluginManager().getPlugin("WorldGuard") != null){
+        if(Bukkit.getPluginManager().getPlugin("WorldGuard") != null && !is1_12()){
 
             Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "Adding WorldGuard hook...");
 
@@ -353,6 +353,18 @@ public class SmallPets extends JavaPlugin {
         }
 
         return true;
+
+    }
+
+    private boolean is1_12(){
+
+        String version = Bukkit.getServer().getClass().getPackage().getName();
+
+        version = version.substring(version.lastIndexOf('.'));
+
+        version = version.replace(".v", "");
+
+        return version.startsWith("1_12");
 
     }
 

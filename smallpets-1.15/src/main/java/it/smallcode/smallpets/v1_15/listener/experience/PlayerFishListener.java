@@ -59,7 +59,9 @@ public class PlayerFishListener implements Listener {
 
                         if(experienceManager.getExperienceTableAll().containsKey(type)){
 
-                            double extraMultiplier = WorldGuardImp.getDoubleFlagValue(e.getPlayer(), SmallFlags.EXP_MODIFIER, 1D);
+                            double extraMultiplier = 1;
+                            if(SmallPetsCommons.getSmallPetsCommons().isUseWorldGuard())
+                                extraMultiplier = WorldGuardImp.getDoubleFlagValue(e.getPlayer(), SmallFlags.EXP_MODIFIER, 1D);
 
                             int exp = experienceManager.getExperienceTableAll().get(type);
 
