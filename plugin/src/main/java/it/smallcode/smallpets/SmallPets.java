@@ -22,6 +22,7 @@ import it.smallcode.smallpets.v1_12.*;
 import it.smallcode.smallpets.v1_13.*;
 import it.smallcode.smallpets.v1_15.*;
 import it.smallcode.smallpets.v1_16.*;
+import it.smallcode.smallpets.v1_17.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -449,6 +450,23 @@ public class SmallPets extends JavaPlugin {
             SmallPetsCommons.getSmallPetsCommons().setListenerManager(new ListenerManager1_16(xpMultiplier, SmallPetsCommons.getSmallPetsCommons().isUseProtocollib()));
 
             SmallPetsCommons.getSmallPetsCommons().setAbilityManager(new AbilityManager1_16());
+
+        }else if(version.startsWith("1_17")){
+
+            if(SmallPetsCommons.getSmallPetsCommons().isUseProtocollib())
+                SmallPetsCommons.getSmallPetsCommons().setProtocolLibUtils(new ProtocolLibUtils1_17());
+
+            SmallPetsCommons.getSmallPetsCommons().setSkullCreator(new SkullCreator1_17());
+            SmallPetsCommons.getSmallPetsCommons().setINBTTagEditor(new INBTTagEditor1_17());
+            SmallPetsCommons.getSmallPetsCommons().setMetaDataUtils(new MetaDataUtils1_15());
+            SmallPetsCommons.getSmallPetsCommons().setHealthModifierUtils(new HealthModifierUtils1_15());
+
+            SmallPetsCommons.getSmallPetsCommons().setPetMapManager(new PetMapManager1_17());
+            SmallPetsCommons.getSmallPetsCommons().setInventoryManager(new InventoryManager1_17(xpMultiplier));
+            SmallPetsCommons.getSmallPetsCommons().setUserManager(new UserManager( SmallPetsCommons.getSmallPetsCommons().isUseProtocollib()));
+            SmallPetsCommons.getSmallPetsCommons().setListenerManager(new ListenerManager1_17(xpMultiplier, SmallPetsCommons.getSmallPetsCommons().isUseProtocollib()));
+
+            SmallPetsCommons.getSmallPetsCommons().setAbilityManager(new AbilityManager1_17());
 
         }else{
 

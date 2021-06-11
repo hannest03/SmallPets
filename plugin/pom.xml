@@ -10,7 +10,7 @@
     <name>SmallPets</name>
     <description>Adds simple little cute pets with abilities</description>
 
-    <version>beta-6</version>
+    <version>beta-6.1</version>
 
     <repositories>
 
@@ -77,6 +77,15 @@
             <groupId>it.smallcode</groupId>
             <artifactId>smallpets-1.16</artifactId>
             <version>1.16</version>
+            <type>jar</type>
+            <scope>compile</scope>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>it.smallcode</groupId>
+            <artifactId>smallpets-1.17</artifactId>
+            <version>1.17</version>
             <type>jar</type>
             <scope>compile</scope>
             <optional>true</optional>

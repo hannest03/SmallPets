@@ -17,6 +17,7 @@
         <module>smallpets-1.12</module>
         <module>smallpets-1.13</module>
         <module>smallpets-api</module>
+        <module>smallpets-1.17</module>
     </modules>
 
     <name>SmallPets-Parent</name>
