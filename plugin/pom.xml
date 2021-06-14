@@ -15,13 +15,13 @@
     <repositories>
 
         <repository>
-            <id>placeholderapi</id>
-            <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
+            <id>sk89q-repo</id>
+            <url>https://maven.sk89q.com/repo/</url>
         </repository>
 
         <repository>
-            <id>sk89q-repo</id>
-            <url>https://maven.enginehub.org/repo/</url>
+            <id>placeholderapi</id>
+            <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
         </repository>
 
     </repositories>
