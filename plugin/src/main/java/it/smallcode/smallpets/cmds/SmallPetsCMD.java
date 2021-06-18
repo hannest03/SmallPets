@@ -162,6 +162,7 @@ public class SmallPetsCMD implements CommandExecutor, TabCompleter {
 
         subCommands.stream()
                 .filter(subCommand -> subCommand.getSubCommandType().getMinArgs() < args.length)
+                .filter(subCommand -> subCommand.hasPermission(s))
                 .forEach(subCommand ->  {
 
                     if(!subCommand.getSubCommandType().isActive())
