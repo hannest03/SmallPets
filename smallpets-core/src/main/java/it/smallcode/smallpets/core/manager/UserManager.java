@@ -20,10 +20,8 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -317,6 +315,34 @@ public class UserManager {
 
         return false;
 
+    }
+
+    /**
+     *
+     * Removes all pets from player
+     *
+     * @param uuid - the uuid of the player
+     * @return the boolean is true if the pet was successfully removed from to the player,<br> if the player doesn't exist false gets returned
+     */
+    public boolean removeUserAllPets(String uuid){
+        User user = getUser(uuid);
+        if(user == null)
+            return false;
+        List<String> types = user.getPets().stream()
+                .map(pet -> pet.getID())
+                .collect(Collectors.toList());
+        for(String type : types){
+            if(user.getPetFromType(type) != null) {
+                if(user.getSelected() != null) {
+                    if (user.getSelected().getID().equals(type)) {
+                        user.despawnSelected();
+                    }
+                }
+                Pet pet = user.getPetFromType(type);
+                user.getPets().remove(pet);
+            }
+        }
+        return true;
     }
 
     /**

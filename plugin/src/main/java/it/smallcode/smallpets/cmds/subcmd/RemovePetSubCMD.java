@@ -32,9 +32,13 @@ public class RemovePetSubCMD extends SubCommand {
         if(args.length == 2) {
 
             if (Bukkit.getPlayer(args[0]) != null && Bukkit.getPlayer(args[0]).isOnline()) {
-
-                SmallPets.getInstance().getUserManager().removeUserPet(args[1].toLowerCase(), Bukkit.getPlayer(args[0]).getUniqueId().toString());
-
+                String uuid = Bukkit.getPlayer(args[0]).getUniqueId().toString();
+                if(args[1].equalsIgnoreCase("*")){
+                    SmallPets.getInstance().getUserManager().removeUserAllPets(uuid);
+                    args[1] = "all";
+                }else {
+                    SmallPets.getInstance().getUserManager().removeUserPet(args[1].toLowerCase(), uuid);
+                }
                 s.sendMessage(SmallPets.getInstance().getPrefix() + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("removePetSender")
                         .replaceAll("%pet_type%", SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("pet." + args[1]))
                         .replaceAll("%player%", args[0]));
@@ -82,6 +86,8 @@ public class RemovePetSubCMD extends SubCommand {
                 User user = SmallPetsCommons.getSmallPetsCommons().getUserManager().getUser(Bukkit.getOfflinePlayer(args[0]).getUniqueId().toString());
 
                 if (user != null) {
+
+                    options.add("*");
 
                     List<String> finalOptions = options;
                     user.getPets().forEach(pet -> finalOptions.add(pet.getID()));
