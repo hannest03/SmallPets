@@ -14,10 +14,12 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.plugin.Plugin;
 
+import java.util.UUID;
+
 public class Silverfish extends it.smallcode.smallpets.v1_15.pets.Silverfish {
 
-    public Silverfish(String id, Player owner, Long xp, Boolean useProtocolLib) {
-        super(id, owner, xp, useProtocolLib);
+    public Silverfish(String type, UUID uuid, Player owner, Long xp, Boolean useProtocolLib) {
+        super(type, uuid, owner, xp, useProtocolLib);
     }
 
     @Override

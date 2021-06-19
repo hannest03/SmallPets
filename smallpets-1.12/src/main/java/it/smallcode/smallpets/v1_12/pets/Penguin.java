@@ -24,8 +24,8 @@ import java.util.List;
 import java.util.UUID;
 
 public class Penguin extends it.smallcode.smallpets.v1_15.pets.Penguin {
-    public Penguin(String type, Player owner, Long xp, Boolean useProtocolLib) {
-        super(type, owner, xp, useProtocolLib);
+    public Penguin(String type, UUID uuid, Player owner, Long xp, Boolean useProtocolLib) {
+        super(type, uuid, owner, xp, useProtocolLib);
     }
 
     @Override

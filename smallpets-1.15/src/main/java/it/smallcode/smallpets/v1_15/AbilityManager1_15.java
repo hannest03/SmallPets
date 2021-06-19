@@ -9,7 +9,10 @@ Class created by SmallCode
 import it.smallcode.smallpets.core.manager.AbilityManager;
 import it.smallcode.smallpets.v1_15.abilities.aureliumskills.AureliumSkillsHealthAbility;
 import it.smallcode.smallpets.v1_15.abilities.standard.*;
+import it.smallcode.smallpets.v1_15.pets.Fish;
 import org.bukkit.Bukkit;
+
+import java.util.UUID;
 
 public class AbilityManager1_15 extends AbilityManager {
 

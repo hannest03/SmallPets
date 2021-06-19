@@ -19,13 +19,12 @@ import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.plugin.Plugin;
 
 import java.util.Date;
+import java.util.UUID;
 
 public class Fish extends Pet {
 
-
-    public Fish(String id, Player owner, Long xp, Boolean useProtocolLib) {
-
-        super(id, owner, xp, useProtocolLib);
+    public Fish(String id, UUID uuid, Player owner, Long xp, Boolean useProtocolLib) {
+        super(id, uuid, owner, xp, useProtocolLib);
 
         super.setPetType(PetType.fishing);
 
@@ -35,7 +34,7 @@ public class Fish extends Pet {
 
     }
 
-    @Override
+        @Override
     protected void updateTexture(){
 
         super.textureValue = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDBjZDcxZmJiYmJiNjZjN2JhZjc4ODFmNDE1YzY0ZmE4NGY2NTA0OTU4YTU3Y2NkYjg1ODkyNTI2NDdlYSJ9fX0=";

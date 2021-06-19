@@ -10,17 +10,16 @@ import it.smallcode.smallpets.v1_12.abilities.UnbreakableBowAbility;
 import it.smallcode.smallpets.v1_15.abilities.standard.DontConsumeArrowAbility;
 import org.bukkit.entity.Player;
 
+import java.util.UUID;
+
 public class Skeleton extends it.smallcode.smallpets.v1_15.pets.Skeleton {
 
-    public Skeleton(String id, Player owner, Long xp, Boolean useProtocolLib) {
-
-        super(id, owner, xp, useProtocolLib);
+    public Skeleton(String type, UUID uuid, Player owner, Long xp, Boolean useProtocolLib) {
+        super(type, uuid, owner, xp, useProtocolLib);
 
         super.abilities.clear();
-
         super.abilities.add(new DontConsumeArrowAbility(10, 1));
         super.abilities.add(new UnbreakableBowAbility());
-
     }
 
 }

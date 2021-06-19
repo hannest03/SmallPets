@@ -14,10 +14,12 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.plugin.Plugin;
 
+import java.util.UUID;
+
 public class Fish extends it.smallcode.smallpets.v1_15.pets.Fish {
 
-    public Fish(String id, Player owner, Long xp, Boolean useProtocolLib) {
-        super(id, owner, xp, useProtocolLib);
+    public Fish(String id, UUID uuid, Player owner, Long xp, Boolean useProtocolLib) {
+        super(id, uuid, owner, xp, useProtocolLib);
     }
 
     @Override

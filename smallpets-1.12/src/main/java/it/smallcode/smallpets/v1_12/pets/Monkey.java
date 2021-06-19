@@ -19,19 +19,17 @@ import org.bukkit.plugin.Plugin;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.UUID;
 
 public class Monkey extends Pet {
 
-    public Monkey(String type, Player owner, Long xp, Boolean useProtocolLib) {
-
-        super(type, owner, xp, useProtocolLib);
-
+    public Monkey(String id, UUID uuid, Player owner, Long xp, Boolean useProtocolLib) {
+        super(id, uuid, owner, xp, useProtocolLib);
         super.setPetType(PetType.foraging);
 
         this.textureValue = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTNkNGExNTYwM2Y5NTFkZTJlMmFiODBlZWQxNmJiYjVhNTgyM2JmNGFjYjhjNDYzMzQyNWQ1NDIxMGNmMGFkNSJ9fX0=";
 
         super.abilities.add(new SpeedBoostInBiomeAbility(new LinkedList<>(Arrays.asList(Biome.JUNGLE, Biome.JUNGLE_HILLS)), 0.2D));
-
     }
 
     @Override

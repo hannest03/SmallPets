@@ -20,20 +20,20 @@ import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.plugin.Plugin;
 
 import java.util.Date;
+import java.util.UUID;
 
 public class Skeleton extends Pet {
 
-    public Skeleton(String id, Player owner, Long xp, Boolean useProtocolLib) {
-
-        super(id, owner, xp, useProtocolLib);
+    public Skeleton(String id, UUID uuid, Player owner, Long xp, Boolean useProtocolLib) {
+        super(id, uuid, owner, xp, useProtocolLib);
 
         super.setPetType(PetType.combat);
         super.setParticle(Particle.CLOUD);
 
         super.abilities.add(new DontConsumeArrowAbility(10, 1));
         super.abilities.add(new UnbreakableBowAbility());
-
     }
+
 
     @Override
     protected void updateTexture() {

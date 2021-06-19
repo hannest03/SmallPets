@@ -18,24 +18,15 @@ import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.plugin.Plugin;
 
 import java.util.Date;
+import java.util.UUID;
 
 public class Tiger extends Pet {
 
-    /**
-     * Creates a pet
-     *
-     * @param owner           - the pet owner
-     * @param xp              - the xp
-     * @param useProtocolLib
-     */
-    public Tiger(String type, Player owner, Long xp, Boolean useProtocolLib) {
-
-        super(type, owner, xp, useProtocolLib);
+    public Tiger(String id, UUID uuid, Player owner, Long xp, Boolean useProtocolLib) {
+        super(id, uuid, owner, xp, useProtocolLib);
 
         super.setPetType(PetType.combat);
-
         super.abilities.add(new DamageAbility(20));
-
     }
 
     @Override

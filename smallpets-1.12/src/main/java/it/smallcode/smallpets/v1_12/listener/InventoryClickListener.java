@@ -21,6 +21,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.UUID;
+
 public class InventoryClickListener implements Listener {
 
     @EventHandler
@@ -55,9 +57,10 @@ public class InventoryClickListener implements Listener {
 
                     Player p = (Player) e.getWhoClicked();
 
-                    if(SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().hasNBTTag(e.getCurrentItem(), "pet")){
+                    if(SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().hasNBTTag(e.getCurrentItem(), "pet") &&
+                            SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().hasNBTTag(e.getCurrentItem(), "pet.uuid")){
 
-                        String type = SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().getNBTTagValue(e.getCurrentItem(), "pet");
+                        UUID petUUID = UUID.fromString(SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().getNBTTagValue(e.getCurrentItem(), "pet.uuid"));
 
                         User user = userManager.getUser(p.getUniqueId().toString());
 
@@ -65,7 +68,7 @@ public class InventoryClickListener implements Listener {
 
                             if(!inventoryManager.getConvertingPets().contains(p.getUniqueId().toString())) {
 
-                                if (user.getSelected() != null && user.getSelected().getID().equals(type)) {
+                                if (user.getSelected() != null && user.getSelected().getUuid().equals(petUUID)) {
 
                                     if(user.setSelected(null)) {
 
@@ -75,7 +78,7 @@ public class InventoryClickListener implements Listener {
 
                                 } else {
 
-                                    if (user.setSelected(user.getPetFromType(type))) {
+                                    if (user.setSelected(user.getPetFromUUID(petUUID))) {
 
                                         e.getWhoClicked().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + languageManager.getLanguage().getStringFormatted("petSpawned"));
 
@@ -89,7 +92,7 @@ public class InventoryClickListener implements Listener {
 
                                     if(user.getSelected() != null) {
 
-                                        if (user.getSelected().getID().equalsIgnoreCase(type)) {
+                                        if (user.getSelected().getUuid().equals(petUUID)) {
 
                                             user.setSelected(null);
 
@@ -97,9 +100,9 @@ public class InventoryClickListener implements Listener {
 
                                     }
 
-                                    ItemStack petItem = user.getPetFromType(type).getUnlockItem();
+                                    ItemStack petItem = user.getPetFromUUID(petUUID).getUnlockItem();
 
-                                    userManager.removeUserPet(type, p.getUniqueId().toString());
+                                    userManager.removeUserPet(petUUID, p.getUniqueId().toString());
 
                                     p.getInventory().addItem(petItem);
 

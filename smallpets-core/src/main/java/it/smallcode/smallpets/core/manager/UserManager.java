@@ -7,6 +7,7 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.core.SmallPetsCommons;
+import it.smallcode.smallpets.core.factory.PetFactory;
 import it.smallcode.smallpets.core.languages.LanguageManager;
 import it.smallcode.smallpets.core.manager.types.User;
 import it.smallcode.smallpets.core.pets.Pet;
@@ -14,12 +15,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -229,37 +227,10 @@ public class UserManager {
 
                 }
 
-                if(user.getPetFromType(type) == null) {
+                Pet pet = PetFactory.createNewPet(type, Bukkit.getPlayer(UUID.fromString(uuid)), exp, useProtocolLib);
+                user.getPets().add(pet);
 
-                    try {
-
-                        Constructor constructor = SmallPetsCommons.getSmallPetsCommons().getPetMapManager().getPetMap().get(type).getConstructor(String.class, Player.class, Long.class, Boolean.class);
-
-                        Pet pet = (Pet) constructor.newInstance(type, Bukkit.getPlayer(UUID.fromString(uuid)), exp, useProtocolLib);
-
-                        user.getPets().add(pet);
-
-                        return true;
-
-                    } catch (NoSuchMethodException ex) {
-
-                        ex.printStackTrace();
-
-                    } catch (IllegalAccessException ex) {
-
-                        ex.printStackTrace();
-
-                    } catch (InstantiationException ex) {
-
-                        ex.printStackTrace();
-
-                    } catch (InvocationTargetException ex) {
-
-                        ex.printStackTrace();
-
-                    }
-
-                }
+                return true;
 
             }
 
@@ -282,33 +253,7 @@ public class UserManager {
 
         if(SmallPetsCommons.getSmallPetsCommons().getPetMapManager().getPetMap().containsKey(type)){
 
-            try {
-
-                Constructor constructor = SmallPetsCommons.getSmallPetsCommons().getPetMapManager().getPetMap().get(type).getConstructor(String.class, Player.class, Long.class, Boolean.class);
-
-                Pet pet = (Pet) constructor.newInstance(type, p, exp, useProtocolLib);
-
-                p.getInventory().addItem(pet.getUnlockItem());
-
-                return true;
-
-            } catch (NoSuchMethodException ex) {
-
-                ex.printStackTrace();
-
-            } catch (IllegalAccessException ex) {
-
-                ex.printStackTrace();
-
-            } catch (InstantiationException ex) {
-
-                ex.printStackTrace();
-
-            } catch (InvocationTargetException ex) {
-
-                ex.printStackTrace();
-
-            }
+            PetFactory.createNewPet(type, p, exp, useProtocolLib);
 
         }else
             throw new IllegalArgumentException("Pet id isn't registered");
@@ -380,6 +325,46 @@ public class UserManager {
                     return true;
 
                 }
+
+            }
+
+        }
+
+        return false;
+
+    }
+
+    /**
+     *
+     * Removes a player a pet
+     *
+     * @param petUUID - the uuid of the pet
+     * @param uuid - the uuid of the player
+     * @return the boolean is true if the pet was successfully removed from to the player,<br> if the player hasn't got the pet or there was an error false will be returned
+     */
+    public boolean removeUserPet(UUID petUUID, String uuid){
+
+        User user = getUser(uuid);
+
+        if(user != null){
+
+            if(user.getPetFromUUID(petUUID) != null) {
+
+                if(user.getSelected() != null) {
+
+                    if (user.getSelected().getUuid().equals(petUUID)) {
+
+                        user.despawnSelected();
+
+                    }
+
+                }
+
+                Pet pet = user.getPetFromUUID(petUUID);
+
+                user.getPets().remove(pet);
+
+                return true;
 
             }
 

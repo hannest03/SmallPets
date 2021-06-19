@@ -70,6 +70,7 @@ public class Pet {
     private static double tach = 0;
 
     private final String id;
+    protected UUID uuid;
 
     private Particle particle = Particle.VILLAGER_HAPPY;
 
@@ -112,7 +113,7 @@ public class Pet {
      * @param useProtocolLib - boolean if protocolLib is being used
      */
 
-    public Pet(String id, Player owner, Long xp, Boolean useProtocolLib) {
+    public Pet(String id, UUID uuid, Player owner, Long xp, Boolean useProtocolLib) {
 
         abilities = new LinkedList<>();
 
@@ -123,35 +124,9 @@ public class Pet {
 
         this.id = id;
 
+        this.uuid = uuid;
+
         updateTexture();
-
-    }
-
-    /**
-     *
-     * Creates a pet
-     *
-     * @param owner - the owner
-     * @param useProtocolLib - boolean if protocolLib is being used
-     */
-
-    public Pet(String id, Player owner, Boolean useProtocolLib) {
-
-        this(id, owner, 0L, useProtocolLib);
-
-    }
-
-    /**
-     *
-     * Creates a pet
-     *
-     * @param owner - the owner
-     *
-     */
-
-    public Pet(String id, Player owner) {
-
-        this(id, owner, 0L, false);
 
     }
 
@@ -172,6 +147,14 @@ public class Pet {
 
         return id;
 
+    }
+
+    public UUID getUuid(){
+        return uuid;
+    }
+
+    public void setUuid(UUID uuid){
+        this.uuid = uuid;
     }
 
     /**
@@ -929,6 +912,9 @@ public class Pet {
             itemStack.setItemMeta(itemMeta);
 
             itemStack = SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().addNBTTag(itemStack, "pet", getID());
+
+            if(getUuid() != null)
+                itemStack = SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().addNBTTag(itemStack, "pet.uuid", getUuid().toString());
 
         }
 

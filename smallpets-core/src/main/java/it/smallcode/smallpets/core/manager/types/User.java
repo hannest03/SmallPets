@@ -14,6 +14,7 @@ import it.smallcode.smallpets.core.abilities.eventsystem.events.PetDeselectEvent
 import it.smallcode.smallpets.core.abilities.eventsystem.events.PetSelectEvent;
 import it.smallcode.smallpets.core.events.DespawnPetEvent;
 import it.smallcode.smallpets.core.events.SpawnPetEvent;
+import it.smallcode.smallpets.core.factory.PetFactory;
 import it.smallcode.smallpets.core.languages.LanguageManager;
 import it.smallcode.smallpets.core.manager.PetMapManager;
 import it.smallcode.smallpets.core.pets.Pet;
@@ -107,6 +108,26 @@ public class User {
     public Pet getPetFromType(String type){
 
         Optional<Pet> result = pets.stream().filter(p -> p.getID().equalsIgnoreCase(type)).findFirst();
+
+        if(result != null)
+            if(result.isPresent())
+                return result.get();
+
+        return null;
+
+    }
+
+    /**
+     *
+     * Returns the pet of the user.<br>
+     * If the pet couldn't be found the method returns null;
+     *
+     * @param uuid - the uuid of the pet
+     * @return - returns the pet
+     */
+    public Pet getPetFromUUID(UUID uuid){
+
+        Optional<Pet> result = pets.stream().filter(p -> p.getUuid().equals(uuid)).findFirst();
 
         if(result != null)
             if(result.isPresent())
@@ -353,7 +374,7 @@ public class User {
 
         if(selected != null) {
 
-            data.put("selected", selected.getID());
+            data.put("selected", selected.getUuid().toString());
 
         }else {
 
@@ -398,7 +419,15 @@ public class User {
 
         }
 
-        this.selected = getPetFromType((String) data.get("selected"));
+        if(!(data.get("selected")).equals("null")) {
+            try {
+                UUID petUUID = UUID.fromString((String) data.get("selected"));
+                this.selected = getPetFromUUID(petUUID);
+            } catch (IllegalArgumentException ex) {
+                Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "§cInvalid pet uuid found! " + data.get("selected"));
+                Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "§cThis error can be ignored");
+            }
+        }
 
     }
 
@@ -427,6 +456,7 @@ public class User {
 
         data.put("type", pet.getID());
         data.put("exp", String.valueOf(pet.getXp()));
+        data.put("uuid", pet.getUuid().toString());
 
         return data;
 
@@ -446,33 +476,17 @@ public class User {
 
         String type = (String) data.get("type");
 
+        UUID petUUID;
+        if(data.get("uuid") != null)
+            petUUID = UUID.fromString((String) data.get("uuid"));
+        else
+            petUUID = UUID.randomUUID();
+
         long exp = Long.valueOf((String) data.get("exp"));
 
         if(SmallPetsCommons.getSmallPetsCommons().getPetMapManager().getPetMap().containsKey(type)){
 
-            try {
-
-                Constructor constructor = SmallPetsCommons.getSmallPetsCommons().getPetMapManager().getPetMap().get(type).getConstructor(String.class, Player.class, Long.class, Boolean.class);
-
-                return (Pet) constructor.newInstance(type, Bukkit.getPlayer(UUID.fromString(uuid)), exp, SmallPetsCommons.getSmallPetsCommons().isUseProtocollib());
-
-            } catch (NoSuchMethodException ex) {
-
-                ex.printStackTrace();
-
-            } catch (IllegalAccessException ex) {
-
-                ex.printStackTrace();
-
-            } catch (InstantiationException ex) {
-
-                ex.printStackTrace();
-
-            } catch (InvocationTargetException ex) {
-
-                ex.printStackTrace();
-
-            }
+            return PetFactory.createPet(type, petUUID, Bukkit.getPlayer(UUID.fromString(uuid)), exp, SmallPetsCommons.getSmallPetsCommons().isUseProtocollib());
 
         }
 

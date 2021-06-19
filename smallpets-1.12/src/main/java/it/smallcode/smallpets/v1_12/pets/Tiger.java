@@ -13,6 +13,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.plugin.Plugin;
 
+import java.util.UUID;
+
 public class Tiger extends it.smallcode.smallpets.v1_15.pets.Tiger {
 
     /**
@@ -23,8 +25,8 @@ public class Tiger extends it.smallcode.smallpets.v1_15.pets.Tiger {
      * @param useProtocolLib
      * @param languageManager
      */
-    public Tiger(String type, Player owner, Long xp, Boolean useProtocolLib) {
-        super(type, owner, xp, useProtocolLib);
+    public Tiger(String type, UUID uuid, Player owner, Long xp, Boolean useProtocolLib) {
+        super(type, uuid, owner, xp, useProtocolLib);
     }
 
     @Override

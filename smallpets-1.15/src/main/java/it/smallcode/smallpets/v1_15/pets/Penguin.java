@@ -20,19 +20,17 @@ import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.plugin.Plugin;
 
 import java.util.Date;
+import java.util.UUID;
 
 public class Penguin extends Pet {
 
-    public Penguin(String type, Player owner, Long xp, Boolean useProtocolLib) {
-
-        super(type, owner, xp, useProtocolLib);
-
+    public Penguin(String id, UUID uuid, Player owner, Long xp, Boolean useProtocolLib) {
+        super(id, uuid, owner, xp, useProtocolLib);
         super.setPetType(PetType.fishing);
 
         super.setParticle(Particle.WATER_BUBBLE);
 
         super.abilities.add(new HealthAbility(10, 2));
-
     }
 
     @Override

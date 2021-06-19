@@ -7,6 +7,7 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.core.SmallPetsCommons;
+import it.smallcode.smallpets.core.factory.PetFactory;
 import it.smallcode.smallpets.core.languages.LanguageManager;
 import it.smallcode.smallpets.core.pets.Pet;
 import org.bukkit.entity.Player;
@@ -15,6 +16,7 @@ import org.bukkit.plugin.Plugin;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
+import java.util.UUID;
 
 /**
  *
@@ -67,31 +69,7 @@ public abstract class PetMapManager {
 
         petMap.keySet().iterator().forEachRemaining(id -> {
 
-            try {
-
-                Constructor constructor = petMap.get(id).getConstructor(String.class, Player.class, Long.class, Boolean.class);
-
-                Pet pet = (Pet) constructor.newInstance(id, null, 0L, false);
-
-                pet.registerRecipe(SmallPetsCommons.getSmallPetsCommons().getJavaPlugin());
-
-            } catch (NoSuchMethodException ex) {
-
-                ex.printStackTrace();
-
-            } catch (IllegalAccessException ex) {
-
-                ex.printStackTrace();
-
-            } catch (InstantiationException ex) {
-
-                ex.printStackTrace();
-
-            } catch (InvocationTargetException ex) {
-
-                ex.printStackTrace();
-
-            }
+            registerRecipe(id);
 
         });
 
@@ -106,32 +84,12 @@ public abstract class PetMapManager {
 
         petMap.put(type, clazz);
 
-        try {
+        registerRecipe(type);
+    }
 
-            Constructor constructor = clazz.getConstructor(String.class, Player.class, Long.class, Boolean.class);
-
-            Pet pet = (Pet) constructor.newInstance(type, null, 0L, false);
-
-            pet.registerRecipe(SmallPetsCommons.getSmallPetsCommons().getJavaPlugin());
-
-        } catch (NoSuchMethodException ex) {
-
-            ex.printStackTrace();
-
-        } catch (IllegalAccessException ex) {
-
-            ex.printStackTrace();
-
-        } catch (InstantiationException ex) {
-
-            ex.printStackTrace();
-
-        } catch (InvocationTargetException ex) {
-
-            ex.printStackTrace();
-
-        }
-
+    private void registerRecipe(String type){
+        Pet pet = PetFactory.createPet(type, null, null, 0L, false);
+        pet.registerRecipe(SmallPetsCommons.getSmallPetsCommons().getJavaPlugin());
     }
 
 }
