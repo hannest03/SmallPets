@@ -41,10 +41,10 @@ public class SmallPetsCMD implements CommandExecutor, TabCompleter {
 
         subCommands.add(new TestMetaDataSubCMD("testmetadata", "smallpets.debug.testmetadata"));
 
-        subCommands.add(new DiscordSubCMD("discord", ""));
-        subCommands.add(new DonateSubCMD("donate", ""));
-        subCommands.add(new SelectSubCMD("select", ""));
-        subCommands.add(new CreditsSubCMD("credits", ""));
+        subCommands.add(new DiscordSubCMD("discord", null));
+        subCommands.add(new DonateSubCMD("donate", null));
+        subCommands.add(new SelectSubCMD("select", null));
+        subCommands.add(new CreditsSubCMD("credits", null));
 
     }
 

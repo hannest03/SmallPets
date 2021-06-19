@@ -49,15 +49,13 @@ public abstract class SubCommand {
     }
 
     public boolean hasPermission(CommandSender s){
-
-        if(s.hasPermission(permission) || s.hasPermission("smallpets.*")){
-
+        if(permission == null)
             return true;
 
+        if(s.hasPermission(permission) || s.hasPermission("smallpets.*")){
+            return true;
         }
-
         return false;
-
     }
 
     public List<String> handleAutoComplete(CommandSender s, String[] args){
