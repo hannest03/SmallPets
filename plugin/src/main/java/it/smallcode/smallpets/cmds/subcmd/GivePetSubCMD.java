@@ -11,6 +11,7 @@ import it.smallcode.smallpets.cmds.SubCommand;
 import it.smallcode.smallpets.cmds.SubCommandType;
 import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.manager.types.User;
+import it.smallcode.smallpets.core.pets.Pet;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 
@@ -29,17 +30,28 @@ public class GivePetSubCMD extends SubCommand {
     @Override
     public void handleCommand(CommandSender s, String[] args) {
 
-        if (args.length == 2) {
+        if (args.length >= 2) {
 
             if (Bukkit.getPlayer(args[0]) != null && Bukkit.getPlayer(args[0]).isOnline()) {
 
                 String uuid = Bukkit.getPlayer(args[0]).getUniqueId().toString();
+                int level = 1;
+
+                if(args.length == 3){
+                    try{
+                        level = Integer.parseInt(args[2]);
+                    }catch(Exception ex){}
+                }
+
+                long exp = Pet.getExpForLevel(level);
+                if(level != 1)
+                    exp++;
 
                 if(args[1].equalsIgnoreCase("*")){
-                    SmallPets.getInstance().getUserManager().giveUserAllPets(uuid);
+                    SmallPets.getInstance().getUserManager().giveUserAllPets(uuid, exp);
                     args[1] = "all";
                 }else {
-                    SmallPets.getInstance().getUserManager().giveUserPet(args[1].toLowerCase(), uuid);
+                    SmallPets.getInstance().getUserManager().giveUserPet(args[1].toLowerCase(), uuid, exp);
                 }
 
                 s.sendMessage(SmallPets.getInstance().getPrefix() + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("givePetSender")
@@ -90,6 +102,11 @@ public class GivePetSubCMD extends SubCommand {
 
             options = finalOptions;
 
+        }
+
+        if(args.length == 3){
+            options = new LinkedList<>();
+            options.add("<level>");
         }
 
         return options;

@@ -158,14 +158,25 @@ public class UserManager {
      * Gives a player all pets
      *
      * @param uuid - the uuid of the player
+     * @param exp - the amount of exp the pets have
+     * @return the boolean is true if the pet was successfully added to the player
+     */
+    public boolean giveUserAllPets(String uuid, long exp){
+        for(String type : SmallPetsCommons.getSmallPetsCommons().getPetMapManager().getPetMap().keySet()){
+            giveUserPet(type, uuid, exp);
+        }
+        return true;
+    }
+
+    /**
+     *
+     * Gives a player all pets
+     *
+     * @param uuid - the uuid of the player
      * @return the boolean is true if the pet was successfully added to the player
      */
     public boolean giveUserAllPets(String uuid){
-        for(String type : SmallPetsCommons.getSmallPetsCommons().getPetMapManager().getPetMap().keySet()){
-            giveUserPet(type, uuid);
-        }
-
-        return true;
+        return giveUserAllPets(uuid, 0);
     }
 
     /**

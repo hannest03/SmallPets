@@ -616,7 +616,7 @@ public class Pet {
      * @return the amount of exp needed
      */
 
-    public long getExpForLevel(int level){
+    public static long getExpForLevel(int level){
 
         return (long) (Math.log(((level) - (MAXLEVEL +1D)) / -((MAXLEVEL +1D) - MINLEVEL)) / -tach);
 
