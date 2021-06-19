@@ -33,14 +33,37 @@ public class InventoryManager1_12 extends InventoryManager {
     }
 
     @Override
-    public void openPetsMenu(List<Pet> pets, Player p) {
+    public void openPetsMenu(int page, Player p) {
         Inventory inventory = SmallPetsCommons.getSmallPetsCommons().getInventoryCache().getInventory(p);
 
         inventory.clear();
 
         inventory = makeEdges(inventory);
 
+        ItemStack first = createItem("§8 ", 351, (short) 10);
+        first = SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().addNBTTag(first, "invType", "select");
+        first = SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().addNBTTag(first, "page", String.valueOf(page));
+
+        inventory.setItem(0, first);
+
         User user = SmallPetsCommons.getSmallPetsCommons().getUserManager().getUser(p.getUniqueId().toString());
+
+        List<Pet> allPets = user.getPets();
+        List<Pet> pets = new LinkedList<>();
+
+        int availableSlots = 0;
+        for(ItemStack itemStack : inventory.getContents())
+            if(itemStack == null)
+                availableSlots++;
+
+        int firstIndex = availableSlots * (page);
+        int lastIndex = (availableSlots * (page +1)) -1;
+
+        for(int i = firstIndex; i <= lastIndex; i++){
+            if(i == allPets.size())
+                break;
+            pets.add(allPets.get(i));
+        }
 
         for(Pet pet : pets){
 
@@ -99,6 +122,18 @@ public class InventoryManager1_12 extends InventoryManager {
         itemMeta.setLore(lore);
 
         stats.setItemMeta(itemMeta);
+
+        if(firstIndex >= availableSlots){
+            ItemStack prevItemStack = createItem(SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("inventory.previous.name"), 262);
+            prevItemStack = SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().addNBTTag(prevItemStack, "inv.action", "prev");
+            inventory.setItem(38, prevItemStack);
+        }
+
+        if(lastIndex < allPets.size()-1){
+            ItemStack nextItemStack = createItem(SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("inventory.next.name"), 262);
+            nextItemStack = SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().addNBTTag(nextItemStack, "inv.action", "next");
+            inventory.setItem(42, nextItemStack);
+        }
 
         inventory.setItem(39, createItem(SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("inventory.sort.name"), 154, (short) 0, SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("inventory.sort.description")));
         inventory.setItem(40, stats);

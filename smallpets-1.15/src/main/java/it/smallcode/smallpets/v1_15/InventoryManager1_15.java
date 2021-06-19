@@ -11,6 +11,7 @@ import it.smallcode.smallpets.core.manager.InventoryManager;
 import it.smallcode.smallpets.core.manager.types.User;
 import it.smallcode.smallpets.core.pets.Pet;
 import org.bukkit.Material;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -29,7 +30,7 @@ public class InventoryManager1_15 extends InventoryManager {
     }
 
     @Override
-    public void openPetsMenu(List<Pet> pets, Player p) {
+    public void openPetsMenu(int page, Player p) {
 
         Inventory inventory = SmallPetsCommons.getSmallPetsCommons().getInventoryCache().getInventory(p);
 
@@ -39,7 +40,28 @@ public class InventoryManager1_15 extends InventoryManager {
 
         inventory = makeEdges(inventory);
 
-        inventory.setItem(0, createItem("§8Select", Material.BLACK_STAINED_GLASS_PANE));
+        ItemStack first = createItem("§8 ", Material.BLACK_STAINED_GLASS_PANE);
+        first = SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().addNBTTag(first, "invType", "select");
+        first = SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().addNBTTag(first, "page", String.valueOf(page));
+
+        inventory.setItem(0, first);
+
+        List<Pet> allPets = user.getPets();
+        List<Pet> pets = new LinkedList<>();
+
+        int availableSlots = 0;
+        for(ItemStack itemStack : inventory.getContents())
+            if(itemStack == null)
+                availableSlots++;
+
+        int firstIndex = availableSlots * (page);
+        int lastIndex = (availableSlots * (page +1)) -1;
+
+        for(int i = firstIndex; i <= lastIndex; i++){
+            if(i == allPets.size())
+                break;
+            pets.add(allPets.get(i));
+        }
 
         for(Pet pet : pets){
 
@@ -100,6 +122,18 @@ public class InventoryManager1_15 extends InventoryManager {
         itemMeta.setLore(lore);
 
         stats.setItemMeta(itemMeta);
+
+        if(firstIndex >= availableSlots){
+            ItemStack prevItemStack = createItem(SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("inventory.previous.name"), Material.ARROW, SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("inventory.previous.description"));
+            prevItemStack = SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().addNBTTag(prevItemStack, "inv.action", "prev");
+            inventory.setItem(38, prevItemStack);
+        }
+
+        if(lastIndex < allPets.size()-1){
+            ItemStack nextItemStack = createItem(SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("inventory.next.name"), Material.ARROW, SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("inventory.next.description"));
+            nextItemStack = SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().addNBTTag(nextItemStack, "inv.action", "next");
+            inventory.setItem(42, nextItemStack);
+        }
 
         inventory.setItem(39, createItem(SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("inventory.sort.name"), Material.HOPPER, SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("inventory.sort.description")));
         inventory.setItem(40, stats);

@@ -80,3 +80,9 @@ translations:
     recipebook:
       name: "&6Recipe book"
       description: "&cNot implemented yet!"
+    next:
+      name: "&7Next"
+      description: "&7Switches to the next page"
+    previous:
+      name: "&7Previous"
+      description: "&7Switches to the previous page"

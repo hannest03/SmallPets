@@ -48,7 +48,7 @@ public abstract class InventoryManager {
      * @param p - the player
      */
 
-    public abstract void openPetsMenu(List<Pet> pets, Player p);
+    public abstract void openPetsMenu(int page, Player p);
 
     public void setXpMultiplier(double xpMultiplier) {
         this.xpMultiplier = xpMultiplier;

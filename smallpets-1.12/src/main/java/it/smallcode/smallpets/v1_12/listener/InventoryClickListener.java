@@ -142,6 +142,26 @@ public class InventoryClickListener implements Listener {
 
                 }
 
+
+                if(SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().hasNBTTag(e.getCurrentItem(), "inv.action")){
+                    String action = SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().getNBTTagValue(e.getCurrentItem(), "inv.action");
+                    int page = 0;
+
+                    ItemStack itemStack = e.getInventory().getItem(0);
+
+                    if(itemStack == null)
+                        return;
+
+                    if(SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().hasNBTTag(itemStack, "page"))
+                        page = Integer.parseInt(SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().getNBTTagValue(itemStack, "page"));
+
+                    if(action.equals("next")){
+                        SmallPetsCommons.getSmallPetsCommons().getInventoryManager().openPetsMenu(page+1, (Player) e.getWhoClicked());
+                    }else if(action.equals("prev")){
+                        SmallPetsCommons.getSmallPetsCommons().getInventoryManager().openPetsMenu(page-1, (Player) e.getWhoClicked());
+                    }
+                }
+
             }
 
         }

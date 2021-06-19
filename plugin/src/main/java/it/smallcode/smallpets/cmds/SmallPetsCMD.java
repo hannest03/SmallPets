@@ -63,9 +63,7 @@ public class SmallPetsCMD implements CommandExecutor, TabCompleter {
 
                     if (user != null) {
 
-                        List<Pet> pets = user.getPets();
-
-                        SmallPets.getInstance().getInventoryManager().openPetsMenu(pets, p);
+                        SmallPets.getInstance().getInventoryManager().openPetsMenu(0, p);
 
                         p.playSound(p.getLocation(), Sound.BLOCK_CHEST_OPEN, 1, 1);
 
