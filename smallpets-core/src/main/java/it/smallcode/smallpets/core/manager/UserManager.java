@@ -155,6 +155,21 @@ public class UserManager {
 
     /**
      *
+     * Gives a player all pets
+     *
+     * @param uuid - the uuid of the player
+     * @return the boolean is true if the pet was successfully added to the player
+     */
+    public boolean giveUserAllPets(String uuid){
+        for(String type : SmallPetsCommons.getSmallPetsCommons().getPetMapManager().getPetMap().keySet()){
+            giveUserPet(type, uuid);
+        }
+
+        return true;
+    }
+
+    /**
+     *
      * Gives a player a pet
      *
      * @param type - the type of the pet
@@ -163,9 +178,7 @@ public class UserManager {
      */
     public boolean giveUserPet(String type, String uuid){
 
-        giveUserPet(type, uuid, 0L);
-
-        return false;
+        return giveUserPet(type, uuid, 0L);
 
     }
 

@@ -36,6 +36,7 @@ translations:
     hidePets: "&7Hide pets"
     showPets: "&7Show pets"
   pet:
+    all: 'all'
     tiger: 'tiger'
     penguin: 'penguin'
     monkey: 'monkey'

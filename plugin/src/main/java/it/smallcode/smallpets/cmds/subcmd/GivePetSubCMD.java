@@ -33,7 +33,14 @@ public class GivePetSubCMD extends SubCommand {
 
             if (Bukkit.getPlayer(args[0]) != null && Bukkit.getPlayer(args[0]).isOnline()) {
 
-                SmallPets.getInstance().getUserManager().giveUserPet(args[1].toLowerCase(), Bukkit.getPlayer(args[0]).getUniqueId().toString());
+                String uuid = Bukkit.getPlayer(args[0]).getUniqueId().toString();
+
+                if(args[1].equalsIgnoreCase("*")){
+                    SmallPets.getInstance().getUserManager().giveUserAllPets(uuid);
+                    args[1] = "all";
+                }else {
+                    SmallPets.getInstance().getUserManager().giveUserPet(args[1].toLowerCase(), uuid);
+                }
 
                 s.sendMessage(SmallPets.getInstance().getPrefix() + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("givePetSender")
                         .replaceAll("%pet_type%", SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("pet." + args[1]))
@@ -76,6 +83,7 @@ public class GivePetSubCMD extends SubCommand {
         if(args.length == 2){
 
             options = new LinkedList<>();
+            options.add("*");
 
             List<String> finalOptions = options;
             SmallPetsCommons.getSmallPetsCommons().getPetMapManager().getPetMap().keySet().forEach(key -> finalOptions.add(key));
