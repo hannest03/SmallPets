@@ -14,11 +14,11 @@ translations:
   clickToSelect: '&6CLICK PARA SELECCIONAR'
   clickToDeselect: '&cCLICK PARA DESELECCIONAR'
   givePetUnlockItemSender: Se le dio el item de desbloqueo de la mascota %pet_type% al jugador %player%!
-  givePetUnlockItemReciever: Recibiste un item de desbloqueo de %pet_type% de %sender%!
+  givePetUnlockItemReceiver: Recibiste un item de desbloqueo de %pet_type% de %sender%!
   givePetSender: Se le dio la mascota %pet_type% al jugador %player%!
   givePetReciever: Recibiste la mascota %pet_type% de %sender%!
   removePetSender: La mascota %pet_type% fue tomada de %player%!
-  removePetReciever: Tu mascota %pet_type% fue tomada por %sender%!
+  givePetReceiver: Tu mascota %pet_type% fue tomada por %sender%!
   playerIsntOnline: El jugador no esta conectado!
   userDataNotFound: No se encontraron datos del jugador!
   commandIsOnlyForPlayers: Este comando solo es para jugadores

@@ -14,11 +14,10 @@ translations:
   clickToSelect: '&8&l(&a✔&8&l) &aNhấn vào để triệu hồi'
   clickToDeselect: '&8&l(&c✘&8&l) &cNhấn vào để cất'
   givePetUnlockItemSender: Đã gửi %pet_type% cho người chơi %player%!
-  givePetUnlockItemReciever: Bạn đã nhận được %pet_type% từ người chơi %sender%!
+  givePetUnlockItemReceiver: Bạn đã nhận được %pet_type% từ người chơi %sender%!
   givePetSender: Gửi thú cưng %pet_type% đến %player%!
-  givePetReciever: Bạn đã nhận được %pet_type% từ %sender%!
+  removePetReceiver: Bạn đã nhận được %pet_type% từ %sender%!
   removePetSender: The %pet_type% pet was taken from %player%!
-  removePetReciever: Your %pet_type% pet was taken by %sender%!
   playerIsntOnline: Người chơi này không hoạt động!
   userDataNotFound: Không tìm thấy người chơi!
   commandIsOnlyForPlayers: Câu lệnh này không dành cho người chơi

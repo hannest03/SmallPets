@@ -14,11 +14,11 @@ translations:
   clickToSelect: '&6CLICK TO SELECT'
   clickToDeselect: '&cCLICK TO DESELECT'
   givePetUnlockItemSender: 'Gave the %pet_type% unlock item to %player%!'
-  givePetUnlockItemReciever: 'You received the %pet_type% unlock item from %sender%!'
+  givePetUnlockItemReceiver: 'You received the %pet_type% unlock item from %sender%!'
   givePetSender: 'Gave the %pet_type% pet to %player%!'
-  givePetReciever: 'You received the %pet_type% pet from %sender%!'
+  givePetReceiver: 'You received the %pet_type% pet from %sender%!'
   removePetSender: 'The %pet_type% pet was taken from %player%!'
-  removePetReciever: 'Your %pet_type% pet was taken by %sender%!'
+  removePetReceiver: 'Your %pet_type% pet was taken by %sender%!'
   playerIsntOnline: "The player isn't online!"
   userDataNotFound: "User data couldn't be found!"
   commandIsOnlyForPlayers: "This command is only for players"

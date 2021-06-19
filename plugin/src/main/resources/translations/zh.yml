@@ -9,9 +9,9 @@ translations:
   clickToSelect: '&6 点击选择'
   clickToDeselect: '&c 点击来取消选择'
   givePetSender: '将 %pet_type% 宠物给予玩家 %player%!'
-  givePetReciever: '你从玩家 %sender% 处收到了宠物 %pet_type%!'
+  givePetReceiver: '你从玩家 %sender% 处收到了宠物 %pet_type%!'
   removePetSender: '宠物 %pet_type% 已被玩家 %player% 带走了!'
-  removePetReciever: '你的宠物 %pet_type% 被玩家 %sender% 带走了!'
+  removePetReceiver: '你的宠物 %pet_type% 被玩家 %sender% 带走了!'
   playerIsntOnline: "该玩家不在线!"
   userDataNotFound: "找不到您的用户数据!"
   commandIsOnlyForPlayers: "这个命令只适用于玩家"

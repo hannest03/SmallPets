@@ -12,9 +12,9 @@ translations:
   clickToSelect: '&6CLICCA PER SELEZIONARE'
   clickToDeselect: '&cCLICCA PER DESELEZIONARE'
   givePetSender: Dato il %pet_type% pet a %player%!
-  givePetReciever: Hai ricevuto il %pet_type% pet da %sender%!
+  givePetReceiver: Hai ricevuto il %pet_type% pet da %sender%!
   removePetSender: Il %pet_type% pet è stato preso da %player%!
-  removePetReciever: Il vostro %pet_type% pet è stato preso da %sender%!
+  removePetReceiver: Il vostro %pet_type% pet è stato preso da %sender%!
   playerIsntOnline: Il giocatore non è online!
   userDataNotFound: Dati utente non sono stati trovati!
   commandIsOnlyForPlayers: Questo command è solo per giocatori!
@@ -67,7 +67,7 @@ translations:
   petNameWithoutOwner: '&7[%level%&7] '
   inventoryFull: '&7Il vostro inventario è pieno'
   savedLanguage: '&7Salvato %language%!'
-  givePetUnlockItemReciever: "Avete ricevuto il %pet_type% unlock item da %sender%!"
+  givePetUnlockItemReceiver: "Avete ricevuto il %pet_type% unlock item da %sender%!"
   givePetUnlockItemSender: "Dato il %pet_type% unlock item a %player%!"
   petNotRegistered: "Pet non registrato"
   inventory:

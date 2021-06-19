@@ -12,11 +12,11 @@ translations:
   clickToSelect: '&6KLICKEN UM AUSZUWÄHLEN'
   clickToDeselect: '&cKLICKEN UM ABZUWÄHLEN'
   givePetSender: 'Das %pet_type% Haustier wurde %player% gegeben!'
-  givePetReciever: 'Dir wurde das %pet_type% Haustier von %sender% gegeben!'
-  givePetUnlockItemReciever: "Dir wurde der Gegenstand zum Freischalten vom %pet_type%Haustiers von %sender% gegeben!"
+  givePetReceiver: 'Dir wurde das %pet_type% Haustier von %sender% gegeben!'
+  givePetUnlockItemReceiver: "Dir wurde der Gegenstand zum Freischalten vom %pet_type%Haustiers von %sender% gegeben!"
   givePetUnlockItemSender: "Der Gegenstand zum Freischalten vom %pet_type% Haustier wurde %player% gegeben!"
   removePetSender: 'Das %pet_type% Haustier wurde %player% genommen!'
-  removePetReciever: 'Dir wurde das %pet_type% Haustier von %sender% genommen!'
+  removePetReceiver: 'Dir wurde das %pet_type% Haustier von %sender% genommen!'
   playerIsntOnline: 'Der Spieler ist nicht online!'
   userDataNotFound: 'Nutzerdaten wurden nicht gefunden!'
   commandIsOnlyForPlayers: 'Dieser Befehl ist nur für Spieler'

@@ -14,11 +14,11 @@ translations:
   clickToSelect: '&6CLIQUEZ POUR ÉQUIPER'
   clickToDeselect: '&cCLIQUEZ POUR DÉSÉQUIPER'
   givePetUnlockItemSender: "Vous avez donné l'item de déblocage du %pet_type% à %player%!"
-  givePetUnlockItemReciever: "Vous avez reçu l'item de déblocage du %pet_type% de %sender%!"
+  givePetUnlockItemReceiver: "Vous avez reçu l'item de déblocage du %pet_type% de %sender%!"
   givePetSender: 'Vous avez donné le compagnon %pet_type% à %player%!'
-  givePetReciever: 'Vous avez reçu le compagnon %pet_type% de %sender%!'
+  givePetReceiver: 'Vous avez reçu le compagnon %pet_type% de %sender%!'
   removePetSender: 'Le compagnon %pet_type% a été pris par %player%!'
-  removePetReciever: 'Votre compagnon %pet_type% a été pris par %sender%!'
+  removePetReceiver: 'Votre compagnon %pet_type% a été pris par %sender%!'
   playerIsntOnline: "Le joueur n'est pas connecter!"
   userDataNotFound: "Vos données d'utilisateur sont introuvables!"
   commandIsOnlyForPlayers: "Cette commande est réservée aux joueurs"
