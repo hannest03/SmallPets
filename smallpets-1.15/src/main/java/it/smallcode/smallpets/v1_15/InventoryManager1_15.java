@@ -8,6 +8,8 @@ Class created by SmallCode
 
 import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.manager.InventoryManager;
+import it.smallcode.smallpets.core.manager.SortManager;
+import it.smallcode.smallpets.core.manager.types.Sort;
 import it.smallcode.smallpets.core.manager.types.User;
 import it.smallcode.smallpets.core.pets.Pet;
 import org.bukkit.Material;
@@ -20,6 +22,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class InventoryManager1_15 extends InventoryManager {
 
@@ -46,7 +49,7 @@ public class InventoryManager1_15 extends InventoryManager {
 
         inventory.setItem(0, first);
 
-        List<Pet> allPets = user.getPets();
+        List<Pet> allPets = SmallPetsCommons.getSmallPetsCommons().getSortManager().getPetsSorted(user, user.getPets());
         List<Pet> pets = new LinkedList<>();
 
         int availableSlots = 0;
@@ -135,7 +138,7 @@ public class InventoryManager1_15 extends InventoryManager {
             inventory.setItem(42, nextItemStack);
         }
 
-        inventory.setItem(39, createItem(SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("inventory.sort.name"), Material.HOPPER, SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("inventory.sort.description")));
+        inventory.setItem(39, createItem(SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("inventory.sort.name"), Material.HOPPER, SmallPetsCommons.getSmallPetsCommons().getSortManager().sortLore(user)));
         inventory.setItem(40, stats);
         inventory.setItem(41, createItem(SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("inventory.recipebook.name"), Material.BOOK, SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("inventory.recipebook.description")));
 

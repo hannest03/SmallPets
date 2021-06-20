@@ -54,6 +54,8 @@ public class SmallPetsCommons {
     private ExperienceManager experienceManager;
     private AbilityManager abilityManager;
 
+    private SortManager sortManager = new SortManager();
+
     private INBTTagEditor INBTTagEditor;
     private IProtocolLibUtils protocolLibUtils;
     private IMetaDataUtils metaDataUtils;

@@ -40,7 +40,7 @@ public class InventoryManager1_12 extends InventoryManager {
 
         inventory = makeEdges(inventory);
 
-        ItemStack first = createItem("§8 ", 351, (short) 10);
+        ItemStack first = createItem("§8 ", 160, (short) 15);
         first = SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().addNBTTag(first, "invType", "select");
         first = SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().addNBTTag(first, "page", String.valueOf(page));
 
@@ -48,7 +48,7 @@ public class InventoryManager1_12 extends InventoryManager {
 
         User user = SmallPetsCommons.getSmallPetsCommons().getUserManager().getUser(p.getUniqueId().toString());
 
-        List<Pet> allPets = user.getPets();
+        List<Pet> allPets = SmallPetsCommons.getSmallPetsCommons().getSortManager().getPetsSorted(user, user.getPets());;
         List<Pet> pets = new LinkedList<>();
 
         int availableSlots = 0;
@@ -135,7 +135,7 @@ public class InventoryManager1_12 extends InventoryManager {
             inventory.setItem(42, nextItemStack);
         }
 
-        inventory.setItem(39, createItem(SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("inventory.sort.name"), 154, (short) 0, SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("inventory.sort.description")));
+        inventory.setItem(39, createItem(SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("inventory.sort.name"), 154, (short) 0, SmallPetsCommons.getSmallPetsCommons().getSortManager().sortLore(user)));
         inventory.setItem(40, stats);
         inventory.setItem(41, createItem(SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("inventory.recipebook.name"), 340, (short) 0, SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("inventory.recipebook.description")));
 

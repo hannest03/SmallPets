@@ -86,3 +86,9 @@ translations:
     previous:
       name: "&7Previous"
       description: "&7Switches to the previous page"
+  sort:
+    none: "None"
+    level_highest: "Highest level"
+    level_lowest: "Lowest level"
+    type: "Type"
+    name: "Name"

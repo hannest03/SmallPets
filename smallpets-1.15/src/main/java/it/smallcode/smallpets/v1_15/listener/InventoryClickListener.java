@@ -10,6 +10,7 @@ import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.languages.LanguageManager;
 import it.smallcode.smallpets.core.manager.InventoryManager;
 import it.smallcode.smallpets.core.manager.UserManager;
+import it.smallcode.smallpets.core.manager.types.Sort;
 import it.smallcode.smallpets.core.manager.types.User;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -17,6 +18,8 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.ClickType;
+import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -161,6 +164,27 @@ public class InventoryClickListener implements Listener {
                     }else if(action.equals("prev")){
                         SmallPetsCommons.getSmallPetsCommons().getInventoryManager().openPetsMenu(page-1, p);
                     }
+                }
+
+                if(e.getCurrentItem().getItemMeta().getDisplayName().equals(SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("inventory.sort.name"))){
+                    User user = userManager.getUser(p.getUniqueId().toString());
+                    ItemStack itemStack = e.getInventory().getItem(0);
+
+                    int page = 0;
+                    if(SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().hasNBTTag(itemStack, "page"))
+                        page = Integer.parseInt(SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().getNBTTagValue(itemStack, "page"));
+
+                    if(e.getClick() == ClickType.LEFT){
+                        Sort sort = SmallPetsCommons.getSmallPetsCommons().getSortManager().getNextSort(user.getSettings().getSort());
+                        user.getSettings().setSort(sort);
+                    }
+
+                    if(e.getClick() == ClickType.RIGHT){
+                        Sort sort = SmallPetsCommons.getSmallPetsCommons().getSortManager().getPreviousSort(user.getSettings().getSort());
+                        user.getSettings().setSort(sort);
+                    }
+
+                    SmallPetsCommons.getSmallPetsCommons().getInventoryManager().openPetsMenu(page, p);
                 }
 
             }

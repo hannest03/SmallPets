@@ -691,6 +691,10 @@ public class Pet {
         return armorStand;
     }
 
+    public String getName(){
+        return SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("pet." + getID());
+    }
+
     public String getCustomeName(){
 
         String name = "";
@@ -704,7 +708,7 @@ public class Pet {
         name = name.replaceAll("%level%", getLevelColor() + getLevel());
         name = name.replaceAll("%player_name%", owner.getName());
 
-        name += SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("pet." + getID());
+        name += getName();
 
         return name;
 
@@ -716,7 +720,7 @@ public class Pet {
 
         name = name.replaceAll("%level%", getLevelColor() + getLevel());
 
-        String petName = SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("pet." + getID());
+        String petName = getName();
 
         petName = petName.substring(0, 1).toUpperCase() + petName.substring(1);
 
