@@ -108,8 +108,6 @@ public class ProtocolLibEntityHandler implements EntityHandler{
 
         List<Player> players = new LinkedList<>();
 
-        System.out.println("Checking...");
-
         for(Player all : Bukkit.getOnlinePlayers())
             if(all.getWorld().getName().equals(location.getWorld().getName())){
 
@@ -122,8 +120,6 @@ public class ProtocolLibEntityHandler implements EntityHandler{
                 }
 
             }
-
-        System.out.println(players);
 
         return players;
 

@@ -12,6 +12,7 @@ import it.smallcode.smallpets.core.pets.Pet;
 import it.smallcode.smallpets.core.pets.PetType;
 import it.smallcode.smallpets.core.pets.entity.BukkitEntityHandler;
 import it.smallcode.smallpets.core.pets.entity.ProtocolLibEntityHandler;
+import it.smallcode.smallpets.core.pets.logic.BasicLogic;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.Constructor;
@@ -50,6 +51,7 @@ public class PetFactory {
         pet.setUuid(uuid);
         pet.setOwner(owner);
         pet.setExp(xp);
+        pet.setLogic(new BasicLogic());
 
         if(SmallPetsCommons.getSmallPetsCommons().isUseProtocollib())
             pet.setEntityHandler(new ProtocolLibEntityHandler());

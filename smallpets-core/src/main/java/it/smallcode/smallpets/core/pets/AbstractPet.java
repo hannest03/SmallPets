@@ -10,6 +10,7 @@ import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.abilities.Ability;
 import it.smallcode.smallpets.core.abilities.AbilityType;
 import it.smallcode.smallpets.core.pets.entity.EntityHandler;
+import it.smallcode.smallpets.core.pets.logic.Logic;
 import it.smallcode.smallpets.core.utils.LevelColorUtils;
 import lombok.Getter;
 import lombok.Setter;
@@ -45,6 +46,7 @@ public abstract class AbstractPet {
     private List<Ability> abilities = new LinkedList<>();
 
     private EntityHandler entityHandler;
+    private Logic logic;
 
     public AbstractPet(){
         updateTexture();
@@ -63,7 +65,7 @@ public abstract class AbstractPet {
                 setCustomName(getCustomName());
             }
         }, 1);
-        //TODO: start logic
+        logic.start(this);
     }
 
     public void teleport(Location loc){
@@ -73,8 +75,8 @@ public abstract class AbstractPet {
 
     public void destroy(){
         setActivated(false);
+        logic.stop();
         entityHandler.destroy();
-        //TODO: stop logic
     }
 
     protected abstract void updateTexture();
@@ -223,7 +225,7 @@ public abstract class AbstractPet {
         return SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("pet." + getId());
     }
 
-    protected void setCustomName(String name){
+    public void setCustomName(String name){
         entityHandler.setCustomName(name);
     }
 

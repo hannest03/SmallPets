@@ -22,7 +22,6 @@ import it.smallcode.smallpets.core.events.PetLevelUpEvent;
 import it.smallcode.smallpets.core.languages.LanguageManager;
 import it.smallcode.smallpets.core.manager.types.User;
 import it.smallcode.smallpets.core.text.CenteredText;
-import net.minecraft.server.v1_15_R1.PacketPlayOutWorldParticles;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
