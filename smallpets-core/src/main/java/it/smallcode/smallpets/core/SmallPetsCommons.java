@@ -20,7 +20,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 @Setter(AccessLevel.PUBLIC)
 public class SmallPetsCommons {
 
-    public static final boolean DEBUG = false;
+    public static final boolean DEBUG = true;
 
     static {
         

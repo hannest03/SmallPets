@@ -7,7 +7,11 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.core.SmallPetsCommons;
+import it.smallcode.smallpets.core.pets.AbstractPet;
 import it.smallcode.smallpets.core.pets.Pet;
+import it.smallcode.smallpets.core.pets.PetType;
+import it.smallcode.smallpets.core.pets.entity.BukkitEntityHandler;
+import it.smallcode.smallpets.core.pets.entity.ProtocolLibEntityHandler;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.Constructor;
@@ -38,6 +42,39 @@ public class PetFactory {
     }
     public static Pet createNewPet(String type, Player owner, Long xp, Boolean useProtocollib){
         return createPet(type, UUID.randomUUID(), owner, xp, useProtocollib);
+    }
+
+    public static AbstractPet createPet(String type, UUID uuid, Player owner, Long xp){
+        ImpPet pet = new ImpPet();
+        pet.setId(type);
+        pet.setUuid(uuid);
+        pet.setOwner(owner);
+        pet.setExp(xp);
+
+        if(SmallPetsCommons.getSmallPetsCommons().isUseProtocollib())
+            pet.setEntityHandler(new ProtocolLibEntityHandler());
+        else
+            pet.setEntityHandler(new BukkitEntityHandler());
+
+        return pet;
+    }
+
+    private static class ImpPet extends AbstractPet{
+
+        public ImpPet(){
+            super();
+            setPetType(PetType.combat);
+        }
+
+        @Override
+        protected void updateTexture() {
+            setTextureValue("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGI3ZjY2M2Q2NWNkZWQ3YmQzNjUxYmRkZDZkYjU0NjM2MGRkNzczYWJiZGFmNDhiODNhZWUwOGUxY2JlMTQifX19");
+        }
+
+        @Override
+        public void giveExp(long exp) {
+
+        }
     }
 
 }

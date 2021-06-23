@@ -8,6 +8,7 @@ Class created by SmallCode
 
 import it.smallcode.smallpets.SmallPets;
 import it.smallcode.smallpets.cmds.subcmd.*;
+import it.smallcode.smallpets.cmds.subcmd.debug.SpawnNewTestPetSystemSubCMD;
 import it.smallcode.smallpets.cmds.subcmd.debug.TestMetaDataSubCMD;
 import it.smallcode.smallpets.core.manager.types.User;
 import it.smallcode.smallpets.core.pets.Pet;
@@ -40,6 +41,7 @@ public class SmallPetsCMD implements CommandExecutor, TabCompleter {
         subCommands.add(new SaveLanguagesCMD("savelanguages", "smallpets.savelanguages"));
 
         subCommands.add(new TestMetaDataSubCMD("testmetadata", "smallpets.debug.testmetadata"));
+        subCommands.add(new SpawnNewTestPetSystemSubCMD("testspawnpet", "smallpets.debug.testspawnpet"));
 
         subCommands.add(new DiscordSubCMD("discord", null));
         subCommands.add(new DonateSubCMD("donate", null));

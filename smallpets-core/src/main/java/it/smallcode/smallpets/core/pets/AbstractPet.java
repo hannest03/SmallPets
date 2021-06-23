@@ -9,9 +9,11 @@ Class created by SmallCode
 import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.abilities.Ability;
 import it.smallcode.smallpets.core.abilities.AbilityType;
+import it.smallcode.smallpets.core.pets.entity.EntityHandler;
 import it.smallcode.smallpets.core.utils.LevelColorUtils;
 import lombok.Getter;
 import lombok.Setter;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Particle;
@@ -42,13 +44,38 @@ public abstract class AbstractPet {
     private String textureValue;
     private List<Ability> abilities = new LinkedList<>();
 
+    private EntityHandler entityHandler;
+
     public AbstractPet(){
         updateTexture();
     }
 
-    public abstract void spawn();
-    public abstract void teleport(Location loc);
-    public abstract void destroy();
+    public void spawn(){
+        setActivated(true);
+        this.location = owner.getLocation().clone();
+        location.setX(location.getX() - 1);
+        location.setY(location.getY() + 0.75);
+        setLocation(location);
+        entityHandler.spawn(location, getItem());
+        Bukkit.getScheduler().scheduleAsyncDelayedTask(SmallPetsCommons.getSmallPetsCommons().getJavaPlugin(), new Runnable() {
+            @Override
+            public void run() {
+                setCustomName(getCustomName());
+            }
+        }, 1);
+        //TODO: start logic
+    }
+
+    public void teleport(Location loc){
+        setLocation(loc);
+        entityHandler.teleport(location);
+    }
+
+    public void destroy(){
+        setActivated(false);
+        entityHandler.destroy();
+        //TODO: stop logic
+    }
 
     protected abstract void updateTexture();
 
@@ -196,7 +223,9 @@ public abstract class AbstractPet {
         return SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("pet." + getId());
     }
 
-    protected abstract void setCustomName(String name);
+    protected void setCustomName(String name){
+        entityHandler.setCustomName(name);
+    }
 
     public String getCustomName(){
 
