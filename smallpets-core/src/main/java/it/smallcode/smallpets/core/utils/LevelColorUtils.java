@@ -39,10 +39,13 @@ public class LevelColorUtils {
         int index = level / 10;
 
         if(levelColors.size() <= index)
-            return "";
+            return levelColors.get(levelColors.size()-1);
 
         return levelColors.get(index);
 
+    }
+    public static String getRandomLevelColor(){
+        return levelColors.get((int) (Math.random() * levelColors.size()-1));
     }
 
 }

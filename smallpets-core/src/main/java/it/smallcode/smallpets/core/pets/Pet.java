@@ -11,6 +11,8 @@ import it.smallcode.smallpets.core.abilities.Ability;
 import it.smallcode.smallpets.core.abilities.AbilityType;
 import it.smallcode.smallpets.core.pets.entityHandler.EntityHandler;
 import it.smallcode.smallpets.core.pets.logic.Logic;
+import it.smallcode.smallpets.core.pets.progressbar.Progressbar;
+import it.smallcode.smallpets.core.text.CenteredText;
 import it.smallcode.smallpets.core.utils.LevelColorUtils;
 import lombok.Getter;
 import lombok.Setter;
@@ -44,6 +46,7 @@ public class Pet {
 
     private EntityHandler entityHandler;
     private Logic logic;
+    private Progressbar progressbar;
 
     public Pet(){
         updateTexture();
@@ -159,17 +162,11 @@ public class Pet {
             lore.add("");
 
             abilities.stream().forEach(ability -> {
-
                 if(ability.getAbilityType() == AbilityType.STAT){
-/*
                     ability.getAbilityTooltip(this).stream().forEach(line ->{
-
                         lore.add(line);
-
                     });
-*/
                 }
-
             });
 
             lore.add("");
@@ -177,13 +174,9 @@ public class Pet {
             abilities.stream().forEach(ability -> {
 
                 if(ability.getAbilityType() == AbilityType.ABILITY){
-/*
                     ability.getAbilityTooltip(this).stream().forEach(line ->{
-
                         lore.add(line);
-
                     });
-*/
                     lore.add("");
 
                 }
@@ -202,25 +195,10 @@ public class Pet {
 
             }
 
-            /*
-
-            String progressBar = CenteredText.sendCenteredMessage(generateFinishedProgressbar(), maxLength);
-
-            if(getLevel() != 100) {
-
-                lore.add("  " + CenteredText.sendCenteredMessage(getLevelColor() + getLevel(), ChatColor.stripColor(progressBar).length()));
-                lore.add(progressBar);
-
-                String expB = getLevelColor() + (getXp() - getExpForLevel(getLevel())) + "§8/" + getLevelColor() + (getExpForNextLevel() - getExpForLevel(getLevel()));
-
-                lore.add("  " + CenteredText.sendCenteredMessage(expB, ChatColor.stripColor(progressBar).length()));
-
-            }else{
-
-                lore.add("§8" + getLanguageManager().getLanguage().getStringFormatted("maxLevel"));
-
+            List<String> progressBar = progressbar.generateFullProgressbar(getExp(), getLevel());
+            for(String s : progressBar) {
+                lore.add(CenteredText.sendCenteredMessage(s, maxLength));
             }
-             */
 
             itemMeta.setLore(lore);
 

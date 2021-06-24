@@ -11,6 +11,8 @@ import it.smallcode.smallpets.core.pets.Pet;
 import it.smallcode.smallpets.core.pets.entityHandler.BukkitEntityHandler;
 import it.smallcode.smallpets.core.pets.entityHandler.ProtocolLibEntityHandler;
 import it.smallcode.smallpets.core.pets.logic.BasicLogic;
+import it.smallcode.smallpets.core.pets.progressbar.DefaultProgressbar;
+import it.smallcode.smallpets.core.pets.progressbar.PercentageProgressbar;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.Constructor;
@@ -35,6 +37,7 @@ public class PetFactory {
             pet.setOwner(owner);
             pet.setExp(exp);
             pet.setLogic(new BasicLogic());
+            pet.setProgressbar(new PercentageProgressbar());
 
             if (SmallPetsCommons.getSmallPetsCommons().isUseProtocollib())
                 pet.setEntityHandler(new ProtocolLibEntityHandler());
