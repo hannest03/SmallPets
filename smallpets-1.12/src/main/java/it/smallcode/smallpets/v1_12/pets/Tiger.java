@@ -6,6 +6,7 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.languages.LanguageManager;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
@@ -25,16 +26,16 @@ public class Tiger extends it.smallcode.smallpets.v1_15.pets.Tiger {
      * @param useProtocolLib
      * @param languageManager
      */
-    public Tiger(String type, UUID uuid, Player owner, Long xp, Boolean useProtocolLib) {
-        super(type, uuid, owner, xp, useProtocolLib);
+    public Tiger() {
+        super();
     }
 
     @Override
-    public void registerRecipe(Plugin plugin) {
+    public void registerRecipe() {
 
         ItemStack item = getUnlockItem();
 
-        NamespacedKey key = new NamespacedKey(plugin, "pet_tiger");
+        NamespacedKey key = new NamespacedKey(SmallPetsCommons.getSmallPetsCommons().getJavaPlugin(), "pet_" + getId());
 
         ShapedRecipe recipe = new ShapedRecipe(key, item);
 

@@ -6,6 +6,7 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.pets.Pet;
 import it.smallcode.smallpets.core.pets.PetType;
 import it.smallcode.smallpets.v1_15.abilities.standard.SpeedBoostInBiomeAbility;
@@ -21,33 +22,20 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.UUID;
 
-public class Monkey extends Pet {
+public class Monkey extends it.smallcode.smallpets.v1_15.pets.Monkey {
 
-    public Monkey(String id, UUID uuid, Player owner, Long xp, Boolean useProtocolLib) {
-        super(id, uuid, owner, xp, useProtocolLib);
-        super.setPetType(PetType.foraging);
-
-        this.textureValue = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTNkNGExNTYwM2Y5NTFkZTJlMmFiODBlZWQxNmJiYjVhNTgyM2JmNGFjYjhjNDYzMzQyNWQ1NDIxMGNmMGFkNSJ9fX0=";
-
-        super.abilities.add(new SpeedBoostInBiomeAbility(new LinkedList<>(Arrays.asList(Biome.JUNGLE, Biome.JUNGLE_HILLS)), 0.2D));
+    public Monkey() {
+        super();
+        super.getAbilities().clear();
+        super.getAbilities().add(new SpeedBoostInBiomeAbility(new LinkedList<>(Arrays.asList(Biome.JUNGLE, Biome.JUNGLE_HILLS)), 0.2D));
     }
 
     @Override
-    protected void updateTexture(){
-
-        this.textureValue = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTNkNGExNTYwM2Y5NTFkZTJlMmFiODBlZWQxNmJiYjVhNTgyM2JmNGFjYjhjNDYzMzQyNWQ1NDIxMGNmMGFkNSJ9fX0=";
-
-        if(new Date(System.currentTimeMillis()).getMonth() == 11)
-            super.textureValue = "ewogICJ0aW1lc3RhbXAiIDogMTYwNzY5NzE4MzE5NiwKICAicHJvZmlsZUlkIiA6ICI5MThhMDI5NTU5ZGQ0Y2U2YjE2ZjdhNWQ1M2VmYjQxMiIsCiAgInByb2ZpbGVOYW1lIiA6ICJCZWV2ZWxvcGVyIiwKICAic2lnbmF0dXJlUmVxdWlyZWQiIDogdHJ1ZSwKICAidGV4dHVyZXMiIDogewogICAgIlNLSU4iIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzQ5NDdiODU5MmI1NDZmNTY5OWU1YjE0YmI3MGM3YmRjZWZiZDMyNjNhYTRmZjFhNzk0NWNlZmMxNWE2NmQ1ZjQiCiAgICB9CiAgfQp9";
-
-    }
-
-    @Override
-    public void registerRecipe(Plugin plugin) {
+    public void registerRecipe() {
 
         ItemStack item = getUnlockItem();
 
-        NamespacedKey key = new NamespacedKey(plugin, "pet_monkey");
+        NamespacedKey key = new NamespacedKey(SmallPetsCommons.getSmallPetsCommons().getJavaPlugin(), "pet_" + getId());
 
         ShapedRecipe recipe = new ShapedRecipe(key, item);
 

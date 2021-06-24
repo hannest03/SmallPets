@@ -63,7 +63,7 @@ public class JoinListener implements Listener {
 
                                     if (user != null && user.getSelected() != null) {
 
-                                        user.getSelected().spawnToPlayer(e.getPlayer(), SmallPets.getInstance());
+                                        user.getSelected().spawnToPlayer(e.getPlayer());
 
                                     }
 

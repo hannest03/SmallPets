@@ -1,4 +1,4 @@
-package it.smallcode.smallpets.core.pets.entity;
+package it.smallcode.smallpets.core.pets.entityHandler;
 /*
 
 Class created by SmallCode
@@ -39,10 +39,18 @@ public class ProtocolLibEntityHandler implements EntityHandler{
     }
 
     @Override
-    public void spawnToPlayer(Location location, ItemStack item, Player player) {
-        this.location = location;
-        List<Player> players = new LinkedList<>(Arrays.asList(player));
-        spawnArmorstandWithPackets(location, item, players);
+    public void spawnToPlayer(ItemStack item, Player player) {
+        User user = SmallPetsCommons.getSmallPetsCommons().getUserManager().getUser(player.getUniqueId().toString());
+        if(user != null && user.getSettings().isShowPets()) {
+            Bukkit.getScheduler().scheduleAsyncDelayedTask(SmallPetsCommons.getSmallPetsCommons().getJavaPlugin(), new Runnable() {
+                @Override
+                public void run() {
+                    List<Player> players = new LinkedList<>();
+                    players.add(player);
+                    spawnArmorstandWithPackets(location, item, players);
+                }
+            });
+        }
     }
 
     @Override
@@ -77,10 +85,7 @@ public class ProtocolLibEntityHandler implements EntityHandler{
 
     @Override
     public void setCustomName(String name) {
-        System.out.println(entityId);
-        System.out.println(name);
         PacketContainer entityMetadata = SmallPetsCommons.getSmallPetsCommons().getProtocolLibUtils().setCustomName(entityId, name);
-        System.out.println(entityMetadata.toString());
         sendPacket(getPlayersWithVisibleActivated(location), entityMetadata);
     }
 

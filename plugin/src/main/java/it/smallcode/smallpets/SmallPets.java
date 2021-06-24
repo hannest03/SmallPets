@@ -8,6 +8,7 @@ Class created by SmallCode
 
 import it.smallcode.smallpets.cmds.*;
 import it.smallcode.smallpets.core.SmallPetsCommons;
+import it.smallcode.smallpets.core.pets.experience.LogisticalGrowFormula;
 import it.smallcode.smallpets.core.worldguard.WorldGuardImp;
 import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventBus;
 import it.smallcode.smallpets.core.abilities.eventsystem.events.ServerShutdownEvent;
@@ -304,7 +305,9 @@ public class SmallPets extends JavaPlugin {
 
         FileConfiguration cfg = this.getConfig();
 
-        Pet.setXpToLevelTwo(cfg.getLong("xpToLevelTwo"));
+        LogisticalGrowFormula logisticalGrowFormula = new LogisticalGrowFormula();
+        logisticalGrowFormula.setXpToLevelTwo(cfg.getLong("xpToLevelTwo"));
+        SmallPetsCommons.getSmallPetsCommons().setLevelingFormula(logisticalGrowFormula);
 
         String prefix = cfg.getString("prefixPattern");
 

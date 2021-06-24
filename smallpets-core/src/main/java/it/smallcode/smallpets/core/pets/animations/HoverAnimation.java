@@ -6,7 +6,7 @@ Class created by SmallCode
 
 */
 
-import it.smallcode.smallpets.core.pets.AbstractPet;
+import it.smallcode.smallpets.core.pets.Pet;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -14,7 +14,7 @@ public class HoverAnimation {
 
     protected double speed;
 
-    private AbstractPet pet;
+    private Pet pet;
 
     protected double vel;
 
@@ -23,7 +23,7 @@ public class HoverAnimation {
 
     protected double height;
 
-    public HoverAnimation(AbstractPet pet, double speed, double maxHeightCap, double minHeightCap) {
+    public HoverAnimation(Pet pet, double speed, double maxHeightCap, double minHeightCap) {
 
         this.pet = pet;
 

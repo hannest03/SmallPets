@@ -44,7 +44,7 @@ public class GiveExperienceSubCMD extends SubCommand {
 
                             int exp = Integer.valueOf(args[2]);
 
-                            user.getPetFromType(args[1]).giveExp(exp, SmallPets.getInstance());
+                            user.getPetFromType(args[1]).giveExp(exp);
 
                         }else{
 
@@ -105,7 +105,7 @@ public class GiveExperienceSubCMD extends SubCommand {
                 if (user != null) {
 
                     List<String> finalOptions = options;
-                    user.getPets().forEach(pet -> finalOptions.add(pet.getID()));
+                    user.getPets().forEach(pet -> finalOptions.add(pet.getId()));
 
                     options = finalOptions;
 

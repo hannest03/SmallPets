@@ -47,7 +47,7 @@ public class SelectSubCMD extends SubCommand {
 
             User user = SmallPetsCommons.getSmallPetsCommons().getUserManager().getUser(((Player) s).getUniqueId().toString());
 
-            user.getPets().forEach(pet -> petOptions.add(pet.getID()));
+            user.getPets().forEach(pet -> petOptions.add(pet.getId()));
 
             options.addAll(petOptions);
 

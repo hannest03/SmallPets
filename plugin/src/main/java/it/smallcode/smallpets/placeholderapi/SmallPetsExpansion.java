@@ -7,6 +7,7 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.SmallPets;
+import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.manager.types.User;
 import it.smallcode.smallpets.core.pets.Pet;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
@@ -77,7 +78,7 @@ public class SmallPetsExpansion extends PlaceholderExpansion {
 
                     if(user.getSelected() != null) {
 
-                        String name = user.getSelected().getID();
+                        String name = user.getSelected().getId();
 
                         name = name.substring(0, 1).toUpperCase() + name.substring(1);
 
@@ -135,25 +136,26 @@ public class SmallPetsExpansion extends PlaceholderExpansion {
 
                             case "exp":{
 
-                                return String.valueOf((pet.getXp() - pet.getExpForLevel(pet.getLevel())));
+                                return String.valueOf((pet.getExp() - SmallPetsCommons.getSmallPetsCommons().getLevelingFormula().getExpForLevel(pet.getLevel())));
 
                             }
 
                             case "required_exp":{
 
-                                return String.valueOf(pet.getExpForNextLevel() - pet.getExpForLevel(pet.getLevel()));
+                                return String.valueOf(pet.getExpForNextLevel() - SmallPetsCommons.getSmallPetsCommons().getLevelingFormula().getExpForLevel(pet.getLevel()));
 
                             }
 
                             case "exp_all":{
 
-                                return String.valueOf(pet.getXp());
+                                return String.valueOf(pet.getExp());
 
                             }
 
                             case "progressbar":{
 
-                                return pet.generateProgressBar();
+                                //return pet.generateProgressBar();
+                                return "";
 
                             }
 

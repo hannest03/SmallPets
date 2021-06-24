@@ -49,19 +49,19 @@ public class WorldChangeListener implements Listener {
 
                             if (all.getWorld().getName().equals(e.getFrom().getName())) {
 
-                                user.getSelected().despawnFromPlayer(all, SmallPetsCommons.getSmallPetsCommons().getJavaPlugin());
+                                user.getSelected().despawnFromPlayer(all);
 
                             }
 
                             if (all.getWorld().getName().equals(e.getPlayer().getWorld().getName())) {
 
-                                user.getSelected().spawnToPlayer(all, SmallPetsCommons.getSmallPetsCommons().getJavaPlugin());
+                                user.getSelected().spawnToPlayer(all);
 
                                 User userAll = SmallPetsCommons.getSmallPetsCommons().getUserManager().getUser(all.getUniqueId().toString());
 
                                 if (userAll != null && userAll.getSelected() != null) {
 
-                                    userAll.getSelected().spawnToPlayer(e.getPlayer(), SmallPetsCommons.getSmallPetsCommons().getJavaPlugin());
+                                    userAll.getSelected().spawnToPlayer(e.getPlayer());
 
                                 }
 
@@ -76,11 +76,7 @@ public class WorldChangeListener implements Listener {
                     loc.setX(loc.getX() - 1);
                     loc.setY(loc.getY() + 0.75);
 
-                    user.getSelected().setPauseLogic(true);
-
                     user.getSelected().teleport(loc);
-
-                    user.getSelected().setPauseLogic(false);
 
                 }else{
 

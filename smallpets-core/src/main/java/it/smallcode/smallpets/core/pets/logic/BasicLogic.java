@@ -8,9 +8,8 @@ Class created by SmallCode
 
 import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.manager.types.User;
-import it.smallcode.smallpets.core.pets.AbstractPet;
+import it.smallcode.smallpets.core.pets.Pet;
 import it.smallcode.smallpets.core.pets.animations.HoverAnimation;
-import it.smallcode.smallpets.core.animations.LevelOnehundretAnimation;
 import it.smallcode.smallpets.core.pets.animations.LevelOnehundredAnimation;
 import it.smallcode.smallpets.core.pets.animations.WalkAwayFromPlayerAnimation;
 import it.smallcode.smallpets.core.pets.animations.FollowPlayerAnimation;
@@ -23,7 +22,7 @@ import java.util.List;
 
 public class BasicLogic implements Logic{
 
-    private AbstractPet pet;
+    private Pet pet;
     private int taskID;
 
     private FollowPlayerAnimation followPlayerArmorStand;
@@ -32,7 +31,7 @@ public class BasicLogic implements Logic{
     private WalkAwayFromPlayerAnimation walkAwayFromPlayerAnimation;
 
     @Override
-    public void start(AbstractPet pet) {
+    public void start(Pet pet) {
         this.pet = pet;
 
         followPlayerArmorStand = new FollowPlayerAnimation(pet, 0.5);
@@ -69,6 +68,21 @@ public class BasicLogic implements Logic{
 
         }, 0, 0);
 
+    }
+
+    @Override
+    public void update() {
+        if(!pet.isActivated())
+            return;
+
+        if (pet.getLevel() == 100) {
+            levelOnehundredAnimation = new LevelOnehundredAnimation(pet);
+        }else {
+            if (levelOnehundredAnimation != null) {
+                levelOnehundredAnimation.cancel();
+                levelOnehundredAnimation = null;
+            }
+        }
     }
 
     @Override

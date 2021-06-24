@@ -1,4 +1,4 @@
-package it.smallcode.smallpets.core.pets.entity;
+package it.smallcode.smallpets.core.pets.entityHandler;
 /*
 
 Class created by SmallCode
@@ -38,7 +38,7 @@ public class BukkitEntityHandler implements EntityHandler{
     }
 
     @Override
-    public void spawnToPlayer(Location location, ItemStack item, Player player) {
+    public void spawnToPlayer(ItemStack item, Player player) {
         //Nothing to do here
     }
 

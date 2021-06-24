@@ -71,7 +71,7 @@ public class PlayerFishListener implements Listener {
 
                             }
 
-                            user.getSelected().giveExp((int) (exp * xpMultiplier * extraMultiplier), SmallPetsCommons.getSmallPetsCommons().getJavaPlugin());
+                            user.getSelected().giveExp((int) (exp * xpMultiplier * extraMultiplier));
 
                         }
 

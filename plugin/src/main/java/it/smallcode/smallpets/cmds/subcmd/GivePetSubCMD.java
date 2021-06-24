@@ -43,7 +43,7 @@ public class GivePetSubCMD extends SubCommand {
                     }catch(Exception ex){}
                 }
 
-                long exp = Pet.getExpForLevel(level);
+                long exp = SmallPetsCommons.getSmallPetsCommons().getLevelingFormula().getExpForLevel(level);
                 if(level != 1)
                     exp++;
 

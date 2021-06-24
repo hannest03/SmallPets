@@ -66,7 +66,7 @@ public class EntityDeathListener implements Listener {
 
                         }
 
-                        user.getSelected().giveExp((int) (exp * xpMultiplier * extraMultiplier), SmallPetsCommons.getSmallPetsCommons().getJavaPlugin());
+                        user.getSelected().giveExp((int) (exp * xpMultiplier * extraMultiplier));
 
                     }
 

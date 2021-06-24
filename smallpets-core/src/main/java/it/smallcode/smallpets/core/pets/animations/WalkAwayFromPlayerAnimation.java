@@ -6,7 +6,6 @@ Class created by SmallCode
 
 */
 
-import it.smallcode.smallpets.core.pets.AbstractPet;
 import it.smallcode.smallpets.core.pets.Pet;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -15,9 +14,9 @@ import org.bukkit.util.Vector;
 public class WalkAwayFromPlayerAnimation {
 
     protected double speed;
-    private AbstractPet pet;
+    private Pet pet;
 
-    public WalkAwayFromPlayerAnimation(AbstractPet pet, double speed){
+    public WalkAwayFromPlayerAnimation(Pet pet, double speed){
 
         this.pet = pet;
         this.speed = speed;

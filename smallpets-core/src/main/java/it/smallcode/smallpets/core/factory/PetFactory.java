@@ -7,11 +7,9 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.core.SmallPetsCommons;
-import it.smallcode.smallpets.core.pets.AbstractPet;
 import it.smallcode.smallpets.core.pets.Pet;
-import it.smallcode.smallpets.core.pets.PetType;
-import it.smallcode.smallpets.core.pets.entity.BukkitEntityHandler;
-import it.smallcode.smallpets.core.pets.entity.ProtocolLibEntityHandler;
+import it.smallcode.smallpets.core.pets.entityHandler.BukkitEntityHandler;
+import it.smallcode.smallpets.core.pets.entityHandler.ProtocolLibEntityHandler;
 import it.smallcode.smallpets.core.pets.logic.BasicLogic;
 import org.bukkit.entity.Player;
 
@@ -21,62 +19,47 @@ import java.util.UUID;
 
 public class PetFactory {
 
-    public static Pet createPet(String type, UUID uuid, Player owner, Long xp, Boolean useProtocollib){
+    public static Pet createPet(String id, UUID uuid, Player owner, Long exp) {
 
-        Class clazz = SmallPetsCommons.getSmallPetsCommons().getPetMapManager().getPetMap().get(type);
+        //PLACEHOLDER(!) WILL BE CHANGED
+
+        Class clazz = SmallPetsCommons.getSmallPetsCommons().getPetMapManager().getPetMap().get(id);
         if(clazz == null)
             return null;
 
         try {
-            Constructor constructor = clazz.getConstructor(String.class, UUID.class, Player.class, Long.class, Boolean.class);
-            return (Pet) constructor.newInstance(type, uuid, owner, xp, useProtocollib);
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
+            Constructor constructor = clazz.getConstructor();
+            Pet pet = (Pet) constructor.newInstance();
+            pet.setId(id);
+            pet.setUuid(uuid);
+            pet.setOwner(owner);
+            pet.setExp(exp);
+            pet.setLogic(new BasicLogic());
+
+            if (SmallPetsCommons.getSmallPetsCommons().isUseProtocollib())
+                pet.setEntityHandler(new ProtocolLibEntityHandler());
+            else
+                pet.setEntityHandler(new BukkitEntityHandler());
+
+            return pet;
+
+        } catch (NoSuchMethodException ex) {
+            ex.printStackTrace();
+        } catch (InvocationTargetException ex) {
+            ex.printStackTrace();
+        } catch (InstantiationException ex) {
+            ex.printStackTrace();
+        } catch (IllegalAccessException ex) {
+            ex.printStackTrace();
         }
+
+        //TODO: Check if is config pet or class
+
         return null;
     }
-    public static Pet createNewPet(String type, Player owner, Long xp, Boolean useProtocollib){
-        return createPet(type, UUID.randomUUID(), owner, xp, useProtocollib);
-    }
 
-    public static AbstractPet createPet(String type, UUID uuid, Player owner, Long xp){
-        ImpPet pet = new ImpPet();
-        pet.setId(type);
-        pet.setUuid(uuid);
-        pet.setOwner(owner);
-        pet.setExp(xp);
-        pet.setLogic(new BasicLogic());
-
-        if(SmallPetsCommons.getSmallPetsCommons().isUseProtocollib())
-            pet.setEntityHandler(new ProtocolLibEntityHandler());
-        else
-            pet.setEntityHandler(new BukkitEntityHandler());
-
-        return pet;
-    }
-
-    private static class ImpPet extends AbstractPet{
-
-        public ImpPet(){
-            super();
-            setPetType(PetType.combat);
-        }
-
-        @Override
-        protected void updateTexture() {
-            setTextureValue("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGI3ZjY2M2Q2NWNkZWQ3YmQzNjUxYmRkZDZkYjU0NjM2MGRkNzczYWJiZGFmNDhiODNhZWUwOGUxY2JlMTQifX19");
-        }
-
-        @Override
-        public void giveExp(long exp) {
-
-        }
+    public static Pet createNewPet(String type, Player owner, Long xp){
+        return createPet(type, UUID.randomUUID(), owner, xp);
     }
 
 }

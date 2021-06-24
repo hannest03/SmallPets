@@ -90,7 +90,7 @@ public class RemovePetSubCMD extends SubCommand {
                     options.add("*");
 
                     List<String> finalOptions = options;
-                    user.getPets().forEach(pet -> finalOptions.add(pet.getID()));
+                    user.getPets().forEach(pet -> finalOptions.add(pet.getId()));
 
                     options = finalOptions;
 

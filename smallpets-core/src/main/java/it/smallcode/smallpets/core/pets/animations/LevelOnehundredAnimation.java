@@ -7,11 +7,8 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.core.SmallPetsCommons;
-import it.smallcode.smallpets.core.languages.LanguageManager;
-import it.smallcode.smallpets.core.pets.AbstractPet;
 import it.smallcode.smallpets.core.pets.Pet;
 import org.bukkit.Bukkit;
-import org.bukkit.plugin.Plugin;
 
 import java.util.ArrayList;
 
@@ -22,7 +19,7 @@ public class LevelOnehundredAnimation {
 
     private int counter = 0;
 
-    public LevelOnehundredAnimation(final AbstractPet pet){
+    public LevelOnehundredAnimation(final Pet pet){
 
         final ArrayList<String> colors = new ArrayList<>();
 

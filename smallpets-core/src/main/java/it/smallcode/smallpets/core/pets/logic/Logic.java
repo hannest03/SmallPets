@@ -6,11 +6,12 @@ Class created by SmallCode
 
 */
 
-import it.smallcode.smallpets.core.pets.AbstractPet;
+import it.smallcode.smallpets.core.pets.Pet;
 
 public interface Logic {
 
-    void start(AbstractPet pet);
+    void start(Pet pet);
+    void update();
     void stop();
 
 }

@@ -52,11 +52,11 @@ public class SetLevelSubCMD extends SubCommand {
                             if(level <= 0)
                                 level = 1;
 
-                            long exp = pet.getExpForLevel(level) +1;
+                            long exp = SmallPetsCommons.getSmallPetsCommons().getLevelingFormula().getExpForLevel(level) +1;
 
-                            exp -= pet.getXp();
+                            exp -= pet.getExp();
 
-                            pet.giveExp((int) exp, SmallPets.getInstance());
+                            pet.giveExp((int) exp);
 
                         }else{
 
@@ -117,7 +117,7 @@ public class SetLevelSubCMD extends SubCommand {
                 if (user != null) {
 
                     List<String> finalOptions = options;
-                    user.getPets().forEach(pet -> finalOptions.add(pet.getID()));
+                    user.getPets().forEach(pet -> finalOptions.add(pet.getId()));
 
                     options = finalOptions;
 

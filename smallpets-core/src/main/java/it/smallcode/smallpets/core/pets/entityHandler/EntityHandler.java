@@ -1,4 +1,4 @@
-package it.smallcode.smallpets.core.pets.entity;
+package it.smallcode.smallpets.core.pets.entityHandler;
 /*
 
 Class created by SmallCode
@@ -10,12 +10,10 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.List;
-
 public interface EntityHandler {
 
     void spawn(Location location, ItemStack item);
-    void spawnToPlayer(Location location, ItemStack item, Player player);
+    void spawnToPlayer(ItemStack item, Player player);
     void teleport(Location location);
     void despawnFromPlayer(Player p);
     void destroy();

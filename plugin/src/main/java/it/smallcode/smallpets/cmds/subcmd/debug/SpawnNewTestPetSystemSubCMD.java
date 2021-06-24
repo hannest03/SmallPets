@@ -9,7 +9,7 @@ Class created by SmallCode
 import it.smallcode.smallpets.cmds.SubCommand;
 import it.smallcode.smallpets.cmds.SubCommandType;
 import it.smallcode.smallpets.core.factory.PetFactory;
-import it.smallcode.smallpets.core.pets.AbstractPet;
+import it.smallcode.smallpets.core.pets.Pet;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -25,7 +25,7 @@ public class SpawnNewTestPetSystemSubCMD extends SubCommand {
     protected void handleCommand(CommandSender s, String[] args) {
         if(s instanceof Player){
             Player p = (Player) s;
-            AbstractPet pet = PetFactory.createPet("test", UUID.randomUUID(), p, 0L);
+            Pet pet = PetFactory.createPet("test", UUID.randomUUID(), p, 0L);
             pet.spawn();
             p.sendMessage("Should have spawned");
         }
