@@ -14,6 +14,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.List;
+
 @Getter(AccessLevel.PUBLIC)
 @Setter(AccessLevel.PUBLIC)
 public class SmallPetsCommons {
@@ -38,6 +40,8 @@ public class SmallPetsCommons {
     private boolean requirePermission;
     private boolean useProtocollib;
     private boolean useWorldGuard = false;
+
+    private List<String> petLore;
 
     private PetMapManager petMapManager;
 

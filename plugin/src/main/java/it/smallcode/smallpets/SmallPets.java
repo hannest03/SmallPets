@@ -29,9 +29,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class SmallPets extends JavaPlugin {
@@ -285,6 +283,19 @@ public class SmallPets extends JavaPlugin {
         cfg.addDefault("backup.interval", 60);
         cfg.addDefault("backup.backupLifetimeInMinutes", 43200);
 
+        // --- Pet Lore
+
+        List<String> petLore = new LinkedList<>();
+        petLore.add("&8%pet_type%");
+        petLore.add("");
+        petLore.add("&7%abilities_stats%");
+        petLore.add("");
+        petLore.add("%abilities_ability%");
+        petLore.add("");
+        petLore.add("%progress_bar%");
+
+        cfg.addDefault("pet_lore", petLore);
+
         getConfig().options().copyDefaults(true);
 
         saveConfig();
@@ -351,6 +362,11 @@ public class SmallPets extends JavaPlugin {
             if(this.isEnabled())
                 SmallPetsCommons.getSmallPetsCommons().getBackupManager().start();
 
+        }
+
+        if(cfg.getStringList("pet_lore") != null){
+            List<String> petLore = cfg.getStringList("pet_lore");
+            SmallPetsCommons.getSmallPetsCommons().setPetLore(petLore);
         }
 
         return true;

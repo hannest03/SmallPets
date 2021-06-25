@@ -37,6 +37,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -838,77 +839,67 @@ public class Pet {
 
             itemMeta.setDisplayName(getCustomeNameWithoutPlayername());
 
-            ArrayList<String> lore = new ArrayList();
+            String loreString = SmallPetsCommons.getSmallPetsCommons().getPetLore().stream().collect(Collectors.joining("\n"));
 
             if(getPetType() != null) {
 
-                lore.add("§8" + getPetType().getName(getLanguageManager()));
+                String petType = getPetType().getName(getLanguageManager());
+                loreString = loreString.replaceAll("%pet_type%", petType);
 
             }
 
-            lore.add("");
-
-            abilities.stream().forEach(ability -> {
-
-                if(ability.getAbilityType() == AbilityType.STAT){
-
-                    ability.getAbilityTooltip(this).stream().forEach(line ->{
-
-                        lore.add(line);
-
-                    });
-
+            String abilityStatLore = "";
+            for(Ability ability : abilities) {
+                if (ability.getAbilityType() == AbilityType.STAT) {
+                    abilityStatLore += ability.getAbilityTooltip(this).stream().collect(Collectors.joining("\n"));
                 }
+            }
+            loreString = loreString.replaceAll("%abilities_stats%", abilityStatLore);
 
-            });
-
-            lore.add("");
-
-            abilities.stream().forEach(ability -> {
-
-                if(ability.getAbilityType() == AbilityType.ABILITY){
-
-                    ability.getAbilityTooltip(this).stream().forEach(line ->{
-
-                        lore.add(line);
-
-                    });
-
-                    lore.add("");
-
+            String abilityLore = "";
+            for(Ability ability : abilities) {
+                if (ability.getAbilityType() == AbilityType.ABILITY) {
+                    abilityLore += ability.getAbilityTooltip(this).stream().collect(Collectors.joining("\n"));
                 }
-
-            });
+            }
+            loreString = loreString.replaceAll("%abilities_ability%", abilityLore);
 
             int maxLength = 0;
 
-            for(String loreString : lore){
+            for(String s : loreString.split("\n")){
 
-                if(ChatColor.stripColor(loreString).length() > maxLength){
+                if(ChatColor.stripColor(s).length() > maxLength){
 
-                    maxLength = ChatColor.stripColor(loreString).length();
+                    maxLength = ChatColor.stripColor(s).length();
 
                 }
 
             }
+
+            List<String> progressBarList = new LinkedList<>();
 
             String progressBar = CenteredText.sendCenteredMessage(generateFinishedProgressbar(), maxLength);
 
             if(getLevel() != 100) {
 
-                lore.add("  " + CenteredText.sendCenteredMessage(getLevelColor() + getLevel(), ChatColor.stripColor(progressBar).length()));
-                lore.add(progressBar);
+                progressBarList.add("  " + CenteredText.sendCenteredMessage(getLevelColor() + getLevel(), ChatColor.stripColor(progressBar).length()));
+                progressBarList.add(progressBar);
 
                 String expB = getLevelColor() + (getXp() - getExpForLevel(getLevel())) + "§8/" + getLevelColor() + (getExpForNextLevel() - getExpForLevel(getLevel()));
 
-                lore.add("  " + CenteredText.sendCenteredMessage(expB, ChatColor.stripColor(progressBar).length()));
+                progressBarList.add("  " + CenteredText.sendCenteredMessage(expB, ChatColor.stripColor(progressBar).length()));
 
             }else{
 
-                lore.add("§8" + getLanguageManager().getLanguage().getStringFormatted("maxLevel"));
+                progressBarList.add("§8" + getLanguageManager().getLanguage().getStringFormatted("maxLevel"));
 
             }
 
+            String progressbarFinished = progressBarList.stream().collect(Collectors.joining("\n"));
+            loreString = loreString.replaceAll("%progress_bar%", progressbarFinished);
+            loreString = ChatColor.translateAlternateColorCodes('&', loreString);
+
+            List<String> lore = new LinkedList<>(Arrays.asList(loreString.split("\n")));
             itemMeta.setLore(lore);
 
             itemStack.setItemMeta(itemMeta);
