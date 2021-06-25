@@ -9,6 +9,8 @@ Class created by SmallCode
 import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.abilities.Ability;
 import it.smallcode.smallpets.core.abilities.AbilityType;
+import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventBus;
+import it.smallcode.smallpets.core.events.PetLevelUpEvent;
 import it.smallcode.smallpets.core.pets.entityHandler.EntityHandler;
 import it.smallcode.smallpets.core.pets.logic.Logic;
 import it.smallcode.smallpets.core.pets.progressbar.Progressbar;
@@ -108,8 +110,8 @@ public class Pet {
         }
         if(level != getLevel()){
             //LEVEL UP
-            //AbilityEventBus.post(new it.smallcode.smallpets.core.abilities.eventsystem.events.PetLevelUpEvent(SmallPetsCommons.getSmallPetsCommons().getUserManager().getUser(getOwner().getUniqueId().toString()), this, level));
-            //Bukkit.getPluginManager().callEvent(new PetLevelUpEvent(this));
+            AbilityEventBus.post(new it.smallcode.smallpets.core.abilities.eventsystem.events.PetLevelUpEvent(SmallPetsCommons.getSmallPetsCommons().getUserManager().getUser(getOwner().getUniqueId().toString()), this, level));
+            Bukkit.getPluginManager().callEvent(new PetLevelUpEvent(this));
 
             if(isActivated()) {
                 setCustomName(getCustomName());
