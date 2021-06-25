@@ -24,8 +24,8 @@ import java.util.UUID;
 
 public class Panda extends Pet {
 
-    public Panda(String id, UUID uuid, Player owner, Long xp, Boolean useProtocolLib) {
-        super(id, uuid, owner, xp, useProtocolLib);
+    public Panda(String id, Player owner, Long xp, Boolean useProtocolLib) {
+        super(id, owner, xp, useProtocolLib);
         super.setPetType(PetType.farming);
 
         super.abilities.add(new HealthAbility(4));

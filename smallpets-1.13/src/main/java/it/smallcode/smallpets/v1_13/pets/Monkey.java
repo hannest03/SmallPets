@@ -25,8 +25,8 @@ import java.util.UUID;
 
 public class Monkey extends Pet {
 
-    public Monkey(String id, UUID uuid, Player owner, Long xp, Boolean useProtocolLib) {
-        super(id, uuid, owner, xp, useProtocolLib);
+    public Monkey(String id, Player owner, Long xp, Boolean useProtocolLib) {
+        super(id, owner, xp, useProtocolLib);
         super.setPetType(PetType.foraging);
 
         super.abilities.add(new SpeedBoostInBiomeAbility(new LinkedList<>(Arrays.asList(Biome.JUNGLE, Biome.JUNGLE_HILLS, Biome.MODIFIED_JUNGLE)), 0.2D));

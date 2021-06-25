@@ -18,8 +18,8 @@ import java.util.UUID;
 
 public class Silverfish extends it.smallcode.smallpets.v1_15.pets.Silverfish {
 
-    public Silverfish(String type, UUID uuid, Player owner, Long xp, Boolean useProtocolLib) {
-        super(type, uuid, owner, xp, useProtocolLib);
+    public Silverfish(String type, Player owner, Long xp, Boolean useProtocolLib) {
+        super(type, owner, xp, useProtocolLib);
     }
 
     @Override

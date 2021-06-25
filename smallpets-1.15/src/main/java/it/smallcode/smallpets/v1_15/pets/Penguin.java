@@ -24,8 +24,8 @@ import java.util.UUID;
 
 public class Penguin extends Pet {
 
-    public Penguin(String id, UUID uuid, Player owner, Long xp, Boolean useProtocolLib) {
-        super(id, uuid, owner, xp, useProtocolLib);
+    public Penguin(String id, Player owner, Long xp, Boolean useProtocolLib) {
+        super(id, owner, xp, useProtocolLib);
         super.setPetType(PetType.fishing);
 
         super.setParticle(Particle.WATER_BUBBLE);

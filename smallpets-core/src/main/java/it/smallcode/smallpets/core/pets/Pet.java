@@ -113,7 +113,7 @@ public class Pet {
      * @param useProtocolLib - boolean if protocolLib is being used
      */
 
-    public Pet(String id, UUID uuid, Player owner, Long xp, Boolean useProtocolLib) {
+    public Pet(String id, Player owner, Long xp, Boolean useProtocolLib) {
 
         abilities = new LinkedList<>();
 
@@ -123,8 +123,6 @@ public class Pet {
         this.useProtocolLib = useProtocolLib;
 
         this.id = id;
-
-        this.uuid = uuid;
 
         updateTexture();
 

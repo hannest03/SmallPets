@@ -6,26 +6,15 @@ Class created by SmallCode
 
 */
 
-import com.comphenix.protocol.PacketType;
-import com.comphenix.protocol.ProtocolLibrary;
-import com.comphenix.protocol.ProtocolManager;
-import com.comphenix.protocol.events.PacketContainer;
-import com.comphenix.protocol.wrappers.EnumWrappers;
-import com.comphenix.protocol.wrappers.WrappedDataWatcher;
-import it.smallcode.smallpets.core.languages.LanguageManager;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 
-import java.util.List;
-import java.util.UUID;
-
 public class Penguin extends it.smallcode.smallpets.v1_15.pets.Penguin {
-    public Penguin(String type, UUID uuid, Player owner, Long xp, Boolean useProtocolLib) {
-        super(type, uuid, owner, xp, useProtocolLib);
+    public Penguin(String type, Player owner, Long xp, Boolean useProtocolLib) {
+        super(type, owner, xp, useProtocolLib);
     }
 
     @Override

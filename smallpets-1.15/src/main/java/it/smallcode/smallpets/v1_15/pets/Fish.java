@@ -23,8 +23,8 @@ import java.util.UUID;
 
 public class Fish extends Pet {
 
-    public Fish(String id, UUID uuid, Player owner, Long xp, Boolean useProtocolLib) {
-        super(id, uuid, owner, xp, useProtocolLib);
+    public Fish(String id, Player owner, Long xp, Boolean useProtocolLib) {
+        super(id, owner, xp, useProtocolLib);
 
         super.setPetType(PetType.fishing);
 

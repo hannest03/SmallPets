@@ -22,8 +22,8 @@ import java.util.UUID;
 
 public class Silverfish extends Pet {
 
-    public Silverfish(String id, UUID uuid, Player owner, Long xp, Boolean useProtocolLib) {
-        super(id, uuid, owner, xp, useProtocolLib);
+    public Silverfish(String id, Player owner, Long xp, Boolean useProtocolLib) {
+        super(id, owner, xp, useProtocolLib);
 
         super.setPetType(PetType.mining);
         super.abilities.add(new FasterMiningSpeedAbility(4, 1));

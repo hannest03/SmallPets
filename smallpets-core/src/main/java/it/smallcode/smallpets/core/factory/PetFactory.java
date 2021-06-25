@@ -24,7 +24,9 @@ public class PetFactory {
 
         try {
             Constructor constructor = clazz.getConstructor(String.class, UUID.class, Player.class, Long.class, Boolean.class);
-            return (Pet) constructor.newInstance(type, uuid, owner, xp, useProtocollib);
+            Pet pet = (Pet) constructor.newInstance(type, uuid, owner, xp, useProtocollib);
+            pet.setUuid(uuid);
+            return pet;
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {

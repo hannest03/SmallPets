@@ -22,8 +22,8 @@ import java.util.UUID;
 
 public class Tiger extends Pet {
 
-    public Tiger(String id, UUID uuid, Player owner, Long xp, Boolean useProtocolLib) {
-        super(id, uuid, owner, xp, useProtocolLib);
+    public Tiger(String id, Player owner, Long xp, Boolean useProtocolLib) {
+        super(id, owner, xp, useProtocolLib);
 
         super.setPetType(PetType.combat);
         super.abilities.add(new DamageAbility(20));

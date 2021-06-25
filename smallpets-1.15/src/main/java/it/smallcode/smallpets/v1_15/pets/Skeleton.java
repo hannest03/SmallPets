@@ -24,8 +24,8 @@ import java.util.UUID;
 
 public class Skeleton extends Pet {
 
-    public Skeleton(String id, UUID uuid, Player owner, Long xp, Boolean useProtocolLib) {
-        super(id, uuid, owner, xp, useProtocolLib);
+    public Skeleton(String id, Player owner, Long xp, Boolean useProtocolLib) {
+        super(id, owner, xp, useProtocolLib);
 
         super.setPetType(PetType.combat);
         super.setParticle(Particle.CLOUD);

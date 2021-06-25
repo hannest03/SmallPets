@@ -18,8 +18,8 @@ import java.util.UUID;
 
 public class Panda extends it.smallcode.smallpets.v1_15.pets.Panda {
 
-    public Panda(String id, UUID uuid, Player owner, Long xp, Boolean useProtocolLib) {
-        super(id, uuid, owner, xp, useProtocolLib);
+    public Panda(String id, Player owner, Long xp, Boolean useProtocolLib) {
+        super(id, owner, xp, useProtocolLib);
     }
 
     @Override
