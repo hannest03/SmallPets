@@ -849,20 +849,23 @@ public class Pet {
             }
 
             String abilityStatLore = "";
-            for(Ability ability : abilities) {
+            String abilityLore = "";
+            for(int i = 0; i < abilities.size(); i++) {
+                Ability ability = abilities.get(i);
                 if (ability.getAbilityType() == AbilityType.STAT) {
                     abilityStatLore += ability.getAbilityTooltip(this).stream().collect(Collectors.joining("\n"));
+                    if(i != abilities.size() -1)
+                        abilityStatLore += "\n";
                 }
-            }
-            loreString = loreString.replaceAll("%abilities_stats%", abilityStatLore);
-
-            String abilityLore = "";
-            for(Ability ability : abilities) {
                 if (ability.getAbilityType() == AbilityType.ABILITY) {
+                    if(i != 0)
+                        abilityLore += "\n";
                     abilityLore += ability.getAbilityTooltip(this).stream().collect(Collectors.joining("\n"));
+                    if(i != abilities.size() -1)
+                        abilityStatLore += "\n";
                 }
             }
-            loreString = loreString.replaceAll("%abilities_ability%", abilityLore);
+            loreString = loreString.replaceAll("%abilities%", abilityStatLore + abilityLore);
 
             int maxLength = 0;
 

@@ -288,9 +288,7 @@ public class SmallPets extends JavaPlugin {
         List<String> petLore = new LinkedList<>();
         petLore.add("&8%pet_type%");
         petLore.add("");
-        petLore.add("&7%abilities_stats%");
-        petLore.add("");
-        petLore.add("%abilities_ability%");
+        petLore.add("&7%abilities%");
         petLore.add("");
         petLore.add("%progress_bar%");
 

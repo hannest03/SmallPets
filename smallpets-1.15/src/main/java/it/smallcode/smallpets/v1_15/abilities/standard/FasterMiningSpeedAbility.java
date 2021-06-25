@@ -109,7 +109,6 @@ public class FasterMiningSpeedAbility extends StatBoostAbility {
             return;
 
         int potionEffectLevel = (int) statBoostAbility.getExtraStat(user.getSelected().getLevel()) -1;
-        System.out.println(potionEffectLevel);
         PotionEffect potionEffect = new PotionEffect(PotionEffectType.FAST_DIGGING, 1000000000, potionEffectLevel, false, false);
 
         p.addPotionEffect(potionEffect);
