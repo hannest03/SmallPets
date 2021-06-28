@@ -6,8 +6,6 @@ Class created by SmallCode
 
 */
 
-import org.bukkit.Bukkit;
-
 import java.io.*;
 import java.util.LinkedList;
 import java.util.List;
@@ -104,6 +102,7 @@ public class ZipUtils {
             try {
 
                 zipOutputStream.close();
+                fileOutputStream.close();
 
             } catch (IOException ex) {
 

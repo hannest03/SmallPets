@@ -535,8 +535,10 @@ public class Pet {
         if (levelOnehundretAnimation != null)
             levelOnehundretAnimation.cancel();
 
-        if (armorStand != null)
+        if (armorStand != null) {
             armorStand.remove();
+            armorStand = null;
+        }
 
         if(useProtocolLib){
 
