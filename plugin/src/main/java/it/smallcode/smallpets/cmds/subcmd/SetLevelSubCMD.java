@@ -17,13 +17,14 @@ import org.bukkit.command.CommandSender;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.UUID;
 
 public class SetLevelSubCMD extends SubCommand {
 
     public SetLevelSubCMD(String name, String permission) {
         super(name, permission, SubCommandType.ADMIN);
 
-        help += " <user> <type> <level>";
+        help += " <user> <uuid> <level>";
 
     }
 
@@ -37,12 +38,12 @@ public class SetLevelSubCMD extends SubCommand {
                 User user = SmallPets.getInstance().getUserManager().getUser(Bukkit.getPlayer(args[0]).getUniqueId().toString());
 
                 if(user != null){
-
-                    if(user.getPetFromType(args[1]) != null){
+                    UUID petUUID = UUID.fromString(args[1]);
+                    if(user.getPetFromUUID(petUUID) != null){
 
                         if(isInteger(args[2])){
 
-                            Pet pet = user.getPetFromType(args[1]);
+                            Pet pet = user.getPetFromUUID(petUUID);
 
                             int level = Integer.valueOf(args[2]);
 
@@ -117,7 +118,7 @@ public class SetLevelSubCMD extends SubCommand {
                 if (user != null) {
 
                     List<String> finalOptions = options;
-                    user.getPets().forEach(pet -> finalOptions.add(pet.getID()));
+                    user.getPets().forEach(pet -> finalOptions.add(pet.getUuid().toString()));
 
                     options = finalOptions;
 

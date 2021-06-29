@@ -253,7 +253,8 @@ public class UserManager {
 
         if(SmallPetsCommons.getSmallPetsCommons().getPetMapManager().getPetMap().containsKey(type)){
 
-            PetFactory.createNewPet(type, p, exp, useProtocolLib);
+            Pet pet = PetFactory.createNewPet(type, p, exp, useProtocolLib);
+            p.getInventory().addItem(pet.getUnlockItem());
 
         }else
             throw new IllegalArgumentException("Pet id isn't registered");
