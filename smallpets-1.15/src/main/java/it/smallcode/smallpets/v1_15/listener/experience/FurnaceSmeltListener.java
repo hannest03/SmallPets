@@ -65,7 +65,7 @@ public class FurnaceSmeltListener implements Listener {
 
                     }
 
-                    user.getSelected().giveExp((int) (exp * xpMultiplier * extraMultiplier) * e.getItemAmount(), SmallPetsCommons.getSmallPetsCommons().getJavaPlugin());
+                    user.getSelected().giveExp((int) (exp * xpMultiplier * extraMultiplier) * e.getItemAmount());
 
                 }
 

@@ -6,23 +6,23 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.core.SmallPetsCommons;
 import org.bukkit.*;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
-import org.bukkit.plugin.Plugin;
 
 public class Penguin extends it.smallcode.smallpets.v1_15.pets.Penguin {
-    public Penguin(String type, Player owner, Long xp, Boolean useProtocolLib) {
-        super(type, owner, xp, useProtocolLib);
+
+    public Penguin() {
+        super();
     }
 
     @Override
-    public void registerRecipe(Plugin plugin) {
+    public void registerRecipe() {
 
         ItemStack item = getUnlockItem();
 
-        NamespacedKey key = new NamespacedKey(plugin, "pet_penguin");
+        NamespacedKey key = new NamespacedKey(SmallPetsCommons.getSmallPetsCommons().getJavaPlugin(), "pet_" + getId());
 
         ShapedRecipe recipe = new ShapedRecipe(key, item);
 

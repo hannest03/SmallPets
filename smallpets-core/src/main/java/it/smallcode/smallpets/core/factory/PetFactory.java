@@ -8,6 +8,11 @@ Class created by SmallCode
 
 import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.pets.Pet;
+import it.smallcode.smallpets.core.pets.entityHandler.BukkitEntityHandler;
+import it.smallcode.smallpets.core.pets.entityHandler.ProtocolLibEntityHandler;
+import it.smallcode.smallpets.core.pets.logic.BasicLogic;
+import it.smallcode.smallpets.core.pets.progressbar.DefaultProgressbar;
+import it.smallcode.smallpets.core.pets.progressbar.PercentageProgressbar;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.Constructor;
@@ -16,30 +21,48 @@ import java.util.UUID;
 
 public class PetFactory {
 
-    public static Pet createPet(String type, UUID uuid, Player owner, Long xp, Boolean useProtocollib){
+    public static Pet createPet(String id, UUID uuid, Player owner, Long exp) {
 
-        Class clazz = SmallPetsCommons.getSmallPetsCommons().getPetMapManager().getPetMap().get(type);
+        //PLACEHOLDER(!) WILL BE CHANGED
+
+        Class clazz = SmallPetsCommons.getSmallPetsCommons().getPetMapManager().getPetMap().get(id);
         if(clazz == null)
             return null;
 
         try {
-            Constructor constructor = clazz.getConstructor(String.class, Player.class, Long.class, Boolean.class);
-            Pet pet = (Pet) constructor.newInstance(type, owner, xp, useProtocollib);
+            Constructor constructor = clazz.getConstructor();
+            Pet pet = (Pet) constructor.newInstance();
+            pet.setId(id);
             pet.setUuid(uuid);
+            pet.setOwner(owner);
+            pet.setExp(exp);
+            pet.setLogic(new BasicLogic());
+            pet.setProgressbar(new PercentageProgressbar());
+
+            if (SmallPetsCommons.getSmallPetsCommons().isUseProtocollib())
+                pet.setEntityHandler(new ProtocolLibEntityHandler());
+            else
+                pet.setEntityHandler(new BukkitEntityHandler());
+
             return pet;
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
+
+        } catch (NoSuchMethodException ex) {
+            ex.printStackTrace();
+        } catch (InvocationTargetException ex) {
+            ex.printStackTrace();
+        } catch (InstantiationException ex) {
+            ex.printStackTrace();
+        } catch (IllegalAccessException ex) {
+            ex.printStackTrace();
         }
+
+        //TODO: Check if is config pet or class
+
         return null;
     }
-    public static Pet createNewPet(String type, Player owner, Long xp, Boolean useProtocollib){
-        return createPet(type, UUID.randomUUID(), owner, xp, useProtocollib);
+
+    public static Pet createNewPet(String type, Player owner, Long xp){
+        return createPet(type, UUID.randomUUID(), owner, xp);
     }
 
 }

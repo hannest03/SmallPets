@@ -34,7 +34,7 @@ public class HealthAbility extends StatBoostAbility {
 
         if(e.getUser().getSelected() != null) {
 
-            if (e.getPet().getID().equalsIgnoreCase(e.getUser().getSelected().getID())) {
+            if (e.getPet().getId().equalsIgnoreCase(e.getUser().getSelected().getId())) {
 
                 if (e.getUser().getSelected().hasAbility(getID())) {
 

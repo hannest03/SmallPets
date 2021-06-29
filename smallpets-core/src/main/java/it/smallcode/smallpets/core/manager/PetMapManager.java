@@ -88,8 +88,8 @@ public abstract class PetMapManager {
     }
 
     private void registerRecipe(String type){
-        Pet pet = PetFactory.createPet(type, null, null, 0L, false);
-        pet.registerRecipe(SmallPetsCommons.getSmallPetsCommons().getJavaPlugin());
+        Pet pet = PetFactory.createPet(type, null, null, 0L);
+        pet.registerRecipe();
     }
 
 }

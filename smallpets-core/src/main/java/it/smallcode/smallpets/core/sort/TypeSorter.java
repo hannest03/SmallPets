@@ -27,7 +27,7 @@ public class TypeSorter implements Sorter{
                 if(ret != 0)
                     return ret;
 
-                return o1.getID().compareTo(o2.getID());
+                return o1.getId().compareTo(o2.getId());
             }
         });
         return pets;

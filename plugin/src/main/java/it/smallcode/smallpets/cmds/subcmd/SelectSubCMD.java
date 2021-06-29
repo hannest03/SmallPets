@@ -47,7 +47,6 @@ public class SelectSubCMD extends SubCommand {
             List<String> petOptions = new LinkedList<>();
 
             User user = SmallPetsCommons.getSmallPetsCommons().getUserManager().getUser(((Player) s).getUniqueId().toString());
-
             user.getPets().forEach(pet -> petOptions.add(pet.getUuid().toString()));
 
             options.addAll(petOptions);

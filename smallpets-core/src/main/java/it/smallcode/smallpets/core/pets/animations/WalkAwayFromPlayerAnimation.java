@@ -1,8 +1,8 @@
-package it.smallcode.smallpets.core.animations;
+package it.smallcode.smallpets.core.pets.animations;
 /*
 
 Class created by SmallCode
-18.08.2020 21:23
+23.06.2021 22:25
 
 */
 

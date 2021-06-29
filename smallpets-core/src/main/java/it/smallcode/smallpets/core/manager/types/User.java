@@ -51,9 +51,9 @@ public class User {
      *
      */
 
-    public User(JavaPlugin plugin){
+    public User(){
 
-        this(null, plugin);
+        this(null);
 
     }
 
@@ -64,9 +64,9 @@ public class User {
      * @param uuid - the uuid of the user
      */
 
-    public User(String uuid, JavaPlugin plugin){
+    public User(String uuid){
 
-        this.plugin = plugin;
+        this.plugin = SmallPetsCommons.getSmallPetsCommons().getJavaPlugin();
 
         this.uuid = uuid;
 
@@ -87,9 +87,9 @@ public class User {
      * @param useProtocolLib - boolean if ProtocolLib is being used
      */
 
-    public User(String uuid, Map<String, Object> data, PetMapManager petMapManager, JavaPlugin plugin, boolean useProtocolLib, LanguageManager languageManager){
+    public User(String uuid, Map<String, Object> data){
 
-        this.plugin = plugin;
+        this.plugin = SmallPetsCommons.getSmallPetsCommons().getJavaPlugin();
 
         this.uuid = uuid;
 
@@ -107,7 +107,7 @@ public class User {
      */
     public Pet getPetFromType(String type){
 
-        Optional<Pet> result = pets.stream().filter(p -> p.getID().equalsIgnoreCase(type)).findFirst();
+        Optional<Pet> result = pets.stream().filter(p -> p.getId().equalsIgnoreCase(type)).findFirst();
 
         if(result != null)
             if(result.isPresent())
@@ -157,7 +157,7 @@ public class User {
 
             if(!spawnPetEvent.isCancelled()) {
 
-                selected.spawn(plugin);
+                selected.spawn();
 
             }
 
@@ -183,7 +183,7 @@ public class User {
 
             if(!spawnPetEvent.isCancelled()) {
 
-                selected.spawnToPlayer(player, plugin);
+                selected.spawnToPlayer(player);
 
             }
 
@@ -209,7 +209,7 @@ public class User {
 
             if(!despawnPetEvent.isCancelled()) {
 
-                selected.despawnFromPlayer(player, plugin);
+                selected.despawnFromPlayer(player);
 
             }
 
@@ -321,7 +321,7 @@ public class User {
         if(p == null || !p.isOnline())
             return false;
 
-        if(SmallPetsCommons.getSmallPetsCommons().isRequirePermission() && selected != null && !p.hasPermission("smallpets.allow." + selected.getID())) {
+        if(SmallPetsCommons.getSmallPetsCommons().isRequirePermission() && selected != null && !p.hasPermission("smallpets.allow." + selected.getId())) {
 
             p.sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("noPerms"));
 
@@ -329,7 +329,7 @@ public class User {
 
         }
 
-        if(!SmallPetsCommons.getSmallPetsCommons().isRequirePermission() && selected != null && (p.hasPermission("smallpets.forbid." + selected.getID()) && !p.isOp())) {
+        if(!SmallPetsCommons.getSmallPetsCommons().isRequirePermission() && selected != null && (p.hasPermission("smallpets.forbid." + selected.getId()) && !p.isOp())) {
 
             p.sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("noPerms"));
 
@@ -454,8 +454,8 @@ public class User {
 
         Map<String, Object> data = new HashMap<>();
 
-        data.put("type", pet.getID());
-        data.put("exp", String.valueOf(pet.getXp()));
+        data.put("type", pet.getId());
+        data.put("exp", String.valueOf(pet.getExp()));
         data.put("uuid", pet.getUuid().toString());
 
         return data;
@@ -486,7 +486,7 @@ public class User {
 
         if(SmallPetsCommons.getSmallPetsCommons().getPetMapManager().getPetMap().containsKey(type)){
 
-            return PetFactory.createPet(type, petUUID, Bukkit.getPlayer(UUID.fromString(uuid)), exp, SmallPetsCommons.getSmallPetsCommons().isUseProtocollib());
+            return PetFactory.createPet(type, petUUID, Bukkit.getPlayer(UUID.fromString(uuid)), exp);
 
         }
 

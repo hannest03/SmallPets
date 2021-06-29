@@ -38,7 +38,7 @@ public class PetLevelUpListener implements Listener {
 
         if(e.getPet().getLevel() != 100)
             p.sendMessage(CenteredText.sendCenteredMessage(languageManager.getLanguage().getStringFormatted("nextLevel")
-                    .replaceAll("%exp_next_level%", "" + (e.getPet().getExpForNextLevel() - e.getPet().getXp() +1))
+                    .replaceAll("%exp_next_level%", "" + (e.getPet().getExpForNextLevel() - e.getPet().getExp() +1))
                     .replaceAll("%pet_next_level%", "" + (e.getPet().getLevel() +1)), 154));
 
         p.sendMessage("");

@@ -8,6 +8,8 @@ Class created by SmallCode
 
 import it.smallcode.smallpets.core.languages.LanguageManager;
 import it.smallcode.smallpets.core.manager.*;
+import it.smallcode.smallpets.core.pets.experience.LevelingFormula;
+import it.smallcode.smallpets.core.pets.experience.LogisticalGrowFormula;
 import it.smallcode.smallpets.core.utils.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -20,7 +22,7 @@ import java.util.List;
 @Setter(AccessLevel.PUBLIC)
 public class SmallPetsCommons {
 
-    public static final boolean DEBUG = false;
+    public static final boolean DEBUG = true;
 
     static {
         
@@ -32,6 +34,9 @@ public class SmallPetsCommons {
 
     @Getter(AccessLevel.PUBLIC)
     private static SmallPetsCommons smallPetsCommons;
+
+    public static final int MIN_LEVEL = 1;
+    public static final int MAX_LEVEL = 100;
 
     private JavaPlugin javaPlugin;
 
@@ -64,6 +69,8 @@ public class SmallPetsCommons {
     private IProtocolLibUtils protocolLibUtils;
     private IMetaDataUtils metaDataUtils;
     private IHealthModifierUtils healthModifierUtils;
+
+    private LevelingFormula levelingFormula = new LogisticalGrowFormula();
 
     private SkullCreator skullCreator;
 

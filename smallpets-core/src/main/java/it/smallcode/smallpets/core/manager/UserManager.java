@@ -64,7 +64,7 @@ public class UserManager {
 
             if (!userFile.exists()) {
 
-                users.add(new User(uuid, SmallPetsCommons.getSmallPetsCommons().getJavaPlugin()));
+                users.add(new User(uuid));
 
             } else {
 
@@ -72,7 +72,7 @@ public class UserManager {
 
                 Map<String, Object> data = cfg.getValues(true);
 
-                users.add(new User(userFile.getName().replaceFirst("[.][^.]+$", ""), data, SmallPetsCommons.getSmallPetsCommons().getPetMapManager(), SmallPetsCommons.getSmallPetsCommons().getJavaPlugin(), useProtocolLib, SmallPetsCommons.getSmallPetsCommons().getLanguageManager()));
+                users.add(new User(userFile.getName().replaceFirst("[.][^.]+$", ""), data));
 
             }
 
@@ -227,7 +227,7 @@ public class UserManager {
 
                 }
 
-                Pet pet = PetFactory.createNewPet(type, Bukkit.getPlayer(UUID.fromString(uuid)), exp, useProtocolLib);
+                Pet pet = PetFactory.createNewPet(type, Bukkit.getPlayer(UUID.fromString(uuid)), exp);
                 user.getPets().add(pet);
 
                 return true;
@@ -253,7 +253,7 @@ public class UserManager {
 
         if(SmallPetsCommons.getSmallPetsCommons().getPetMapManager().getPetMap().containsKey(type)){
 
-            Pet pet = PetFactory.createNewPet(type, p, exp, useProtocolLib);
+            Pet pet = PetFactory.createNewPet(type, p, exp);
             p.getInventory().addItem(pet.getUnlockItem());
 
         }else
@@ -275,12 +275,12 @@ public class UserManager {
         if(user == null)
             return false;
         List<String> types = user.getPets().stream()
-                .map(pet -> pet.getID())
+                .map(pet -> pet.getId())
                 .collect(Collectors.toList());
         for(String type : types){
             if(user.getPetFromType(type) != null) {
                 if(user.getSelected() != null) {
-                    if (user.getSelected().getID().equals(type)) {
+                    if (user.getSelected().getId().equals(type)) {
                         user.despawnSelected();
                     }
                 }
@@ -311,7 +311,7 @@ public class UserManager {
 
                     if(user.getSelected() != null) {
 
-                        if (user.getSelected().getID().equals(type)) {
+                        if (user.getSelected().getId().equals(type)) {
 
                             user.despawnSelected();
 

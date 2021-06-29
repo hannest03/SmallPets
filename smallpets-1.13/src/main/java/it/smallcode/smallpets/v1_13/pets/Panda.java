@@ -6,6 +6,7 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.core.SmallPetsCommons;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -18,16 +19,16 @@ import java.util.UUID;
 
 public class Panda extends it.smallcode.smallpets.v1_15.pets.Panda {
 
-    public Panda(String id, Player owner, Long xp, Boolean useProtocolLib) {
-        super(id, owner, xp, useProtocolLib);
+    public Panda() {
+        super();
     }
 
     @Override
-    public void registerRecipe(Plugin plugin) {
+    public void registerRecipe() {
 
         ItemStack item = getUnlockItem();
 
-        NamespacedKey key = new NamespacedKey(plugin, "pet_" + getID());
+        NamespacedKey key = new NamespacedKey(SmallPetsCommons.getSmallPetsCommons().getJavaPlugin(), "pet_" + getId());
 
         ShapedRecipe recipe = new ShapedRecipe(key, item);
 

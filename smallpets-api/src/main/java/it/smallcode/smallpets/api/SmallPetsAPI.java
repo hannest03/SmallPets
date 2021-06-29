@@ -91,7 +91,7 @@ public class SmallPetsAPI {
     public static ItemStack createUnlockItem(String type, long exp) throws NoSuchPetTypeException, IllegalArgumentException {
         if(exp < 0)
             throw new IllegalArgumentException("The experience has to be bigger or equal to zero!");
-        Pet pet = PetFactory.createNewPet(type, null, exp, SmallPetsCommons.getSmallPetsCommons().isUseProtocollib());
+        Pet pet = PetFactory.createNewPet(type, null, exp);
         return pet.getUnlockItem();
     }
 

@@ -8,16 +8,15 @@ Class created by SmallCode
 
 import it.smallcode.smallpets.v1_12.abilities.UnbreakableBowAbility;
 import it.smallcode.smallpets.v1_15.abilities.standard.DontConsumeArrowAbility;
-import org.bukkit.entity.Player;
 
 public class Skeleton extends it.smallcode.smallpets.v1_15.pets.Skeleton {
 
-    public Skeleton(String type, Player owner, Long xp, Boolean useProtocolLib) {
-        super(type, owner, xp, useProtocolLib);
+    public Skeleton() {
+        super();
 
-        super.abilities.clear();
-        super.abilities.add(new DontConsumeArrowAbility(10, 1));
-        super.abilities.add(new UnbreakableBowAbility());
+        super.getAbilities().clear();
+        super.getAbilities().add(new DontConsumeArrowAbility(10, 1));
+        super.getAbilities().add(new UnbreakableBowAbility());
     }
 
 }

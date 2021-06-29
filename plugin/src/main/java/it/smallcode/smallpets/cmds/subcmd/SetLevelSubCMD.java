@@ -53,11 +53,11 @@ public class SetLevelSubCMD extends SubCommand {
                             if(level <= 0)
                                 level = 1;
 
-                            long exp = pet.getExpForLevel(level) +1;
+                            long exp = SmallPetsCommons.getSmallPetsCommons().getLevelingFormula().getExpForLevel(level) +1;
 
-                            exp -= pet.getXp();
+                            exp -= pet.getExp();
 
-                            pet.giveExp((int) exp, SmallPets.getInstance());
+                            pet.giveExp((int) exp);
 
                         }else{
 

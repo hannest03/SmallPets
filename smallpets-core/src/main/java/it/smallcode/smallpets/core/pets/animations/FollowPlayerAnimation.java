@@ -1,8 +1,8 @@
-package it.smallcode.smallpets.core.animations;
+package it.smallcode.smallpets.core.pets.animations;
 /*
 
 Class created by SmallCode
-11.07.2020 00:43
+23.06.2021 22:24
 
 */
 
@@ -12,6 +12,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
 public class FollowPlayerAnimation {
+
 
     protected double speed;
     private Pet pet;

@@ -92,7 +92,7 @@ public abstract class StatBoostAbility extends Ability {
 
     public double getExtraStat(double level){
 
-        return ((maxExtraStat-minExtraStat) / (Pet.MAXLEVEL-1)) * (level-1) + minExtraStat;
+        return ((maxExtraStat-minExtraStat) / (SmallPetsCommons.MAX_LEVEL-1)) * (level-1) + minExtraStat;
 
     }
 

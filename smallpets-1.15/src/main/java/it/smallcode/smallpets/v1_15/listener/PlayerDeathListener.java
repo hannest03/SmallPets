@@ -21,44 +21,25 @@ public class PlayerDeathListener implements Listener {
 
     @EventHandler
     public void onDeath(PlayerRespawnEvent e){
-
         User user = SmallPetsCommons.getSmallPetsCommons().getUserManager().getUser(e.getPlayer().getUniqueId().toString());
-
         if(user != null && user.getSelected() != null){
-
             Location loc = e.getPlayer().getLocation().clone();
-
             loc.setX(loc.getX() - 1);
             loc.setY(loc.getY() + 0.75);
 
-            user.getSelected().spawnToPlayer(e.getPlayer(), SmallPetsCommons.getSmallPetsCommons().getJavaPlugin());
-
-            user.getSelected().setPauseLogic(true);
-
+            user.getSelected().spawnToPlayer(e.getPlayer());
             user.getSelected().teleport(loc);
-
-            user.getSelected().setPauseLogic(false);
-
         }
 
         for(Player all : Bukkit.getOnlinePlayers()){
-
             if(all != e.getPlayer()) {
-
                 if (all.getWorld().getName().equals(e.getPlayer().getWorld().getName())) {
-
                     User userAll = SmallPetsCommons.getSmallPetsCommons().getUserManager().getUser(all.getUniqueId().toString());
-
                     if (userAll != null && userAll.getSelected() != null) {
-
-                        userAll.getSelected().spawnToPlayer(e.getPlayer(), SmallPetsCommons.getSmallPetsCommons().getJavaPlugin());
-
+                        userAll.getSelected().spawnToPlayer(e.getPlayer());
                     }
-
                 }
-
             }
-
         }
 
     }

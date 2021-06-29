@@ -23,7 +23,6 @@ import java.util.UUID;
 
 public class ProtocolLibUtils1_15 implements IProtocolLibUtils {
 
-
     @Override
     public PacketContainer setCustomName(int entityID, String name) {
 

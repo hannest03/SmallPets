@@ -41,7 +41,7 @@ public class DolphinAbility extends SpeedBoostAbility {
 
             changed.multiply(1 + ability.getExtraStat(e.getUser().getSelected().getLevel()));
 
-            double maxSpeed = 0.3D + (ability.getSpeedBoostCap() / Pet.MAXLEVEL * e.getUser().getSelected().getLevel());
+            double maxSpeed = 0.3D + (ability.getSpeedBoostCap() / SmallPetsCommons.MAX_LEVEL * e.getUser().getSelected().getLevel());
 
             if(Math.abs(changed.getX()) <= maxSpeed){
 

@@ -47,7 +47,7 @@ public class GiveExperienceSubCMD extends SubCommand {
 
                             int exp = Integer.valueOf(args[2]);
 
-                            user.getPetFromUUID(petUUID).giveExp(exp, SmallPets.getInstance());
+                            user.getPetFromUUID(petUUID).giveExp(exp);
 
                         }else{
 
