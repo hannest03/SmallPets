@@ -18,6 +18,7 @@ import org.bukkit.entity.Player;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.UUID;
 
 public class SelectSubCMD extends SubCommand {
 
@@ -25,7 +26,7 @@ public class SelectSubCMD extends SubCommand {
 
         super(name, permission, SubCommandType.NONE);
 
-        help += " <type>";
+        help += " <uuid>";
 
     }
 
@@ -47,7 +48,7 @@ public class SelectSubCMD extends SubCommand {
 
             User user = SmallPetsCommons.getSmallPetsCommons().getUserManager().getUser(((Player) s).getUniqueId().toString());
 
-            user.getPets().forEach(pet -> petOptions.add(pet.getID()));
+            user.getPets().forEach(pet -> petOptions.add(pet.getUuid().toString()));
 
             options.addAll(petOptions);
 
@@ -66,36 +67,27 @@ public class SelectSubCMD extends SubCommand {
 
             if (args.length == 1) {
 
-                String type = args[0];
+                UUID petUUID = UUID.fromString(args[0]);
 
-                if (SmallPets.getInstance().getPetMapManager().getPetMap().containsKey(type)) {
+                User user = SmallPets.getInstance().getUserManager().getUser(p.getUniqueId().toString());
 
-                    User user = SmallPets.getInstance().getUserManager().getUser(p.getUniqueId().toString());
+                if(user != null){
 
-                    if(user != null){
+                    if(user.getPetFromUUID(petUUID) != null){
 
-                        if(user.getPetFromType(type) != null){
+                        user.setSelected(user.getPetFromUUID(petUUID));
 
-                            user.setSelected(user.getPetFromType(type));
-
-                            p.sendMessage(SmallPets.getInstance().getPrefix() + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("petSpawned"));
-
-                        }else{
-
-                            p.sendMessage(SmallPets.getInstance().getPrefix() + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("petNotUnlocked"));
-
-                        }
+                        p.sendMessage(SmallPets.getInstance().getPrefix() + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("petSpawned"));
 
                     }else{
 
-                        p.sendMessage(SmallPets.getInstance().getPrefix() + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("userDataNotFound"));
+                        p.sendMessage(SmallPets.getInstance().getPrefix() + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("petNotUnlocked"));
 
                     }
 
-
                 }else{
 
-                    p.sendMessage(SmallPets.getInstance().getPrefix() + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("petNotUnlocked"));
+                    p.sendMessage(SmallPets.getInstance().getPrefix() + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("userDataNotFound"));
 
                 }
 
