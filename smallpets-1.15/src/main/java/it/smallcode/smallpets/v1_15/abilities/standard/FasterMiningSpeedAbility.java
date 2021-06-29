@@ -36,7 +36,8 @@ public class FasterMiningSpeedAbility extends StatBoostAbility {
 
     @AbilityEventHandler
     public void onLevelUp(PetLevelUpEvent e){
-
+        if(e.getUser().getSelected() == null)
+            return;
         if(e.getUser().getSelected().hasAbility(getID())) {
 
             removeBoost(e.getPet().getOwner(), e.getPet().getAbility(getID()));
