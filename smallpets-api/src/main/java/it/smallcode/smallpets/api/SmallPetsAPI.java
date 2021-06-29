@@ -8,14 +8,13 @@ Class created by SmallCode
 
 import it.smallcode.smallpets.api.exceptions.NoSuchPetTypeException;
 import it.smallcode.smallpets.core.SmallPetsCommons;
+import it.smallcode.smallpets.core.factory.PetFactory;
 import it.smallcode.smallpets.core.manager.types.User;
 import it.smallcode.smallpets.core.pets.Pet;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Set;
 import java.util.UUID;
 
@@ -28,9 +27,7 @@ public class SmallPetsAPI {
      * @return a list with all pet ids
      */
     public static Set<String> getAllPetIDs(){
-
        return SmallPetsCommons.getSmallPetsCommons().getPetMapManager().getPetMap().keySet();
-
     }
 
     /**
@@ -45,14 +42,28 @@ public class SmallPetsAPI {
      * @return the pet
      */
     public static Pet getPet(Player p, String type){
-
         User user = SmallPetsCommons.getSmallPetsCommons().getUserManager().getUser(p.getUniqueId().toString());
-
         if(user == null)
             return null;
-
         return user.getPetFromType(type);
+    }
 
+    /**
+     *
+     * Returns the pet of a player.
+     *
+     * If the user couldn't be found null gets return.
+     * If the pet couldn't be found or the player hasn't unlocked it null gets returned.
+     *
+     * @param p - the player
+     * @param uuid - the uuid of the pet
+     * @return the pet
+     */
+    public static Pet getPet(Player p, UUID uuid){
+        User user = SmallPetsCommons.getSmallPetsCommons().getUserManager().getUser(p.getUniqueId().toString());
+        if(user == null)
+            return null;
+        return user.getPetFromUUID(uuid);
     }
 
     /**
@@ -64,9 +75,7 @@ public class SmallPetsAPI {
      * @throws NoSuchPetTypeException if pet type isn't registered
      */
     public static ItemStack createUnlockItem(String type) throws NoSuchPetTypeException {
-
         return createUnlockItem(type, 0L);
-
     }
 
     /**
@@ -80,33 +89,10 @@ public class SmallPetsAPI {
      * @throws IllegalArgumentException if the exp is lesser than zero
      */
     public static ItemStack createUnlockItem(String type, long exp) throws NoSuchPetTypeException, IllegalArgumentException {
-
         if(exp < 0)
             throw new IllegalArgumentException("The experience has to be bigger or equal to zero!");
-
-        Class clazz = SmallPetsCommons.getSmallPetsCommons().getPetMapManager().getPetMap().get(type);
-
-        if(clazz == null)
-            throw new NoSuchPetTypeException(type);
-
-        Constructor constructor = null;
-
-        try {
-
-            constructor = clazz.getConstructor(String.class, Player.class, Long.class, Boolean.class);
-
-            Pet pet = (Pet) constructor.newInstance(type, null, exp, false);
-
-            return pet.getUnlockItem();
-
-        } catch (NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException ex) {
-
-            ex.printStackTrace();
-
-        }
-
-        return null;
-
+        Pet pet = PetFactory.createNewPet(type, null, exp, SmallPetsCommons.getSmallPetsCommons().isUseProtocollib());
+        return pet.getUnlockItem();
     }
 
     /**
@@ -119,9 +105,7 @@ public class SmallPetsAPI {
      * @return The user object
      */
     public static User getUser(UUID uuid){
-
         return SmallPetsCommons.getSmallPetsCommons().getUserManager().getUser(uuid.toString());
-
     }
 
     /**
@@ -136,16 +120,11 @@ public class SmallPetsAPI {
      */
 
     public static boolean createAbility(String abilityID, Class clazz){
-
         if(SmallPetsCommons.getSmallPetsCommons().getAbilityManager().hasID(abilityID)){
-
             Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "§bAPI§8: §7Ability with this id already registered!");
             return false;
-
         }
-
         SmallPetsCommons.getSmallPetsCommons().getAbilityManager().registerAbility(abilityID, clazz);
-
         return true;
 
     }
