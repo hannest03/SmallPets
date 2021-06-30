@@ -4,7 +4,7 @@
   <groupId>it.smallcode</groupId>
   <artifactId>smallpets</artifactId>
   <name>SmallPets</name>
-  <version>beta-6.2</version>
+  <version>beta-6.2.1</version>
   <description>Adds simple little cute pets with abilities</description>
   <build>
     <resources>

@@ -218,9 +218,6 @@ public class SmallPets extends JavaPlugin {
 
         Bukkit.getPluginManager().registerEvents(new WorldSaveListener(), this);
 
-        if(worldGuardImp != null)
-            worldGuardImp.registerSessionHandlers();
-
         Bukkit.getConsoleSender().sendMessage("");
 
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "Consider joining the discord server for news and test versions!");
@@ -229,6 +226,15 @@ public class SmallPets extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage("");
 
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "One time donations are also appreciated: " + DONATION_LINK);
+
+        Bukkit.getScheduler().scheduleAsyncDelayedTask(this, new Runnable() {
+            @Override
+            public void run() {
+                if(worldGuardImp != null) {
+                    worldGuardImp.registerSessionHandlers();
+                }
+            }
+        }, 1);
 
     }
 

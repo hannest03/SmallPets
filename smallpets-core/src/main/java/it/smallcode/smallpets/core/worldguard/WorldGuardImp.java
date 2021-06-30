@@ -20,6 +20,7 @@ import com.sk89q.worldguard.session.SessionManager;
 import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.worldguard.handlers.AllowAbilitiesHandler;
 import it.smallcode.smallpets.core.worldguard.handlers.ShowPetsHandler;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 public class WorldGuardImp {
@@ -31,12 +32,13 @@ public class WorldGuardImp {
     }
 
     public void registerSessionHandlers(){
-
-        SessionManager sessionManager = WorldGuard.getInstance().getPlatform().getSessionManager();
-
-        sessionManager.registerHandler(ShowPetsHandler.FACTORY, null);
-        sessionManager.registerHandler(AllowAbilitiesHandler.FACTORY, null);
-
+        try {
+            SessionManager sessionManager = WorldGuard.getInstance().getPlatform().getSessionManager();
+            sessionManager.registerHandler(ShowPetsHandler.FACTORY, null);
+            sessionManager.registerHandler(AllowAbilitiesHandler.FACTORY, null);
+        }catch (NullPointerException ex){
+            Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "§4ERROR§8: §7" + ex.getMessage());
+        }
     }
 
     public static boolean checkStateFlag(LocalPlayer localPlayer, Location location, StateFlag flag){
