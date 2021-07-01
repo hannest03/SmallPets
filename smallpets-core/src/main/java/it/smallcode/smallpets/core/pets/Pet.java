@@ -921,24 +921,17 @@ public class Pet {
     }
 
     public void teleport(Location loc) {
-
         if(useProtocolLib){
-
             PacketContainer teleportPacket = SmallPetsCommons.getSmallPetsCommons().getProtocolLibUtils().teleportEntity(entityID, loc);
-
             sendPacket(sendPacketToPlayers(owner), teleportPacket);
-
         }else{
-
-            loadChunks(location);
-            loadChunks(loc);
-
-            armorStand.teleport(loc);
-
+            if(armorStand != null) {
+                loadChunks(location);
+                loadChunks(loc);
+                armorStand.teleport(loc);
+            }
         }
-
         setLocation(loc);
-
     }
 
     private void loadChunks(Location loc){
