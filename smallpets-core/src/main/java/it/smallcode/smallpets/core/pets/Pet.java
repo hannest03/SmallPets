@@ -223,13 +223,7 @@ public class Pet {
                 @Override
                 public void run() {
 
-                    PacketContainer entityDestroy = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.ENTITY_DESTROY);
-
-                    int[] entityIDs = new int[1];
-
-                    entityIDs[0] = entityID;
-
-                    entityDestroy.getIntegerArrays().write(0, entityIDs);
+                    PacketContainer entityDestroy = SmallPetsCommons.getSmallPetsCommons().getProtocolLibUtils().destroyEntity(entityID);
 
                     if(p != null) {
 
