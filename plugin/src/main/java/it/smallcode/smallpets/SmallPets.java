@@ -278,6 +278,8 @@ public class SmallPets extends JavaPlugin {
         cfg.addDefault("requirePermission", false);
         cfg.addDefault("xpToLevelTwo", 500);
 
+        cfg.addDefault("showUnlockMessage", true);
+
         // --- Auto Save
 
         cfg.addDefault("autosave.enabled", true);
@@ -342,6 +344,7 @@ public class SmallPets extends JavaPlugin {
         this.registerCraftingRecipes = cfg.getBoolean("registerCraftingRecipes");
 
         SmallPetsCommons.getSmallPetsCommons().setRequirePermission(cfg.getBoolean("requirePermission"));
+        SmallPetsCommons.getSmallPetsCommons().setShowUnlockMessage(cfg.getBoolean("showUnlockMessage"));
 
         if(getInventoryManager() != null){
 

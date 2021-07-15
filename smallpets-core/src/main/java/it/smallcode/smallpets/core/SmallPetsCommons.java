@@ -20,7 +20,7 @@ import java.util.List;
 @Setter(AccessLevel.PUBLIC)
 public class SmallPetsCommons {
 
-    public static final boolean DEBUG = true;
+    public static final boolean DEBUG = false;
 
     static {
         
@@ -40,6 +40,7 @@ public class SmallPetsCommons {
     private boolean requirePermission;
     private boolean useProtocollib;
     private boolean useWorldGuard = false;
+    private boolean showUnlockMessage = true;
 
     private List<String> petLore;
 

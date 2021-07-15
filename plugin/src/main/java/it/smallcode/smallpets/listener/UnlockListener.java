@@ -44,8 +44,10 @@ public class UnlockListener implements Listener {
 
                         e.getItem().setAmount(e.getItem().getAmount() -1);
 
-                        e.getPlayer().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("petUnlock")
-                               .replaceAll("%pet_type%", SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("pet." + type)));
+                        if(SmallPetsCommons.getSmallPetsCommons().isShowUnlockMessage()) {
+                            e.getPlayer().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("petUnlock")
+                                    .replaceAll("%pet_type%", SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("pet." + type)));
+                        }
 
                     }
 

@@ -26,7 +26,7 @@ import java.util.UUID;
 
 public class SpeedBoostInBiomeAbility extends InBiomeStatBoostAbility {
 
-    public SpeedBoostInBiomeAbility(){
+    public SpeedBoostInBiomeAbility() {
         this(new LinkedList<>(), 0);
     }
 
@@ -34,38 +34,51 @@ public class SpeedBoostInBiomeAbility extends InBiomeStatBoostAbility {
         super(biomes, maxSpeed, minSpeed, NumberDisplayType.TWO_DECIMAL_PLACES);
     }
 
-    public SpeedBoostInBiomeAbility(List<Biome> biomes, double speed){
+    public SpeedBoostInBiomeAbility(List<Biome> biomes, double speed) {
         this(biomes, 0, speed);
     }
 
     @AbilityEventHandler
-    public void onEnterBiome(EnterBiomeEvent e){
-        if(e.getUser().getSelected().hasAbility(getID())) {
+    public void onEnterBiome(EnterBiomeEvent e) {
+        if (e.getUser().getSelected().hasAbility(getID())) {
             SpeedBoostInBiomeAbility speedBoostInBiomeAbility = (SpeedBoostInBiomeAbility) e.getUser().getSelected().getAbility(getID());
-            if(speedBoostInBiomeAbility.containsBiome(e.getBiome())){
+            if (speedBoostInBiomeAbility.containsBiome(e.getBiome())) {
                 addBoost(e.getPlayer(), speedBoostInBiomeAbility);
             }
         }
     }
 
     @AbilityEventHandler
-    public void onExitBiome(ExitBiomeEvent e){
-        if(e.getUser().getSelected().hasAbility(getID())) {
+    public void onExitBiome(ExitBiomeEvent e) {
+        if (e.getUser().getSelected().hasAbility(getID())) {
             SpeedBoostInBiomeAbility speedBoostInBiomeAbility = (SpeedBoostInBiomeAbility) e.getUser().getSelected().getAbility(getID());
-            if(speedBoostInBiomeAbility.containsBiome(e.getPrevBiome())){
+            if (speedBoostInBiomeAbility.containsBiome(e.getPrevBiome())) {
                 removeBoost(e.getPlayer(), speedBoostInBiomeAbility);
             }
         }
     }
 
     @AbilityEventHandler
-    public void onServerShutdown(ServerShutdownEvent e){
-        if(e.getUser() != null && e.getUser().getSelected() != null)
-        if(e.getUser().getSelected().hasAbility(getID())){
+    public void onServerShutdown(ServerShutdownEvent e) {
+        if (e.getUser() != null && e.getUser().getSelected() != null)
+            if (e.getUser().getSelected().hasAbility(getID())) {
+                Player p = Bukkit.getPlayer(UUID.fromString(e.getUser().getUuid()));
+                if (p != null && p.isOnline()) {
+                    SpeedBoostInBiomeAbility speedBoostInBiomeAbility = (SpeedBoostInBiomeAbility) e.getUser().getSelected().getAbility(getID());
+                    if (speedBoostInBiomeAbility.containsBiome(p.getLocation().getBlock().getBiome())) {
+                        removeBoost(p, speedBoostInBiomeAbility);
+                    }
+                }
+            }
+    }
+
+    @AbilityEventHandler
+    public void onQuit(QuitEvent e) {
+        if (e.getUser().getSelected().hasAbility(getID())) {
             Player p = Bukkit.getPlayer(UUID.fromString(e.getUser().getUuid()));
-            if(p != null && p.isOnline()){
+            if (p != null && p.isOnline()) {
                 SpeedBoostInBiomeAbility speedBoostInBiomeAbility = (SpeedBoostInBiomeAbility) e.getUser().getSelected().getAbility(getID());
-                if(speedBoostInBiomeAbility.containsBiome(p.getLocation().getBlock().getBiome())){
+                if (speedBoostInBiomeAbility.containsBiome(p.getLocation().getBlock().getBiome())) {
                     removeBoost(p, speedBoostInBiomeAbility);
                 }
             }
@@ -73,15 +86,18 @@ public class SpeedBoostInBiomeAbility extends InBiomeStatBoostAbility {
     }
 
     @AbilityEventHandler
-    public void onQuit(QuitEvent e){
-        if(e.getUser().getSelected().hasAbility(getID())){
-            Player p = Bukkit.getPlayer(UUID.fromString(e.getUser().getUuid()));
-            if(p != null && p.isOnline()){
-                SpeedBoostInBiomeAbility speedBoostInBiomeAbility = (SpeedBoostInBiomeAbility) e.getUser().getSelected().getAbility(getID());
-                if(speedBoostInBiomeAbility.containsBiome(p.getLocation().getBlock().getBiome())){
-                    removeBoost(p, speedBoostInBiomeAbility);
-                }
-            }
+    public void onLevelUp(PetLevelUpEvent e) {
+        if (e.getPet().hasAbility(getID())){
+            SpeedBoostInBiomeAbility speedBoostInBiomeAbility = (SpeedBoostInBiomeAbility) e.getPet().getAbility(getID());
+            removeBoost(e.getPet().getOwner(), speedBoostInBiomeAbility);
+            addBoost(e.getPet().getOwner(), speedBoostInBiomeAbility);
+        }
+    }
+
+    @AbilityEventHandler
+    public void onSelect(PetSelectEvent e){
+        if(e.getPet().hasAbility(getID())){
+            addBoost(e.getOwner(), e.getPet().getAbility(getID()));
         }
     }
 
