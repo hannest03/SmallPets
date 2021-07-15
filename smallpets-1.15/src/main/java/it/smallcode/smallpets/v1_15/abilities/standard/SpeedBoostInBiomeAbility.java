@@ -89,6 +89,8 @@ public class SpeedBoostInBiomeAbility extends InBiomeStatBoostAbility {
     public void onLevelUp(PetLevelUpEvent e) {
         if (e.getPet().hasAbility(getID())){
             SpeedBoostInBiomeAbility speedBoostInBiomeAbility = (SpeedBoostInBiomeAbility) e.getPet().getAbility(getID());
+            if(!speedBoostInBiomeAbility.containsBiome(e.getPet().getOwner().getLocation().getBlock().getBiome()))
+                return;
             removeBoost(e.getPet().getOwner(), speedBoostInBiomeAbility);
             addBoost(e.getPet().getOwner(), speedBoostInBiomeAbility);
         }
@@ -97,6 +99,9 @@ public class SpeedBoostInBiomeAbility extends InBiomeStatBoostAbility {
     @AbilityEventHandler
     public void onSelect(PetSelectEvent e){
         if(e.getPet().hasAbility(getID())){
+            SpeedBoostInBiomeAbility speedBoostInBiomeAbility = (SpeedBoostInBiomeAbility) e.getPet().getAbility(getID());
+            if(!speedBoostInBiomeAbility.containsBiome(e.getPet().getOwner().getLocation().getBlock().getBiome()))
+                return;
             addBoost(e.getOwner(), e.getPet().getAbility(getID()));
         }
     }
