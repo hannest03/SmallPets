@@ -20,7 +20,7 @@ import java.util.List;
 @Setter(AccessLevel.PUBLIC)
 public class SmallPetsCommons {
 
-    public static final boolean DEBUG = false;
+    public static final boolean DEBUG = true;
 
     static {
         
@@ -64,6 +64,7 @@ public class SmallPetsCommons {
     private IProtocolLibUtils protocolLibUtils;
     private IMetaDataUtils metaDataUtils;
     private IHealthModifierUtils healthModifierUtils;
+    private ISpeedModifierUtils speedModifierUtils;
 
     private SkullCreator skullCreator;
 

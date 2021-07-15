@@ -6,9 +6,7 @@ Class created by SmallCode
 
 */
 
-import com.sk89q.worldguard.protection.flags.StateFlag;
 import it.smallcode.smallpets.core.SmallPetsCommons;
-import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEvent;
 import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventBus;
 import it.smallcode.smallpets.core.abilities.eventsystem.events.PetDeselectEvent;
 import it.smallcode.smallpets.core.abilities.eventsystem.events.PetSelectEvent;
@@ -18,15 +16,11 @@ import it.smallcode.smallpets.core.factory.PetFactory;
 import it.smallcode.smallpets.core.languages.LanguageManager;
 import it.smallcode.smallpets.core.manager.PetMapManager;
 import it.smallcode.smallpets.core.pets.Pet;
-import it.smallcode.smallpets.core.worldguard.SmallFlags;
-import it.smallcode.smallpets.core.worldguard.WorldGuardImp;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.MemorySection;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 /**
