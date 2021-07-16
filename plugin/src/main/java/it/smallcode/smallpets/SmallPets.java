@@ -219,9 +219,6 @@ public class SmallPets extends JavaPlugin {
 
         Bukkit.getPluginManager().registerEvents(new WorldSaveListener(), this);
 
-        if(worldGuardImp != null)
-            worldGuardImp.registerSessionHandlers();
-
         Bukkit.getConsoleSender().sendMessage("");
 
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "Consider joining the discord server for news and test versions!");
@@ -230,6 +227,15 @@ public class SmallPets extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage("");
 
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "One time donations are also appreciated: " + DONATION_LINK);
+
+        Bukkit.getScheduler().scheduleAsyncDelayedTask(this, new Runnable() {
+            @Override
+            public void run() {
+                if(worldGuardImp != null) {
+                    worldGuardImp.registerSessionHandlers();
+                }
+            }
+        }, 1);
 
     }
 
@@ -272,6 +278,8 @@ public class SmallPets extends JavaPlugin {
         cfg.addDefault("registerCraftingRecipes", true);
         cfg.addDefault("requirePermission", false);
         cfg.addDefault("xpToLevelTwo", 500);
+
+        cfg.addDefault("showUnlockMessage", true);
 
         // --- Auto Save
 
@@ -339,6 +347,7 @@ public class SmallPets extends JavaPlugin {
         this.registerCraftingRecipes = cfg.getBoolean("registerCraftingRecipes");
 
         SmallPetsCommons.getSmallPetsCommons().setRequirePermission(cfg.getBoolean("requirePermission"));
+        SmallPetsCommons.getSmallPetsCommons().setShowUnlockMessage(cfg.getBoolean("showUnlockMessage"));
 
         if(getInventoryManager() != null){
 
@@ -409,6 +418,7 @@ public class SmallPets extends JavaPlugin {
             SmallPetsCommons.getSmallPetsCommons().setINBTTagEditor(new INBTTagEditor1_12());
             SmallPetsCommons.getSmallPetsCommons().setMetaDataUtils(new MetaDataUtils1_15());
             SmallPetsCommons.getSmallPetsCommons().setHealthModifierUtils(new HealthModifierUtils1_15());
+            SmallPetsCommons.getSmallPetsCommons().setSpeedModifierUtils(new SpeedModifierUtils1_15());
 
             SmallPetsCommons.getSmallPetsCommons().setPetMapManager(new PetMapManager1_12());
             SmallPetsCommons.getSmallPetsCommons().setInventoryManager(new InventoryManager1_12(xpMultiplier));
@@ -426,6 +436,7 @@ public class SmallPets extends JavaPlugin {
             SmallPetsCommons.getSmallPetsCommons().setINBTTagEditor(new INBTTagEditor1_13());
             SmallPetsCommons.getSmallPetsCommons().setMetaDataUtils(new MetaDataUtils1_15());
             SmallPetsCommons.getSmallPetsCommons().setHealthModifierUtils(new HealthModifierUtils1_15());
+            SmallPetsCommons.getSmallPetsCommons().setSpeedModifierUtils(new SpeedModifierUtils1_15());
 
             SmallPetsCommons.getSmallPetsCommons().setPetMapManager(new PetMapManager1_13());
             SmallPetsCommons.getSmallPetsCommons().setInventoryManager(new InventoryManager1_13(xpMultiplier));
@@ -443,6 +454,7 @@ public class SmallPets extends JavaPlugin {
             SmallPetsCommons.getSmallPetsCommons().setINBTTagEditor(new INBTTagEditor1_15());
             SmallPetsCommons.getSmallPetsCommons().setMetaDataUtils(new MetaDataUtils1_15());
             SmallPetsCommons.getSmallPetsCommons().setHealthModifierUtils(new HealthModifierUtils1_15());
+            SmallPetsCommons.getSmallPetsCommons().setSpeedModifierUtils(new SpeedModifierUtils1_15());
 
             SmallPetsCommons.getSmallPetsCommons().setPetMapManager(new PetMapManager1_15());
             SmallPetsCommons.getSmallPetsCommons().setInventoryManager(new InventoryManager1_15(xpMultiplier));
@@ -460,6 +472,7 @@ public class SmallPets extends JavaPlugin {
             SmallPetsCommons.getSmallPetsCommons().setINBTTagEditor(new INBTTagEditor1_16());
             SmallPetsCommons.getSmallPetsCommons().setMetaDataUtils(new MetaDataUtils1_15());
             SmallPetsCommons.getSmallPetsCommons().setHealthModifierUtils(new HealthModifierUtils1_15());
+            SmallPetsCommons.getSmallPetsCommons().setSpeedModifierUtils(new SpeedModifierUtils1_15());
 
             SmallPetsCommons.getSmallPetsCommons().setPetMapManager(new PetMapManager1_16());
             SmallPetsCommons.getSmallPetsCommons().setInventoryManager(new InventoryManager1_16(xpMultiplier));
@@ -477,6 +490,7 @@ public class SmallPets extends JavaPlugin {
             SmallPetsCommons.getSmallPetsCommons().setINBTTagEditor(new INBTTagEditor1_17());
             SmallPetsCommons.getSmallPetsCommons().setMetaDataUtils(new MetaDataUtils1_15());
             SmallPetsCommons.getSmallPetsCommons().setHealthModifierUtils(new HealthModifierUtils1_15());
+            SmallPetsCommons.getSmallPetsCommons().setSpeedModifierUtils(new SpeedModifierUtils1_15());
 
             SmallPetsCommons.getSmallPetsCommons().setPetMapManager(new PetMapManager1_17());
             SmallPetsCommons.getSmallPetsCommons().setInventoryManager(new InventoryManager1_17(xpMultiplier));

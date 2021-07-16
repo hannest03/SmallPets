@@ -75,6 +75,18 @@ translations:
     sort:
       name: '&6Sortieren'
       description: '&cNicht implementiert!'
+    next:
+      name: "&7Nächste Seite"
+      description: "&7Wechselt zur nächsten Seite"
+    previous:
+      name: "&7Letzte Seite"
+      description: "&7Wechselt zur letzten Seite"
   visibility:
     showPets: '&7Haustiere anzeigen'
     hidePets: '&7Haustiere verstecken'
+  sort:
+    none: "Keine"
+    level_highest: "Höchstes Level"
+    level_lowest: "Niedrigstes Level"
+    type: "Typ"
+    name: "Name"

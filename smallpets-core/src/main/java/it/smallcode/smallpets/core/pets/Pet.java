@@ -220,7 +220,6 @@ public class Pet {
     }
 
     public ItemStack getUnlockItem() {
-
         ItemStack item = getDisplayItem();
 
         ItemMeta itemMeta = item.getItemMeta();
@@ -237,7 +236,6 @@ public class Pet {
         item = SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().addNBTTag(item, "petExp", String.valueOf(getExp()));
 
         return item;
-
     }
 
     public String getName(){

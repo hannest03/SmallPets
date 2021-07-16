@@ -77,6 +77,18 @@ translations:
     sort:
       name: '&6Ordina'
       description: '&cNon ancora implementato!'
+    next:
+      name: "&7Prossimo"
+      description: "&7Passa alla pagina successiva"
+    previous:
+      name: "&7Precedente"
+      description: "&7Passa alla pagina precedente"
   visibility:
     showPets: '&7Mostra pets'
     hidePets: '&7Nascondi pets'
+  sort:
+    none: "Nessuna"
+    level_highest: "Livello più alto"
+    level_lowest: "Livello più basso"
+    type: "Genere"
+    name: "Nome"

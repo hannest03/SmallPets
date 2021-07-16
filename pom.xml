@@ -49,6 +49,11 @@
             <url>https://jitpack.io</url>
         </repository>
 
+        <repository>
+            <id>sk89q-repo</id>
+            <url>https://maven.enginehub.org/repo/</url>
+        </repository>
+
     </repositories>
 
     <dependencies>

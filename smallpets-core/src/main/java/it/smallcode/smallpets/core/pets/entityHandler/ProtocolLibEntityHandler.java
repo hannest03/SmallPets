@@ -63,12 +63,7 @@ public class ProtocolLibEntityHandler implements EntityHandler{
     @Override
     public void despawnFromPlayer(Player p) {
         Bukkit.getScheduler().scheduleAsyncDelayedTask(SmallPetsCommons.getSmallPetsCommons().getJavaPlugin(), () -> {
-            PacketContainer entityDestroy = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.ENTITY_DESTROY);
-
-            int[] entityIDs = new int[1];
-            entityIDs[0] = entityId;
-
-            entityDestroy.getIntegerArrays().write(0, entityIDs);
+            PacketContainer entityDestroy = SmallPetsCommons.getSmallPetsCommons().getProtocolLibUtils().destroyEntity(entityId);
             if(p != null) {
                 sendPacket(entityDestroy, p);
             }

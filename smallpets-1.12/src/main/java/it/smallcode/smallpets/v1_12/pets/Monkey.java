@@ -7,27 +7,21 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.core.SmallPetsCommons;
-import it.smallcode.smallpets.core.pets.Pet;
-import it.smallcode.smallpets.core.pets.PetType;
 import it.smallcode.smallpets.v1_15.abilities.standard.SpeedBoostInBiomeAbility;
 import org.bukkit.*;
 import org.bukkit.block.Biome;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
-import org.bukkit.plugin.Plugin;
 
 import java.util.Arrays;
-import java.util.Date;
 import java.util.LinkedList;
-import java.util.UUID;
 
 public class Monkey extends it.smallcode.smallpets.v1_15.pets.Monkey {
 
     public Monkey() {
         super();
         super.getAbilities().clear();
-        super.getAbilities().add(new SpeedBoostInBiomeAbility(new LinkedList<>(Arrays.asList(Biome.JUNGLE, Biome.JUNGLE_HILLS)), 0.2D));
+        super.getAbilities().add(new SpeedBoostInBiomeAbility(new LinkedList<>(Arrays.asList(Biome.JUNGLE, Biome.JUNGLE_HILLS)), 0.01D, 0.05D));
     }
 
     @Override

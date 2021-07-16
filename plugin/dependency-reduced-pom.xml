@@ -52,8 +52,8 @@
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
+          <source>8</source>
+          <target>8</target>
         </configuration>
       </plugin>
     </plugins>
@@ -88,24 +88,20 @@
       <scope>provided</scope>
       <exclusions>
         <exclusion>
-          <artifactId>spigot-api</artifactId>
-          <groupId>org.spigotmc</groupId>
+          <artifactId>worldguard-core</artifactId>
+          <groupId>com.sk89q.worldguard</groupId>
         </exclusion>
         <exclusion>
           <artifactId>worldedit-bukkit</artifactId>
           <groupId>com.sk89q.worldedit</groupId>
         </exclusion>
         <exclusion>
-          <artifactId>worldguard-core</artifactId>
-          <groupId>com.sk89q.worldguard</groupId>
-        </exclusion>
-        <exclusion>
           <artifactId>guava</artifactId>
           <groupId>com.google.guava</groupId>
         </exclusion>
         <exclusion>
-          <artifactId>commandbook</artifactId>
-          <groupId>com.sk89q</groupId>
+          <artifactId>spigot-api</artifactId>
+          <groupId>org.spigotmc</groupId>
         </exclusion>
       </exclusions>
     </dependency>

@@ -45,6 +45,7 @@ public class SmallPetsCommons {
     private boolean requirePermission;
     private boolean useProtocollib;
     private boolean useWorldGuard = false;
+    private boolean showUnlockMessage = true;
 
     private List<String> petLore;
 
@@ -69,6 +70,7 @@ public class SmallPetsCommons {
     private IProtocolLibUtils protocolLibUtils;
     private IMetaDataUtils metaDataUtils;
     private IHealthModifierUtils healthModifierUtils;
+    private ISpeedModifierUtils speedModifierUtils;
 
     private LevelingFormula levelingFormula = new LogisticalGrowFormula();
 
