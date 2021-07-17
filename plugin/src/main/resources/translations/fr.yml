@@ -35,8 +35,8 @@ translations:
   visibility:
     hidePets: "&7Compagnons cachés"
     showPets: "&7Compagnons montrés"
-    
   pet:
+    all: 'Tout'
     tiger: 'Tigre'
     penguin: 'Manchot'
     monkey: 'Singe'
@@ -80,3 +80,15 @@ translations:
     recipebook:
       name: "&6Livre de recette"
       description: "&cPas encore implémenté!"
+    next:
+      name: "&7Suivant"
+      description: "&7Aller à la page suivante"
+    previous:
+      name: "&7Previous"
+      description: "&7Aller à la page précédente"
+  sort:
+    none: "Rien"
+    level_highest: "Niveau supérieur"
+    level_lowest: "Niveau inférieur"
+    type: "Type"
+    name: "Nom"
