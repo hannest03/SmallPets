@@ -271,7 +271,7 @@ public class SmallPets extends JavaPlugin {
 
         FileConfiguration cfg = this.getConfig();
 
-        cfg.addDefault("prefixPattern", "&e○&6◯  %plugin_name% &e◆ &7");
+        cfg.addDefault("prefixPattern", "&e○&6◯ SmallPets &e◆ &7");
         cfg.addDefault("useProtocolLib", true);
         cfg.addDefault("xpMultiplier", 1D);
         cfg.addDefault("language", "en");
@@ -327,17 +327,6 @@ public class SmallPets extends JavaPlugin {
         SmallPetsCommons.getSmallPetsCommons().setLevelingFormula(logisticalGrowFormula);
 
         String prefix = cfg.getString("prefixPattern");
-
-        if(!prefix.contains("%plugin_name%")) {
-
-            Bukkit.getConsoleSender().sendMessage( "§c" + getName() + ": deactivating, wrong prefix pattern! ");
-            Bukkit.getConsoleSender().sendMessage( "§c" + getName() + ": PrefixPattern doesn't contain %plugin_name%: " + prefix);
-
-            Bukkit.getPluginManager().disablePlugin(this);
-            return false;
-
-        }
-
         prefix = prefix.replaceAll("%plugin_name%", getName());
         prefix = ChatColor.translateAlternateColorCodes('&', prefix);
 
