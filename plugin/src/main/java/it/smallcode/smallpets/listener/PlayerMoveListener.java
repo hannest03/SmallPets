@@ -92,7 +92,8 @@ public class PlayerMoveListener implements Listener {
 
                     if(biomeHashMap.get(e.getPlayer()) != e.getTo().getBlock().getBiome()) {
 
-                        ExitBiomeEvent exitBiomeEvent = new ExitBiomeEvent(user, e.getPlayer(), e.getFrom().getBlock().getBiome());
+                        Biome from = biomeHashMap.get(e.getPlayer());
+                        ExitBiomeEvent exitBiomeEvent = new ExitBiomeEvent(user, e.getPlayer(), from);
                         AbilityEventBus.post(exitBiomeEvent);
 
                         EnterBiomeEvent enterBiomeEvent = new EnterBiomeEvent(user, e.getPlayer(), e.getTo().getBlock().getBiome());
