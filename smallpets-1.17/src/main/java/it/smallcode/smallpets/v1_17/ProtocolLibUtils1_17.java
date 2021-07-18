@@ -62,10 +62,14 @@ public class ProtocolLibUtils1_17 extends ProtocolLibUtils1_16 {
 
         PacketContainer entityDestroy = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.ENTITY_DESTROY);
 
-        List<Integer> entityIDs = entityDestroy.getIntLists().readSafely(0);
-        entityIDs.add(entityID);
+        try {
+            List<Integer> entityIDs = entityDestroy.getIntLists().readSafely(0);
+            entityIDs.add(entityID);
+            entityDestroy.getIntLists().writeSafely(0, entityIDs);
+        }catch (Exception ex){
+            entityDestroy.getIntegers().write(0, entityID);
+        }
 
-        entityDestroy.getIntLists().writeSafely(0, entityIDs);
 
         return entityDestroy;
 
