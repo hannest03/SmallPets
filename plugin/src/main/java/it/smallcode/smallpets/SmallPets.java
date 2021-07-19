@@ -9,6 +9,8 @@ Class created by SmallCode
 import it.smallcode.smallpets.cmds.*;
 import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.pets.experience.LogisticalGrowFormula;
+import it.smallcode.smallpets.core.pets.progressbar.DefaultProgressbar;
+import it.smallcode.smallpets.core.pets.progressbar.PercentageProgressbar;
 import it.smallcode.smallpets.core.worldguard.WorldGuardImp;
 import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventBus;
 import it.smallcode.smallpets.core.abilities.eventsystem.events.ServerShutdownEvent;
@@ -279,6 +281,8 @@ public class SmallPets extends JavaPlugin {
         cfg.addDefault("requirePermission", false);
         cfg.addDefault("xpToLevelTwo", 500);
 
+        cfg.addDefault("progressbar", "defaultprogressbar");
+
         cfg.addDefault("showUnlockMessage", true);
 
         // --- Auto Save
@@ -366,6 +370,18 @@ public class SmallPets extends JavaPlugin {
         if(cfg.getStringList("pet_lore") != null){
             List<String> petLore = cfg.getStringList("pet_lore");
             SmallPetsCommons.getSmallPetsCommons().setPetLore(petLore);
+        }
+
+        String progressbar = cfg.getString("progressbar");
+        switch (progressbar.toLowerCase(Locale.ROOT)){
+            case "percentageprogressbar":{
+                SmallPetsCommons.getSmallPetsCommons().setProgressbar(new PercentageProgressbar());
+                break;
+            }
+            default:{
+                SmallPetsCommons.getSmallPetsCommons().setProgressbar(new DefaultProgressbar());
+                break;
+            }
         }
 
         return true;

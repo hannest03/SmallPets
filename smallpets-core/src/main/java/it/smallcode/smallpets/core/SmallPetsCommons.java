@@ -10,6 +10,8 @@ import it.smallcode.smallpets.core.languages.LanguageManager;
 import it.smallcode.smallpets.core.manager.*;
 import it.smallcode.smallpets.core.pets.experience.LevelingFormula;
 import it.smallcode.smallpets.core.pets.experience.LogisticalGrowFormula;
+import it.smallcode.smallpets.core.pets.progressbar.DefaultProgressbar;
+import it.smallcode.smallpets.core.pets.progressbar.Progressbar;
 import it.smallcode.smallpets.core.utils.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -73,6 +75,7 @@ public class SmallPetsCommons {
     private ISpeedModifierUtils speedModifierUtils;
 
     private LevelingFormula levelingFormula = new LogisticalGrowFormula();
+    private Progressbar progressbar = new DefaultProgressbar();
 
     private SkullCreator skullCreator;
 

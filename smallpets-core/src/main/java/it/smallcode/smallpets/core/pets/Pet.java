@@ -50,7 +50,6 @@ public class Pet {
 
     private EntityHandler entityHandler;
     private Logic logic;
-    private Progressbar progressbar;
 
     public Pet(){
         updateTexture();
@@ -200,7 +199,7 @@ public class Pet {
 
             }
 
-            List<String> progressBar = progressbar.generateFullProgressbar(getExp(), getLevel());
+            List<String> progressBar = SmallPetsCommons.getSmallPetsCommons().getProgressbar().generateFullProgressbar(getExp(), getLevel());
             List<String> progressBarList = new LinkedList<>();
             for(String s : progressBar) {
                 progressBarList.add(CenteredText.sendCenteredMessage(s, maxLength));

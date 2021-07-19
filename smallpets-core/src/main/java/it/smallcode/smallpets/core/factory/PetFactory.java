@@ -37,7 +37,6 @@ public class PetFactory {
             pet.setOwner(owner);
             pet.setExp(exp);
             pet.setLogic(new BasicLogic());
-            pet.setProgressbar(new PercentageProgressbar());
 
             if (SmallPetsCommons.getSmallPetsCommons().isUseProtocollib())
                 pet.setEntityHandler(new ProtocolLibEntityHandler());
