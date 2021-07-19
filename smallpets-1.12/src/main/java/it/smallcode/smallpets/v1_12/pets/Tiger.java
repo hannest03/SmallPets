@@ -7,6 +7,7 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.core.SmallPetsCommons;
+import it.smallcode.smallpets.core.pets.recipe.Recipe;
 import org.bukkit.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
@@ -15,6 +16,15 @@ public class Tiger extends it.smallcode.smallpets.v1_15.pets.Tiger {
 
     public Tiger() {
         super();
+
+        ItemStack[] items = new ItemStack[9];
+        items[1] = new ItemStack(Material.MUTTON);
+        items[3] = new ItemStack(Material.RAW_CHICKEN);
+        items[4] = new ItemStack(Material.RAW_BEEF);
+        items[5] = new ItemStack(Material.RABBIT);
+        items[7] = new ItemStack(Material.PORK);
+
+        setRecipe(new Recipe(items));
     }
 
     @Override

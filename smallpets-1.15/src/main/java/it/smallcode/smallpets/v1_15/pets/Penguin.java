@@ -9,6 +9,7 @@ Class created by SmallCode
 import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.pets.Pet;
 import it.smallcode.smallpets.core.pets.PetType;
+import it.smallcode.smallpets.core.pets.recipe.Recipe;
 import it.smallcode.smallpets.v1_15.abilities.standard.HealthAbility;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -28,6 +29,20 @@ public class Penguin extends Pet {
         super.setParticle(Particle.WATER_BUBBLE);
 
         super.getAbilities().add(new HealthAbility(10, 2));
+
+        ItemStack[] items = new ItemStack[9];
+        items[0] = new ItemStack(Material.CHICKEN);
+        items[1] = new ItemStack(Material.CHICKEN);
+        items[2] = new ItemStack(Material.CHICKEN);
+        items[3] = new ItemStack(Material.CHICKEN);
+        items[5] = new ItemStack(Material.CHICKEN);
+        items[6] = new ItemStack(Material.CHICKEN);
+        items[7] = new ItemStack(Material.CHICKEN);
+        items[8] = new ItemStack(Material.CHICKEN);
+
+        items[4] = new ItemStack(Material.SALMON);
+
+        setRecipe(new Recipe(items));
     }
 
     @Override
@@ -39,23 +54,4 @@ public class Penguin extends Pet {
             setTextureValue("ewogICJ0aW1lc3RhbXAiIDogMTYwNzY5Njg5MTQ2NSwKICAicHJvZmlsZUlkIiA6ICI5MWYwNGZlOTBmMzY0M2I1OGYyMGUzMzc1Zjg2ZDM5ZSIsCiAgInByb2ZpbGVOYW1lIiA6ICJTdG9ybVN0b3JteSIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS8yZmZlNjdkMzhlOGNiZDM4NjJlYzJhY2VkNjc5YWE1ODcxMmRmMzdmNmI5MDI5ZTFlNjM2ZmQ0NDE4ZWVmYTE2IgogICAgfQogIH0KfQ==");
 
     }
-
-    @Override
-    public void registerRecipe() {
-
-        ItemStack item = getUnlockItem();
-
-        NamespacedKey key = new NamespacedKey(SmallPetsCommons.getSmallPetsCommons().getJavaPlugin(), "pet_" + getId());
-
-        ShapedRecipe recipe = new ShapedRecipe(key, item);
-
-        recipe.shape("CCC", "CSC", "CCC");
-
-        recipe.setIngredient('C', Material.CHICKEN);
-        recipe.setIngredient('S', Material.SALMON);
-
-        Bukkit.addRecipe(recipe);
-
-    }
-
 }

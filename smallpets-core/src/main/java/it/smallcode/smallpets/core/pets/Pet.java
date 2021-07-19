@@ -14,16 +14,15 @@ import it.smallcode.smallpets.core.events.PetLevelUpEvent;
 import it.smallcode.smallpets.core.pets.entityHandler.EntityHandler;
 import it.smallcode.smallpets.core.pets.logic.Logic;
 import it.smallcode.smallpets.core.pets.progressbar.Progressbar;
+import it.smallcode.smallpets.core.pets.recipe.Recipe;
 import it.smallcode.smallpets.core.text.CenteredText;
 import it.smallcode.smallpets.core.utils.LevelColorUtils;
 import lombok.Getter;
 import lombok.Setter;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.Particle;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.*;
@@ -39,6 +38,8 @@ public class Pet {
     private PetType petType;
     private long exp;
     private boolean activated;
+
+    private Recipe recipe;
 
     private Player owner;
     private Location location;
@@ -123,7 +124,13 @@ public class Pet {
     }
 
     public void registerRecipe(){
-
+        if(this.recipe == null)
+            return;
+        ItemStack item = getUnlockItem();
+        NamespacedKey key = new NamespacedKey(SmallPetsCommons.getSmallPetsCommons().getJavaPlugin(), "pet_" + getId());
+        ShapedRecipe recipe = new ShapedRecipe(key, item);
+        recipe = this.recipe.fillShape(recipe);
+        Bukkit.addRecipe(recipe);
     }
 
     public boolean hasAbility(String abilityID){

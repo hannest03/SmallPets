@@ -43,150 +43,205 @@ public class InventoryClickListener implements Listener {
 
             e.setCancelled(true);
 
-            if(e.getCurrentItem() != null && e.getCurrentItem().getItemMeta() != null && e.getCurrentItem().getItemMeta().getDisplayName() != null) {
+            ItemStack firstItem = e.getInventory().getItem(0);
+            if(firstItem == null)
+                return;
 
-                if(SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().hasNBTTag(e.getCurrentItem(), "showPets")){
+            if(!SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().hasNBTTag(firstItem, "invType"))
+                return;
 
-                    User user = userManager.getUser(p.getUniqueId().toString());
+            String invType = SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().getNBTTagValue(firstItem, "invType");
 
-                    user.getSettings().setShowPets(!user.getSettings().isShowPets());
-                    userManager.updatePets(p);
+            switch(invType){
 
-                    p.closeInventory();
-                    return;
+                case "select":{
+                    if(e.getCurrentItem() != null && e.getCurrentItem().getItemMeta() != null && e.getCurrentItem().getItemMeta().getDisplayName() != null) {
 
-                }
-
-                if (e.getCurrentItem().getType() == Material.PLAYER_HEAD) {
-
-                    if(SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().hasNBTTag(e.getCurrentItem(), "pet") &&
-                            SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().hasNBTTag(e.getCurrentItem(), "pet.uuid")){
-
-                        UUID uuid = UUID.fromString(SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().getNBTTagValue(e.getCurrentItem(), "pet.uuid"));
-
-                        if(uuid != null){
+                        if(SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().hasNBTTag(e.getCurrentItem(), "showPets")){
 
                             User user = userManager.getUser(p.getUniqueId().toString());
 
-                            if(user != null) {
+                            user.getSettings().setShowPets(!user.getSettings().isShowPets());
+                            userManager.updatePets(p);
 
-                                if(!inventoryManager.getConvertingPets().contains(p.getUniqueId().toString())) {
+                            p.closeInventory();
+                            return;
 
-                                    if (user.getSelected() != null && user.getSelected().getUuid().equals(uuid)) {
+                        }
 
-                                        if(user.setSelected(null)) {
+                        if (e.getCurrentItem().getType() == Material.PLAYER_HEAD) {
 
-                                            e.getWhoClicked().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + languageManager.getLanguage().getStringFormatted("petDespawned"));
+                            if(SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().hasNBTTag(e.getCurrentItem(), "pet") &&
+                                    SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().hasNBTTag(e.getCurrentItem(), "pet.uuid")){
 
-                                        }
+                                UUID uuid = UUID.fromString(SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().getNBTTagValue(e.getCurrentItem(), "pet.uuid"));
 
-                                    } else {
+                                if(uuid != null){
 
-                                        if(user.setSelected(user.getPetFromUUID(uuid))) {
+                                    User user = userManager.getUser(p.getUniqueId().toString());
 
-                                            e.getWhoClicked().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + languageManager.getLanguage().getStringFormatted("petSpawned"));
+                                    if(user != null) {
 
-                                        }
+                                        if(!inventoryManager.getConvertingPets().contains(p.getUniqueId().toString())) {
 
-                                    }
+                                            if (user.getSelected() != null && user.getSelected().getUuid().equals(uuid)) {
 
-                                }else{
+                                                if(user.setSelected(null)) {
 
-                                    if(p.getInventory().firstEmpty() != -1) {
+                                                    e.getWhoClicked().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + languageManager.getLanguage().getStringFormatted("petDespawned"));
 
-                                        if(user.getSelected() != null) {
+                                                }
 
-                                            if (user.getSelected().getUuid().equals(uuid)) {
+                                            } else {
 
-                                                user.setSelected(null);
+                                                if(user.setSelected(user.getPetFromUUID(uuid))) {
+
+                                                    e.getWhoClicked().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + languageManager.getLanguage().getStringFormatted("petSpawned"));
+
+                                                }
 
                                             }
+
+                                        }else{
+
+                                            if(p.getInventory().firstEmpty() != -1) {
+
+                                                if(user.getSelected() != null) {
+
+                                                    if (user.getSelected().getUuid().equals(uuid)) {
+
+                                                        user.setSelected(null);
+
+                                                    }
+                                                }
+
+                                                ItemStack petItem = user.getPetFromUUID(uuid).getUnlockItem();
+
+                                                userManager.removeUserPet(uuid, p.getUniqueId().toString());
+
+                                                p.getInventory().addItem(petItem);
+
+                                                p.closeInventory();
+
+                                            }else{
+
+                                                p.sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + languageManager.getLanguage().getStringFormatted("inventoryFull"));
+
+                                            }
+
                                         }
 
-                                        ItemStack petItem = user.getPetFromUUID(uuid).getUnlockItem();
-
-                                        userManager.removeUserPet(uuid, p.getUniqueId().toString());
-
-                                        p.getInventory().addItem(petItem);
-
-                                        p.closeInventory();
-
-                                    }else{
-
-                                        p.sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + languageManager.getLanguage().getStringFormatted("inventoryFull"));
-
                                     }
+
+                                    p.playSound(p.getLocation(), Sound.ENTITY_PLAYER_BURP, 1,1 );
+
+                                    p.closeInventory();
 
                                 }
 
                             }
 
-                            p.playSound(p.getLocation(), Sound.ENTITY_PLAYER_BURP, 1,1 );
+                        }else if(e.getCurrentItem().getType() == Material.GRAY_DYE || e.getCurrentItem().getType() == Material.LIME_DYE){
 
-                            p.closeInventory();
+                            if(!inventoryManager.getConvertingPets().contains(e.getWhoClicked().getUniqueId().toString())){
+
+                                inventoryManager.getConvertingPets().add(e.getWhoClicked().getUniqueId().toString());
+
+                                e.getInventory().setItem(53, createItem(languageManager.getLanguage().getStringFormatted("convertToItem"), Material.LIME_DYE));
+
+                            }else{
+
+                                inventoryManager.getConvertingPets().remove(e.getWhoClicked().getUniqueId().toString());
+
+                                e.getInventory().setItem(53, createItem(languageManager.getLanguage().getStringFormatted("convertToItem"), Material.GRAY_DYE));
+
+                            }
 
                         }
 
+                        if(SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().hasNBTTag(e.getCurrentItem(), "inv.action")){
+                            String action = SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().getNBTTagValue(e.getCurrentItem(), "inv.action");
+                            int page = 0;
+
+                            ItemStack itemStack = e.getInventory().getItem(0);
+
+                            if(itemStack == null)
+                                return;
+
+                            if(SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().hasNBTTag(itemStack, "page"))
+                                page = Integer.parseInt(SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().getNBTTagValue(itemStack, "page"));
+
+                            if(action.equals("next")){
+                                SmallPetsCommons.getSmallPetsCommons().getInventoryManager().openPetsMenu(page+1, p);
+                            }else if(action.equals("prev")){
+                                SmallPetsCommons.getSmallPetsCommons().getInventoryManager().openPetsMenu(page-1, p);
+                            }
+                        }
+
+                        if(e.getCurrentItem().getItemMeta().getDisplayName().equals(SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("inventory.sort.name"))){
+                            User user = userManager.getUser(p.getUniqueId().toString());
+                            ItemStack itemStack = e.getInventory().getItem(0);
+
+                            int page = 0;
+                            if(SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().hasNBTTag(itemStack, "page"))
+                                page = Integer.parseInt(SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().getNBTTagValue(itemStack, "page"));
+
+                            if(e.getClick() == ClickType.LEFT){
+                                Sort sort = SmallPetsCommons.getSmallPetsCommons().getSortManager().getNextSort(user.getSettings().getSort());
+                                user.getSettings().setSort(sort);
+                            }
+
+                            if(e.getClick() == ClickType.RIGHT){
+                                Sort sort = SmallPetsCommons.getSmallPetsCommons().getSortManager().getPreviousSort(user.getSettings().getSort());
+                                user.getSettings().setSort(sort);
+                            }
+
+                            SmallPetsCommons.getSmallPetsCommons().getInventoryManager().openPetsMenu(page, p);
+                        }
+
+                        if(e.getCurrentItem().getItemMeta().getDisplayName().equals(SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("inventory.recipebook.name"))){
+                            SmallPetsCommons.getSmallPetsCommons().getInventoryManager().openRecipeBook(0, p);
+                        }
                     }
-
-                }else if(e.getCurrentItem().getType() == Material.GRAY_DYE || e.getCurrentItem().getType() == Material.LIME_DYE){
-
-                    if(!inventoryManager.getConvertingPets().contains(e.getWhoClicked().getUniqueId().toString())){
-
-                        inventoryManager.getConvertingPets().add(e.getWhoClicked().getUniqueId().toString());
-
-                        e.getInventory().setItem(44, createItem(languageManager.getLanguage().getStringFormatted("convertToItem"), Material.LIME_DYE));
-
-                    }else{
-
-                        inventoryManager.getConvertingPets().remove(e.getWhoClicked().getUniqueId().toString());
-
-                        e.getInventory().setItem(44, createItem(languageManager.getLanguage().getStringFormatted("convertToItem"), Material.GRAY_DYE));
-
+                    break;
+                }
+                case "recipeBook":{
+                    if(e.getCurrentItem() != null && e.getCurrentItem().getItemMeta() != null && e.getCurrentItem().getItemMeta().getDisplayName() != null) {
+                        if(SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().hasNBTTag(e.getCurrentItem(), "inv.action")){
+                            String action = SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().getNBTTagValue(e.getCurrentItem(), "inv.action");
+                            int page = 0;
+                            ItemStack itemStack = e.getInventory().getItem(0);
+                            if(itemStack == null)
+                                return;
+                            if(SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().hasNBTTag(itemStack, "page"))
+                                page = Integer.parseInt(SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().getNBTTagValue(itemStack, "page"));
+                            if(action.equals("next")){
+                                SmallPetsCommons.getSmallPetsCommons().getInventoryManager().openPetsMenu(page+1, p);
+                            }else if(action.equals("prev")){
+                                SmallPetsCommons.getSmallPetsCommons().getInventoryManager().openPetsMenu(page-1, p);
+                            }
+                        }
+                        if(e.getCurrentItem().getItemMeta().getDisplayName().equals(SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("inventory.back.name"))){
+                            SmallPetsCommons.getSmallPetsCommons().getInventoryManager().openPetsMenu(0, p);
+                        }
+                        if (e.getCurrentItem().getType() == Material.PLAYER_HEAD) {
+                            if(SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().hasNBTTag(e.getCurrentItem(), "pet")){
+                                String petId = SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().getNBTTagValue(e.getCurrentItem(), "pet");
+                                SmallPetsCommons.getSmallPetsCommons().getInventoryManager().openRecipe(petId, p);
+                            }
+                        }
                     }
-
+                    break;
                 }
 
-                if(SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().hasNBTTag(e.getCurrentItem(), "inv.action")){
-                    String action = SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().getNBTTagValue(e.getCurrentItem(), "inv.action");
-                    int page = 0;
-
-                    ItemStack itemStack = e.getInventory().getItem(0);
-
-                    if(itemStack == null)
-                        return;
-
-                    if(SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().hasNBTTag(itemStack, "page"))
-                        page = Integer.parseInt(SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().getNBTTagValue(itemStack, "page"));
-
-                    if(action.equals("next")){
-                        SmallPetsCommons.getSmallPetsCommons().getInventoryManager().openPetsMenu(page+1, p);
-                    }else if(action.equals("prev")){
-                        SmallPetsCommons.getSmallPetsCommons().getInventoryManager().openPetsMenu(page-1, p);
+                case "recipe":{
+                    if(e.getCurrentItem() != null && e.getCurrentItem().getItemMeta() != null && e.getCurrentItem().getItemMeta().getDisplayName() != null) {
+                        if(e.getCurrentItem().getItemMeta().getDisplayName().equals(SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("inventory.back.name"))){
+                            SmallPetsCommons.getSmallPetsCommons().getInventoryManager().openRecipeBook(0, p);
+                        }
                     }
+                    break;
                 }
-
-                if(e.getCurrentItem().getItemMeta().getDisplayName().equals(SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("inventory.sort.name"))){
-                    User user = userManager.getUser(p.getUniqueId().toString());
-                    ItemStack itemStack = e.getInventory().getItem(0);
-
-                    int page = 0;
-                    if(SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().hasNBTTag(itemStack, "page"))
-                        page = Integer.parseInt(SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().getNBTTagValue(itemStack, "page"));
-
-                    if(e.getClick() == ClickType.LEFT){
-                        Sort sort = SmallPetsCommons.getSmallPetsCommons().getSortManager().getNextSort(user.getSettings().getSort());
-                        user.getSettings().setSort(sort);
-                    }
-
-                    if(e.getClick() == ClickType.RIGHT){
-                        Sort sort = SmallPetsCommons.getSmallPetsCommons().getSortManager().getPreviousSort(user.getSettings().getSort());
-                        user.getSettings().setSort(sort);
-                    }
-
-                    SmallPetsCommons.getSmallPetsCommons().getInventoryManager().openPetsMenu(page, p);
-                }
-
             }
 
         }

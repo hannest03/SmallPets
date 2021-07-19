@@ -9,6 +9,7 @@ Class created by SmallCode
 import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.pets.Pet;
 import it.smallcode.smallpets.core.pets.PetType;
+import it.smallcode.smallpets.core.pets.recipe.Recipe;
 import it.smallcode.smallpets.v1_15.abilities.standard.DontConsumeArrowAbility;
 import it.smallcode.smallpets.v1_15.abilities.standard.UnbreakableBowAbility;
 import org.bukkit.Bukkit;
@@ -33,6 +34,17 @@ public class Skeleton extends Pet {
 
         super.getAbilities().add(new DontConsumeArrowAbility(10, 1));
         super.getAbilities().add(new UnbreakableBowAbility());
+
+        ItemStack[] items = new ItemStack[9];
+        items[1] = new ItemStack(Material.BONE);
+
+        items[3] = new ItemStack(Material.BONE);
+        items[4] = new ItemStack(Material.BOW);
+        items[5] = new ItemStack(Material.BONE);
+
+        items[7] = new ItemStack(Material.BONE);
+
+        setRecipe(new Recipe(items));
     }
 
 
@@ -43,24 +55,6 @@ public class Skeleton extends Pet {
 
         if (new Date(System.currentTimeMillis()).getMonth() == 11)
             setTextureValue("ewogICJ0aW1lc3RhbXAiIDogMTYwNzY5NjU4MDM0MSwKICAicHJvZmlsZUlkIiA6ICJiYzRlZGZiNWYzNmM0OGE3YWM5ZjFhMzlkYzIzZjRmOCIsCiAgInByb2ZpbGVOYW1lIiA6ICI4YWNhNjgwYjIyNDYxMzQwIiwKICAic2lnbmF0dXJlUmVxdWlyZWQiIDogdHJ1ZSwKICAidGV4dHVyZXMiIDogewogICAgIlNLSU4iIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzNjMzJhMWZiMmVhNWIzOWUzZDg3ZDNkYmU3ZDg0ODk4NTNiNjA3OWE4M2E5YzcwNjMxNjk1ZDFlNTdmMzk4ZDgiCiAgICB9CiAgfQp9");
-
-    }
-
-    @Override
-    public void registerRecipe() {
-
-        ItemStack item = getUnlockItem();
-
-        NamespacedKey key = new NamespacedKey(SmallPetsCommons.getSmallPetsCommons().getJavaPlugin(), "pet_" + getId());
-
-        ShapedRecipe recipe = new ShapedRecipe(key, item);
-
-        recipe.shape(" B ", "BWB", " B ");
-
-        recipe.setIngredient('B', Material.BONE);
-        recipe.setIngredient('W', Material.BOW);
-
-        Bukkit.addRecipe(recipe);
 
     }
 

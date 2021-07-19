@@ -143,6 +143,16 @@ public class InventoryManager1_12 extends InventoryManager {
 
     }
 
+    @Override
+    public void openRecipeBook(int page, Player p) {
+
+    }
+
+    @Override
+    public void openRecipe(String petID, Player p) {
+
+    }
+
     private ItemStack makePetItem(Pet pet, User user){
 
         ItemStack itemStack = pet.getDisplayItem();

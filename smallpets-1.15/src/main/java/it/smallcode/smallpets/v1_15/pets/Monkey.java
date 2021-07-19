@@ -9,6 +9,7 @@ Class created by SmallCode
 import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.pets.Pet;
 import it.smallcode.smallpets.core.pets.PetType;
+import it.smallcode.smallpets.core.pets.recipe.Recipe;
 import it.smallcode.smallpets.v1_15.abilities.standard.SpeedBoostInBiomeAbility;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -27,6 +28,17 @@ public class Monkey extends Pet {
         super();
         super.setPetType(PetType.foraging);
         super.getAbilities().add(new SpeedBoostInBiomeAbility(new LinkedList<>(Arrays.asList(Biome.JUNGLE, Biome.JUNGLE_HILLS, Biome.BAMBOO_JUNGLE, Biome.BAMBOO_JUNGLE_HILLS, Biome.MODIFIED_JUNGLE)), 0.01D, 0.05D));
+
+        ItemStack[] items = new ItemStack[9];
+        items[1] = new ItemStack(Material.LEATHER);
+        items[4] = new ItemStack(Material.LEATHER);
+        items[7] = new ItemStack(Material.LEATHER);
+
+        items[3] = new ItemStack(Material.COCOA_BEANS);
+        items[5] = new ItemStack(Material.COCOA_BEANS);
+
+        setRecipe(new Recipe(items));
+
     }
 
     @Override
@@ -36,24 +48,6 @@ public class Monkey extends Pet {
 
         if(new Date(System.currentTimeMillis()).getMonth() == 11)
             setTextureValue("ewogICJ0aW1lc3RhbXAiIDogMTYwNzY5NzE4MzE5NiwKICAicHJvZmlsZUlkIiA6ICI5MThhMDI5NTU5ZGQ0Y2U2YjE2ZjdhNWQ1M2VmYjQxMiIsCiAgInByb2ZpbGVOYW1lIiA6ICJCZWV2ZWxvcGVyIiwKICAic2lnbmF0dXJlUmVxdWlyZWQiIDogdHJ1ZSwKICAidGV4dHVyZXMiIDogewogICAgIlNLSU4iIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzQ5NDdiODU5MmI1NDZmNTY5OWU1YjE0YmI3MGM3YmRjZWZiZDMyNjNhYTRmZjFhNzk0NWNlZmMxNWE2NmQ1ZjQiCiAgICB9CiAgfQp9");
-
-    }
-
-    @Override
-    public void registerRecipe() {
-
-        ItemStack item = getUnlockItem();
-
-        NamespacedKey key = new NamespacedKey(SmallPetsCommons.getSmallPetsCommons().getJavaPlugin(), "pet_" + getId());
-
-        ShapedRecipe recipe = new ShapedRecipe(key, item);
-
-        recipe.shape(" L ", "CLC", " L ");
-
-        recipe.setIngredient('C', Material.COCOA_BEANS);
-        recipe.setIngredient('L', Material.LEATHER);
-
-        Bukkit.addRecipe(recipe);
 
     }
 

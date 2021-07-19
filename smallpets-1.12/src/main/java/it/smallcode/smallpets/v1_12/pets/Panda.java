@@ -6,39 +6,19 @@ Class created by SmallCode
 
 */
 
-import it.smallcode.smallpets.core.SmallPetsCommons;
-import org.bukkit.Bukkit;
+import it.smallcode.smallpets.core.pets.recipe.Recipe;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.ShapedRecipe;
-import org.bukkit.plugin.Plugin;
-
-import java.util.UUID;
 
 public class Panda extends it.smallcode.smallpets.v1_15.pets.Panda {
 
     public Panda() {
         super();
-    }
+        ItemStack[] items = new ItemStack[9];
+        items[3] = new ItemStack(Material.WOOL, (short) 15);
+        items[4] = new ItemStack(Material.LEAVES, (short) 3);
+        items[5] = new ItemStack(Material.WOOL, (short) 0);
 
-    @Override
-    public void registerRecipe() {
-
-        ItemStack item = getUnlockItem();
-
-        NamespacedKey key = new NamespacedKey(SmallPetsCommons.getSmallPetsCommons().getJavaPlugin(), "pet_" + getId());
-
-        ShapedRecipe recipe = new ShapedRecipe(key, item);
-
-        recipe.shape("   ", "SBW", "   ");
-
-        recipe.setIngredient('S', Material.WOOL, (short) 15);
-        recipe.setIngredient('B', Material.LEAVES, (short) 3);
-        recipe.setIngredient('W', Material.WOOL, (short) 0);
-
-        Bukkit.addRecipe(recipe);
-
+        setRecipe(new Recipe(items));
     }
 }

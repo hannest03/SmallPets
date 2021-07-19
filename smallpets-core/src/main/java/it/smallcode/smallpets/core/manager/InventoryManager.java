@@ -50,6 +50,9 @@ public abstract class InventoryManager {
 
     public abstract void openPetsMenu(int page, Player p);
 
+    public abstract void openRecipeBook(int page, Player p);
+    public abstract void openRecipe(String petID, Player p);
+
     public void setXpMultiplier(double xpMultiplier) {
         this.xpMultiplier = xpMultiplier;
     }

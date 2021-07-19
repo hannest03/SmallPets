@@ -46,7 +46,7 @@ public class InventoryCache {
 
         if(!inventoryHashMap.containsKey(p)){
 
-            Inventory inv = Bukkit.createInventory(p, 9*5, "§eSmallPets");
+            Inventory inv = Bukkit.createInventory(p, 9*6, "§eSmallPets");
 
             inventoryHashMap.put(p, inv);
 

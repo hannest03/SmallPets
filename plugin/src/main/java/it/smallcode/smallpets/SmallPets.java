@@ -398,6 +398,8 @@ public class SmallPets extends JavaPlugin {
 
         version = version.replace(".v", "");
 
+        /*
+
         if(version.startsWith("1_12")) {
 
             if(SmallPetsCommons.getSmallPetsCommons().isUseProtocollib())
@@ -434,7 +436,7 @@ public class SmallPets extends JavaPlugin {
 
             SmallPetsCommons.getSmallPetsCommons().setAbilityManager(new AbilityManager1_13());
 
-        }else if(version.startsWith("1_15") || version.startsWith("1_14")){
+        }else */if(version.startsWith("1_15") || version.startsWith("1_14")){
 
             if(SmallPetsCommons.getSmallPetsCommons().isUseProtocollib())
                 SmallPetsCommons.getSmallPetsCommons().setProtocolLibUtils(new ProtocolLibUtils1_15());

@@ -13,6 +13,7 @@ translations:
   petUnlock: 'Unlocked %pet_type% pet!'
   clickToSelect: '&6CLICK TO SELECT'
   clickToDeselect: '&cCLICK TO DESELECT'
+  clickToShowRecipe: '&6SHOW RECIPE'
   givePetUnlockItemSender: 'Gave the %pet_type% unlock item to %player%!'
   givePetUnlockItemReceiver: 'You received the %pet_type% unlock item from %sender%!'
   givePetSender: 'Gave the %pet_type% pet to %player%!'
@@ -76,16 +77,18 @@ translations:
   inventory:
     sort:
       name: "&6Sort"
-      description: "&cNot implemented yet!"
     recipebook:
       name: "&6Recipe book"
-      description: "&cNot implemented yet!"
+      description: "&7See all recipes"
     next:
       name: "&7Next"
       description: "&7Switches to the next page"
     previous:
       name: "&7Previous"
       description: "&7Switches to the previous page"
+    back:
+      name: "&7Back"
+      description: "&7Goes back to the previous menu"
   sort:
     none: "None"
     level_highest: "Highest level"
