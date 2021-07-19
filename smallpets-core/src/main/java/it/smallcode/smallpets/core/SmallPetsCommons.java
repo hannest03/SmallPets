@@ -22,7 +22,7 @@ import java.util.List;
 @Setter(AccessLevel.PUBLIC)
 public class SmallPetsCommons {
 
-    public static final boolean DEBUG = true;
+    public static final boolean DEBUG = false;
 
     static {
         

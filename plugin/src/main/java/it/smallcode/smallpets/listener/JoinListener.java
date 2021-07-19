@@ -7,11 +7,13 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.SmallPets;
+import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventBus;
 import it.smallcode.smallpets.core.abilities.eventsystem.events.JoinEvent;
 import it.smallcode.smallpets.core.manager.PetMapManager;
 import it.smallcode.smallpets.core.manager.UserManager;
 import it.smallcode.smallpets.core.manager.types.User;
+import it.smallcode.smallpets.core.version.VersionChecker;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -32,6 +34,18 @@ public class JoinListener implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e){
+
+        Bukkit.getScheduler().scheduleAsyncDelayedTask(SmallPetsCommons.getSmallPetsCommons().getJavaPlugin(), new Runnable() {
+            @Override
+            public void run() {
+                if(e.getPlayer().hasPermission("smallpets.updateNotification")) {
+                    if (VersionChecker.checkVersion(SmallPetsCommons.getSmallPetsCommons().getJavaPlugin().getDescription().getVersion())) {
+                        e.getPlayer().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "A new update is available!");
+                        e.getPlayer().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "https://www.spigotmc.org/resources/smallpets.81184/");
+                    }
+                }
+            }
+        });
 
         Bukkit.getScheduler().scheduleAsyncDelayedTask(SmallPets.getInstance(), new Runnable() {
             @Override
