@@ -6,14 +6,17 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.core.SmallPetsCommons;
-import it.smallcode.smallpets.core.factory.PetFactory;
-import it.smallcode.smallpets.core.manager.PetMapManager;
 import it.smallcode.smallpets.core.pets.Pet;
+import it.smallcode.smallpets.core.pets.PetType;
 import it.smallcode.smallpets.core.pets.experience.LinearGrowFormula;
 import it.smallcode.smallpets.core.pets.experience.LogisticalGrowFormula;
+import it.smallcode.smallpets.core.utils.FileUtils;
+import it.smallcode.smallpets.core.utils.PetLoader;
+import org.bukkit.Particle;
 import org.junit.Test;
 
-import java.util.UUID;
+import java.io.File;
+import java.net.URL;
 
 import static org.junit.Assert.*;
 
@@ -93,4 +96,75 @@ public class PetTest {
 
     }
 
+    @Test
+    public void testValidator(){
+        String jsonString = "{ \"id\":\"test\" }";
+        assertEquals(false, PetLoader.validatePet(FileUtils.loadToJson(jsonString)));
+
+        jsonString = "{" +
+                "\"id\":\"test\"," +
+                "\"namespace\":\"smallpets\"," +
+                "\"pettype\":\"COMBAT\"," +
+                "\"default_translation\":\"test\"," +
+                "\"particle\":\"VILLAGER_HAPPY\"," +
+                "\"abilities\":[]," +
+                "\"recipe\": []," +
+                "\"textures\": []" +
+                "}";
+        assertEquals(true, PetLoader.validatePet(FileUtils.loadToJson(jsonString)));
+
+        jsonString = "{" +
+                "\"id\":\"test\"," +
+                "\"namespace\":\"smallpets\"," +
+                "\"pettype\":\"COMBAT\"," +
+                "\"default_translation\":\"test\"," +
+                "\"particle\":\"123\"," +
+                "\"abilities\":[]," +
+                "\"recipe\": []," +
+                "\"textures\": []" +
+                "}";
+        assertEquals(false, PetLoader.validatePet(FileUtils.loadToJson(jsonString)));
+
+        jsonString = "{" +
+                "\"id\":\"test\"," +
+                "\"namespace\":\"smallpets\"," +
+                "\"pettype\":\"asd\"," +
+                "\"default_translation\":\"test\"," +
+                "\"particle\":\"VILLAGER_HAPPY\"," +
+                "\"abilities\":[]," +
+                "\"recipe\": []," +
+                "\"textures\": []" +
+                "}";
+        assertEquals(false, PetLoader.validatePet(FileUtils.loadToJson(jsonString)));
+
+        jsonString = "{" +
+                "\"id\":\"test\"," +
+                "\"namespace\":\"smallpets\"," +
+                "\"pettype\":\"combat\"," +
+                "\"default_translation\":\"test\"," +
+                "\"particle\":\"VILLAGER_HAPPY\"," +
+                "\"abilities\":[]," +
+                "\"recipe\": []," +
+                "\"textures\": []" +
+                "}";
+        assertEquals(true, PetLoader.validatePet(FileUtils.loadToJson(jsonString)));
+    }
+
+    @Test
+    public void loadPetString() {
+        final String jsonString = "{ \"id\":\"test\" }";
+        assertEquals(null, PetLoader.loadPet(FileUtils.loadToJson(jsonString)));
+
+        ClassLoader classLoader = getClass().getClassLoader();
+        File file = new File(classLoader.getResource("samplepet.json").getFile());
+        Pet pet = PetLoader.loadPet(FileUtils.loadToJson(file));
+
+        assertEquals("tiger", pet.getId());
+        assertEquals(PetType.COMBAT, pet.getPetType());
+        assertEquals(Particle.WATER_BUBBLE, pet.getParticle());
+
+        File file1 = new File(classLoader.getResource("wrongsamplepet.json").getFile());
+        Pet pet1 = PetLoader.loadPet(FileUtils.loadToJson(file1));
+        assertEquals(null, pet1);
+    }
 }

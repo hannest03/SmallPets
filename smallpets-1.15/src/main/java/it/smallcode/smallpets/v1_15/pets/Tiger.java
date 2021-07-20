@@ -6,28 +6,21 @@ Class created by SmallCode
 
 */
 
-import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.pets.Pet;
 import it.smallcode.smallpets.core.pets.PetType;
 import it.smallcode.smallpets.core.pets.recipe.Recipe;
 import it.smallcode.smallpets.v1_15.abilities.standard.DamageAbility;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.ShapedRecipe;
-import org.bukkit.plugin.Plugin;
 
 import java.util.Date;
-import java.util.UUID;
 
 public class Tiger extends Pet {
 
     public Tiger() {
         super();
 
-        super.setPetType(PetType.combat);
+        super.setPetType(PetType.COMBAT);
         super.getAbilities().add(new DamageAbility(20));
 
         ItemStack[] items = new ItemStack[9];

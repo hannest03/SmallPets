@@ -8,7 +8,7 @@ Class created by SmallCode
 
 import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.languages.LanguageManager;
-import it.smallcode.smallpets.core.manager.PetMapManager;
+import it.smallcode.smallpets.core.manager.PetManager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerArmorStandManipulateEvent;
@@ -20,12 +20,12 @@ public class ArmorStandInteractListener implements Listener {
 
         if(e.getRightClicked().getCustomName() != null){
 
-            PetMapManager petMapManager = SmallPetsCommons.getSmallPetsCommons().getPetMapManager();
+            PetManager petManager = SmallPetsCommons.getSmallPetsCommons().getPetManager();
             LanguageManager languageManager = SmallPetsCommons.getSmallPetsCommons().getLanguageManager();
 
-            for(String types : petMapManager.getPetMap().keySet()){
+            for(PetManager.NamespaceKey key : petManager.getPetMap().keySet()){
 
-                if(e.getRightClicked().getCustomName().endsWith(languageManager.getLanguage().getStringFormatted("pet." + types))){
+                if(e.getRightClicked().getCustomName().endsWith(languageManager.getLanguage().getStringFormatted("pet." + key.getNamespace() + "." + key.getId()))){
 
                     e.setCancelled(true);
 

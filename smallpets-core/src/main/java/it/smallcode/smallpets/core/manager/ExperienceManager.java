@@ -120,7 +120,7 @@ public class ExperienceManager {
 
         ExperienceTable combatTable = new ExperienceTable();
 
-        combatTable.setPetType(PetType.combat);
+        combatTable.setPetType(PetType.COMBAT);
 
         HashMap<String, Integer> combatTableExp = new HashMap<>();
 
@@ -168,7 +168,7 @@ public class ExperienceManager {
 
         ExperienceTable miningTable = new ExperienceTable();
 
-        miningTable.setPetType(PetType.mining);
+        miningTable.setPetType(PetType.MINING);
 
         HashMap<String, Integer> miningTableExp = new HashMap<>();
 
@@ -189,7 +189,7 @@ public class ExperienceManager {
 
         ExperienceTable foragingTable = new ExperienceTable();
 
-        foragingTable.setPetType(PetType.foraging);
+        foragingTable.setPetType(PetType.FORAGING);
 
         HashMap<String, Integer> foragingTableExp = new HashMap<>();
 
@@ -208,7 +208,7 @@ public class ExperienceManager {
 
         ExperienceTable farmingTable = new ExperienceTable();
 
-        farmingTable.setPetType(PetType.farming);
+        farmingTable.setPetType(PetType.FARMING);
 
         HashMap<String, Integer> farmingTableExp = new HashMap<>();
 
@@ -227,7 +227,7 @@ public class ExperienceManager {
 
         ExperienceTable fishingTable = new ExperienceTable();
 
-        fishingTable.setPetType(PetType.fishing);
+        fishingTable.setPetType(PetType.FISHING);
 
         HashMap<String, Integer> fishingTableExp = new HashMap<>();
 

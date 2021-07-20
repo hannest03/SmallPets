@@ -29,7 +29,7 @@ public class Skeleton extends Pet {
     public Skeleton() {
         super();
 
-        super.setPetType(PetType.combat);
+        super.setPetType(PetType.COMBAT);
         super.setParticle(Particle.CLOUD);
 
         super.getAbilities().add(new DontConsumeArrowAbility(10, 1));

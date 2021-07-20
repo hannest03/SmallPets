@@ -17,8 +17,10 @@ import it.smallcode.smallpets.core.pets.progressbar.Progressbar;
 import it.smallcode.smallpets.core.pets.recipe.Recipe;
 import it.smallcode.smallpets.core.text.CenteredText;
 import it.smallcode.smallpets.core.utils.LevelColorUtils;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -30,8 +32,10 @@ import java.util.stream.Collectors;
 
 @Getter
 @Setter
+@ToString
 public class Pet {
 
+    private String namespace;
     private String id;
     private UUID uuid;
 
@@ -306,4 +310,17 @@ public class Pet {
 
     }
 
+    public Pet clone(){
+        Pet pet = new Pet();
+
+        pet.setId(id);
+        pet.setNamespace(namespace);
+
+        pet.setParticle(particle);
+        pet.setAbilities(abilities);
+        pet.setRecipe(recipe);
+        pet.setTextureValue(textureValue);
+
+        return pet;
+    }
 }

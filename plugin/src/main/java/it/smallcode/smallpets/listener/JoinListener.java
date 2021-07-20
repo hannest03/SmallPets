@@ -10,10 +10,11 @@ import it.smallcode.smallpets.SmallPets;
 import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventBus;
 import it.smallcode.smallpets.core.abilities.eventsystem.events.JoinEvent;
-import it.smallcode.smallpets.core.manager.PetMapManager;
+import it.smallcode.smallpets.core.manager.PetManager;
 import it.smallcode.smallpets.core.manager.UserManager;
 import it.smallcode.smallpets.core.manager.types.User;
 import it.smallcode.smallpets.core.version.VersionChecker;
+import it.smallcode.smallpets.v1_15.PetManager1_15;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -23,12 +24,12 @@ import org.bukkit.event.player.PlayerJoinEvent;
 public class JoinListener implements Listener {
 
     private UserManager userManager;
-    private PetMapManager petMapManager;
+    private PetManager petManager;
 
-    public JoinListener(UserManager userManager, PetMapManager petMapManager){
+    public JoinListener(UserManager userManager, PetManager petManager){
 
         this.userManager = userManager;
-        this.petMapManager = petMapManager;
+        this.petManager = petManager;
 
     }
 

@@ -27,6 +27,7 @@ public class UnlockListener implements Listener {
                 if(SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().hasNBTTag(item, "pet")) {
 
                     String type = SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().getNBTTagValue(item, "pet");
+                    String namespace = SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().getNBTTagValue(item, "pet.namespace");
 
                     long exp = 0;
 
@@ -40,7 +41,7 @@ public class UnlockListener implements Listener {
 
                     }
 
-                    if(SmallPetsCommons.getSmallPetsCommons().getUserManager().giveUserPet(type, e.getPlayer().getUniqueId().toString(), exp)){
+                    if(SmallPetsCommons.getSmallPetsCommons().getUserManager().giveUserPet(namespace, type, e.getPlayer().getUniqueId().toString(), exp)){
 
                         e.getItem().setAmount(e.getItem().getAmount() -1);
 

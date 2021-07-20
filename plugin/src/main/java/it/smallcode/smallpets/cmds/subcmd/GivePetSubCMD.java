@@ -30,6 +30,8 @@ public class GivePetSubCMD extends SubCommand {
     @Override
     public void handleCommand(CommandSender s, String[] args) {
 
+        /*
+
         if (args.length >= 2) {
 
             if (Bukkit.getPlayer(args[0]) != null && Bukkit.getPlayer(args[0]).isOnline()) {
@@ -73,6 +75,7 @@ public class GivePetSubCMD extends SubCommand {
             s.sendMessage(SmallPets.getInstance().getPrefix() + "/smallpets admin " + getHelp());
 
         }
+         */
 
     }
 
@@ -98,7 +101,7 @@ public class GivePetSubCMD extends SubCommand {
             options.add("*");
 
             List<String> finalOptions = options;
-            SmallPetsCommons.getSmallPetsCommons().getPetMapManager().getPetMap().keySet().forEach(key -> finalOptions.add(key));
+            SmallPetsCommons.getSmallPetsCommons().getPetManager().getPetKeys().forEach(key -> finalOptions.add(key));
 
             options = finalOptions;
 

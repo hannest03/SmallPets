@@ -26,7 +26,7 @@ public class Monkey extends Pet {
 
     public Monkey() {
         super();
-        super.setPetType(PetType.foraging);
+        super.setPetType(PetType.FORAGING);
         super.getAbilities().add(new SpeedBoostInBiomeAbility(new LinkedList<>(Arrays.asList(Biome.JUNGLE, Biome.JUNGLE_HILLS, Biome.BAMBOO_JUNGLE, Biome.BAMBOO_JUNGLE_HILLS, Biome.MODIFIED_JUNGLE)), 0.01D, 0.05D));
 
         ItemStack[] items = new ItemStack[9];

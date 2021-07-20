@@ -158,8 +158,8 @@ public class UserManager {
      * @return the boolean is true if the pet was successfully added to the player
      */
     public boolean giveUserAllPets(String uuid, long exp){
-        for(String type : SmallPetsCommons.getSmallPetsCommons().getPetMapManager().getPetMap().keySet()){
-            giveUserPet(type, uuid, exp);
+        for(PetManager.NamespaceKey namespaceKey : SmallPetsCommons.getSmallPetsCommons().getPetManager().getPetMap().keySet()){
+            giveUserPet(namespaceKey.getNamespace(), namespaceKey.getId(), uuid, exp);
         }
         return true;
     }
@@ -183,9 +183,9 @@ public class UserManager {
      * @param uuid - the uuid of the player
      * @return the boolean is true if the pet was successfully added to the player,<br> if the player already had the pet or there was an error false will be returned
      */
-    public boolean giveUserPet(String type, String uuid){
+    public boolean giveUserPet(String namespace, String type, String uuid){
 
-        return giveUserPet(type, uuid, 0L);
+        return giveUserPet(namespace, type, uuid, 0L);
 
     }
 
@@ -198,41 +198,37 @@ public class UserManager {
      * @param exp - the amount of exp the pet has
      * @return the boolean is true if the pet was successfully added to the player,<br> if the player already had the pet or there was an error false will be returned
      */
-    public boolean giveUserPet(String type, String uuid, Long exp){
+    public boolean giveUserPet(String namespace, String type, String uuid, Long exp){
 
         User user = getUser(uuid);
 
         if(user != null){
 
-            if(SmallPetsCommons.getSmallPetsCommons().getPetMapManager().getPetMap().containsKey(type)){
+            Player p = Bukkit.getPlayer(UUID.fromString(uuid));
 
-                Player p = Bukkit.getPlayer(UUID.fromString(uuid));
+            if(p == null || !p.isOnline())
+                return false;
 
-                if(p == null || !p.isOnline())
-                    return false;
+            if(SmallPetsCommons.getSmallPetsCommons().isRequirePermission() && !p.hasPermission("smallpets.allow." + type)) {
 
-                if(SmallPetsCommons.getSmallPetsCommons().isRequirePermission() && !p.hasPermission("smallpets.allow." + type)) {
+                p.sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("noPerms"));
 
-                    p.sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("noPerms"));
-
-                    return false;
-
-                }
-
-                if(!SmallPetsCommons.getSmallPetsCommons().isRequirePermission() && (p.hasPermission("smallpets.forbid." + type) && !p.isOp())) {
-
-                    p.sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("noPerms"));
-
-                    return false;
-
-                }
-
-                Pet pet = PetFactory.createNewPet(type, Bukkit.getPlayer(UUID.fromString(uuid)), exp);
-                user.getPets().add(pet);
-
-                return true;
+                return false;
 
             }
+
+            if(!SmallPetsCommons.getSmallPetsCommons().isRequirePermission() && (p.hasPermission("smallpets.forbid." + type) && !p.isOp())) {
+
+                p.sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("noPerms"));
+
+                return false;
+
+            }
+
+            Pet pet = PetFactory.createNewPet(namespace, type, Bukkit.getPlayer(UUID.fromString(uuid)), exp);
+            user.getPets().add(pet);
+
+            return true;
 
         }
 
@@ -249,15 +245,11 @@ public class UserManager {
      * @param exp - the amount of exp the pet has
      * @return the boolean is true if the unlock item was successfully given to the player,<br> if there was an error false will be returned
      */
-    public boolean giveUserUnlockPetItem(String type, Player p, Long exp){
+    public boolean giveUserUnlockPetItem(String namespace, String type, Player p, Long exp){
 
-        if(SmallPetsCommons.getSmallPetsCommons().getPetMapManager().getPetMap().containsKey(type)){
-
-            Pet pet = PetFactory.createNewPet(type, p, exp);
+        Pet pet = PetFactory.createNewPet(namespace, type, p, exp);
+        if(pet != null)
             p.getInventory().addItem(pet.getUnlockItem());
-
-        }else
-            throw new IllegalArgumentException("Pet id isn't registered");
 
         return false;
 
@@ -274,17 +266,17 @@ public class UserManager {
         User user = getUser(uuid);
         if(user == null)
             return false;
-        List<String> types = user.getPets().stream()
-                .map(pet -> pet.getId())
+        List<PetManager.NamespaceKey> types = user.getPets().stream()
+                .map(pet -> new PetManager.NamespaceKey(pet.getNamespace(), pet.getId()))
                 .collect(Collectors.toList());
-        for(String type : types){
-            if(user.getPetFromType(type) != null) {
+        for(PetManager.NamespaceKey key : types){
+            if(user.getPetFromNamespaceAndType(key.getNamespace(), key.getId()) != null) {
                 if(user.getSelected() != null) {
-                    if (user.getSelected().getId().equals(type)) {
+                    if (user.getSelected().getId().equals(key.getId()) && user.getSelected().getNamespace().equals(key.getNamespace())) {
                         user.despawnSelected();
                     }
                 }
-                Pet pet = user.getPetFromType(type);
+                Pet pet = user.getPetFromNamespaceAndType(key.getNamespace(), key.getId());
                 user.getPets().remove(pet);
             }
         }
@@ -299,33 +291,29 @@ public class UserManager {
      * @param uuid - the uuid of the player
      * @return the boolean is true if the pet was successfully removed from to the player,<br> if the player hasn't got the pet or there was an error false will be returned
      */
-    public boolean removeUserPet(String type, String uuid){
+    public boolean removeUserPet(String namespace, String type, String uuid){
 
         User user = getUser(uuid);
 
         if(user != null){
 
-            if(SmallPetsCommons.getSmallPetsCommons().getPetMapManager().getPetMap().containsKey(type)){
+            if(user.getPetFromNamespaceAndType(namespace, type) != null) {
 
-                if(user.getPetFromType(type) != null) {
+                if(user.getSelected() != null) {
 
-                    if(user.getSelected() != null) {
+                    if (user.getSelected().getId().equals(type)) {
 
-                        if (user.getSelected().getId().equals(type)) {
-
-                            user.despawnSelected();
-
-                        }
+                        user.despawnSelected();
 
                     }
 
-                    Pet pet = user.getPetFromType(type);
-
-                    user.getPets().remove(pet);
-
-                    return true;
-
                 }
+
+                Pet pet = user.getPetFromNamespaceAndType(namespace, type);
+
+                user.getPets().remove(pet);
+
+                return true;
 
             }
 

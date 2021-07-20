@@ -24,7 +24,7 @@ public class Penguin extends Pet {
 
     public Penguin() {
         super();
-        super.setPetType(PetType.fishing);
+        super.setPetType(PetType.FISHING);
 
         super.setParticle(Particle.WATER_BUBBLE);
 

@@ -16,13 +16,10 @@ import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventBus;
 import it.smallcode.smallpets.core.abilities.eventsystem.events.ServerShutdownEvent;
 import it.smallcode.smallpets.core.languages.LanguageManager;
 import it.smallcode.smallpets.core.manager.types.User;
-import it.smallcode.smallpets.core.pets.Pet;
 import it.smallcode.smallpets.listener.*;
 import it.smallcode.smallpets.core.manager.*;
 import it.smallcode.smallpets.metrics.*;
 import it.smallcode.smallpets.placeholderapi.*;
-import it.smallcode.smallpets.v1_12.*;
-import it.smallcode.smallpets.v1_13.*;
 import it.smallcode.smallpets.v1_15.*;
 import it.smallcode.smallpets.v1_16.*;
 import it.smallcode.smallpets.v1_17.*;
@@ -122,7 +119,7 @@ public class SmallPets extends JavaPlugin {
 
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "Registering pets...");
 
-        getPetMapManager().registerPets();
+        SmallPetsCommons.getSmallPetsCommons().getPetManager().loadPets();
 
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "Registered pets");
 
@@ -130,7 +127,7 @@ public class SmallPets extends JavaPlugin {
 
             Bukkit.getConsoleSender().sendMessage(getPrefix() + "Registering crafting recipes...");
 
-            getPetMapManager().registerCraftingRecipe();
+            SmallPetsCommons.getSmallPetsCommons().getPetManager().registerCraftingRecipe();
 
             Bukkit.getConsoleSender().sendMessage(getPrefix() + "Registered crafting recipes!");
 
@@ -144,7 +141,7 @@ public class SmallPets extends JavaPlugin {
 
         Bukkit.getPluginManager().registerEvents(new BlockInteractListener(), this);
 
-        Bukkit.getPluginManager().registerEvents(new JoinListener(getUserManager(), getPetMapManager()), this);
+        Bukkit.getPluginManager().registerEvents(new JoinListener(getUserManager(), SmallPetsCommons.getSmallPetsCommons().getPetManager()), this);
         Bukkit.getPluginManager().registerEvents(new QuitListener(getUserManager(), getInventoryCache()), this);
         Bukkit.getPluginManager().registerEvents(new WorldSaveListener(), this);
 
@@ -427,7 +424,7 @@ public class SmallPets extends JavaPlugin {
             SmallPetsCommons.getSmallPetsCommons().setHealthModifierUtils(new HealthModifierUtils1_15());
             SmallPetsCommons.getSmallPetsCommons().setSpeedModifierUtils(new SpeedModifierUtils1_15());
 
-            SmallPetsCommons.getSmallPetsCommons().setPetMapManager(new PetMapManager1_12());
+            SmallPetsCommons.getSmallPetsCommons().setPetMapManager(new PetManager1_12());
             SmallPetsCommons.getSmallPetsCommons().setInventoryManager(new InventoryManager1_12(xpMultiplier));
             SmallPetsCommons.getSmallPetsCommons().setUserManager(new UserManager( SmallPetsCommons.getSmallPetsCommons().isUseProtocollib()));
             SmallPetsCommons.getSmallPetsCommons().setListenerManager(new ListenerManager1_12(xpMultiplier, SmallPetsCommons.getSmallPetsCommons().isUseProtocollib()));
@@ -445,7 +442,7 @@ public class SmallPets extends JavaPlugin {
             SmallPetsCommons.getSmallPetsCommons().setHealthModifierUtils(new HealthModifierUtils1_15());
             SmallPetsCommons.getSmallPetsCommons().setSpeedModifierUtils(new SpeedModifierUtils1_15());
 
-            SmallPetsCommons.getSmallPetsCommons().setPetMapManager(new PetMapManager1_13());
+            SmallPetsCommons.getSmallPetsCommons().setPetMapManager(new PetManager1_13());
             SmallPetsCommons.getSmallPetsCommons().setInventoryManager(new InventoryManager1_13(xpMultiplier));
             SmallPetsCommons.getSmallPetsCommons().setUserManager(new UserManager(SmallPetsCommons.getSmallPetsCommons().isUseProtocollib()));
             SmallPetsCommons.getSmallPetsCommons().setListenerManager(new ListenerManager1_13(xpMultiplier, SmallPetsCommons.getSmallPetsCommons().isUseProtocollib()));
@@ -463,7 +460,7 @@ public class SmallPets extends JavaPlugin {
             SmallPetsCommons.getSmallPetsCommons().setHealthModifierUtils(new HealthModifierUtils1_15());
             SmallPetsCommons.getSmallPetsCommons().setSpeedModifierUtils(new SpeedModifierUtils1_15());
 
-            SmallPetsCommons.getSmallPetsCommons().setPetMapManager(new PetMapManager1_15());
+            SmallPetsCommons.getSmallPetsCommons().setPetManager(new PetManager1_15());
             SmallPetsCommons.getSmallPetsCommons().setInventoryManager(new InventoryManager1_15(xpMultiplier));
             SmallPetsCommons.getSmallPetsCommons().setUserManager(new UserManager( SmallPetsCommons.getSmallPetsCommons().isUseProtocollib()));
             SmallPetsCommons.getSmallPetsCommons().setListenerManager(new ListenerManager1_15(xpMultiplier, SmallPetsCommons.getSmallPetsCommons().isUseProtocollib()));
@@ -481,7 +478,7 @@ public class SmallPets extends JavaPlugin {
             SmallPetsCommons.getSmallPetsCommons().setHealthModifierUtils(new HealthModifierUtils1_15());
             SmallPetsCommons.getSmallPetsCommons().setSpeedModifierUtils(new SpeedModifierUtils1_15());
 
-            SmallPetsCommons.getSmallPetsCommons().setPetMapManager(new PetMapManager1_16());
+            SmallPetsCommons.getSmallPetsCommons().setPetManager(new PetManager1_16());
             SmallPetsCommons.getSmallPetsCommons().setInventoryManager(new InventoryManager1_16(xpMultiplier));
             SmallPetsCommons.getSmallPetsCommons().setUserManager(new UserManager( SmallPetsCommons.getSmallPetsCommons().isUseProtocollib()));
             SmallPetsCommons.getSmallPetsCommons().setListenerManager(new ListenerManager1_16(xpMultiplier, SmallPetsCommons.getSmallPetsCommons().isUseProtocollib()));
@@ -499,7 +496,7 @@ public class SmallPets extends JavaPlugin {
             SmallPetsCommons.getSmallPetsCommons().setHealthModifierUtils(new HealthModifierUtils1_15());
             SmallPetsCommons.getSmallPetsCommons().setSpeedModifierUtils(new SpeedModifierUtils1_15());
 
-            SmallPetsCommons.getSmallPetsCommons().setPetMapManager(new PetMapManager1_17());
+            SmallPetsCommons.getSmallPetsCommons().setPetManager(new PetManager1_17());
             SmallPetsCommons.getSmallPetsCommons().setInventoryManager(new InventoryManager1_17(xpMultiplier));
             SmallPetsCommons.getSmallPetsCommons().setUserManager(new UserManager( SmallPetsCommons.getSmallPetsCommons().isUseProtocollib()));
             SmallPetsCommons.getSmallPetsCommons().setListenerManager(new ListenerManager1_17(xpMultiplier, SmallPetsCommons.getSmallPetsCommons().isUseProtocollib()));
@@ -530,10 +527,6 @@ public class SmallPets extends JavaPlugin {
 
     public static SmallPets getInstance() {
         return instance;
-    }
-
-    public PetMapManager getPetMapManager() {
-        return SmallPetsCommons.getSmallPetsCommons().getPetMapManager();
     }
 
     public InventoryCache getInventoryCache() {

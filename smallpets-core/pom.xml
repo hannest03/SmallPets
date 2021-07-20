@@ -23,6 +23,17 @@
                 </configuration>
             </plugin>
         </plugins>
+        <testResources>
+            <testResource>
+                <targetPath>.</targetPath>
+                <filtering>true</filtering>
+                <directory>src/test/resources</directory>
+                <includes>
+                    <include>samplepet.json</include>
+                    <include>wrongsamplepet.json</include>
+                </includes>
+            </testResource>
+        </testResources>
     </build>
 
     <dependencies>
@@ -67,6 +78,5 @@
         </dependency>
 
     </dependencies>
-
 
 </project>

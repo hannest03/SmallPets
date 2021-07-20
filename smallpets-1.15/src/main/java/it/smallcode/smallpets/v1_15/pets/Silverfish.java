@@ -26,7 +26,7 @@ public class Silverfish extends Pet {
 
     public Silverfish() {
         super();
-        super.setPetType(PetType.mining);
+        super.setPetType(PetType.MINING);
         super.getAbilities().add(new FasterMiningSpeedAbility(4, 1));
 
         ItemStack[] items = new ItemStack[9];

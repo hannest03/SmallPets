@@ -7,8 +7,10 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.SmallPets;
+import it.smallcode.smallpets.cmds.SmallPetsCMD;
 import it.smallcode.smallpets.cmds.SubCommand;
 import it.smallcode.smallpets.cmds.SubCommandType;
+import it.smallcode.smallpets.core.SmallPetsCommons;
 import org.bukkit.command.CommandSender;
 
 import java.util.List;
@@ -24,7 +26,7 @@ public class PetTypesSubCMD extends SubCommand {
 
         String list = "";
 
-        for(String type : SmallPets.getInstance().getPetMapManager().getPetMap().keySet()){
+        for(String type : SmallPetsCommons.getSmallPetsCommons().getPetManager().getPetKeys()){
 
             list += type + ", ";
 

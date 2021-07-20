@@ -28,8 +28,6 @@ import java.util.*;
  */
 public class User {
 
-    private JavaPlugin plugin;
-
     private String uuid;
 
     private Pet selected;
@@ -58,8 +56,6 @@ public class User {
 
     public User(String uuid){
 
-        this.plugin = SmallPetsCommons.getSmallPetsCommons().getJavaPlugin();
-
         this.uuid = uuid;
 
         this.selected = null;
@@ -81,8 +77,6 @@ public class User {
 
     public User(String uuid, Map<String, Object> data){
 
-        this.plugin = SmallPetsCommons.getSmallPetsCommons().getJavaPlugin();
-
         this.uuid = uuid;
 
         unserialize(data);
@@ -97,9 +91,9 @@ public class User {
      * @param type - the type of the pet
      * @return - returns the pet
      */
-    public Pet getPetFromType(String type){
+    public Pet getPetFromNamespaceAndType(String namespace, String type){
 
-        Optional<Pet> result = pets.stream().filter(p -> p.getId().equalsIgnoreCase(type)).findFirst();
+        Optional<Pet> result = pets.stream().filter(p -> p.getNamespace().equalsIgnoreCase(namespace) && p.getId().equalsIgnoreCase(type)).findFirst();
 
         if(result != null)
             if(result.isPresent())
@@ -476,7 +470,7 @@ public class User {
 
         long exp = Long.valueOf((String) data.get("exp"));
 
-        if(SmallPetsCommons.getSmallPetsCommons().getPetMapManager().getPetMap().containsKey(type)){
+        if(SmallPetsCommons.getSmallPetsCommons().getPetManager().getPet(type) != null){
 
             return PetFactory.createPet(type, petUUID, Bukkit.getPlayer(UUID.fromString(uuid)), exp);
 

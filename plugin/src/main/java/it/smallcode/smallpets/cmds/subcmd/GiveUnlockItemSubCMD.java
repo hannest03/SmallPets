@@ -30,6 +30,8 @@ public class GiveUnlockItemSubCMD extends SubCommand {
     @Override
     protected void handleCommand(CommandSender s, String[] args) {
 
+        /*
+
         if(args.length == 2){
 
             Player p = Bukkit.getPlayer(args[0]);
@@ -66,6 +68,8 @@ public class GiveUnlockItemSubCMD extends SubCommand {
 
         }
 
+         */
+
     }
 
     @Override
@@ -89,7 +93,7 @@ public class GiveUnlockItemSubCMD extends SubCommand {
             options = new LinkedList<>();
 
             List<String> finalOptions = options;
-            SmallPetsCommons.getSmallPetsCommons().getPetMapManager().getPetMap().keySet().forEach(key -> finalOptions.add(key));
+            SmallPetsCommons.getSmallPetsCommons().getPetManager().getPetKeys().forEach(key -> finalOptions.add(key));
 
             options = finalOptions;
 

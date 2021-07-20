@@ -161,9 +161,9 @@ public class InventoryManager1_15 extends InventoryManager {
         inventory.setItem(0, first);
 
         //TODO: Change with better petmap
-        List<Pet> allPets = SmallPetsCommons.getSmallPetsCommons().getPetMapManager().getPetMap().keySet()
+        List<Pet> allPets = SmallPetsCommons.getSmallPetsCommons().getPetManager().getPetMap().keySet()
                 .stream()
-                .map(id -> PetFactory.createPet(id, null, null, 0L))
+                .map(namespaceKey -> PetFactory.createPet(namespaceKey.getNamespace(), namespaceKey.getId(), null, null, 0L))
                 .filter(pet -> pet.getRecipe() != null)
                 .collect(Collectors.toList());
         List<Pet> pets = new LinkedList<>();

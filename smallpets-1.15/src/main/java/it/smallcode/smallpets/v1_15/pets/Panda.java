@@ -28,7 +28,7 @@ public class Panda extends Pet {
 
     public Panda() {
         super();
-        super.setPetType(PetType.farming);
+        super.setPetType(PetType.FARMING);
 
         super.getAbilities().add(new HealthAbility(4));
 

@@ -13,11 +13,11 @@ import java.util.Optional;
 
 public enum PetType {
 
-    combat("combat"),
-    mining("mining"),
-    farming("farming"),
-    fishing("fishing"),
-    foraging("foraging");
+    COMBAT("combat"),
+    MINING("mining"),
+    FARMING("farming"),
+    FISHING("fishing"),
+    FORAGING("foraging");
 
     private String id;
 

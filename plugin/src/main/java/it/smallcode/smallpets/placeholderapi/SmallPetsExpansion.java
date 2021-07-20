@@ -96,11 +96,13 @@ public class SmallPetsExpansion extends PlaceholderExpansion {
 
             case "registeredPets":{
 
-                return String.valueOf(SmallPets.getInstance().getPetMapManager().getPetMap().size());
+                return String.valueOf(SmallPetsCommons.getSmallPetsCommons().getPetManager().getPetMap().size());
 
             }
 
         }
+
+        /*
 
         String[] paramsArray = params.split("_");
 
@@ -169,6 +171,8 @@ public class SmallPetsExpansion extends PlaceholderExpansion {
             }
 
         }
+
+         */
 
         return null;
 

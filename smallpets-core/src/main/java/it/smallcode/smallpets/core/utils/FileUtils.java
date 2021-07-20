@@ -6,6 +6,8 @@ Class created by SmallCode
 
 */
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.*;
@@ -43,6 +45,26 @@ public class FileUtils {
         } catch (IOException ex) {
         }
 
+    }
+
+    public static JsonObject loadToJson(String content){
+        Gson gson = new Gson();
+        return gson.fromJson(content, JsonObject.class);
+    }
+
+    public static JsonObject loadToJson(File file){
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            String line;
+            StringBuilder stringBuilder = new StringBuilder();
+            while((line = reader.readLine()) != null) stringBuilder.append(line);
+            return loadToJson(stringBuilder.toString());
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return null;
     }
 
 }

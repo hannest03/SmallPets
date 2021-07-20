@@ -51,7 +51,7 @@ public class SmallPetsCommons {
 
     private List<String> petLore;
 
-    private PetMapManager petMapManager;
+    private PetManager petManager;
 
     private UserManager userManager;
     private AutoSaveManager autoSaveManager;

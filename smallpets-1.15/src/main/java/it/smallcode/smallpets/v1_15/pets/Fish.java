@@ -20,7 +20,7 @@ public class Fish extends Pet {
 
     public Fish() {
         super();
-        super.setPetType(PetType.fishing);
+        super.setPetType(PetType.FISHING);
         super.setParticle(Particle.WATER_BUBBLE);
         super.getAbilities().add(new HealWhileInWaterAbility(3, 1));
 
