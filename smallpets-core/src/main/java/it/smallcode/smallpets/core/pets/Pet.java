@@ -129,10 +129,15 @@ public class Pet {
         if(this.recipe == null)
             return;
         ItemStack item = getUnlockItem();
-        NamespacedKey key = new NamespacedKey(SmallPetsCommons.getSmallPetsCommons().getJavaPlugin(), "pet_" + getId());
+        NamespacedKey key = new NamespacedKey(SmallPetsCommons.getSmallPetsCommons().getJavaPlugin(), "pet_" + getNamespace() + "_" + getId());
         ShapedRecipe recipe = new ShapedRecipe(key, item);
         recipe = this.recipe.fillShape(recipe);
         Bukkit.addRecipe(recipe);
+    }
+
+    public void removeRecipe(){
+        NamespacedKey key = new NamespacedKey(SmallPetsCommons.getSmallPetsCommons().getJavaPlugin(), "pet_" + getNamespace() + "_" + getId());
+        Bukkit.removeRecipe(key);
     }
 
     public boolean hasAbility(String abilityID){

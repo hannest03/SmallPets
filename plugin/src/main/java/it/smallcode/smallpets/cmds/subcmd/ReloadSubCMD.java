@@ -9,7 +9,10 @@ Class created by SmallCode
 import it.smallcode.smallpets.SmallPets;
 import it.smallcode.smallpets.cmds.SubCommand;
 import it.smallcode.smallpets.cmds.SubCommandType;
+import it.smallcode.smallpets.core.SmallPetsCommons;
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -20,7 +23,7 @@ public class ReloadSubCMD extends SubCommand {
     public ReloadSubCMD(String name, String permission) {
         super(name, permission, SubCommandType.ADMIN);
 
-        help += " <all/config/experienceTable/language>";
+        help += " <all/config/experienceTable/language/pets>";
 
     }
 
@@ -37,6 +40,7 @@ public class ReloadSubCMD extends SubCommand {
             options.add("config");
             options.add("experienceTable");
             options.add("language");
+            options.add("pets");
 
         }
 
@@ -78,6 +82,32 @@ public class ReloadSubCMD extends SubCommand {
 
                 s.sendMessage(SmallPets.getInstance().getPrefix() + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("reloaded")
                         .replaceAll("%type%", "experienceTable"));
+
+            }else if(args[0].equalsIgnoreCase("pets")){
+
+                SmallPetsCommons.getSmallPetsCommons().getUserManager().saveUsers();
+                SmallPetsCommons.getSmallPetsCommons().getUserManager().despawnPets();
+                SmallPetsCommons.getSmallPetsCommons().getUserManager().getUsers().clear();
+
+                if(SmallPetsCommons.getSmallPetsCommons().isRegisterCraftingRecipes()) {
+                    SmallPetsCommons.getSmallPetsCommons().getPetManager().removeCraftingRecipe();
+                }
+                SmallPetsCommons.getSmallPetsCommons().getPetManager().getPetMap().clear();
+
+                SmallPetsCommons.getSmallPetsCommons().getPetManager().registerPetClasses();
+                SmallPetsCommons.getSmallPetsCommons().getPetManager().loadConfigPets();
+
+                if(SmallPetsCommons.getSmallPetsCommons().isRegisterCraftingRecipes()) {
+                    SmallPetsCommons.getSmallPetsCommons().getPetManager().registerCraftingRecipe();
+                }
+
+                for(Player all : Bukkit.getOnlinePlayers()) {
+                    SmallPetsCommons.getSmallPetsCommons().getUserManager().loadUser(all.getUniqueId().toString());
+                }
+                SmallPetsCommons.getSmallPetsCommons().getUserManager().spawnPets();
+
+                s.sendMessage(SmallPets.getInstance().getPrefix() + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("reloaded")
+                        .replaceAll("%type%", "pets"));
 
             }else{
 

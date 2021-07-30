@@ -66,13 +66,24 @@ public class PetManager {
 
     public void registerCraftingRecipe(){
         petMap.keySet().iterator().forEachRemaining(namespaceKey -> {
-
+            registerRecipe(namespaceKey.getNamespace(), namespaceKey.getId());
         });
     }
 
     private void registerRecipe(String namespace, String type){
         Pet pet = PetFactory.createPet(namespace, type, null, null, 0L);
         pet.registerRecipe();
+    }
+
+    public void removeCraftingRecipe(){
+        petMap.keySet().iterator().forEachRemaining(namespaceKey -> {
+            removeRecipe(namespaceKey.getNamespace(), namespaceKey.getId());
+        });
+    }
+
+    private void removeRecipe(String namespace, String type){
+        Pet pet = PetFactory.createPet(namespace, type, null, null, 0L);
+        pet.removeRecipe();
     }
 
     public void registerPet(String namespace, String id, Class clazz){
@@ -84,7 +95,7 @@ public class PetManager {
 
             NamespaceKey namespaceKey = new NamespaceKey(namespace, id);
             petMap.put(namespaceKey, clazz);
-            registerRecipe(namespace, id);
+            //registerRecipe(namespace, id);
         } catch (NoSuchMethodException ex) {
             ex.printStackTrace();
         } catch (InvocationTargetException ex) {

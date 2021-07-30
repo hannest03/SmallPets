@@ -40,7 +40,6 @@ public class SmallPets extends JavaPlugin {
     private static SmallPets instance;
 
     private double xpMultiplier;
-    private boolean registerCraftingRecipes;
 
     private WorldGuardImp worldGuardImp;
 
@@ -129,7 +128,7 @@ public class SmallPets extends JavaPlugin {
 
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "Loaded pet configs");
 
-        if(registerCraftingRecipes) {
+        if(SmallPetsCommons.getSmallPetsCommons().isRegisterCraftingRecipes()) {
 
             Bukkit.getConsoleSender().sendMessage(getPrefix() + "Registering crafting recipes...");
 
@@ -340,7 +339,7 @@ public class SmallPets extends JavaPlugin {
         SmallPetsCommons.getSmallPetsCommons().setPrefix(prefix);
 
         this.xpMultiplier = cfg.getDouble("xpMultiplier");
-        this.registerCraftingRecipes = cfg.getBoolean("registerCraftingRecipes");
+        SmallPetsCommons.getSmallPetsCommons().setRegisterCraftingRecipes(cfg.getBoolean("registerCraftingRecipes"));
 
         SmallPetsCommons.getSmallPetsCommons().setRequirePermission(cfg.getBoolean("requirePermission"));
         SmallPetsCommons.getSmallPetsCommons().setShowUnlockMessage(cfg.getBoolean("showUnlockMessage"));

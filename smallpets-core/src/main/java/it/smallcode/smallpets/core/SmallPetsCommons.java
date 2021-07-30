@@ -48,6 +48,7 @@ public class SmallPetsCommons {
     private boolean useProtocollib;
     private boolean useWorldGuard = false;
     private boolean showUnlockMessage = true;
+    private boolean registerCraftingRecipes = true;
 
     private List<String> petLore;
 
