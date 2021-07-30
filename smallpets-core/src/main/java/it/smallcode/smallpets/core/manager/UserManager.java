@@ -226,6 +226,9 @@ public class UserManager {
             }
 
             Pet pet = PetFactory.createNewPet(namespace, type, Bukkit.getPlayer(UUID.fromString(uuid)), exp);
+            if(pet == null)
+                return false;
+
             user.getPets().add(pet);
 
             return true;
@@ -248,8 +251,10 @@ public class UserManager {
     public boolean giveUserUnlockPetItem(String namespace, String type, Player p, Long exp){
 
         Pet pet = PetFactory.createNewPet(namespace, type, p, exp);
-        if(pet != null)
+        if(pet != null) {
             p.getInventory().addItem(pet.getUnlockItem());
+            return true;
+        }
 
         return false;
 

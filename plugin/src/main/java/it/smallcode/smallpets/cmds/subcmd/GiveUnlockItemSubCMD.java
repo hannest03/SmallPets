@@ -30,8 +30,6 @@ public class GiveUnlockItemSubCMD extends SubCommand {
     @Override
     protected void handleCommand(CommandSender s, String[] args) {
 
-        /*
-
         if(args.length == 2){
 
             Player p = Bukkit.getPlayer(args[0]);
@@ -40,7 +38,16 @@ public class GiveUnlockItemSubCMD extends SubCommand {
 
                 try {
 
-                    SmallPetsCommons.getSmallPetsCommons().getUserManager().giveUserUnlockPetItem(args[1], p, 0L);
+                    String[] split = args[1].split(":");
+                    if(split.length == 2) {
+                        String namespace = split[0];
+                        String id = split[1];
+                        if(!SmallPetsCommons.getSmallPetsCommons().getUserManager().giveUserUnlockPetItem(namespace, id, p, 0L)){
+                            s.sendMessage(SmallPets.getInstance().getPrefix() + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("petNotRegistered"));
+                        }
+                    }else{
+                        s.sendMessage(SmallPets.getInstance().getPrefix() + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("petNotRegistered"));
+                    }
 
                     s.sendMessage(SmallPets.getInstance().getPrefix() + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("givePetUnlockItemSender")
                             .replaceAll("%pet_type%", SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("pet." + args[1]))
@@ -67,8 +74,6 @@ public class GiveUnlockItemSubCMD extends SubCommand {
             s.sendMessage(SmallPets.getInstance().getPrefix() + "/smallpets admin " + getHelp());
 
         }
-
-         */
 
     }
 

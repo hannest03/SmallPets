@@ -13,11 +13,9 @@ import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventBus;
 import it.smallcode.smallpets.core.events.PetLevelUpEvent;
 import it.smallcode.smallpets.core.pets.entityHandler.EntityHandler;
 import it.smallcode.smallpets.core.pets.logic.Logic;
-import it.smallcode.smallpets.core.pets.progressbar.Progressbar;
 import it.smallcode.smallpets.core.pets.recipe.Recipe;
 import it.smallcode.smallpets.core.text.CenteredText;
 import it.smallcode.smallpets.core.utils.LevelColorUtils;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -27,6 +25,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.lang.reflect.Field;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -169,7 +168,6 @@ public class Pet {
             if(getPetType() != null) {
                 String petType = getPetType().getName(SmallPetsCommons.getSmallPetsCommons().getLanguageManager());
                 loreString = loreString.replaceAll("%pet_type%", petType);
-
             }
 
             String abilityStatLore = "";
@@ -313,13 +311,13 @@ public class Pet {
     public Pet clone(){
         Pet pet = new Pet();
 
-        pet.setId(id);
-        pet.setNamespace(namespace);
-
-        pet.setParticle(particle);
-        pet.setAbilities(abilities);
-        pet.setRecipe(recipe);
-        pet.setTextureValue(textureValue);
+        for(Field field : getClass().getDeclaredFields()){
+            try {
+                field.set(pet, field.get(this));
+            } catch (IllegalAccessException ex) {
+                ex.printStackTrace();
+            }
+        }
 
         return pet;
     }

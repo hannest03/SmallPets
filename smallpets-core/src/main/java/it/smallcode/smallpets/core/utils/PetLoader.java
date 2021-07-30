@@ -32,6 +32,7 @@ public class PetLoader {
 
         Pet pet = new Pet();
         pet.setId(jsonObject.get("id").getAsString());
+        pet.setNamespace(jsonObject.get("namespace").getAsString());
         pet.setPetType(PetType.valueOf(jsonObject.get("pettype").getAsString().toUpperCase(Locale.ROOT)));
         pet.setParticle(Particle.valueOf(jsonObject.get("particle").getAsString().toUpperCase(Locale.ROOT)));
 

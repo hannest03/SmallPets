@@ -117,11 +117,17 @@ public class SmallPets extends JavaPlugin {
 
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "Registered abilities");
 
-        Bukkit.getConsoleSender().sendMessage(getPrefix() + "Registering pets...");
+        Bukkit.getConsoleSender().sendMessage(getPrefix() + "Registering pet classes...");
 
-        SmallPetsCommons.getSmallPetsCommons().getPetManager().loadPets();
+        SmallPetsCommons.getSmallPetsCommons().getPetManager().registerPetClasses();
 
-        Bukkit.getConsoleSender().sendMessage(getPrefix() + "Registered pets");
+        Bukkit.getConsoleSender().sendMessage(getPrefix() + "Registered pet classes");
+
+        Bukkit.getConsoleSender().sendMessage(getPrefix() + "Loading pet configs...");
+
+        SmallPetsCommons.getSmallPetsCommons().getPetManager().loadConfigPets();
+
+        Bukkit.getConsoleSender().sendMessage(getPrefix() + "Loaded pet configs");
 
         if(registerCraftingRecipes) {
 

@@ -29,9 +29,6 @@ public class GivePetSubCMD extends SubCommand {
 
     @Override
     public void handleCommand(CommandSender s, String[] args) {
-
-        /*
-
         if (args.length >= 2) {
 
             if (Bukkit.getPlayer(args[0]) != null && Bukkit.getPlayer(args[0]).isOnline()) {
@@ -53,7 +50,16 @@ public class GivePetSubCMD extends SubCommand {
                     SmallPets.getInstance().getUserManager().giveUserAllPets(uuid, exp);
                     args[1] = "all";
                 }else {
-                    SmallPets.getInstance().getUserManager().giveUserPet(args[1].toLowerCase(), uuid, exp);
+                    String[] split = args[1].split(":");
+                    if(split.length == 2) {
+                        String namespace = split[0];
+                        String id = split[1];
+                        if(!SmallPets.getInstance().getUserManager().giveUserPet(namespace, id, uuid, exp)){
+                            s.sendMessage(SmallPets.getInstance().getPrefix() + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("petNotRegistered"));
+                        }
+                    }else{
+                        s.sendMessage(SmallPets.getInstance().getPrefix() + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("petNotRegistered"));
+                    }
                 }
 
                 s.sendMessage(SmallPets.getInstance().getPrefix() + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("givePetSender")
@@ -75,8 +81,6 @@ public class GivePetSubCMD extends SubCommand {
             s.sendMessage(SmallPets.getInstance().getPrefix() + "/smallpets admin " + getHelp());
 
         }
-         */
-
     }
 
     @Override

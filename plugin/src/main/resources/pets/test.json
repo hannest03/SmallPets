@@ -1,0 +1,10 @@
+{
+  "id": "test",
+  "namespace": "test",
+  "pettype": "COMBAT",
+  "default_translation": "translation",
+  "particle": "WATER_BUBBLE",
+  "abilities": [],
+  "recipe": [],
+  "textures": []
+}

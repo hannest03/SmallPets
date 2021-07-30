@@ -24,34 +24,31 @@ import java.util.UUID;
 public class PetFactory {
 
     public static Pet createPet(String namespace, String id, UUID uuid, Player owner, Long exp){
-
         Pet pet = null;
-
         Object object = SmallPetsCommons.getSmallPetsCommons().getPetManager().getPet(namespace, id);
-        if(object.getClass() == Class.class){
-            try {
-                Class clazz = (Class) object;
-                Constructor constructor = clazz.getConstructor();
-                pet = (Pet) constructor.newInstance();
-                pet.setId(id);
-                pet.setNamespace(namespace);
-            } catch (NoSuchMethodException ex) {
-                ex.printStackTrace();
-            } catch (InvocationTargetException ex) {
-                ex.printStackTrace();
-            } catch (InstantiationException ex) {
-                ex.printStackTrace();
-            } catch (IllegalAccessException ex) {
-                ex.printStackTrace();
+        if(object != null)
+            if(object.getClass() == Class.class){
+                try {
+                    Class clazz = (Class) object;
+                    Constructor constructor = clazz.getConstructor();
+                    pet = (Pet) constructor.newInstance();
+                    pet.setId(id);
+                    pet.setNamespace(namespace);
+                } catch (NoSuchMethodException ex) {
+                    ex.printStackTrace();
+                } catch (InvocationTargetException ex) {
+                    ex.printStackTrace();
+                } catch (InstantiationException ex) {
+                    ex.printStackTrace();
+                } catch (IllegalAccessException ex) {
+                    ex.printStackTrace();
+                }
+            }else {
+                pet = ((Pet) SmallPetsCommons.getSmallPetsCommons().getPetManager().getPet(namespace, id)).clone();
             }
-            if(pet == null)
-                return null;
-        }else {
-            pet = ((Pet) SmallPetsCommons.getSmallPetsCommons().getPetManager().getPet(namespace, id)).clone();
-            if (pet == null)
-                return null;
 
-        }
+        if(pet == null)
+            return null;
 
         pet.setUuid(uuid);
         pet.setOwner(owner);

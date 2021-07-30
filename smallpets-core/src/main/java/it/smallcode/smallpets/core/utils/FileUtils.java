@@ -8,6 +8,7 @@ Class created by SmallCode
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import it.smallcode.smallpets.core.manager.PetManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.*;
@@ -21,7 +22,6 @@ public class FileUtils {
 
         File file = new File(to);
         file.delete();
-
         try (InputStream localInputStream = plugin.getResource(from)) {
 
             if (localInputStream != null) {

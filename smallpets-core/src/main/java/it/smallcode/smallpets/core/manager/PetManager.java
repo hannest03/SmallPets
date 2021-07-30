@@ -6,11 +6,16 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.factory.PetFactory;
 import it.smallcode.smallpets.core.pets.Pet;
+import it.smallcode.smallpets.core.utils.FileUtils;
+import it.smallcode.smallpets.core.utils.PetLoader;
 import lombok.Data;
 import lombok.Getter;
+import org.bukkit.Bukkit;
 
+import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
@@ -18,13 +23,45 @@ import java.util.stream.Collectors;
 
 public class PetManager {
 
+    private static final String[] configPets = new String[]{
+            "test"
+    };
+
     @Getter
     protected Map<NamespaceKey, Object> petMap = new HashMap<>();
 
     public void registerPetClasses(){}
 
-    public void loadPets(){
-        registerPetClasses();
+    public void loadConfigPets(){
+
+        File directory = new File(SmallPetsCommons.getSmallPetsCommons().getJavaPlugin().getDataFolder() + "/pets");
+        if(!directory.exists()){
+            directory.mkdirs();
+            for(String s : configPets){
+                FileUtils.insertData("pets/" + s + ".json", directory.getAbsolutePath() + File.separator + s + ".json", SmallPetsCommons.getSmallPetsCommons().getJavaPlugin());
+            }
+        }
+
+        loadDirectory(directory);
+
+    }
+
+    private void loadDirectory(File directory){
+        for(File file : directory.listFiles()){
+            if(file.isDirectory()){
+                loadDirectory(file);
+                continue;
+            }
+            Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "Loading " + file.getName() + "...");
+            Pet pet = PetLoader.loadPet(FileUtils.loadToJson(file));
+            if(pet == null){
+                Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "§cERROR §7Couldn't load " + file.getName() + "!");
+                continue;
+            }
+
+            Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "Loaded " + pet.getNamespace() + ":" + pet.getId() + " pet!");
+            petMap.put(new NamespaceKey(pet.getNamespace(), pet.getId()), pet);
+        }
     }
 
     public void registerCraftingRecipe(){
