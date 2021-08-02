@@ -7,6 +7,7 @@ Class created by SmallCode
 */
 
 import com.google.gson.JsonObject;
+import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.pets.Pet;
 import it.smallcode.smallpets.core.pets.PetType;
 import org.bukkit.Particle;
@@ -36,8 +37,17 @@ public class PetLoader {
         pet.setPetType(PetType.valueOf(jsonObject.get("pettype").getAsString().toUpperCase(Locale.ROOT)));
         pet.setParticle(Particle.valueOf(jsonObject.get("particle").getAsString().toUpperCase(Locale.ROOT)));
 
-        //TODO: Add default translation and translation key
+        String translationKey = "pet." + pet.getId();
+        if(jsonObject.has("translation_key")){
+            translationKey = jsonObject.get("translation_key").getAsString();
+        }
 
+        pet.setTranslationKey(translationKey);
+        if(SmallPetsCommons.getSmallPetsCommons().getLanguageManager() != null && SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage() != null) {
+            if(SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getString(translationKey).equals("translations." + translationKey)) {
+                SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getTranslations().put("translations." + translationKey, jsonObject.get("default_translation").getAsString());
+            }
+        }
         return pet;
     }
 

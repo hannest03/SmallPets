@@ -38,6 +38,8 @@ public class Pet {
     private String id;
     private UUID uuid;
 
+    private String translationKey;
+
     private PetType petType;
     private long exp;
     private boolean activated;
@@ -159,9 +161,7 @@ public class Pet {
     }
 
     public ItemStack getDisplayItem() {
-
         ItemStack itemStack = getItem();
-
         if(itemStack != null) {
 
             ItemMeta itemMeta = itemStack.getItemMeta();
@@ -195,15 +195,10 @@ public class Pet {
             loreString = loreString.replaceAll("%abilities%", abilityStatLore + abilityLore);
 
             int maxLength = 0;
-
             for(String s : loreString.split("\n")){
-
                 if(ChatColor.stripColor(s).length() > maxLength){
-
                     maxLength = ChatColor.stripColor(s).length();
-
                 }
-
             }
 
             List<String> progressBar = SmallPetsCommons.getSmallPetsCommons().getProgressbar().generateFullProgressbar(getExp(), getLevel());
@@ -252,7 +247,7 @@ public class Pet {
     }
 
     public String getName(){
-        return SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("pet." + getId());
+        return SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted(translationKey);
     }
 
     public void setCustomName(String name){

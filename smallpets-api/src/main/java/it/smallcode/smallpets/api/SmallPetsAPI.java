@@ -15,6 +15,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -26,8 +27,8 @@ public class SmallPetsAPI {
      *
      * @return a list with all pet ids
      */
-    public static Set<String> getAllPetIDs(){
-       return SmallPetsCommons.getSmallPetsCommons().getPetMapManager().getPetMap().keySet();
+    public static List<String> getAllPetIDs(){
+       return SmallPetsCommons.getSmallPetsCommons().getPetManager().getPetKeys();
     }
 
     /**
@@ -41,11 +42,11 @@ public class SmallPetsAPI {
      * @param type - the pet type
      * @return the pet
      */
-    public static Pet getPet(Player p, String type){
+    public static Pet getPet(Player p, String namespace, String type){
         User user = SmallPetsCommons.getSmallPetsCommons().getUserManager().getUser(p.getUniqueId().toString());
         if(user == null)
             return null;
-        return user.getPetFromType(type);
+        return user.getPetFromNamespaceAndType(namespace, type);
     }
 
     /**

@@ -25,10 +25,14 @@ import it.smallcode.smallpets.v1_16.*;
 import it.smallcode.smallpets.v1_17.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.lang.reflect.Field;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -308,6 +312,13 @@ public class SmallPets extends JavaPlugin {
         petLore.add("%progress_bar%");
 
         cfg.addDefault("pet_lore", petLore);
+
+        ItemStack itemStack = new ItemStack(Material.OAK_BOAT);
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        itemMeta.setDisplayName("&eTest");
+        itemStack.setItemMeta(itemMeta);
+
+        cfg.addDefault("testItemStack", itemStack);
 
         getConfig().options().copyDefaults(true);
 

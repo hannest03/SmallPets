@@ -33,7 +33,6 @@ public class PetManager {
     public void registerPetClasses(){}
 
     public void loadConfigPets(){
-
         File directory = new File(SmallPetsCommons.getSmallPetsCommons().getJavaPlugin().getDataFolder() + "/pets");
         if(!directory.exists()){
             directory.mkdirs();
@@ -41,9 +40,7 @@ public class PetManager {
                 FileUtils.insertData("pets/" + s + ".json", directory.getAbsolutePath() + File.separator + s + ".json", SmallPetsCommons.getSmallPetsCommons().getJavaPlugin());
             }
         }
-
         loadDirectory(directory);
-
     }
 
     private void loadDirectory(File directory){
@@ -92,6 +89,7 @@ public class PetManager {
             Pet pet = (Pet) constructor.newInstance();
             pet.setId(id);
             pet.setNamespace(namespace);
+            pet.setTranslationKey("pet." + pet.getId());
 
             NamespaceKey namespaceKey = new NamespaceKey(namespace, id);
             petMap.put(namespaceKey, clazz);

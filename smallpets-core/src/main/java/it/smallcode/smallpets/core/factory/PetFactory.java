@@ -34,6 +34,7 @@ public class PetFactory {
                     pet = (Pet) constructor.newInstance();
                     pet.setId(id);
                     pet.setNamespace(namespace);
+                    pet.setTranslationKey("pet." + pet.getId());
                 } catch (NoSuchMethodException ex) {
                     ex.printStackTrace();
                 } catch (InvocationTargetException ex) {
