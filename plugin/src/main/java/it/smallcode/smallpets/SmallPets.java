@@ -8,6 +8,8 @@ Class created by SmallCode
 
 import it.smallcode.smallpets.cmds.*;
 import it.smallcode.smallpets.core.SmallPetsCommons;
+import it.smallcode.smallpets.core.conditions.BasicCondition;
+import it.smallcode.smallpets.core.conditions.DateCondition;
 import it.smallcode.smallpets.core.pets.experience.LogisticalGrowFormula;
 import it.smallcode.smallpets.core.pets.progressbar.DefaultProgressbar;
 import it.smallcode.smallpets.core.pets.progressbar.PercentageProgressbar;
@@ -110,6 +112,10 @@ public class SmallPets extends JavaPlugin {
             }
 
         }
+
+        SmallPetsCommons.getSmallPetsCommons().setConditionsManager(new ConditionsManager());
+        SmallPetsCommons.getSmallPetsCommons().getConditionsManager().addCondition(BasicCondition.id, BasicCondition.class);
+        SmallPetsCommons.getSmallPetsCommons().getConditionsManager().addCondition(DateCondition.id, DateCondition.class);
 
         if(!selectRightVersion())
             return;

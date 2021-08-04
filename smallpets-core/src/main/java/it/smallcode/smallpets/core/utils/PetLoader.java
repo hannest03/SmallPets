@@ -6,10 +6,13 @@ Class created by SmallCode
 
 */
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import it.smallcode.smallpets.core.SmallPetsCommons;
+import it.smallcode.smallpets.core.conditions.Condition;
 import it.smallcode.smallpets.core.pets.Pet;
 import it.smallcode.smallpets.core.pets.PetType;
+import it.smallcode.smallpets.core.pets.Texture;
 import org.bukkit.Particle;
 
 import java.util.Locale;
@@ -36,6 +39,10 @@ public class PetLoader {
         pet.setNamespace(jsonObject.get("namespace").getAsString());
         pet.setPetType(PetType.valueOf(jsonObject.get("pettype").getAsString().toUpperCase(Locale.ROOT)));
         pet.setParticle(Particle.valueOf(jsonObject.get("particle").getAsString().toUpperCase(Locale.ROOT)));
+
+        if(jsonObject.has("textures")){
+            pet.setTextures(loadTexturesArray(jsonObject.get("textures").getAsJsonArray()));
+        }
 
         String translationKey = "pet." + pet.getId();
         if(jsonObject.has("translation_key")){
@@ -70,6 +77,56 @@ public class PetLoader {
         }
 
         return true;
+    }
+
+    private static Texture[] loadTexturesArray(JsonArray array){
+        Texture[] textures = new Texture[array.size()];
+        for(int i = 0; i < array.size(); i++){
+            System.out.println("-------------");
+            Texture texture = loadTexture(array.get(i).getAsJsonObject());
+            textures[i] = texture;
+        }
+        return textures;
+    }
+
+    private static Texture loadTexture(JsonObject object){
+        Texture texture = new Texture();
+        if(object.has("priority")){
+            texture.setPriority(object.get("priority").getAsInt());
+            System.out.println(texture.getPriority());
+        }
+        if(object.has("texture")){
+            texture.setTexture(object.get("texture").getAsString());
+            System.out.println(texture.getTexture());
+        }
+        if(object.has("conditions")){
+            texture.setConditions(loadConditionsArray(object.get("conditions").getAsJsonArray()));
+        }
+        return texture;
+    }
+
+    private static Condition[] loadConditionsArray(JsonArray array){
+        Condition[] conditions = new Condition[array.size()];
+        for(int i = 0; i < array.size(); i++){
+            Condition condition = loadCondition(array.get(i).getAsJsonObject());
+            if(condition == null)
+                continue;
+            conditions[i] = condition;
+        }
+        return conditions;
+    }
+
+    private static Condition loadCondition(JsonObject object){
+        if(!object.has("id"))
+            return null;
+
+        String id = object.get("id").getAsString();
+        System.out.println(id);
+        Condition condition = SmallPetsCommons.getSmallPetsCommons().getConditionsManager().getCondition(id);
+        if(condition == null)
+            return null;
+        condition.load(object);
+        return condition;
     }
 
 }

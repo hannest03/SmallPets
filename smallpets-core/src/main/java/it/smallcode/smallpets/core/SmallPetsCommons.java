@@ -66,6 +66,7 @@ public class SmallPetsCommons {
 
     private ExperienceManager experienceManager;
     private AbilityManager abilityManager;
+    private ConditionsManager conditionsManager;
 
     private SortManager sortManager = new SortManager();
 

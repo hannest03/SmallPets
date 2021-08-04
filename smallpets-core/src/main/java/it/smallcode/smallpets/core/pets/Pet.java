@@ -16,6 +16,7 @@ import it.smallcode.smallpets.core.pets.logic.Logic;
 import it.smallcode.smallpets.core.pets.recipe.Recipe;
 import it.smallcode.smallpets.core.text.CenteredText;
 import it.smallcode.smallpets.core.utils.LevelColorUtils;
+import it.smallcode.smallpets.core.utils.TextureUtils;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -51,6 +52,7 @@ public class Pet {
 
     private Particle particle = Particle.VILLAGER_HAPPY;
     private String textureValue;
+    private Texture[] textures = new Texture[0];
     private List<Ability> abilities = new LinkedList<>();
 
     private EntityHandler entityHandler;
@@ -102,6 +104,10 @@ public class Pet {
 
     protected void updateTexture(){
         setTextureValue("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGI3ZjY2M2Q2NWNkZWQ3YmQzNjUxYmRkZDZkYjU0NjM2MGRkNzczYWJiZGFmNDhiODNhZWUwOGUxY2JlMTQifX19");
+        String texture = TextureUtils.getTexture(textures);
+        if(texture != null && !texture.isEmpty()){
+            setTextureValue(texture);
+        }
     }
 
     public void giveExp(long exp){
