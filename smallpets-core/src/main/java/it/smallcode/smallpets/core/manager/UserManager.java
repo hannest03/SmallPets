@@ -375,13 +375,11 @@ public class UserManager {
      */
 
     public void despawnPets(){
-
-        for(User user : users){
-
-            user.despawnSelected();
-
+        synchronized (users) {
+            for (User user : users) {
+                user.despawnSelected();
+            }
         }
-
     }
 
     /**
@@ -407,14 +405,12 @@ public class UserManager {
      */
 
     public void spawnPets(){
-
-        for(User user : users){
-
-            if(Bukkit.getOfflinePlayer(user.getUuid()).isOnline())
-                user.spawnSelected();
-
+        synchronized (users) {
+            for (User user : users) {
+                if (Bukkit.getOfflinePlayer(UUID.fromString(user.getUuid())).isOnline())
+                    user.spawnSelected();
+            }
         }
-
     }
 
     /**
