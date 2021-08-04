@@ -82,7 +82,6 @@ public class PetLoader {
     private static Texture[] loadTexturesArray(JsonArray array){
         Texture[] textures = new Texture[array.size()];
         for(int i = 0; i < array.size(); i++){
-            System.out.println("-------------");
             Texture texture = loadTexture(array.get(i).getAsJsonObject());
             textures[i] = texture;
         }
@@ -93,11 +92,9 @@ public class PetLoader {
         Texture texture = new Texture();
         if(object.has("priority")){
             texture.setPriority(object.get("priority").getAsInt());
-            System.out.println(texture.getPriority());
         }
         if(object.has("texture")){
             texture.setTexture(object.get("texture").getAsString());
-            System.out.println(texture.getTexture());
         }
         if(object.has("conditions")){
             texture.setConditions(loadConditionsArray(object.get("conditions").getAsJsonArray()));
@@ -121,7 +118,6 @@ public class PetLoader {
             return null;
 
         String id = object.get("id").getAsString();
-        System.out.println(id);
         Condition condition = SmallPetsCommons.getSmallPetsCommons().getConditionsManager().getCondition(id);
         if(condition == null)
             return null;
