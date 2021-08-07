@@ -125,6 +125,17 @@ public class PetManager {
         return petMap.get(namespaceKey);
     }
 
+    public String getPetNamespace(String id){
+        Optional<NamespaceKey> optNamespaceKey = petMap.keySet()
+                .stream()
+                .filter(namespaceKey -> namespaceKey.getId().equals(id))
+                .findFirst();
+        if(!optNamespaceKey.isPresent())
+            return null;
+
+        return optNamespaceKey.get().getNamespace();
+    }
+
     public List<String> getPetKeys(){
         List<String> keys = petMap.keySet()
                                 .stream()

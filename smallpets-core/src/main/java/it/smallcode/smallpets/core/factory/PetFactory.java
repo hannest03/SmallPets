@@ -34,6 +34,8 @@ public class PetFactory {
                     pet = (Pet) constructor.newInstance();
                     pet.setId(id);
                     pet.setNamespace(namespace);
+                    if(namespace == null)
+                        pet.setNamespace(SmallPetsCommons.getSmallPetsCommons().getPetManager().getPetNamespace(id));
                     pet.setTranslationKey("pet." + pet.getId());
                 } catch (NoSuchMethodException ex) {
                     ex.printStackTrace();

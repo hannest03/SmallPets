@@ -438,7 +438,8 @@ public class User {
 
         Map<String, Object> data = new HashMap<>();
 
-        data.put("type", pet.getId());
+        data.put("namespace", pet.getNamespace());
+        data.put("id", pet.getId());
         data.put("exp", String.valueOf(pet.getExp()));
         data.put("uuid", pet.getUuid().toString());
 
@@ -458,7 +459,12 @@ public class User {
 
     private Pet unserializePet(Map<String, Object> data){
 
-        String type = (String) data.get("type");
+        String id = (String) data.get("id");
+        if(id == null){
+            id = (String) data.get("type");
+        }
+
+        String namespace = (String) data.get("namespace");
 
         UUID petUUID;
         if(data.get("uuid") != null)
@@ -468,10 +474,20 @@ public class User {
 
         long exp = Long.valueOf((String) data.get("exp"));
 
-        if(SmallPetsCommons.getSmallPetsCommons().getPetManager().getPet(type) != null){
+        Object pet;
+        if(namespace == null){
+            pet = SmallPetsCommons.getSmallPetsCommons().getPetManager().getPet(id);
+        }else{
+            pet = SmallPetsCommons.getSmallPetsCommons().getPetManager().getPet(namespace, id);
+        }
 
-            return PetFactory.createPet(type, petUUID, Bukkit.getPlayer(UUID.fromString(uuid)), exp);
+        if(pet != null){
 
+            if(namespace == null) {
+                return PetFactory.createPet(id, petUUID, Bukkit.getPlayer(UUID.fromString(uuid)), exp);
+            }else{
+                return PetFactory.createPet(namespace, id, petUUID, Bukkit.getPlayer(UUID.fromString(uuid)), exp);
+            }
         }
 
         return null;
