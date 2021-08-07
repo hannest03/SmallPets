@@ -6,6 +6,9 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.core.SmallPetsCommons;
+import it.smallcode.smallpets.core.abilities.abilities.DamageAbility;
+import it.smallcode.smallpets.core.abilities.abilities.HealthAbility;
+import it.smallcode.smallpets.core.manager.AbilityManager;
 import it.smallcode.smallpets.core.pets.Pet;
 import it.smallcode.smallpets.core.pets.PetType;
 import it.smallcode.smallpets.core.pets.experience.LinearGrowFormula;
@@ -154,6 +157,14 @@ public class PetTest {
     public void loadPetString() {
         final String jsonString = "{ \"id\":\"test\" }";
         assertEquals(null, PetLoader.loadPet(FileUtils.loadToJson(jsonString)));
+
+        SmallPetsCommons.getSmallPetsCommons().setAbilityManager(new AbilityManager() {
+            @Override
+            public void registerAbilities() {
+                registerAbility("health_ability", HealthAbility.class);
+                registerAbility("damage_ability", DamageAbility.class);
+            }
+        });
 
         ClassLoader classLoader = getClass().getClassLoader();
         File file = new File(classLoader.getResource("samplepet.json").getFile());

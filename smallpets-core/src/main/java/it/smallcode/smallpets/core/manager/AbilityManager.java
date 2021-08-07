@@ -14,7 +14,7 @@ import java.util.Map;
 
 public abstract class AbilityManager {
 
-    private HashMap<String, Class> abilityMap;
+    private final HashMap<String, Class> abilityMap;
 
     /**
      *
@@ -24,7 +24,7 @@ public abstract class AbilityManager {
 
     public AbilityManager() {
 
-        abilityMap = new HashMap<String, Class>();
+        abilityMap = new HashMap<>();
 
     }
 
@@ -37,47 +37,20 @@ public abstract class AbilityManager {
     public abstract void registerAbilities();
 
     public void registerAbility(String id, Class clazz){
-
         abilityMap.put(id, clazz);
-
-        createAbility(id);
-
+        Ability ability = createAbility(id);
+        AbilityEventBus.register(ability);
     }
 
     public Ability createAbility(String id){
-
         if(abilityMap.get(id) != null){
-
             try {
-
-                /*
-
-                Constructor constructor = abilityMap.get(id).getConstructor();
-
-                Ability ability = (Ability) constructor.newInstance();
-
-                */
-
-                Ability ability = (Ability) abilityMap.get(id).newInstance();
-
-                AbilityEventBus.register(ability);
-
-                return ability;
-
-            } catch (InstantiationException ex) {
-
+                return (Ability) abilityMap.get(id).newInstance();
+            } catch (InstantiationException | IllegalAccessException ex) {
                 ex.printStackTrace();
-
-            } catch (IllegalAccessException ex) {
-
-                ex.printStackTrace();
-
             }
-
         }
-
         return null;
-
     }
 
     public boolean hasID(String id){

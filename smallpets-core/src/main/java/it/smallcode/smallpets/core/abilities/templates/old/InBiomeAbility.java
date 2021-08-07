@@ -1,4 +1,4 @@
-package it.smallcode.smallpets.core.abilities.templates;
+package it.smallcode.smallpets.core.abilities.templates.old;
 /*
 
 Class created by SmallCode
@@ -6,12 +6,14 @@ Class created by SmallCode
 
 */
 
+import com.google.gson.JsonObject;
 import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.abilities.Ability;
 import it.smallcode.smallpets.core.abilities.AbilityType;
 import it.smallcode.smallpets.core.pets.Pet;
 import it.smallcode.smallpets.core.utils.StringUtils;
 import org.bukkit.block.Biome;
+import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,9 +25,22 @@ public class InBiomeAbility extends Ability {
 
     public InBiomeAbility(List<Biome> biomes){
 
-        super(AbilityType.ABILITY);
-
         this.biomes = biomes;
+
+    }
+
+    @Override
+    public void load(JsonObject jsonObject) {
+
+    }
+
+    @Override
+    public void addBoost(Player p, Ability ability) {
+
+    }
+
+    @Override
+    public void removeBoost(Player p, Ability ability) {
 
     }
 

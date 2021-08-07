@@ -9,12 +9,15 @@ Class created by SmallCode
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import it.smallcode.smallpets.core.SmallPetsCommons;
+import it.smallcode.smallpets.core.abilities.Ability;
 import it.smallcode.smallpets.core.conditions.Condition;
 import it.smallcode.smallpets.core.pets.Pet;
 import it.smallcode.smallpets.core.pets.PetType;
 import it.smallcode.smallpets.core.pets.Texture;
 import org.bukkit.Particle;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Locale;
 
 public class PetLoader {
@@ -55,6 +58,10 @@ public class PetLoader {
                 SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getTranslations().put("translations." + translationKey, jsonObject.get("default_translation").getAsString());
             }
         }
+
+        // Load abilities
+        pet.setAbilities(loadAbilitiesList(jsonObject.get("abilities").getAsJsonArray()));
+
         return pet;
     }
 
@@ -123,6 +130,28 @@ public class PetLoader {
             return null;
         condition.load(object);
         return condition;
+    }
+
+    private static List<Ability> loadAbilitiesList(JsonArray array){
+        List<Ability> abilities = new LinkedList<>();
+        for(int i = 0; i < array.size(); i++){
+            Ability ability = loadAbility(array.get(i).getAsJsonObject());
+            if(ability != null)
+                abilities.add(ability);
+        }
+        return abilities;
+    }
+
+    private static Ability loadAbility(JsonObject object){
+        if(!object.has("id"))
+            return null;
+
+        String id = object.get("id").getAsString();
+        Ability ability = SmallPetsCommons.getSmallPetsCommons().getAbilityManager().createAbility(id);
+        if(ability == null)
+            return null;
+        ability.load(object);
+        return ability;
     }
 
 }

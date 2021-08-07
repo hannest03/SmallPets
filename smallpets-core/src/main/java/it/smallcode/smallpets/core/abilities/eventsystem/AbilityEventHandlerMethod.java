@@ -15,6 +15,7 @@ import org.bukkit.entity.Player;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.UUID;
 
 public class AbilityEventHandlerMethod {
@@ -28,19 +29,15 @@ public class AbilityEventHandlerMethod {
     }
 
     public void fire(Object event) throws InvocationTargetException, IllegalAccessException {
-
         if(event instanceof AbilityEvent) {
-
             AbilityEvent abilityEvent = (AbilityEvent) event;
-
             Player p = Bukkit.getPlayer(UUID.fromString(abilityEvent.getUser().getUuid()));
-
-            if(SmallPetsCommons.getSmallPetsCommons().isUseWorldGuard())
-                if(!WorldGuardImp.checkStateFlag(p, SmallFlags.ALLOW_ABILITIES))
+            if(SmallPetsCommons.getSmallPetsCommons().isUseWorldGuard()) {
+                if (!WorldGuardImp.checkStateFlag(p, SmallFlags.ALLOW_ABILITIES)) {
                     return;
-
+                }
+            }
             method.invoke(listener, event);
-
         }
 
     }

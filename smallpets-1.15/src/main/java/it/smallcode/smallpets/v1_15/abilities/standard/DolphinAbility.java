@@ -10,9 +10,7 @@ import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.abilities.Ability;
 import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventHandler;
 import it.smallcode.smallpets.core.abilities.eventsystem.events.InWaterMoveEvent;
-import it.smallcode.smallpets.core.abilities.templates.SpeedBoostAbility;
-import it.smallcode.smallpets.core.pets.Pet;
-import org.bukkit.Bukkit;
+import it.smallcode.smallpets.core.abilities.templates.old.SpeedBoostAbility;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 

@@ -11,7 +11,7 @@ import it.smallcode.smallpets.core.abilities.Ability;
 import it.smallcode.smallpets.core.abilities.AbilityType;
 import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventHandler;
 import it.smallcode.smallpets.core.abilities.eventsystem.events.*;
-import it.smallcode.smallpets.core.abilities.templates.StatBoostAbility;
+import it.smallcode.smallpets.core.abilities.templates.old.StatBoostAbility;
 import it.smallcode.smallpets.core.manager.types.User;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

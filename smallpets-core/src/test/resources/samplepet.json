@@ -7,8 +7,10 @@
   "abilities":[
     {
       "id":"damage_ability",
-      "min_stat":5.0,
-      "max_stat":25.0
+      "ability_type": "STAT",
+      "description": "&7Deal &c+%extraStat%%&7 more damage!",
+      "min_stat_boost":5.0,
+      "max_stat_boost":25.0
     }
   ],
   "recipe":[],

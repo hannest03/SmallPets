@@ -26,7 +26,15 @@ public class UnbreakableBowAbility extends Ability {
 
     public UnbreakableBowAbility(){
 
-        super(AbilityType.ABILITY);
+    }
+
+    @Override
+    public void addBoost(Player p, Ability ability) {
+
+    }
+
+    @Override
+    public void removeBoost(Player p, Ability ability) {
 
     }
 

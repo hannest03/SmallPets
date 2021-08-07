@@ -1,4 +1,4 @@
-package it.smallcode.smallpets.core.abilities.templates;
+package it.smallcode.smallpets.core.abilities.templates.old;
 /*
 
 Class created by SmallCode

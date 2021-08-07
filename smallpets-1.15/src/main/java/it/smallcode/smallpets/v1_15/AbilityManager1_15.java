@@ -6,6 +6,8 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.core.abilities.abilities.DamageAbility;
+import it.smallcode.smallpets.core.abilities.abilities.HealthAbility;
 import it.smallcode.smallpets.core.manager.AbilityManager;
 import it.smallcode.smallpets.v1_15.abilities.aureliumskills.AureliumSkillsHealthAbility;
 import it.smallcode.smallpets.v1_15.abilities.standard.*;
