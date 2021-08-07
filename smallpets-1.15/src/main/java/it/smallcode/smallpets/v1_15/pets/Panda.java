@@ -6,23 +6,15 @@ Class created by SmallCode
 
 */
 
-import it.smallcode.smallpets.core.SmallPetsCommons;
+import it.smallcode.smallpets.core.abilities.abilities.DamageAbility;
+import it.smallcode.smallpets.core.abilities.abilities.HealthAbility;
 import it.smallcode.smallpets.core.pets.Pet;
 import it.smallcode.smallpets.core.pets.PetType;
 import it.smallcode.smallpets.core.pets.recipe.Recipe;
-import it.smallcode.smallpets.v1_15.abilities.aureliumskills.AureliumSkillsHealthAbility;
-import it.smallcode.smallpets.v1_15.abilities.standard.DamageAbility;
-import it.smallcode.smallpets.v1_15.abilities.standard.HealthAbility;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.ShapedRecipe;
-import org.bukkit.plugin.Plugin;
 
 import java.util.Date;
-import java.util.UUID;
 
 public class Panda extends Pet {
 
@@ -30,9 +22,14 @@ public class Panda extends Pet {
         super();
         super.setPetType(PetType.FARMING);
 
-        super.getAbilities().add(new HealthAbility(4));
+        HealthAbility healthAbility = new HealthAbility();
+        healthAbility.setMaxStatBoost(4);
+        super.getAbilities().add(healthAbility);
 
-        super.getAbilities().add(new DamageAbility(5, 1));
+        DamageAbility damageAbility = new DamageAbility();
+        damageAbility.setMinStatBoost(1);
+        damageAbility.setMaxStatBoost(5);
+        super.getAbilities().add(damageAbility);
 
         ItemStack[] items = new ItemStack[9];
         items[1] = new ItemStack(Material.BLACK_WOOL);

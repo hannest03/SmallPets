@@ -52,27 +52,27 @@ translations:
     foraging: 'Recherche'
   ability:
     damage_ability:
-      description: '&7Inflige &c+%extraStat%%&7 de dégâts supplémentaires!'
+      description: '&7Inflige &c+%extra_stat%%&7 de dégâts supplémentaires!'
     health_ability:
-      description: '&7Donne &a+%extraStat%&7 points de vie supplémentaires!'
+      description: '&7Donne &a+%extra_stat%&7 points de vie supplémentaires!'
     aurelium_skills_health_ability:
-      description: '&7Donne &a+%extraStat%&7 points de vie supplémentaires!'
+      description: '&7Donne &a+%extra_stat%&7 points de vie supplémentaires!'
     water_speed_ability:
-      description: "&7Marchez &a+%extraStat%%&7 plus vite dans l'eau!"
+      description: "&7Marchez &a+%extra_stat%%&7 plus vite dans l'eau!"
     speed_in_biome_ability:
       name: 'Habitat naturel'
       description: '&7Rend plus rapide dans les &7biomes %biomes% '
     dont_consume_arrow_ability:
-      description: "&c%extraStat%% &7de chance de ne pas utiliser de flèches"
+      description: "&c%extra_stat% &7de chance de ne pas utiliser de flèches"
     unbreakable_bow_ability:
       name: "Expert de l'arc"
       description: "&7Votre arc ne s'abîme pas lorsque vous tirez"
     faster_mining_speed_ability:
       name: 'Mineur professionnel'
-      description: "&7Vous donne l'&7effet permanent &ccélérité &c%extraStat%"
+      description: "&7Vous donne l'&7effet permanent &ccélérité &c%extra_stat%"
     heal_while_in_water_ability:
       name: 'Habitat naturel'
-      description: "&7Vous donne l'&7effet &cregeneration &c%extraStat% tant que vous êtes dans l'eau"
+      description: "&7Vous donne l'&7effet &cregeneration &c%extra_stat% tant que vous êtes dans l'eau"
   inventory:
     sort:
       name: "&6Sort"

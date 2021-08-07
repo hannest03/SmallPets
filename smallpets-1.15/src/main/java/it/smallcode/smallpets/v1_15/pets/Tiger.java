@@ -6,6 +6,8 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.core.abilities.AbilityType;
+import it.smallcode.smallpets.core.abilities.abilities.DamageAbility;
 import it.smallcode.smallpets.core.conditions.BasicCondition;
 import it.smallcode.smallpets.core.conditions.Condition;
 import it.smallcode.smallpets.core.conditions.DateCondition;
@@ -14,9 +16,7 @@ import it.smallcode.smallpets.core.pets.Pet;
 import it.smallcode.smallpets.core.pets.PetType;
 import it.smallcode.smallpets.core.pets.Texture;
 import it.smallcode.smallpets.core.pets.recipe.Recipe;
-import it.smallcode.smallpets.v1_15.abilities.standard.DamageAbility;
 import org.bukkit.Material;
-import org.bukkit.Particle;
 import org.bukkit.inventory.ItemStack;
 
 import java.text.ParseException;
@@ -28,7 +28,12 @@ public class Tiger extends Pet {
         super();
 
         super.setPetType(PetType.COMBAT);
-        super.getAbilities().add(new DamageAbility(20));
+
+        DamageAbility damageAbility = new DamageAbility();
+        damageAbility.setAbilityType(AbilityType.STAT);
+        damageAbility.setMaxStatBoost(20);
+        damageAbility.setDescription("{{ability.damage_ability.description}}");
+        super.getAbilities().add(damageAbility);
 
         ItemStack[] items = new ItemStack[9];
         items[1] = new ItemStack(Material.MUTTON);

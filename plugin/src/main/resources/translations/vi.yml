@@ -47,27 +47,27 @@ translations:
     foraging: Chặt cây
   ability:
     damage_ability:
-      description: '&7Gây thêm &c+%extraStat%%&7 về sát thương!'
+      description: '&7Gây thêm &c+%extra_stat%%&7 về sát thương!'
     health_ability:
-      description: '&7Nhận thêm &a+%extraStat%&7 về sức lực!'
+      description: '&7Nhận thêm &a+%extra_stat%&7 về sức lực!'
     aurelium_skills_health_ability:
-      description: '&7Nhận thêm &a+%extraStat%&7 về máu!'
+      description: '&7Nhận thêm &a+%extra_stat%&7 về máu!'
     water_speed_ability:
-      description: '&7Tăng thêm &a+%extraStat%%&7 khi đi trên nước!'
+      description: '&7Tăng thêm &a+%extra_stat%%&7 khi đi trên nước!'
     speed_in_biome_ability:
       name: Tăng Cơ
       description: '&7Giúp bạn chạy nhanh hơn trong &7môi trường&a %biomes%'
     dont_consume_arrow_ability:
-      description: '&c%extraStat%% &7tăng cơ hội không tốn mũi tên khi bắn'
+      description: '&c%extra_stat%% &7tăng cơ hội không tốn mũi tên khi bắn'
     unbreakable_bow_ability:
       name: Kinh Nghiệm
       description: '&7Cung của bạn không bị hư hại khi bắn'
     faster_mining_speed_ability:
       name: Thuần Phục
-      description: '&7Trao cho bạn hiệu ứng &e⚒ đào nhanh &c%extraStat%'
+      description: '&7Trao cho bạn hiệu ứng &e⚒ đào nhanh &c%extra_stat%'
     heal_while_in_water_ability:
       name: Natural habitat
-      description: '&Trao cho bạn hiệu ứng &c❤ hồi phục &c%extraStat% &7khi ở trong
+      description: '&Trao cho bạn hiệu ứng &c❤ hồi phục &c%extra_stat% &7khi ở trong
         nước'
   inventory:
     sort:

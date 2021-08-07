@@ -40,23 +40,23 @@ translations:
       name: 'Natürlicher Lebensraum'
       description: '&7Lässt dich in den %biomes% &7Biomen schneller laufen'
     damage_ability:
-      description: '&7Mach &c+%extraStat%%&7 mehr schaden!'
+      description: '&7Mach &c+%extra_stat%%&7 mehr schaden!'
     faster_mining_speed_ability:
       name: 'Trainiert'
-      description: '&7Gibt dir einen permanenten &cEile &c%extraStat% &7Effekt'
+      description: '&7Gibt dir einen permanenten &cEile &c%extra_stat% &7Effekt'
     dont_consume_arrow_ability:
-      description: '&c%extraStat%% &7Chance keine Pfeile zu verbrauchen'
+      description: '&c%extra_stat%% &7Chance keine Pfeile zu verbrauchen'
     unbreakable_bow_ability:
       description: '&7Dein Bogen bekommt beim benutzen keinen Schaden'
       name: 'Erfahren'
     heal_while_in_water_ability:
-      description: '&7Gibt dir einen &cRegeneration &c%extraStat% &7Effekt während du
+      description: '&7Gibt dir einen &cRegeneration &c%extra_stat% &7Effekt während du
         im Wasser bist'
       name: 'Natürlicher Lebensraum'
     health_ability:
-      description: '&7Gibt dir &a+%extraStat%&7 mehr Leben'
+      description: '&7Gibt dir &a+%extra_stat%&7 mehr Leben'
     aurelium_skills_health_ability:
-      description: '&7Gibt dir &a+%extraStat%&7 mehr Leben'
+      description: '&7Gibt dir &a+%extra_stat%&7 mehr Leben'
   petType:
     foraging: 'Holzfäller Haustier'
     fishing: 'Fischen Haustier'

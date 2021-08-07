@@ -48,18 +48,18 @@ translations:
     foraging: Mascota forrajera
   ability:
     damage_ability:
-      description: '&7Causa &c+%extraStat%%&7 de daño!'
+      description: '&7Causa &c+%extra_stat%%&7 de daño!'
     health_ability:
-      description: '&7Da &a+%extraStat%&7 de vida!'
+      description: '&7Da &a+%extra_stat%&7 de vida!'
     aurelium_skills_health_ability:
-      description: '&7Da &a+%extraStat%&7 de vida!'
+      description: '&7Da &a+%extra_stat%&7 de vida!'
     water_speed_ability:
-      description: '&7Camina &a+%extraStat%%&7 rapido en agua!'
+      description: '&7Camina &a+%extra_stat%%&7 rapido en agua!'
     speed_in_biome_ability:
       name: Habitat natural
       description: '&7Te hace mas rapido en los biomas %biomes%&7.'
     dont_consume_arrow_ability:
-      description: 'Da un &c%extraStat%% &7de probabilidad de no consumir flechas'
+      description: 'Da un &c%extra_stat%% &7de probabilidad de no consumir flechas'
     unbreakable_bow_ability:
       name: Experimentado
       description: '&7Tu arco no recibe daño al disparar'
@@ -68,7 +68,7 @@ translations:
       description: '&7Te da el efecto de &chaste &c%extraStat% &7permanente'
     heal_while_in_water_ability:
       name: Habitat natural
-      description: '&7Te da el efecto de &cregeneracion &c%extraStat% &7mientras estas en agua'
+      description: '&7Te da el efecto de &cregeneracion &c%extra_stat% &7mientras estas en agua'
   inventory:
     sort:
       name: '&6Ordenar'

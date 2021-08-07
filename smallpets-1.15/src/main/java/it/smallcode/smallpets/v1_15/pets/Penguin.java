@@ -6,17 +6,13 @@ Class created by SmallCode
 
 */
 
-import it.smallcode.smallpets.core.SmallPetsCommons;
+import it.smallcode.smallpets.core.abilities.abilities.HealthAbility;
 import it.smallcode.smallpets.core.pets.Pet;
 import it.smallcode.smallpets.core.pets.PetType;
 import it.smallcode.smallpets.core.pets.recipe.Recipe;
-import it.smallcode.smallpets.v1_15.abilities.standard.HealthAbility;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.Particle;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.ShapedRecipe;
 
 import java.util.Date;
 
@@ -28,7 +24,10 @@ public class Penguin extends Pet {
 
         super.setParticle(Particle.WATER_BUBBLE);
 
-        super.getAbilities().add(new HealthAbility(10, 2));
+        HealthAbility healthAbility = new HealthAbility();
+        healthAbility.setMaxStatBoost(10);
+        healthAbility.setMinStatBoost(2);
+        super.getAbilities().add(healthAbility);
 
         ItemStack[] items = new ItemStack[9];
         items[0] = new ItemStack(Material.CHICKEN);

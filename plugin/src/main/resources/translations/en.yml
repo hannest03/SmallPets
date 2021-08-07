@@ -53,27 +53,27 @@ translations:
     foraging: 'Foraging pet'
   ability:
     damage_ability:
-      description: '&7Deal &c+%extraStat%%&7 more damage!'
+      description: '&7Deal &c+%extra_stat%%&7 more damage!'
     health_ability:
-      description: '&7Get &a+%extraStat%&7 more health!'
+      description: '&7Get &a+%extra_stat%&7 more health!'
     aurelium_skills_health_ability:
-      description: '&7Get &a+%extraStat%&7 more health!'
+      description: '&7Get &a+%extra_stat%&7 more health!'
     water_speed_ability:
-      description: '&7Walk &a+%extraStat%%&7 faster in water!'
+      description: '&7Walk &a+%extra_stat%%&7 faster in water!'
     speed_in_biome_ability:
       name: 'Natural habitat'
       description: '&7Makes you faster in the %biomes% &7biomes'
     dont_consume_arrow_ability:
-      description: "&c%extraStat%% &7chance not to consume arrows"
+      description: "&c%extra_stat%% &7chance not to consume arrows"
     unbreakable_bow_ability:
       name: 'Experienced'
       description: "&7Your bow doesn't get damaged when shooting"
     faster_mining_speed_ability:
       name: 'Trained'
-      description: "&7Gives you a permanent &chaste &c%extraStat% &7effect"
+      description: "&7Gives you a permanent &chaste &c%extra_stat% &7effect"
     heal_while_in_water_ability:
       name: 'Natural habitat'
-      description: "&7Gives you a &cregeneration &c%extraStat% &7effect while in water"
+      description: "&7Gives you a &cregeneration &c%extra_stat% &7effect while in water"
   inventory:
     sort:
       name: "&6Sort"
