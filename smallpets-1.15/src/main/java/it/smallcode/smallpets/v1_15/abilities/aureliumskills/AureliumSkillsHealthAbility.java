@@ -12,24 +12,12 @@ import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.abilities.Ability;
 import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventHandler;
 import it.smallcode.smallpets.core.abilities.eventsystem.events.*;
-import it.smallcode.smallpets.core.abilities.templates.old.StatBoostAbility;
+import it.smallcode.smallpets.core.abilities.templates.StatBoostAbility;
 import it.smallcode.smallpets.core.manager.types.User;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 public class AureliumSkillsHealthAbility extends StatBoostAbility {
-
-    public AureliumSkillsHealthAbility(){
-        this(0);
-    }
-
-    public AureliumSkillsHealthAbility(double maxExtraStat) {
-        this(maxExtraStat, 0);
-    }
-
-    public AureliumSkillsHealthAbility(double maxExtraStat, double minExtraStat) {
-        super(maxExtraStat, minExtraStat, NumberDisplayType.INTEGER);
-    }
 
     @AbilityEventHandler
     public void onLevelUp(PetLevelUpEvent e){
@@ -134,7 +122,7 @@ public class AureliumSkillsHealthAbility extends StatBoostAbility {
 
         User user = SmallPetsCommons.getSmallPetsCommons().getUserManager().getUser(p.getUniqueId().toString());
 
-        int modifier = (int) statBoostAbility.getExtraStat(user.getSelected().getLevel());
+        int modifier = (int) statBoostAbility.getStatBoost(user.getSelected().getLevel());
 
         addStatModifier(p, modifier);
 

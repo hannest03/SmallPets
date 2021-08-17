@@ -7,6 +7,7 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.core.abilities.abilities.DamageAbility;
+import it.smallcode.smallpets.core.abilities.abilities.FlameCircleAbility;
 import it.smallcode.smallpets.core.abilities.abilities.HealthAbility;
 import it.smallcode.smallpets.core.manager.AbilityManager;
 import it.smallcode.smallpets.v1_15.abilities.aureliumskills.AureliumSkillsHealthAbility;
@@ -25,6 +26,8 @@ public class AbilityManager1_15 extends AbilityManager {
         registerAbility("unbreakable_bow_ability", UnbreakableBowAbility.class);
         registerAbility("faster_mining_speed_ability", FasterMiningSpeedAbility.class);
         registerAbility("heal_while_in_water_ability", HealWhileInWaterAbility.class);
+
+        registerAbility("flame_circle_ability", FlameCircleAbility.class);
 
         if(Bukkit.getPluginManager().getPlugin("AureliumSkills") != null && Bukkit.getPluginManager().getPlugin("AureliumSkills").isEnabled()){
 

@@ -10,23 +10,13 @@ import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.abilities.Ability;
 import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventHandler;
 import it.smallcode.smallpets.core.abilities.eventsystem.events.ShootBowEvent;
-import it.smallcode.smallpets.core.abilities.templates.old.StatBoostAbility;
+import it.smallcode.smallpets.core.abilities.templates.StatBoostAbility;
 import it.smallcode.smallpets.core.manager.types.User;
 import org.bukkit.entity.Player;
 
 import java.util.Random;
 
 public class DontConsumeArrowAbility extends StatBoostAbility {
-
-    public DontConsumeArrowAbility(){super(0, NumberDisplayType.TWO_DECIMAL_PLACES); }
-
-    public DontConsumeArrowAbility(double maxExtraStat) {
-        super(maxExtraStat, NumberDisplayType.TWO_DECIMAL_PLACES);
-    }
-
-    public DontConsumeArrowAbility(double maxExtraStat, double minExtraStat) {
-        super(maxExtraStat, minExtraStat, NumberDisplayType.TWO_DECIMAL_PLACES);
-    }
 
     @AbilityEventHandler
     public void onLaunchArrow(ShootBowEvent e){
@@ -41,7 +31,7 @@ public class DontConsumeArrowAbility extends StatBoostAbility {
 
                 StatBoostAbility ability = (StatBoostAbility) user.getSelected().getAbility(getID());
 
-                double chance = ability.getExtraStat(user.getSelected().getLevel());
+                double chance = ability.getStatBoost(user.getSelected().getLevel());
 
                 double random = new Random().nextInt(100);
 

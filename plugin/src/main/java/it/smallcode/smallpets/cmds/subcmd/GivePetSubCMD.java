@@ -57,6 +57,7 @@ public class GivePetSubCMD extends SubCommand {
                         if(!SmallPets.getInstance().getUserManager().giveUserPet(namespace, id, uuid, exp)){
                             s.sendMessage(SmallPets.getInstance().getPrefix() + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("petNotRegistered"));
                         }
+                        args[1] = id;
                     }else{
                         s.sendMessage(SmallPets.getInstance().getPrefix() + SmallPets.getInstance().getLanguageManager().getLanguage().getStringFormatted("petNotRegistered"));
                     }

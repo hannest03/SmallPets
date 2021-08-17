@@ -11,8 +11,10 @@ import it.smallcode.smallpets.core.abilities.Ability;
 import it.smallcode.smallpets.core.abilities.AbilityType;
 import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventHandler;
 import it.smallcode.smallpets.core.abilities.eventsystem.events.ShootBowEvent;
+import it.smallcode.smallpets.core.abilities.templates.StatBoostAbility;
 import it.smallcode.smallpets.core.manager.types.User;
 import it.smallcode.smallpets.core.pets.Pet;
+import it.smallcode.smallpets.core.utils.DoubleFormater;
 import it.smallcode.smallpets.core.utils.StringUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -23,10 +25,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UnbreakableBowAbility extends Ability {
-
-    public UnbreakableBowAbility(){
-
-    }
 
     @Override
     public void addBoost(Player p, Ability ability) {
@@ -86,18 +84,12 @@ public class UnbreakableBowAbility extends Ability {
 
         List<String> lore = new ArrayList<>();
 
-        lore.add("§6" + SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage()
-                .getStringFormatted("ability." + getID() + ".name"));
+        lore.add("§6" + getName());
 
-        String description = "§7" + SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage()
-                .getStringFormatted("ability." + getID() + ".description");
-
+        String description = getDescription();
         description = StringUtils.addLineBreaks(description, 30);
-
         for(String s : description.split("\n"))
             lore.add("§7" + s);
-
-        lore.add("");
 
         return lore;
 

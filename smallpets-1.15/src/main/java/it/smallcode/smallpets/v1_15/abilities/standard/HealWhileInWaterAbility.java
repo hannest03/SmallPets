@@ -11,7 +11,7 @@ import it.smallcode.smallpets.core.abilities.Ability;
 import it.smallcode.smallpets.core.abilities.AbilityType;
 import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventHandler;
 import it.smallcode.smallpets.core.abilities.eventsystem.events.*;
-import it.smallcode.smallpets.core.abilities.templates.old.StatBoostAbility;
+import it.smallcode.smallpets.core.abilities.templates.StatBoostAbility;
 import it.smallcode.smallpets.core.manager.types.User;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -21,21 +21,6 @@ import org.bukkit.potion.PotionEffectType;
 import java.util.UUID;
 
 public class HealWhileInWaterAbility extends StatBoostAbility {
-
-    public HealWhileInWaterAbility(){
-        this(0);
-    }
-
-    public HealWhileInWaterAbility(double maxExtraStat) {
-        this(maxExtraStat, 0);
-    }
-
-    public HealWhileInWaterAbility(double maxExtraStat, double minExtraStat) {
-
-        super(maxExtraStat, minExtraStat, NumberDisplayType.INTEGER);
-        super.setAbilityType(AbilityType.ABILITY);
-
-    }
 
     @AbilityEventHandler
     public void onEnterWater(EnterWaterEvent e){
@@ -127,7 +112,7 @@ public class HealWhileInWaterAbility extends StatBoostAbility {
         if(user == null)
             return;
 
-        PotionEffect potionEffect = new PotionEffect(PotionEffectType.REGENERATION, 1000000, (int) statBoostAbility.getExtraStat(user.getSelected().getLevel()), false, false);
+        PotionEffect potionEffect = new PotionEffect(PotionEffectType.REGENERATION, 1000000, (int) statBoostAbility.getStatBoost(user.getSelected().getLevel()) -1, false, false);
 
         p.addPotionEffect(potionEffect);
 

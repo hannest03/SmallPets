@@ -8,20 +8,17 @@ Class created by SmallCode
 
 import it.smallcode.smallpets.core.manager.types.User;
 
+import java.util.Objects;
+
 public abstract class AbilityEvent {
 
     private User user;
 
     public AbilityEvent(User user){
-
         this.user = user;
-
     }
 
     public User getUser(){
-
         return user;
-
     }
-
 }

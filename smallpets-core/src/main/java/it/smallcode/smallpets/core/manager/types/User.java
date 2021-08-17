@@ -393,6 +393,8 @@ public class User {
         this.pets = new ArrayList<>();
 
         List<Map<String, Object>> petDatas = (List<Map<String, Object>>) data.get("pets");
+        if(petDatas == null)
+            petDatas = new LinkedList<>();
 
         for(Map<String, Object> petData : petDatas){
 

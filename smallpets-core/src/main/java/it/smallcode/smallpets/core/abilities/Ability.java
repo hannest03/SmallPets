@@ -18,10 +18,11 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 @Data
-public abstract class Ability {
+public abstract class Ability extends Object{
 
     private String name = "placeholder";
     private String description = "placeholder";
@@ -34,7 +35,6 @@ public abstract class Ability {
         if(jsonObject.has("ability_type")){
             abilityType = AbilityType.valueOf(jsonObject.get("ability_type").getAsString().toUpperCase(Locale.ROOT));
         }
-        //TODO: Replace with translation and stats (if needed)
         if(jsonObject.has("name")){
             name = jsonObject.get("name").getAsString();
         }
@@ -90,5 +90,4 @@ public abstract class Ability {
         }while(translationKey != null);
         return ChatColor.translateAlternateColorCodes('&', description);
     }
-
 }

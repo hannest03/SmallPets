@@ -24,7 +24,13 @@ import java.util.stream.Collectors;
 public class PetManager {
 
     private static final String[] configPets = new String[]{
-            "test"
+            "fish",
+            "monkey",
+            "panda",
+            "penguin",
+            "silverfish",
+            "skeleton",
+            "tiger"
     };
 
     @Getter

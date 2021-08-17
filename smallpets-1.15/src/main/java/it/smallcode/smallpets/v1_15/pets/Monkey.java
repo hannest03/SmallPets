@@ -27,7 +27,14 @@ public class Monkey extends Pet {
     public Monkey() {
         super();
         super.setPetType(PetType.FORAGING);
-        super.getAbilities().add(new SpeedBoostInBiomeAbility(new LinkedList<>(Arrays.asList(Biome.JUNGLE, Biome.JUNGLE_HILLS, Biome.BAMBOO_JUNGLE, Biome.BAMBOO_JUNGLE_HILLS, Biome.MODIFIED_JUNGLE)), 0.01D, 0.05D));
+
+        SpeedBoostInBiomeAbility speedBoostInBiomeAbility = new SpeedBoostInBiomeAbility();
+        speedBoostInBiomeAbility.setBiomes(new LinkedList<>(Arrays.asList(Biome.JUNGLE, Biome.JUNGLE_HILLS, Biome.MODIFIED_JUNGLE)));
+        speedBoostInBiomeAbility.setMinStatBoost(0.01D);
+        speedBoostInBiomeAbility.setMaxStatBoost(0.05D);
+        speedBoostInBiomeAbility.setName("{{ability." + speedBoostInBiomeAbility.getID() +  ".name}}");
+        speedBoostInBiomeAbility.setDescription("{{ability." + speedBoostInBiomeAbility.getID() +  ".description}}");
+        super.getAbilities().add(speedBoostInBiomeAbility);
 
         ItemStack[] items = new ItemStack[9];
         items[1] = new ItemStack(Material.LEATHER);

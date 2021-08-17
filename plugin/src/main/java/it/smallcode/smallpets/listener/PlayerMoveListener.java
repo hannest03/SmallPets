@@ -10,6 +10,7 @@ import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.abilities.Ability;
 import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEvent;
 import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventBus;
+import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventHandler;
 import it.smallcode.smallpets.core.abilities.eventsystem.events.*;
 import it.smallcode.smallpets.core.manager.types.User;
 import it.smallcode.smallpets.core.worldguard.SmallFlags;
@@ -51,6 +52,9 @@ public class PlayerMoveListener implements Listener {
             if (user.getSelected() != null) {
 
                 if (!e.isCancelled()) {
+
+                    MoveEvent moveEvent = new MoveEvent(user, p, e.getFrom(), e.getTo());
+                    AbilityEventBus.post(moveEvent);
 
                     if (p.getLocation().getBlock().getType() == Material.WATER) {
 

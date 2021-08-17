@@ -49,8 +49,9 @@ public abstract class StatBoostAbility extends Ability {
     @Override
     public List<String> getAbilityTooltip(Pet pet) {
         List<String> lore = new ArrayList<>();
-        if(getAbilityType() == AbilityType.ABILITY)
+        if(getAbilityType() == AbilityType.ABILITY) {
             lore.add("§6" + getName());
+        }
         String description = getDescription();
 
         String value = "";

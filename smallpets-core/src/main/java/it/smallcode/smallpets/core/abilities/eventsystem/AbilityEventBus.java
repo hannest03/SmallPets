@@ -16,7 +16,9 @@ import java.util.concurrent.locks.ReentrantLock;
 public class AbilityEventBus {
 
     private static final Map<Class<?>, AbilityEventHandlerMethod[]> backedAbilityEventHandlers = new ConcurrentHashMap<>();
-    private static final Map<Class<?>, Map<Object, Method[]>> byListener = new ConcurrentHashMap<>();
+    private static final Map<Class<?>, Map<Class<?>, Method[]>> byListener = new ConcurrentHashMap<>();
+    private static final Map<Class<?>, Object> clazzToListener = new ConcurrentHashMap<>();
+
     private static final Lock lock = new ReentrantLock();
 
     public static void register(Object listener){
@@ -24,13 +26,14 @@ public class AbilityEventBus {
         lock.lock();
         try {
             for (Map.Entry<Class<?>, List<Method>> e : handler.entrySet() ) {
-                Map<Object, Method[]> listenerMap = byListener.get(e.getKey());
+                Map<Class<?>, Method[]> listenerMap = byListener.get(e.getKey());
                 if(listenerMap == null){
                     listenerMap = new HashMap<>();
                     byListener.put(e.getKey(), listenerMap);
                 }
                 Method[] baked = new Method[e.getValue().size()];
-                listenerMap.put(listener, e.getValue().toArray(baked));
+                listenerMap.put(listener.getClass(), e.getValue().toArray(baked));
+                clazzToListener.put(listener.getClass(), listener);
                 bakeHandlers(e.getKey());
             }
         } finally{
@@ -58,16 +61,17 @@ public class AbilityEventBus {
     }
 
     private static void bakeHandlers(Class<?> eventClass) {
-        Map<Object, Method[]> handlers = byListener.get(eventClass);
+        Map<Class<?>, Method[]> handlers = byListener.get(eventClass);
         if(handlers != null) {
             List<AbilityEventHandlerMethod> handlersList = new ArrayList<>();
-            for(Map.Entry<Object, Method[]> listenerHandlers : handlers.entrySet()){
+            for(Map.Entry<Class<?>, Method[]> listenerHandlers : handlers.entrySet()){
                 for(Method method : listenerHandlers.getValue()){
-                    AbilityEventHandlerMethod abilityEventHandlerMethod = new AbilityEventHandlerMethod(listenerHandlers.getKey(), method);
+                    Object listener = clazzToListener.get(listenerHandlers.getKey());
+                    AbilityEventHandlerMethod abilityEventHandlerMethod = new AbilityEventHandlerMethod(listener, method);
                     handlersList.add(abilityEventHandlerMethod);
                 }
             }
-            backedAbilityEventHandlers.put(eventClass, handlersList.toArray(new AbilityEventHandlerMethod[handlersList.size()]));
+            backedAbilityEventHandlers.put(eventClass, handlersList.toArray(new AbilityEventHandlerMethod[0]));
         }else{
             backedAbilityEventHandlers.remove(eventClass);
         }

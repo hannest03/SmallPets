@@ -79,8 +79,9 @@ public class VersionTest {
 
     @Test
     public void testCheckSpigotVersion(){
-        if(!SmallPetsCommons.DEBUG)
+        if(!SmallPetsCommons.DEBUG) {
             assertEquals(false, VersionChecker.checkVersion("0.0.0"));
+        }
     }
 
 }

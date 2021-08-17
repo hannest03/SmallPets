@@ -10,12 +10,10 @@ import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.worldguard.SmallFlags;
 import it.smallcode.smallpets.core.worldguard.WorldGuardImp;
 import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Arrays;
 import java.util.UUID;
 
 public class AbilityEventHandlerMethod {
@@ -37,7 +35,7 @@ public class AbilityEventHandlerMethod {
                     return;
                 }
             }
-            method.invoke(listener, event);
+            method.invoke(listener, abilityEvent);
         }
 
     }

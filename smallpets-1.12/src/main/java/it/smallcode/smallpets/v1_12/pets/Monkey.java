@@ -20,7 +20,13 @@ public class Monkey extends it.smallcode.smallpets.v1_15.pets.Monkey {
     public Monkey() {
         super();
         super.getAbilities().clear();
-        super.getAbilities().add(new SpeedBoostInBiomeAbility(new LinkedList<>(Arrays.asList(Biome.JUNGLE, Biome.JUNGLE_HILLS)), 0.01D, 0.05D));
+
+        SpeedBoostInBiomeAbility speedBoostInBiomeAbility = new SpeedBoostInBiomeAbility();
+        speedBoostInBiomeAbility.setBiomes(new LinkedList<>(Arrays.asList(Biome.JUNGLE, Biome.JUNGLE_HILLS)));
+        speedBoostInBiomeAbility.setMinStatBoost(0.01D);
+        speedBoostInBiomeAbility.setMaxStatBoost(0.05D);
+        super.getAbilities().add(speedBoostInBiomeAbility);
+
         ItemStack[] items = new ItemStack[9];
         items[1] = new ItemStack(Material.LEATHER);
         items[4] = new ItemStack(Material.LEATHER);

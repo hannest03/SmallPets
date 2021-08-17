@@ -6,35 +6,15 @@ Class created by SmallCode
 
 */
 
-import it.smallcode.smallpets.core.SmallPetsCommons;
-import it.smallcode.smallpets.core.abilities.Ability;
 import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventHandler;
 import it.smallcode.smallpets.core.abilities.eventsystem.events.*;
-import it.smallcode.smallpets.core.abilities.templates.old.InBiomeStatBoostAbility;
-import it.smallcode.smallpets.core.abilities.templates.old.StatBoostAbility;
-import it.smallcode.smallpets.core.manager.types.User;
+import it.smallcode.smallpets.core.abilities.templates.InBiomeStatBoostAbility;
 import org.bukkit.Bukkit;
-import org.bukkit.attribute.AttributeModifier;
-import org.bukkit.block.Biome;
 import org.bukkit.entity.Player;
 
-import java.util.LinkedList;
-import java.util.List;
 import java.util.UUID;
 
 public class SpeedBoostInBiomeAbility extends InBiomeStatBoostAbility {
-
-    public SpeedBoostInBiomeAbility() {
-        this(new LinkedList<>(), 0);
-    }
-
-    public SpeedBoostInBiomeAbility(List<Biome> biomes, double minSpeed, double maxSpeed) {
-        super(biomes, maxSpeed, minSpeed, NumberDisplayType.TWO_DECIMAL_PLACES);
-    }
-
-    public SpeedBoostInBiomeAbility(List<Biome> biomes, double speed) {
-        this(biomes, 0, speed);
-    }
 
     @AbilityEventHandler
     public void onEnterBiome(EnterBiomeEvent e) {
@@ -114,25 +94,5 @@ public class SpeedBoostInBiomeAbility extends InBiomeStatBoostAbility {
                 removeBoost(p, speedBoostInBiomeAbility);
             }
         }
-    }
-
-    @Override
-    public void addBoost(Player p, Ability ability) {
-        StatBoostAbility statBoostAbility = (StatBoostAbility) ability;
-
-        User user = SmallPetsCommons.getSmallPetsCommons().getUserManager().getUser(p.getUniqueId().toString());
-        if(user == null)
-            return;
-
-        double boost = statBoostAbility.getExtraStat(user.getSelected().getLevel());
-
-        SmallPetsCommons.getSmallPetsCommons().getSpeedModifierUtils().addModifier(p, ability.getID(), boost, AttributeModifier.Operation.ADD_NUMBER);
-        debug(getID() + " add modifier " + boost);
-    }
-
-    @Override
-    public void removeBoost(Player p, Ability ability) {
-        SmallPetsCommons.getSmallPetsCommons().getSpeedModifierUtils().removeModifier(p, ability.getID());
-        debug(getID() + " remove modifier");
     }
 }

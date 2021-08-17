@@ -15,7 +15,7 @@ import com.sk89q.worldguard.session.Session;
 import com.sk89q.worldguard.session.handler.Handler;
 import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.abilities.Ability;
-import it.smallcode.smallpets.core.abilities.templates.old.StatBoostAbility;
+import it.smallcode.smallpets.core.abilities.templates.StatBoostAbility;
 import it.smallcode.smallpets.core.manager.types.User;
 import it.smallcode.smallpets.core.worldguard.SmallFlags;
 import it.smallcode.smallpets.core.worldguard.WorldGuardImp;
