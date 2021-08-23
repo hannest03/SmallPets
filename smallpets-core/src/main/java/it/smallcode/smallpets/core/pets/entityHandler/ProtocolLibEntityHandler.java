@@ -84,6 +84,11 @@ public class ProtocolLibEntityHandler implements EntityHandler{
         sendPacket(getPlayersWithVisibleActivated(location), entityMetadata);
     }
 
+    @Override
+    public boolean isEntity(int entityId) {
+        return this.entityId == entityId;
+    }
+
     private void spawnArmorstandWithPackets(Location location, ItemStack item, List<Player> players) {
 
         //SPAWN ARMORSTAND
@@ -105,24 +110,19 @@ public class ProtocolLibEntityHandler implements EntityHandler{
     }
 
     private List<Player> getPlayersWithVisibleActivated(Location location){
-
         List<Player> players = new LinkedList<>();
+
+        if(location == null)
+            return players;
 
         for(Player all : Bukkit.getOnlinePlayers())
             if(all.getWorld().getName().equals(location.getWorld().getName())){
-
                 User user = SmallPetsCommons.getSmallPetsCommons().getUserManager().getUser(all.getUniqueId().toString());
-
                 if(user != null && user.getSettings().isShowPets()) {
-
                     players.add(all);
-
                 }
-
             }
-
         return players;
-
     }
 
     private void sendPacket(List<Player> players, PacketContainer packetContainer){

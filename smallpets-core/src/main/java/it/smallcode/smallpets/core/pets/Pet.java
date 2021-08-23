@@ -39,6 +39,9 @@ public class Pet {
     private String id;
     private UUID uuid;
 
+    //Name of the pet (set by user)
+    private String name = null;
+
     private String translationKey;
 
     private PetType petType;
@@ -224,6 +227,10 @@ public class Pet {
 
             itemStack = SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().addNBTTag(itemStack, "pet", getId());
 
+            if(this.name != null){
+                itemStack = SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().addNBTTag(itemStack, "pet.name", this.name);
+            }
+
             if(getUuid() != null)
                 itemStack = SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().addNBTTag(itemStack, "pet.uuid", getUuid().toString());
 
@@ -253,8 +260,12 @@ public class Pet {
     }
 
     public String getName(){
+        if(name != null)
+            return name;
         return SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted(translationKey);
     }
+
+    public String getRawName(){ return this.name; }
 
     public void setCustomName(String name){
         entityHandler.setCustomName(name);
@@ -326,5 +337,14 @@ public class Pet {
         }
 
         return pet;
+    }
+
+    public boolean isEntity(int entityId){
+        return entityHandler.isEntity(entityId);
+    }
+
+    public void setName(String name) {
+        this.name = name;
+        setCustomName(getCustomName());
     }
 }

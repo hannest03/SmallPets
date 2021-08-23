@@ -11,6 +11,7 @@ import it.smallcode.smallpets.cmds.subcmd.*;
 import it.smallcode.smallpets.cmds.subcmd.debug.SpawnNewTestPetSystemSubCMD;
 import it.smallcode.smallpets.cmds.subcmd.debug.SpawnParticleCircleSubCMD;
 import it.smallcode.smallpets.cmds.subcmd.debug.TestMetaDataSubCMD;
+import it.smallcode.smallpets.cmds.subcmd.debug.TestSignAPISubCMD;
 import it.smallcode.smallpets.core.manager.types.User;
 import it.smallcode.smallpets.core.pets.Pet;
 import org.bukkit.Sound;
@@ -41,6 +42,7 @@ public class SmallPetsCMD implements CommandExecutor, TabCompleter {
         subCommands.add(new ReloadSubCMD("reload", "smallpets.reload"));
         subCommands.add(new SaveLanguagesCMD("savelanguages", "smallpets.savelanguages"));
 
+        subCommands.add(new TestSignAPISubCMD("testsignapi", "smallpets.debug.testsignapi"));
         subCommands.add(new TestMetaDataSubCMD("testmetadata", "smallpets.debug.testmetadata"));
         subCommands.add(new SpawnNewTestPetSystemSubCMD("testspawnpet", "smallpets.debug.testspawnpet"));
         subCommands.add(new SpawnParticleCircleSubCMD("testcircleparticle", "smallpets.debug.circleparticle"));

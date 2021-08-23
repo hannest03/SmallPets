@@ -72,6 +72,11 @@ public class BukkitEntityHandler implements EntityHandler{
         armorStand.setCustomName(name);
     }
 
+    @Override
+    public boolean isEntity(int entityId) {
+        return armorStand.getEntityId() == entityId;
+    }
+
     private ArmorStand createArmorStand(Location loc){
 
         ArmorStand armorStand = (ArmorStand) loc.getWorld().spawnEntity(loc, EntityType.ARMOR_STAND);

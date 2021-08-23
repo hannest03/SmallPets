@@ -7,6 +7,7 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.core.SmallPetsCommons;
+import jdk.internal.icu.util.CodePointTrie;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -29,6 +30,8 @@ public class UnlockListener implements Listener {
                     String type = SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().getNBTTagValue(item, "pet");
                     String namespace = SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().getNBTTagValue(item, "pet.namespace");
 
+                    String name = SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().getNBTTagValue(item, "pet.name");
+
                     long exp = 0;
 
                     if(SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().hasNBTTag(item, "petExp")){
@@ -41,7 +44,7 @@ public class UnlockListener implements Listener {
 
                     }
 
-                    if(SmallPetsCommons.getSmallPetsCommons().getUserManager().giveUserPet(namespace, type, e.getPlayer().getUniqueId().toString(), exp)){
+                    if(SmallPetsCommons.getSmallPetsCommons().getUserManager().giveUserPet(namespace, type, e.getPlayer().getUniqueId().toString(), name, exp)){
 
                         e.getItem().setAmount(e.getItem().getAmount() -1);
 

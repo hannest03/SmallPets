@@ -10,6 +10,7 @@ import it.smallcode.smallpets.cmds.*;
 import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.conditions.BasicCondition;
 import it.smallcode.smallpets.core.conditions.DateCondition;
+import it.smallcode.smallpets.core.pets.PetInteractHandler;
 import it.smallcode.smallpets.core.pets.experience.LogisticalGrowFormula;
 import it.smallcode.smallpets.core.pets.progressbar.DefaultProgressbar;
 import it.smallcode.smallpets.core.pets.progressbar.PercentageProgressbar;
@@ -34,7 +35,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.lang.reflect.Field;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -53,6 +53,8 @@ public class SmallPets extends JavaPlugin {
     public void onLoad() {
 
         instance = this;
+
+        SignGUIVersionChooser.selectVersion();
 
         Bukkit.getConsoleSender().sendMessage("");
         Bukkit.getConsoleSender().sendMessage("  §e ___  §6 ____");
@@ -251,6 +253,7 @@ public class SmallPets extends JavaPlugin {
             }
         }, 1);
 
+        PetInteractHandler.setup();
     }
 
     @Override

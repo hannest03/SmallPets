@@ -20,4 +20,6 @@ public interface EntityHandler {
 
     void setCustomName(String name);
 
+    boolean isEntity(int entityId);
+
 }

@@ -444,6 +444,8 @@ public class User {
         data.put("id", pet.getId());
         data.put("exp", String.valueOf(pet.getExp()));
         data.put("uuid", pet.getUuid().toString());
+        if(pet.getRawName() != null)
+            data.put("name", pet.getRawName());
 
         return data;
 
@@ -483,13 +485,23 @@ public class User {
             pet = SmallPetsCommons.getSmallPetsCommons().getPetManager().getPet(namespace, id);
         }
 
-        if(pet != null){
+        String name = null;
+        if(data.get("name") != null){
+            name = (String) data.get("name");
+        }
 
+        if(pet != null){
+            Pet ret;
             if(namespace == null) {
-                return PetFactory.createPet(id, petUUID, Bukkit.getPlayer(UUID.fromString(uuid)), exp);
+                ret = PetFactory.createPet(id, petUUID, Bukkit.getPlayer(UUID.fromString(uuid)), exp);
             }else{
-                return PetFactory.createPet(namespace, id, petUUID, Bukkit.getPlayer(UUID.fromString(uuid)), exp);
+                ret = PetFactory.createPet(namespace, id, petUUID, Bukkit.getPlayer(UUID.fromString(uuid)), exp);
             }
+            if(name != null && ret != null){
+                ret.setName(name);
+            }
+
+            return ret;
         }
 
         return null;

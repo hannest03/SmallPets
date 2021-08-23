@@ -184,9 +184,7 @@ public class UserManager {
      * @return the boolean is true if the pet was successfully added to the player,<br> if the player already had the pet or there was an error false will be returned
      */
     public boolean giveUserPet(String namespace, String type, String uuid){
-
         return giveUserPet(namespace, type, uuid, 0L);
-
     }
 
     /**
@@ -199,45 +197,43 @@ public class UserManager {
      * @return the boolean is true if the pet was successfully added to the player,<br> if the player already had the pet or there was an error false will be returned
      */
     public boolean giveUserPet(String namespace, String type, String uuid, Long exp){
+        return giveUserPet(namespace, type, uuid, null, exp);
+    }
 
+    /**
+     *
+     * Gives a player a pet
+     *
+     * @param type - the type of the pet
+     * @param uuid - the uuid of the player
+     * @param name - the name of the pet
+     * @param exp - the amount of exp the pet has
+     * @return the boolean is true if the pet was successfully added to the player,<br> if the player already had the pet or there was an error false will be returned
+     */
+    public boolean giveUserPet(String namespace, String type, String uuid, String name, Long exp){
         User user = getUser(uuid);
-
         if(user != null){
-
             Player p = Bukkit.getPlayer(UUID.fromString(uuid));
-
             if(p == null || !p.isOnline())
                 return false;
-
             if(SmallPetsCommons.getSmallPetsCommons().isRequirePermission() && !p.hasPermission("smallpets.allow." + type)) {
-
                 p.sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("noPerms"));
-
                 return false;
-
             }
-
             if(!SmallPetsCommons.getSmallPetsCommons().isRequirePermission() && (p.hasPermission("smallpets.forbid." + type) && !p.isOp())) {
-
                 p.sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("noPerms"));
-
                 return false;
-
             }
-
             Pet pet = PetFactory.createNewPet(namespace, type, Bukkit.getPlayer(UUID.fromString(uuid)), exp);
             if(pet == null)
                 return false;
-
+            pet.setName(name);
             user.getPets().add(pet);
-
             return true;
-
         }
-
         return false;
-
     }
+
 
     /**
      *
