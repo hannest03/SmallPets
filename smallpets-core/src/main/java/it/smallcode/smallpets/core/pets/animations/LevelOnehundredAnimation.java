@@ -61,7 +61,7 @@ public class LevelOnehundredAnimation {
             name = name.replaceAll("%level%", level);
             name = name.replaceAll("%player_name%", pet.getOwner().getName());
 
-            name += SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("pet." + pet.getId());
+            name += pet.getName();
 
             pet.setCustomName(name);
 
