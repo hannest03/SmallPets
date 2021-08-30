@@ -1,8 +1,8 @@
-package it.smallcode.smallpets.v1_15;
+package it.smallcode.smallpets.v1_13;
 /*
 
 Class created by SmallCode
-30.08.2021 13:29
+30.08.2021 13:49
 
 */
 
@@ -14,6 +14,7 @@ import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.nms.NMSHelper;
 import it.smallcode.smallpets.core.signgui.SignGUI;
 import it.smallcode.smallpets.core.signgui.VersionWrapper;
+import it.smallcode.smallpets.v1_15.SignGUIWrapper1_15;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -33,7 +34,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class SignGUIWrapper1_15 implements VersionWrapper, Listener {
+public class SignGUIWrapper1_13 implements VersionWrapper, Listener {
 
     private static Listener listener = null;
 
@@ -44,7 +45,7 @@ public class SignGUIWrapper1_15 implements VersionWrapper, Listener {
     @Override
     public void register(Plugin plugin) {
         if(listener == null){
-            listener = new SignGUIWrapper1_15();
+            listener = new SignGUIWrapper1_13();
             Bukkit.getPluginManager().registerEvents(listener, plugin);
         }
     }
@@ -58,7 +59,7 @@ public class SignGUIWrapper1_15 implements VersionWrapper, Listener {
         Block block = location.getWorld().getBlockAt(location);
         Material material = block.getType();
         if(!(block.getState() instanceof Sign)) {
-            block.setType(Material.OAK_SIGN);
+            block.setType(Material.SIGN);
         }
 
         //Check for finished editing sign
@@ -194,5 +195,4 @@ public class SignGUIWrapper1_15 implements VersionWrapper, Listener {
         }
         return ret;
     }
-
 }
