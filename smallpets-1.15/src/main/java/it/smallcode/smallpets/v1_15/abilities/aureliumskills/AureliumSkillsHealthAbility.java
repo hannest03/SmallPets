@@ -8,6 +8,7 @@ Class created by SmallCode
 
 import com.archyx.aureliumskills.api.AureliumAPI;
 import com.archyx.aureliumskills.stats.Stat;
+import com.archyx.aureliumskills.stats.Stats;
 import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.abilities.Ability;
 import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventHandler;
@@ -97,7 +98,7 @@ public class AureliumSkillsHealthAbility extends StatBoostAbility {
 
     public void addStatModifier(Player p, int value){
 
-        if(!AureliumAPI.addStatModifier(p, getID(), Stat.HEALTH, value)){
+        if(!AureliumAPI.addStatModifier(p, getID(), Stats.HEALTH, value)){
 
             Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "§cERROR AureliumSkills add Health Modifier");
 
