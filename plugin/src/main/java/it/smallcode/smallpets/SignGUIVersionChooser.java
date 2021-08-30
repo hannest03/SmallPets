@@ -7,12 +7,21 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.core.signgui.SignGUI;
+import it.smallcode.smallpets.v1_16.SignGUIWrapper1_16;
 import it.smallcode.smallpets.v1_17.SignGUIWrapper1_17;
+import org.bukkit.Bukkit;
 
 public class SignGUIVersionChooser {
 
     public static void selectVersion(){
-        SignGUI.setVersionWrapper(new SignGUIWrapper1_17());
+        String version = Bukkit.getServer().getClass().getPackage().getName();
+        version = version.substring(version.lastIndexOf('.'));
+        version = version.replace(".v", "");
+        if(version.startsWith("1_17")) {
+            SignGUI.setVersionWrapper(new SignGUIWrapper1_17());
+        }else if(version.startsWith("1_16")){
+            SignGUI.setVersionWrapper(new SignGUIWrapper1_16());
+        }
     }
 
 }
