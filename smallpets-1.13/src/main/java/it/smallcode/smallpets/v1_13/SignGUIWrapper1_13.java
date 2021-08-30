@@ -14,7 +14,6 @@ import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.nms.NMSHelper;
 import it.smallcode.smallpets.core.signgui.SignGUI;
 import it.smallcode.smallpets.core.signgui.VersionWrapper;
-import it.smallcode.smallpets.v1_15.SignGUIWrapper1_15;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
