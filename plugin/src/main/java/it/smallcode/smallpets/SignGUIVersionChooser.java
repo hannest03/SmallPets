@@ -7,6 +7,7 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.core.signgui.SignGUI;
+import it.smallcode.smallpets.v1_12.SignGUIWrapper1_12;
 import it.smallcode.smallpets.v1_13.SignGUIWrapper1_13;
 import it.smallcode.smallpets.v1_15.SignGUIWrapper1_15;
 import it.smallcode.smallpets.v1_16.SignGUIWrapper1_16;
@@ -27,6 +28,8 @@ public class SignGUIVersionChooser {
             SignGUI.setVersionWrapper(new SignGUIWrapper1_15());
         }else if(version.startsWith("1_13")){
             SignGUI.setVersionWrapper(new SignGUIWrapper1_13());
+        }else if(version.startsWith("1_12")){
+            SignGUI.setVersionWrapper(new SignGUIWrapper1_12());
         }
     }
 

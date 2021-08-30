@@ -324,13 +324,6 @@ public class SmallPets extends JavaPlugin {
 
         cfg.addDefault("pet_lore", petLore);
 
-        ItemStack itemStack = new ItemStack(Material.OAK_BOAT);
-        ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName("&eTest");
-        itemStack.setItemMeta(itemMeta);
-
-        cfg.addDefault("testItemStack", itemStack);
-
         getConfig().options().copyDefaults(true);
 
         saveConfig();
