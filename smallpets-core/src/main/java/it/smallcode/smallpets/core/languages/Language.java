@@ -6,6 +6,7 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.core.utils.ColorUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -161,7 +162,7 @@ public class Language {
 
     public String getStringFormatted(String name){
 
-        return ChatColor.translateAlternateColorCodes('&', getString(name));
+        return ColorUtils.translateColors(getString(name));
 
     }
 
