@@ -15,6 +15,7 @@ import it.smallcode.smallpets.core.pets.entityHandler.EntityHandler;
 import it.smallcode.smallpets.core.pets.logic.Logic;
 import it.smallcode.smallpets.core.pets.recipe.Recipe;
 import it.smallcode.smallpets.core.text.CenteredText;
+import it.smallcode.smallpets.core.utils.ColorUtils;
 import it.smallcode.smallpets.core.utils.LevelColorUtils;
 import it.smallcode.smallpets.core.utils.TextureUtils;
 import lombok.Getter;
@@ -218,7 +219,7 @@ public class Pet {
 
             String progressbarFinished = progressBarList.stream().collect(Collectors.joining("\n"));
             loreString = loreString.replaceAll("%progress_bar%", progressbarFinished);
-            loreString = ChatColor.translateAlternateColorCodes('&', loreString);
+            loreString = ColorUtils.translateColors(loreString);
 
             List<String> lore = new LinkedList<>(Arrays.asList(loreString.split("\n")));
             itemMeta.setLore(lore);

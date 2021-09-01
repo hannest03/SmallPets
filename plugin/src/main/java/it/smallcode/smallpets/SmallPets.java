@@ -14,6 +14,7 @@ import it.smallcode.smallpets.core.pets.PetInteractHandler;
 import it.smallcode.smallpets.core.pets.experience.LogisticalGrowFormula;
 import it.smallcode.smallpets.core.pets.progressbar.DefaultProgressbar;
 import it.smallcode.smallpets.core.pets.progressbar.PercentageProgressbar;
+import it.smallcode.smallpets.core.utils.ColorUtils;
 import it.smallcode.smallpets.core.worldguard.WorldGuardImp;
 import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventBus;
 import it.smallcode.smallpets.core.abilities.eventsystem.events.ServerShutdownEvent;
@@ -349,7 +350,7 @@ public class SmallPets extends JavaPlugin {
 
         String prefix = cfg.getString("prefixPattern");
         prefix = prefix.replaceAll("%plugin_name%", getName());
-        prefix = ChatColor.translateAlternateColorCodes('&', prefix);
+        prefix = ColorUtils.translateColors(prefix);
 
         SmallPetsCommons.getSmallPetsCommons().setPrefix(prefix);
 
