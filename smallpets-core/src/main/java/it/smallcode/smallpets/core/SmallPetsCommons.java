@@ -41,6 +41,7 @@ public class SmallPetsCommons {
     private boolean useProtocollib;
     private boolean useWorldGuard = false;
     private boolean showUnlockMessage = true;
+    private boolean activateParticles = true;
 
     private List<String> petLore;
 

@@ -807,6 +807,9 @@ public class Pet {
 
     protected void spawnParticles() {
 
+        if(!SmallPetsCommons.getSmallPetsCommons().isActivateParticles())
+            return;
+
         Location particleLoc = location.clone();
 
         particleLoc.setY(particleLoc.getY() + 0.7);

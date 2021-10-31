@@ -279,6 +279,7 @@ public class SmallPets extends JavaPlugin {
         cfg.addDefault("xpToLevelTwo", 500);
 
         cfg.addDefault("showUnlockMessage", true);
+        cfg.addDefault("activateParticles", true);
 
         // --- Auto Save
 
@@ -345,6 +346,7 @@ public class SmallPets extends JavaPlugin {
 
         SmallPetsCommons.getSmallPetsCommons().setRequirePermission(cfg.getBoolean("requirePermission"));
         SmallPetsCommons.getSmallPetsCommons().setShowUnlockMessage(cfg.getBoolean("showUnlockMessage"));
+        SmallPetsCommons.getSmallPetsCommons().setActivateParticles(cfg.getBoolean("activateParticles"));
 
         if(getInventoryManager() != null){
 
