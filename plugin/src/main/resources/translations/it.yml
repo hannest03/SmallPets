@@ -1,5 +1,6 @@
 translations:
   noPerms: Non hai il permesso di farlo!
+  pets_disabled_world: "Gli pets sono disabili in questo mondo"
   petSpawned: Il vostro pet è stato convocato
   petDespawned: Il tuo pet è stato disperato
   petNotUnlocked: Questo pet non è stato sbloccato
