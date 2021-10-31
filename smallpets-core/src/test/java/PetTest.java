@@ -11,15 +11,14 @@ import it.smallcode.smallpets.core.abilities.abilities.HealthAbility;
 import it.smallcode.smallpets.core.manager.AbilityManager;
 import it.smallcode.smallpets.core.pets.Pet;
 import it.smallcode.smallpets.core.pets.PetType;
-import it.smallcode.smallpets.core.pets.experience.LinearGrowFormula;
-import it.smallcode.smallpets.core.pets.experience.LogisticalGrowFormula;
+import it.smallcode.smallpets.core.pets.experience.GeometricGrowthFormula;
+import it.smallcode.smallpets.core.pets.experience.ExponentialGrowthFormula;
 import it.smallcode.smallpets.core.utils.FileUtils;
 import it.smallcode.smallpets.core.utils.PetLoader;
 import org.bukkit.Particle;
 import org.junit.Test;
 
 import java.io.File;
-import java.net.URL;
 
 import static org.junit.Assert.*;
 
@@ -55,7 +54,7 @@ public class PetTest {
     public void testLevelingFormula(){
 
         //Test LogisticalGrowFormula
-        SmallPetsCommons.getSmallPetsCommons().setLevelingFormula(new LogisticalGrowFormula());
+        SmallPetsCommons.getSmallPetsCommons().setLevelingFormula(new ExponentialGrowthFormula());
         Pet pet = new Pet();
         assertEquals(1, pet.getLevel());
         assertEquals(500, pet.getExpForNextLevel());
@@ -65,7 +64,7 @@ public class PetTest {
         assertEquals(2, pet.getLevel());
 
         //Change while running
-        ((LogisticalGrowFormula)SmallPetsCommons.getSmallPetsCommons().getLevelingFormula()).setXpToLevelTwo(1000);
+        ((ExponentialGrowthFormula)SmallPetsCommons.getSmallPetsCommons().getLevelingFormula()).setXpToLevelTwo(1000);
         assertEquals(1, pet.getLevel());
         assertEquals(1000, pet.getExpForNextLevel());
 
@@ -73,30 +72,23 @@ public class PetTest {
 
         assertEquals(2, pet.getLevel());
 
-        //Test LinearGrowFormula
-        SmallPetsCommons.getSmallPetsCommons().setLevelingFormula(new LinearGrowFormula());
+        //Test GeometricGrowthFormula
+        SmallPetsCommons.getSmallPetsCommons().setLevelingFormula(new GeometricGrowthFormula());
         pet.setExp(0);
         assertEquals(1, pet.getLevel());
         assertEquals(500, pet.getExpForNextLevel());
-        assertEquals(1000, SmallPetsCommons.getSmallPetsCommons().getLevelingFormula().getExpForLevel(3));
+        assertEquals(500, SmallPetsCommons.getSmallPetsCommons().getLevelingFormula().getExpForLevel(2));
+        assertEquals(750, SmallPetsCommons.getSmallPetsCommons().getLevelingFormula().getExpForLevel(3));
+        assertEquals(1125, SmallPetsCommons.getSmallPetsCommons().getLevelingFormula().getExpForLevel(4));
 
         pet.setExp(500);
-
         assertEquals(2, pet.getLevel());
 
-        //Change while running
-        ((LinearGrowFormula)SmallPetsCommons.getSmallPetsCommons().getLevelingFormula()).setXpToLevelTwo(1000);
-        assertEquals(1, pet.getLevel());
-        assertEquals(1000, pet.getExpForNextLevel());
-        assertEquals(2000, SmallPetsCommons.getSmallPetsCommons().getLevelingFormula().getExpForLevel(3));
+        pet.setExp(1125);
+        assertEquals(4, pet.getLevel());
 
-        pet.setExp(1000);
-
-        assertEquals(2, pet.getLevel());
-
-        pet.setExp(SmallPetsCommons.getSmallPetsCommons().getLevelingFormula().getExpForLevel(100));
-        assertEquals(100, pet.getLevel());
-
+        pet.setExp(19221);
+        assertEquals(10, pet.getLevel());
     }
 
     @Test

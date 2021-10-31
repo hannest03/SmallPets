@@ -8,12 +8,13 @@ Class created by SmallCode
 
 import it.smallcode.smallpets.core.SmallPetsCommons;
 
-public class LogisticalGrowFormula implements LevelingFormula{
+import java.util.Map;
 
-    private long xpToLevelTwo;
+public class ExponentialGrowthFormula implements LevelingFormula{
+
     private double tach = 0;
 
-    public LogisticalGrowFormula(){
+    public ExponentialGrowthFormula(){
         setXpToLevelTwo(500);
     }
 
@@ -27,14 +28,16 @@ public class LogisticalGrowFormula implements LevelingFormula{
         return (long) (Math.log(((level) - (SmallPetsCommons.MAX_LEVEL +1D)) / -((SmallPetsCommons.MAX_LEVEL +1D) - SmallPetsCommons.MIN_LEVEL)) / -tach);
     }
 
-    public void setXpToLevelTwo(long xpToLevelTwo) {
-
-        if(xpToLevelTwo > 0) {
-
-           this.xpToLevelTwo = xpToLevelTwo;
-            tach = -(Math.log(((SmallPetsCommons.MIN_LEVEL+1D) - (SmallPetsCommons.MAX_LEVEL +1D) ) / -((SmallPetsCommons.MAX_LEVEL +1D) - SmallPetsCommons.MIN_LEVEL)) / (double) xpToLevelTwo);
-
+    @Override
+    public void load(Map<String, Object> data) {
+        if(data.containsKey("expNextLevel")){
+            setXpToLevelTwo(Long.parseLong((String) data.get("expNextLevel")));
         }
+    }
 
+    public void setXpToLevelTwo(long xpToLevelTwo) {
+        if(xpToLevelTwo > 0) {
+            tach = -(Math.log(((SmallPetsCommons.MIN_LEVEL+1D) - (SmallPetsCommons.MAX_LEVEL +1D) ) / -((SmallPetsCommons.MAX_LEVEL +1D) - SmallPetsCommons.MIN_LEVEL)) / (double) xpToLevelTwo);
+        }
     }
 }

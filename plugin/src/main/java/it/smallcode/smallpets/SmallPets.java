@@ -11,10 +11,12 @@ import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.conditions.BasicCondition;
 import it.smallcode.smallpets.core.conditions.DateCondition;
 import it.smallcode.smallpets.core.pets.PetInteractHandler;
-import it.smallcode.smallpets.core.pets.experience.LogisticalGrowFormula;
+import it.smallcode.smallpets.core.pets.experience.ExponentialGrowthFormula;
+import it.smallcode.smallpets.core.pets.experience.LevelingFormula;
 import it.smallcode.smallpets.core.pets.progressbar.DefaultProgressbar;
 import it.smallcode.smallpets.core.pets.progressbar.PercentageProgressbar;
 import it.smallcode.smallpets.core.utils.ColorUtils;
+import it.smallcode.smallpets.core.utils.LevelingFormulaUtils;
 import it.smallcode.smallpets.core.worldguard.WorldGuardImp;
 import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventBus;
 import it.smallcode.smallpets.core.abilities.eventsystem.events.ServerShutdownEvent;
@@ -30,12 +32,9 @@ import it.smallcode.smallpets.v1_15.*;
 import it.smallcode.smallpets.v1_16.*;
 import it.smallcode.smallpets.v1_17.*;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.*;
@@ -297,11 +296,15 @@ public class SmallPets extends JavaPlugin {
         cfg.addDefault("language", "en");
         cfg.addDefault("registerCraftingRecipes", true);
         cfg.addDefault("requirePermission", false);
-        cfg.addDefault("xpToLevelTwo", 500);
 
         cfg.addDefault("progressbar", "defaultprogressbar");
 
         cfg.addDefault("showUnlockMessage", true);
+
+        // -- Leveling formula
+
+        cfg.addDefault("levelingformula.type", "exponential");
+        cfg.addDefault("levelingformula.expToLevelTwo", 500);
 
         // --- Auto Save
 
@@ -343,10 +346,6 @@ public class SmallPets extends JavaPlugin {
         reloadConfig();
 
         FileConfiguration cfg = this.getConfig();
-
-        LogisticalGrowFormula logisticalGrowFormula = new LogisticalGrowFormula();
-        logisticalGrowFormula.setXpToLevelTwo(cfg.getLong("xpToLevelTwo"));
-        SmallPetsCommons.getSmallPetsCommons().setLevelingFormula(logisticalGrowFormula);
 
         String prefix = cfg.getString("prefixPattern");
         prefix = prefix.replaceAll("%plugin_name%", getName());
@@ -401,9 +400,14 @@ public class SmallPets extends JavaPlugin {
                 break;
             }
         }
+        if(cfg.getConfigurationSection("levelingformula") != null) {
+            Map<String, Object> data = cfg.getConfigurationSection("levelingformula").getValues(true);
+            SmallPetsCommons.getSmallPetsCommons().setLevelingFormula(LevelingFormulaUtils.loadLevelingFormula(data));
+        }else{
+            SmallPetsCommons.getSmallPetsCommons().setLevelingFormula(new ExponentialGrowthFormula());
+        }
 
         return true;
-
     }
 
     private boolean is1_12(){

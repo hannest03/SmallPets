@@ -6,9 +6,13 @@ Class created by SmallCode
 
 */
 
+import java.util.Map;
+
 public interface LevelingFormula {
 
     int getLevel(long exp);
     long getExpForLevel(int level);
+
+    void load(Map<String, Object> data);
 
 }

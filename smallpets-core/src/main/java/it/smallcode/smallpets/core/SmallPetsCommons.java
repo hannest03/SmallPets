@@ -9,7 +9,7 @@ Class created by SmallCode
 import it.smallcode.smallpets.core.languages.LanguageManager;
 import it.smallcode.smallpets.core.manager.*;
 import it.smallcode.smallpets.core.pets.experience.LevelingFormula;
-import it.smallcode.smallpets.core.pets.experience.LogisticalGrowFormula;
+import it.smallcode.smallpets.core.pets.experience.ExponentialGrowthFormula;
 import it.smallcode.smallpets.core.pets.progressbar.DefaultProgressbar;
 import it.smallcode.smallpets.core.pets.progressbar.Progressbar;
 import it.smallcode.smallpets.core.utils.*;
@@ -76,7 +76,7 @@ public class SmallPetsCommons {
     private IHealthModifierUtils healthModifierUtils;
     private ISpeedModifierUtils speedModifierUtils;
 
-    private LevelingFormula levelingFormula = new LogisticalGrowFormula();
+    private LevelingFormula levelingFormula = new ExponentialGrowthFormula();
     private Progressbar progressbar = new DefaultProgressbar();
 
     private SkullCreator skullCreator;
