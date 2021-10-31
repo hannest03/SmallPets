@@ -7,8 +7,7 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.core.SmallPetsCommons;
-import it.smallcode.smallpets.core.events.PetChangeWorldEvent;
-import it.smallcode.smallpets.core.manager.UserManager;
+import it.smallcode.smallpets.core.events.PetChangedWorldEvent;
 import it.smallcode.smallpets.core.manager.types.User;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -16,7 +15,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
-import org.bukkit.plugin.java.JavaPlugin;
 
 public class WorldChangeListener implements Listener {
 
@@ -37,9 +35,12 @@ public class WorldChangeListener implements Listener {
 
             if(user.getSelected() != null){
 
-                PetChangeWorldEvent event = new PetChangeWorldEvent(user.getSelected(), e.getPlayer());
+                PetChangedWorldEvent event = new PetChangedWorldEvent(user.getSelected(), e.getPlayer());
 
                 Bukkit.getPluginManager().callEvent(event);
+
+                if(user.getSelected() == null)
+                    return;
 
                 if(!event.isCancelled()) {
 
@@ -83,9 +84,7 @@ public class WorldChangeListener implements Listener {
                     user.getSelected().setPauseLogic(false);
 
                 }else{
-
                     user.getSelected().destroy();
-
                 }
             }
 

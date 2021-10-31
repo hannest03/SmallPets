@@ -9,6 +9,7 @@ Class created by SmallCode
 import it.smallcode.smallpets.SmallPets;
 import it.smallcode.smallpets.cmds.subcmd.*;
 import it.smallcode.smallpets.cmds.subcmd.debug.TestMetaDataSubCMD;
+import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.manager.types.User;
 import it.smallcode.smallpets.core.pets.Pet;
 import org.bukkit.Sound;
@@ -56,6 +57,10 @@ public class SmallPetsCMD implements CommandExecutor, TabCompleter {
             if (s instanceof Player) {
 
                 Player p = (Player) s;
+                if(SmallPetsCommons.getSmallPetsCommons().getDisabledWorlds().contains(p.getLocation().getWorld().getName())) {
+                    p.sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("pets_disabled_world"));
+                    return false;
+                }
 
                 if(!p.hasPermission("smallpets.dontUseInventory") || p.isOp()) {
 

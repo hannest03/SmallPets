@@ -64,6 +64,10 @@ public class SelectSubCMD extends SubCommand {
         if(s instanceof Player) {
 
             Player p = (Player) s;
+            if(SmallPetsCommons.getSmallPetsCommons().getDisabledWorlds().contains(p.getLocation().getWorld().getName())) {
+                p.sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("pets_disabled_world"));
+                return;
+            }
 
             if (args.length == 1) {
 

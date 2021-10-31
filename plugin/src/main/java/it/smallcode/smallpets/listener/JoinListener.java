@@ -7,6 +7,7 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.SmallPets;
+import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventBus;
 import it.smallcode.smallpets.core.abilities.eventsystem.events.JoinEvent;
 import it.smallcode.smallpets.core.manager.PetMapManager;
@@ -44,6 +45,11 @@ public class JoinListener implements Listener {
                     public void run() {
 
                         User user = userManager.getUser(e.getPlayer().getUniqueId().toString());
+                        if(SmallPetsCommons.getSmallPetsCommons().getDisabledWorlds().contains(e.getPlayer().getLocation().getWorld().getName())){
+                            user.getSelected().destroy();
+                            user.setSelected(null);
+                            e.getPlayer().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("pets_disabled_world"));
+                        }
 
                         user.spawnSelected();
 
