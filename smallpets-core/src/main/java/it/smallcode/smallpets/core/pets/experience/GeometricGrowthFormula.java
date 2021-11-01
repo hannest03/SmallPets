@@ -12,33 +12,30 @@ import java.util.Map;
 
 public class GeometricGrowthFormula implements LevelingFormula{
 
-    //TODO: fix equations: test works, but in-game it's broken
-
     private long expStart = 500;
     private double expMultiplier = 1.5;
 
     @Override
     public int getLevel(long exp) {
-        System.out.println(exp);
         return (int) Math.min(SmallPetsCommons.MAX_LEVEL, Math.max(SmallPetsCommons.MIN_LEVEL, logN(exp / (double) expStart, expMultiplier) + SmallPetsCommons.MIN_LEVEL +1));
     }
 
     @Override
     public long getExpForLevel(int level) {
         level = level -1;
+        if(level <= 0)
+            return 0;
         return (long) (expStart * Math.pow(expMultiplier, level-SmallPetsCommons.MIN_LEVEL));
     }
 
     @Override
     public void load(Map<String, Object> data) {
-        System.out.println("Let's go");
         if(data.containsKey("expStart")){
             this.expStart = Long.parseLong((String) data.get("expStart"));
         }
         if(data.containsKey("expMultiplier")){
             this.expMultiplier = (Double) data.get("expMultiplier");
         }
-        System.out.println(expStart + " | " + expMultiplier);
     }
 
     /**

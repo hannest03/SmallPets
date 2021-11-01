@@ -308,12 +308,10 @@ public class Pet {
     }
 
     public int getLevel(){
-        System.out.println(id);
         return SmallPetsCommons.getSmallPetsCommons().getLevelingFormula().getLevel(getExp());
     }
 
     public long getExpForNextLevel(){
-        System.out.println(id);
         return SmallPetsCommons.getSmallPetsCommons().getLevelingFormula().getExpForLevel(getLevel() +1);
     }
 

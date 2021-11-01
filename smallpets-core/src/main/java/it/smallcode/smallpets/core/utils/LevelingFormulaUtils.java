@@ -16,7 +16,7 @@ import java.util.Map;
 public class LevelingFormulaUtils {
 
     private static final Map<String, LevelingFormula> formulaMap = new HashMap<String, LevelingFormula>(){{
-            put("geometric", new GeometricGrowthFormula());
+            // put("geometric", new GeometricGrowthFormula());
             put("exponential", new ExponentialGrowthFormula());
         }};
 
