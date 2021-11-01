@@ -1,5 +1,6 @@
 translations:
   noPerms: 'Dafür hast du keine Rechte!'
+  pets_disabled_world: "Haustiere sind in dieser Welt deaktiviert"
   petSpawned: 'Dein Haustier wurde beschwört'
   petDespawned: 'Dein Haustier wurde eingepackt'
   petNotUnlocked: 'Haustier wurde noch nicht freigeschalten'

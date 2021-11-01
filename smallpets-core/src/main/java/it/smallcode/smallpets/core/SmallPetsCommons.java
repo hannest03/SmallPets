@@ -18,6 +18,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.LinkedList;
 import java.util.List;
 
 @Getter(AccessLevel.PUBLIC)
@@ -49,6 +50,9 @@ public class SmallPetsCommons {
     private boolean useWorldGuard = false;
     private boolean showUnlockMessage = true;
     private boolean registerCraftingRecipes = true;
+    private boolean activateParticles = true;
+
+    private List<String> disabledWorlds = new LinkedList<>();
 
     private List<String> petLore;
 

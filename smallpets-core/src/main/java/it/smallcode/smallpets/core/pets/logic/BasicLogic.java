@@ -109,23 +109,17 @@ public class BasicLogic implements Logic{
     }
 
     private void spawnParticles() {
-
+        if(!SmallPetsCommons.getSmallPetsCommons().isActivateParticles())
+            return;
         Location particleLoc = pet.getLocation().clone();
-
         particleLoc.setY(particleLoc.getY() + 0.7);
 
         for(Player p : getPlayersWithVisibleActivated(particleLoc)){
-
             User user = SmallPetsCommons.getSmallPetsCommons().getUserManager().getUser(p.getUniqueId().toString());
-
             if(!SmallPetsCommons.getSmallPetsCommons().isUseProtocollib() || (user != null && user.getSettings().isShowPets())) {
-
                 p.spawnParticle(pet.getParticle(), particleLoc, 0);
-
             }
-
         }
-
     }
 
     private List<Player> getPlayersWithVisibleActivated(Location location){

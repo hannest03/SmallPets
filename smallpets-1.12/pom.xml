@@ -13,7 +13,6 @@
     <artifactId>smallpets-1.12</artifactId>
     <version>1.12</version>
 
-
     <build>
         <plugins>
             <plugin>

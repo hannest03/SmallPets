@@ -12,8 +12,8 @@ import it.smallcode.smallpets.cmds.subcmd.debug.SpawnNewTestPetSystemSubCMD;
 import it.smallcode.smallpets.cmds.subcmd.debug.SpawnParticleCircleSubCMD;
 import it.smallcode.smallpets.cmds.subcmd.debug.TestMetaDataSubCMD;
 import it.smallcode.smallpets.cmds.subcmd.debug.TestSignAPISubCMD;
+import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.manager.types.User;
-import it.smallcode.smallpets.core.pets.Pet;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -62,6 +62,10 @@ public class SmallPetsCMD implements CommandExecutor, TabCompleter {
             if (s instanceof Player) {
 
                 Player p = (Player) s;
+                if(SmallPetsCommons.getSmallPetsCommons().getDisabledWorlds().contains(p.getLocation().getWorld().getName())) {
+                    p.sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("pets_disabled_world"));
+                    return false;
+                }
 
                 if(!p.hasPermission("smallpets.dontUseInventory") || p.isOp()) {
 

@@ -12,6 +12,7 @@
     <groupId>it.smallcode</groupId>
     <artifactId>smallpets-1.15</artifactId>
     <version>1.15</version>
+
     <build>
         <plugins>
             <plugin>

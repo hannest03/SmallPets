@@ -14,7 +14,8 @@ import it.smallcode.smallpets.core.manager.PetManager;
 import it.smallcode.smallpets.core.manager.UserManager;
 import it.smallcode.smallpets.core.manager.types.User;
 import it.smallcode.smallpets.core.version.VersionChecker;
-import it.smallcode.smallpets.v1_15.PetManager1_15;
+import it.smallcode.smallpets.core.worldguard.SmallFlags;
+import it.smallcode.smallpets.core.worldguard.WorldGuardImp;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -59,8 +60,16 @@ public class JoinListener implements Listener {
                     public void run() {
 
                         User user = userManager.getUser(e.getPlayer().getUniqueId().toString());
+                        if(SmallPetsCommons.getSmallPetsCommons().getDisabledWorlds().contains(e.getPlayer().getLocation().getWorld().getName())){
+                            user.getSelected().destroy();
+                            user.setSelected(null);
+                            e.getPlayer().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("pets_disabled_world"));
+                        }
 
-                        user.spawnSelected();
+                        if(!SmallPetsCommons.getSmallPetsCommons().isUseWorldGuard() ||
+                                (SmallPetsCommons.getSmallPetsCommons().isUseWorldGuard() && WorldGuardImp.checkStateFlag(e.getPlayer(), SmallFlags.SHOW_PETS))){
+                            user.spawnSelected();
+                        }
 
                         if(user.getSelected() != null){
 

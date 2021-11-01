@@ -1,5 +1,6 @@
 translations:
   noPerms: "You haven't got the permission to do that!"
+  pets_disabled_world: "Pets are disabled in this world"
   convertToItem: "&7Convert to item"
   inventoryFull: "&7Your inventory is full"
   petSpawned: 'Your pet was summoned'

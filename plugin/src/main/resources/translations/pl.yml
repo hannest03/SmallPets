@@ -1,40 +1,41 @@
 translations:
-  noPerms: '&cBrak permisji'
-  petSpawned: 'Twoj zwierzak pojawil sie'
-  petDespawned: 'Twoj zwierzak zniknal'
-  experienceSummary: '&fPosumowanie Expa'
-  levelupText: '&eTwoj zwierzak ma teraz poziom &6&l%pet_level%&e!'
-  nextLevel: '&eTwoj zwierzak wymaga &6%exp_next_level%&6 expa &eaby osiagnac poziom
+  noPerms: '&cNie posiadasz permisji'
+  petSpawned: Twój zwierzak się pojawił
+  petDespawned: Twój zwierzak zniknął
+  experienceSummary: '&fPodsumowanie Expa'
+  levelupText: '&eTwój zwierzak ma teraz poziom &6&l%pet_level%&e!'
+  nextLevel: '&eTwój zwierzak potrzebuje &6%exp_next_level%&6 expa &eaby osiągnąć poziom
     &6%pet_next_level%&e'
-  petUnlock: 'Odblokowano zwierzaka (%pet_type%)!'
-  clickToSelect: '&6KLIKNIJ ABY WYBRAC'
-  clickToDeselect: '&cKLIKNIJ ABY ZDESPAWNOWAC'
-  givePetSender: 'Dano zwierzaka (%pet_type%) graczowi %player%!'
-  givePetReceiver: 'Otrzymano zwierzaka (%pet_type%) od %sender%!'
-  removePetSender: 'Zwierzak (%pet_type%) zostal zabrany od %player%!'
-  removePetReceiver: 'Twoj zwierzak (%pet_type%) zostal zabrany przez %sender%!'
-  playerIsntOnline: 'Ten gracz nie jest online!'
-  userDataNotFound: 'Nie znaleziono danych!'
-  commandIsOnlyForPlayers: 'Ta komenda jest tylko dla graczy'
-  reloaded: 'Przeladowano %type%'
+  petUnlock: Odblokowano nowego zwierzaka (%pet_type%)!
+  clickToSelect: '&6KLIKNIJ ABY WYBRAĆ'
+  clickToDeselect: '&cKLIKNIJ ABY SCHOWAĆ'
+  givePetSender: Dano zwierzaka (%pet_type%) graczowi %player%!
+  givePetReceiver: Otrzymano zwierzaka (%pet_type%) od gracza %sender%!
+  removePetSender: Zwierzak (%pet_type%) został zabrany graczowi %player%!
+  removePetReceiver: Twój zwierzak (%pet_type%) został zabrany przez gracza %sender%!
+  playerIsntOnline: Ten gracz nie jest aktywny!
+  userDataNotFound: Nie znaleziono danych!
+  commandIsOnlyForPlayers: Ta komenda jest tylko dla graczy
+  reloaded: Przeładowano %type%
   maxLevel: '&b&kS&e&l MAKSYMALNY POZIOM &b&kS'
-  experienceMultiplier: 'Mnoznik Expa'
-  stats: 'Statystyki'
-  experienceBooster: 'Booster Expa'
-  petNameFormat: '&8[%level%&8] &7%player_name% '
-  petNameFormatTwoS: '&8[%level%&8] &7%player_name% '
-  petNotUnlocked: 'Zwierzak nie jest odblokowany'
-  notInteger: 'Nieprawidlowy numer'
-  convertToItem: '&7Zamien na przedmiot'
-  inventoryFull: '&7Twoj ekwipunek jest pelny'
+  experienceMultiplier: Mnożnik Expa
+  stats: Statystyki
+  experienceBooster: Wzmacniacz Expa
+  petNameFormat: "&7[%level%&7] &7%player_name%'s "
+  petNameFormatTwoS: "&7[%level%&7] &7%player_name%' "
+  petNotUnlocked: Zwierzak nie jest odblokowany
+  notInteger: Nieprawidłowy numer
+  convertToItem: '&7Zamień na przedmiot'
+  inventoryFull: '&7Twój ekwipunek jest pełny'
   petNameWithoutOwner: '&7[%level%&7] '
   pet:
-    tiger: 'Tygrys'
-    penguin: 'Pingwin'
-    monkey: 'Malpa'
+    tiger: Tygrysek
+    penguin: Pingwinek
+    monkey: Małpka
+    fish: Rybka
   petType:
-    combat: 'Rodzaj: Walka'
-    mining: 'Rodzaj: Gornictwo'
-    farming: 'Rodzaj: Rolnictwo'
-    fishing: 'Rodzaj: Lownictwo'
-    foraging: 'Rodzaj: Drwalnictwo'
+    combat: 'Wojownictwo'
+    mining: 'Górnictwo'
+    farming: 'Rolnictwo'
+    fishing: 'Rybołóstwo'
+    foraging: 'Drwalstwo'

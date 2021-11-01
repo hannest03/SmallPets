@@ -169,6 +169,7 @@ public class SmallPets extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new ShootProjectileListener(), this);
 
         Bukkit.getPluginManager().registerEvents(new UnlockListener(), this);
+        Bukkit.getPluginManager().registerEvents(new PetChangedWorldListener(), this);
 
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "Registered listeners!");
 
@@ -300,6 +301,8 @@ public class SmallPets extends JavaPlugin {
         cfg.addDefault("progressbar", "defaultprogressbar");
 
         cfg.addDefault("showUnlockMessage", true);
+        cfg.addDefault("activateParticles", true);
+        cfg.addDefault("disabledWorlds", new LinkedList<>());
 
         // -- Leveling formula
 
@@ -358,6 +361,8 @@ public class SmallPets extends JavaPlugin {
 
         SmallPetsCommons.getSmallPetsCommons().setRequirePermission(cfg.getBoolean("requirePermission"));
         SmallPetsCommons.getSmallPetsCommons().setShowUnlockMessage(cfg.getBoolean("showUnlockMessage"));
+        SmallPetsCommons.getSmallPetsCommons().setActivateParticles(cfg.getBoolean("activateParticles"));
+        SmallPetsCommons.getSmallPetsCommons().setDisabledWorlds(cfg.getStringList("disabledWorlds"));
 
         if(getInventoryManager() != null){
 
