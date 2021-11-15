@@ -59,6 +59,8 @@ public class Pet {
     private Texture[] textures = new Texture[0];
     private List<Ability> abilities = new LinkedList<>();
 
+    private int customModelData = -1;
+
     private EntityHandler entityHandler;
     private Logic logic;
 
@@ -158,15 +160,13 @@ public class Pet {
 
     public ItemStack getItem(){
         updateTexture();
-
         ItemStack skull = SmallPetsCommons.getSmallPetsCommons().getSkullCreator().createHeadItem(textureValue);
-
         ItemMeta skullMeta = skull.getItemMeta();
-
+        if(customModelData > 0){
+            skullMeta.setCustomModelData(customModelData);
+        }
         skullMeta.setDisplayName(getId());
-
         skull.setItemMeta(skullMeta);
-
         return skull;
     }
 

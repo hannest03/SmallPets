@@ -47,6 +47,11 @@ public class PetLoader {
             pet.setTextures(loadTexturesArray(jsonObject.get("textures").getAsJsonArray()));
         }
 
+        //TODO: Make custom model data part of texture -> Allow for conditions
+        if(jsonObject.has("custom_model_data")){
+            pet.setCustomModelData(jsonObject.get("custom_model_data").getAsInt());
+        }
+
         String translationKey = "pet." + pet.getId();
         if(jsonObject.has("translation_key")){
             translationKey = jsonObject.get("translation_key").getAsString();
