@@ -1,5 +1,6 @@
 translations:
   noPerms: "Vous n'avez pas la permission de faire ça!"
+  pets_disabled_world: "Les compagnons sont désactivés dans ce monde"
   convertToItem: "&7Converti en item"
   inventoryFull: "&7Votre inventaire est plein"
   petSpawned: 'Votre compagnon a été invoqué'
