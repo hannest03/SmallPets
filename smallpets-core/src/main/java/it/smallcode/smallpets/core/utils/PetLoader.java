@@ -6,7 +6,9 @@ Class created by SmallCode
 
 */
 
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.abilities.Ability;
@@ -14,11 +16,14 @@ import it.smallcode.smallpets.core.conditions.Condition;
 import it.smallcode.smallpets.core.pets.Pet;
 import it.smallcode.smallpets.core.pets.PetType;
 import it.smallcode.smallpets.core.pets.Texture;
+import it.smallcode.smallpets.core.pets.recipe.Recipe;
 import org.bukkit.Particle;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 public class PetLoader {
 
@@ -57,6 +62,25 @@ public class PetLoader {
             if(SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getString(translationKey).equals("translations." + translationKey)) {
                 SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getTranslations().put("translations." + translationKey, jsonObject.get("default_translation").getAsString());
             }
+        }
+
+        if(jsonObject.has("recipe")) {
+            JsonObject recipeMap = jsonObject.getAsJsonObject("recipe");
+
+            ItemStack[] itemStacks = new ItemStack[9];
+            for (Map.Entry<String, JsonElement> entry : recipeMap.entrySet()) {
+                int index = Integer.parseInt(entry.getKey());
+                if (index < 0 || index >= itemStacks.length)
+                    continue;
+                Map<String, Object> data = (Map<String, Object>) new Gson().fromJson(entry.getValue(), Map.class);
+                ItemStack itemStack = SmallPetsCommons.getSmallPetsCommons().getItemLoader().load(data);
+                itemStacks[index] = itemStack;
+            }
+
+            //TODO: Implement loading recipe
+            Recipe recipe = new Recipe(itemStacks);
+            pet.setRecipe(recipe);
+
         }
 
         // Load abilities

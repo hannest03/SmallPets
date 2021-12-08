@@ -11,7 +11,7 @@
       "max_stat":25.0
     }
   ],
-  "recipe":[],
+  "recipe": {},
   "textures":[
     {
       "priority":"100",

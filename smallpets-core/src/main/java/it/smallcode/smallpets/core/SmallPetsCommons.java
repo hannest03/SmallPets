@@ -84,5 +84,6 @@ public class SmallPetsCommons {
     private Progressbar progressbar = new DefaultProgressbar();
 
     private SkullCreator skullCreator;
+    private ItemLoader itemLoader;
 
 }

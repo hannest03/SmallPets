@@ -441,6 +441,10 @@ public class SmallPets extends JavaPlugin {
 
         version = version.replace(".v", "");
 
+        System.out.println(version);
+        //TODO: Select dynamically
+        SmallPetsCommons.getSmallPetsCommons().setItemLoader(new ItemLoader1_15());
+
         if(version.startsWith("1_12")) {
 
             if(SmallPetsCommons.getSmallPetsCommons().isUseProtocollib())
