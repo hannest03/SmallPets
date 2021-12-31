@@ -91,6 +91,15 @@
             <optional>true</optional>
         </dependency>
 
+        <dependency>
+            <groupId>it.smallcode</groupId>
+            <artifactId>smallpets-1.18</artifactId>
+            <version>1.18</version>
+            <type>jar</type>
+            <scope>compile</scope>
+            <optional>true</optional>
+        </dependency>
+
         <!--This adds the Spigot API artifact to the build -->
         <dependency>
             <groupId>org.spigotmc</groupId>

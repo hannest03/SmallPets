@@ -12,7 +12,6 @@ import it.smallcode.smallpets.core.conditions.BasicCondition;
 import it.smallcode.smallpets.core.conditions.DateCondition;
 import it.smallcode.smallpets.core.pets.PetInteractHandler;
 import it.smallcode.smallpets.core.pets.experience.ExponentialGrowthFormula;
-import it.smallcode.smallpets.core.pets.experience.LevelingFormula;
 import it.smallcode.smallpets.core.pets.progressbar.DefaultProgressbar;
 import it.smallcode.smallpets.core.pets.progressbar.PercentageProgressbar;
 import it.smallcode.smallpets.core.utils.ColorUtils;
@@ -31,9 +30,9 @@ import it.smallcode.smallpets.v1_13.*;
 import it.smallcode.smallpets.v1_15.*;
 import it.smallcode.smallpets.v1_16.*;
 import it.smallcode.smallpets.v1_17.*;
+import it.smallcode.smallpets.v1_18.*;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -535,9 +534,27 @@ public class SmallPets extends JavaPlugin {
 
             SmallPetsCommons.getSmallPetsCommons().setAbilityManager(new AbilityManager1_17());
 
+        }else if(version.startsWith("1_18")){
+
+            if(SmallPetsCommons.getSmallPetsCommons().isUseProtocollib())
+                SmallPetsCommons.getSmallPetsCommons().setProtocolLibUtils(new ProtocolLibUtils1_18());
+
+            SmallPetsCommons.getSmallPetsCommons().setSkullCreator(new SkullCreator1_18());
+            SmallPetsCommons.getSmallPetsCommons().setINBTTagEditor(new INBTTagEditor1_18());
+            SmallPetsCommons.getSmallPetsCommons().setMetaDataUtils(new MetaDataUtils1_15());
+            SmallPetsCommons.getSmallPetsCommons().setHealthModifierUtils(new HealthModifierUtils1_15());
+            SmallPetsCommons.getSmallPetsCommons().setSpeedModifierUtils(new SpeedModifierUtils1_15());
+
+            SmallPetsCommons.getSmallPetsCommons().setPetManager(new PetManager1_18());
+            SmallPetsCommons.getSmallPetsCommons().setInventoryManager(new InventoryManager1_18(xpMultiplier));
+            SmallPetsCommons.getSmallPetsCommons().setUserManager(new UserManager( SmallPetsCommons.getSmallPetsCommons().isUseProtocollib()));
+            SmallPetsCommons.getSmallPetsCommons().setListenerManager(new ListenerManager1_18(xpMultiplier, SmallPetsCommons.getSmallPetsCommons().isUseProtocollib()));
+
+            SmallPetsCommons.getSmallPetsCommons().setAbilityManager(new AbilityManager1_18());
+
         }else{
 
-            Bukkit.getConsoleSender().sendMessage(getPrefix() + "Not supported version");
+            Bukkit.getConsoleSender().sendMessage(getPrefix() + "§cNot supported version");
 
             Bukkit.getPluginManager().disablePlugin(this);
 
