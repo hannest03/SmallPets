@@ -8,6 +8,7 @@ Class created by SmallCode
 
 import it.smallcode.smallpets.cmds.*;
 import it.smallcode.smallpets.core.SmallPetsCommons;
+import it.smallcode.smallpets.core.database.Database;
 import it.smallcode.smallpets.core.worldguard.WorldGuardImp;
 import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventBus;
 import it.smallcode.smallpets.core.abilities.eventsystem.events.ServerShutdownEvent;
@@ -30,6 +31,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
+import java.sql.SQLException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -39,6 +42,7 @@ public class SmallPets extends JavaPlugin {
     public static final String DONATION_LINK = "https://ko-fi.com/smallcode";
 
     private static SmallPets instance;
+    private static Database database;
 
     private double xpMultiplier;
     private boolean registerCraftingRecipes;
@@ -88,6 +92,14 @@ public class SmallPets extends JavaPlugin {
         SmallPetsCommons.getSmallPetsCommons().setExperienceManager(new ExperienceManager(this));
 
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "Experience table loaded!");
+
+        database = new Database();
+        try {
+            database.connect(new File(getDataFolder(), "database.db").getPath());
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            Bukkit.getPluginManager().disablePlugin(this);
+        }
 
     }
 
@@ -266,6 +278,7 @@ public class SmallPets extends JavaPlugin {
         if(getInventoryCache() != null)
             getInventoryCache().removeAll();
 
+        database.disconnect();
     }
 
     public void initConfig(){
