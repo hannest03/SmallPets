@@ -46,40 +46,35 @@ public class Database {
     }
 
     private void createTables() throws SQLException {
-        final String sql = "\n" +
+        final String[] sqls = new String[]{
                 "CREATE TABLE IF NOT EXISTS users (\n" +
-                "\tuid VARCHAR(36) NOT NULL,\n" +
-                "\tpselected VARCHAR(36),\n" +
-                "\tPRIMARY KEY(uid)\n" +
-                ");\n" +
-                "\n" +
+                        "\tuid VARCHAR(36) NOT NULL,\n" +
+                        "\tpselected VARCHAR(36),\n" +
+                        "\tPRIMARY KEY(uid)\n" +
+                        ");",
                 "CREATE TABLE IF NOT EXISTS settings (\n" +
-                "\tsname VARCHAR(100) NOT NULL,\n" +
-                "\tuid VARCHAR(36) NOT NULL,\n" +
-                "\tsvalue TEXT,\n" +
-                "\tPRIMARY KEY(sname, uid)\n" +
-                ");\n" +
-                "\n" +
+                        "\tsname VARCHAR(100) NOT NULL,\n" +
+                        "\tuid VARCHAR(36) NOT NULL,\n" +
+                        "\tsvalue TEXT,\n" +
+                        "\tPRIMARY KEY(sname, uid)\n" +
+                        ");",
                 "CREATE TABLE IF NOT EXISTS pets (\n" +
-                "\tpid VARCHAR(36) NOT NULL,\n" +
-                "\tptype TINYTEXT NOT NULL,\n" +
-                "\tpexp BIGINT DEFAULT 0,\n" +
-                "\tuid VARCHAR(36) NOT NULL,\n" +
-                "\tPRIMARY KEY(pid),\n" +
-                "\tFOREIGN KEY(uid)\n" +
-                "\t\tREFERENCES users(uid)\n" +
-                "\t\tON UPDATE CASCADE\n" +
-                "\t\tON DELETE CASCADE\n" +
-                ");\n" +
-                "\n" +
-                "ALTER TABLE users\n" +
-                "\tADD FOREIGN KEY(pselected)\n" +
-                "\t\t\tREFERENCES pets(pid)\n" +
-                "\t\t\tON UPDATE CASCADE\n" +
-                "\t\t\tON DELETE SET NULL;";
+                        "\tpid VARCHAR(36) NOT NULL,\n" +
+                        "\tptype TINYTEXT NOT NULL,\n" +
+                        "\tpexp BIGINT DEFAULT 0,\n" +
+                        "\tuid VARCHAR(36) NOT NULL,\n" +
+                        "\tPRIMARY KEY(pid),\n" +
+                        "\tFOREIGN KEY(uid)\n" +
+                        "\t\tREFERENCES users(uid)\n" +
+                        "\t\tON UPDATE CASCADE\n" +
+                        "\t\tON DELETE CASCADE\n" +
+                        ");"
+        };
 
-        PreparedStatement statement = getConnection().prepareStatement(sql);
-        statement.executeUpdate();
+        for(String sql: sqls){
+            PreparedStatement statement = getConnection().prepareStatement(sql);
+            statement.executeUpdate();
+        }
     }
 
     public Connection getConnection() {
