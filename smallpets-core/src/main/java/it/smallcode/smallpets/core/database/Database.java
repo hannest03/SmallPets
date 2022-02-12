@@ -6,15 +6,42 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.core.database.dao.IDAO;
+import it.smallcode.smallpets.core.database.dao.PetDAO;
+import it.smallcode.smallpets.core.database.dao.SettingsDAO;
+import it.smallcode.smallpets.core.database.dao.UserDAO;
+
 import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.HashMap;
 
 public class Database {
     private Connection connection;
+
+    private HashMap<Class<IDAO>, IDAO> daos = new HashMap<>();
+
+    public Database(){
+        final Class<IDAO>[] daoList = new Class[]{
+                UserDAO.class,
+                SettingsDAO.class,
+                PetDAO.class
+        };
+
+        for(Class<IDAO> clazz : daoList){
+            try {
+                IDAO idao = clazz.newInstance();
+                idao.setDatabase(this);
+
+                this.daos.put(clazz, idao);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
 
     public void connect(String filePath) throws SQLException{
         try {
@@ -74,7 +101,14 @@ public class Database {
         for(String sql: sqls){
             PreparedStatement statement = getConnection().prepareStatement(sql);
             statement.executeUpdate();
+            statement.close();
         }
+    }
+
+    public <T extends IDAO> T getDao(Class<T> type){
+        if(daos.containsKey(type))
+            return (T) daos.get(type);
+        return null;
     }
 
     public Connection getConnection() {

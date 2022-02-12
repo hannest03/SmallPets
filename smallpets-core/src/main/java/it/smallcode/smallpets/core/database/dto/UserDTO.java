@@ -6,5 +6,10 @@ Class created by SmallCode
 
 */
 
+import lombok.Data;
+
+@Data
 public class UserDTO {
+    private String uid;
+    private String pselected;
 }

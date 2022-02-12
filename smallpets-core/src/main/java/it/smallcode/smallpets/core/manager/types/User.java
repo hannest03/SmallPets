@@ -356,6 +356,16 @@ public class User {
     }
 
     /**
+     * Sets the selected pet without any other action
+     *
+     * @param selected - the new selected pet
+     * @return
+     */
+    public void setSelectedSafe(Pet selected){
+        this.selected = selected;
+    }
+
+    /**
      *
      * Serializes the data of the user into a map so that it can be stored.
      *
@@ -461,8 +471,6 @@ public class User {
      * Unserializes the data of a pet
      *
      * @param data - the data
-     * @param petMapManager - the petMapManager with all the registered pettypes
-     * @param uuid - the uuid of the player
      * @return - the unserialized pet
      */
 

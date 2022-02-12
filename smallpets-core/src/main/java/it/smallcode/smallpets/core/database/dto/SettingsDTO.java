@@ -6,5 +6,11 @@ Class created by SmallCode
 
 */
 
+import lombok.Data;
+
+@Data
 public class SettingsDTO {
+    private String sname;
+    private String uid;
+    private String svalue;
 }

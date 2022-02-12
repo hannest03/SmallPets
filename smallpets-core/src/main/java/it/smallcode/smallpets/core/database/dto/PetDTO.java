@@ -6,5 +6,12 @@ Class created by SmallCode
 
 */
 
+import lombok.Data;
+
+@Data
 public class PetDTO {
+    private String pid;
+    private String ptype;
+    private long pexp;
+    private String uid;
 }

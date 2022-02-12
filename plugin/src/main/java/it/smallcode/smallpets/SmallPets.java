@@ -425,6 +425,8 @@ public class SmallPets extends JavaPlugin {
 
         version = version.replace(".v", "");
 
+        SmallPetsCommons.getSmallPetsCommons().setUserManager(new UserManager(database));
+
         if(version.startsWith("1_12")) {
 
             if(SmallPetsCommons.getSmallPetsCommons().isUseProtocollib())
@@ -438,7 +440,6 @@ public class SmallPets extends JavaPlugin {
 
             SmallPetsCommons.getSmallPetsCommons().setPetMapManager(new PetMapManager1_12());
             SmallPetsCommons.getSmallPetsCommons().setInventoryManager(new InventoryManager1_12(xpMultiplier));
-            SmallPetsCommons.getSmallPetsCommons().setUserManager(new UserManager( SmallPetsCommons.getSmallPetsCommons().isUseProtocollib()));
             SmallPetsCommons.getSmallPetsCommons().setListenerManager(new ListenerManager1_12(xpMultiplier, SmallPetsCommons.getSmallPetsCommons().isUseProtocollib()));
 
             SmallPetsCommons.getSmallPetsCommons().setAbilityManager(new AbilityManager1_12());
@@ -456,7 +457,6 @@ public class SmallPets extends JavaPlugin {
 
             SmallPetsCommons.getSmallPetsCommons().setPetMapManager(new PetMapManager1_13());
             SmallPetsCommons.getSmallPetsCommons().setInventoryManager(new InventoryManager1_13(xpMultiplier));
-            SmallPetsCommons.getSmallPetsCommons().setUserManager(new UserManager(SmallPetsCommons.getSmallPetsCommons().isUseProtocollib()));
             SmallPetsCommons.getSmallPetsCommons().setListenerManager(new ListenerManager1_13(xpMultiplier, SmallPetsCommons.getSmallPetsCommons().isUseProtocollib()));
 
             SmallPetsCommons.getSmallPetsCommons().setAbilityManager(new AbilityManager1_13());
@@ -474,7 +474,6 @@ public class SmallPets extends JavaPlugin {
 
             SmallPetsCommons.getSmallPetsCommons().setPetMapManager(new PetMapManager1_15());
             SmallPetsCommons.getSmallPetsCommons().setInventoryManager(new InventoryManager1_15(xpMultiplier));
-            SmallPetsCommons.getSmallPetsCommons().setUserManager(new UserManager( SmallPetsCommons.getSmallPetsCommons().isUseProtocollib()));
             SmallPetsCommons.getSmallPetsCommons().setListenerManager(new ListenerManager1_15(xpMultiplier, SmallPetsCommons.getSmallPetsCommons().isUseProtocollib()));
 
             SmallPetsCommons.getSmallPetsCommons().setAbilityManager(new AbilityManager1_15());
@@ -492,7 +491,6 @@ public class SmallPets extends JavaPlugin {
 
             SmallPetsCommons.getSmallPetsCommons().setPetMapManager(new PetMapManager1_16());
             SmallPetsCommons.getSmallPetsCommons().setInventoryManager(new InventoryManager1_16(xpMultiplier));
-            SmallPetsCommons.getSmallPetsCommons().setUserManager(new UserManager( SmallPetsCommons.getSmallPetsCommons().isUseProtocollib()));
             SmallPetsCommons.getSmallPetsCommons().setListenerManager(new ListenerManager1_16(xpMultiplier, SmallPetsCommons.getSmallPetsCommons().isUseProtocollib()));
 
             SmallPetsCommons.getSmallPetsCommons().setAbilityManager(new AbilityManager1_16());
@@ -510,7 +508,6 @@ public class SmallPets extends JavaPlugin {
 
             SmallPetsCommons.getSmallPetsCommons().setPetMapManager(new PetMapManager1_17());
             SmallPetsCommons.getSmallPetsCommons().setInventoryManager(new InventoryManager1_17(xpMultiplier));
-            SmallPetsCommons.getSmallPetsCommons().setUserManager(new UserManager( SmallPetsCommons.getSmallPetsCommons().isUseProtocollib()));
             SmallPetsCommons.getSmallPetsCommons().setListenerManager(new ListenerManager1_17(xpMultiplier, SmallPetsCommons.getSmallPetsCommons().isUseProtocollib()));
 
             SmallPetsCommons.getSmallPetsCommons().setAbilityManager(new AbilityManager1_17());
@@ -528,7 +525,6 @@ public class SmallPets extends JavaPlugin {
 
             SmallPetsCommons.getSmallPetsCommons().setPetMapManager(new PetMapManager1_18());
             SmallPetsCommons.getSmallPetsCommons().setInventoryManager(new InventoryManager1_18(xpMultiplier));
-            SmallPetsCommons.getSmallPetsCommons().setUserManager(new UserManager( SmallPetsCommons.getSmallPetsCommons().isUseProtocollib()));
             SmallPetsCommons.getSmallPetsCommons().setListenerManager(new ListenerManager1_18(xpMultiplier, SmallPetsCommons.getSmallPetsCommons().isUseProtocollib()));
 
             SmallPetsCommons.getSmallPetsCommons().setAbilityManager(new AbilityManager1_18());
