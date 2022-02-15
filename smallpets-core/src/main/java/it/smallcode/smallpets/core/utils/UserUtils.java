@@ -18,9 +18,7 @@ import it.smallcode.smallpets.core.manager.types.User;
 import it.smallcode.smallpets.core.pets.Pet;
 import org.bukkit.Bukkit;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class UserUtils {
 
@@ -107,6 +105,11 @@ public class UserUtils {
             petDTOs.add(petDTO);
         }
         return petDTOs.toArray(new PetDTO[0]);
+    }
+
+    public static PetDTO petToDTO(Pet pet){
+        PetDTO[] pets = petsToDTO(new LinkedList<>(Collections.singletonList(pet)));
+        return pets[0];
     }
 
 }

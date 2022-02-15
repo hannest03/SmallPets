@@ -67,6 +67,16 @@ public class PetDAO implements IDAO{
         statement.close();
     }
 
+    public void deletePet(PetDTO petDTO) throws SQLException {
+        final String sql = "DELETE FROM pets WHERE pid = ? AND uid = ?;";
+        PreparedStatement statement = database.getConnection().prepareStatement(sql);
+        statement.setString(1, petDTO.getPid());
+        statement.setString(2, petDTO.getUid());
+
+        statement.executeUpdate();
+        statement.close();
+    }
+
     public boolean pidExists(String pid) throws SQLException {
         final String sql = "SELECT COUNT(*) FROM pets\n" +
                 "\tWHERE pid=?;";

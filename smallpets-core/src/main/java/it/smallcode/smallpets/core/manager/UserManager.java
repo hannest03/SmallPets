@@ -160,6 +160,16 @@ public class UserManager {
         }
     }
 
+    public void removeUserPet(User user, Pet pet){
+        PetDTO petDTO = UserUtils.petToDTO(pet);
+        try {
+            this.petDAO.deletePet(petDTO);
+            user.getPets().remove(pet);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
     public void saveUserAndRemoveFromCache(User user){
         saveUser(user);
         this.users.remove(user);
@@ -301,7 +311,7 @@ public class UserManager {
                     }
                 }
                 Pet pet = user.getPetFromType(type);
-                user.getPets().remove(pet);
+                removeUserPet(user, pet);
             }
         }
         return true;
@@ -336,8 +346,7 @@ public class UserManager {
                     }
 
                     Pet pet = user.getPetFromType(type);
-
-                    user.getPets().remove(pet);
+                    removeUserPet(user, pet);
 
                     return true;
 
@@ -378,8 +387,7 @@ public class UserManager {
                 }
 
                 Pet pet = user.getPetFromUUID(petUUID);
-
-                user.getPets().remove(pet);
+                removeUserPet(user, pet);
 
                 return true;
 
