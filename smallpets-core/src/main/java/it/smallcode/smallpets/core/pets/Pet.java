@@ -20,6 +20,7 @@ import it.smallcode.smallpets.core.animations.LevelOnehundretAnimation;
 import it.smallcode.smallpets.core.animations.WalkAwayFromPlayerAnimation;
 import it.smallcode.smallpets.core.events.PetLevelUpEvent;
 import it.smallcode.smallpets.core.languages.LanguageManager;
+import it.smallcode.smallpets.core.manager.UserManager;
 import it.smallcode.smallpets.core.manager.types.User;
 import it.smallcode.smallpets.core.text.CenteredText;
 import net.minecraft.server.v1_15_R1.PacketPlayOutWorldParticles;
@@ -487,6 +488,8 @@ public class Pet {
                 this.xp = 0;
 
         }
+
+        SmallPetsCommons.getSmallPetsCommons().getUserManager().updatePet(this);
 
         if(level != getLevel()){
 

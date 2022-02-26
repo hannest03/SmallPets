@@ -122,7 +122,6 @@ public class UserManager {
     }
 
     public void saveUser(User user){
-        //TODO: Save pets
 
         UserDTO userDTO = UserUtils.userToDTO(user);
         try {
@@ -143,8 +142,6 @@ public class UserManager {
                 ex.printStackTrace();
             }
         }
-
-        //TODO: handle removed pets
 
         PetDTO[] petDTOs = UserUtils.petsToDTO(user.getPets());
         for(PetDTO petDTO : petDTOs){
@@ -173,6 +170,14 @@ public class UserManager {
     public void saveUserAndRemoveFromCache(User user){
         saveUser(user);
         this.users.remove(user);
+    }
+
+    public void updatePet(Pet pet){
+        try {
+            this.petDAO.updatePet(UserUtils.petToDTO(pet));
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 
     /**
@@ -255,6 +260,13 @@ public class UserManager {
 
                 Pet pet = PetFactory.createNewPet(type, Bukkit.getPlayer(UUID.fromString(uuid)), exp, useProtocolLib);
                 user.getPets().add(pet);
+
+                PetDTO petDTO = UserUtils.petToDTO(pet);
+                try {
+                    this.petDAO.insertPet(petDTO);
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
 
                 return true;
 
