@@ -9,6 +9,7 @@ Class created by SmallCode
 import it.smallcode.smallpets.cmds.*;
 import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.database.Database;
+import it.smallcode.smallpets.core.database.SaveType;
 import it.smallcode.smallpets.core.worldguard.WorldGuardImp;
 import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventBus;
 import it.smallcode.smallpets.core.abilities.eventsystem.events.ServerShutdownEvent;
@@ -92,14 +93,6 @@ public class SmallPets extends JavaPlugin {
         SmallPetsCommons.getSmallPetsCommons().setExperienceManager(new ExperienceManager(this));
 
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "Experience table loaded!");
-
-        database = new Database();
-        try {
-            database.connect(new File(getDataFolder(), "database.db").getPath());
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            Bukkit.getPluginManager().disablePlugin(this);
-        }
 
     }
 
@@ -319,6 +312,14 @@ public class SmallPets extends JavaPlugin {
 
         cfg.addDefault("pet_lore", petLore);
 
+        cfg.addDefault("saveType", SaveType.SQLITE.toString());
+
+        cfg.addDefault("mysql.host", "localhost");
+        cfg.addDefault("mysql.port", 3306);
+        cfg.addDefault("mysql.database", "smallpets");
+        cfg.addDefault("mysql.username", "root");
+        cfg.addDefault("mysql.password", "");
+
         getConfig().options().copyDefaults(true);
 
         saveConfig();
@@ -393,6 +394,45 @@ public class SmallPets extends JavaPlugin {
         if(cfg.getStringList("pet_lore") != null){
             List<String> petLore = cfg.getStringList("pet_lore");
             SmallPetsCommons.getSmallPetsCommons().setPetLore(petLore);
+        }
+
+        SaveType saveType;
+        try {
+            saveType = SaveType.valueOf(cfg.getString("saveType"));
+        }catch (Exception ex){
+            saveType = SaveType.SQLITE;
+        }
+
+        if(database != null){
+            database.disconnect();
+        }else {
+            database = new Database();
+        }
+        switch (saveType){
+            case SQLITE:{
+                try {
+                    database.connect(new File(getDataFolder(), "database.db").getPath());
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                    Bukkit.getPluginManager().disablePlugin(this);
+                }
+                break;
+            }
+            case MYSQL:{
+                Database.DatabaseConfig databaseConfig = new Database.DatabaseConfig();
+                databaseConfig.host = cfg.getString("mysql.host");
+                databaseConfig.port = cfg.getInt("mysql.port");
+                databaseConfig.databaseName = cfg.getString("mysql.database");
+                databaseConfig.username = cfg.getString("mysql.username");
+                databaseConfig.password = cfg.getString("mysql.password");
+
+                try {
+                    database.connect(databaseConfig);
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                    Bukkit.getPluginManager().disablePlugin(this);
+                }
+            }
         }
 
         return true;

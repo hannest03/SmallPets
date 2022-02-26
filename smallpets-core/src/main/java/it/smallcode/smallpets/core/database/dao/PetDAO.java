@@ -85,6 +85,7 @@ public class PetDAO implements IDAO{
         statement.setString(1, pid);
 
         ResultSet result = statement.executeQuery();
+        result.next();
         int count = result.getInt(1);
 
         result.close();

@@ -51,6 +51,7 @@ public class SettingsDAO implements IDAO{
         statement.setString(2, name);
 
         ResultSet result = statement.executeQuery();
+        result.next();
         int count = result.getInt(1);
 
         result.close();

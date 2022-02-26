@@ -10,6 +10,7 @@ import it.smallcode.smallpets.core.database.dao.IDAO;
 import it.smallcode.smallpets.core.database.dao.PetDAO;
 import it.smallcode.smallpets.core.database.dao.SettingsDAO;
 import it.smallcode.smallpets.core.database.dao.UserDAO;
+import lombok.Data;
 
 import java.io.File;
 import java.io.IOException;
@@ -63,6 +64,19 @@ public class Database {
         createTables();
     }
 
+    public void connect(DatabaseConfig config) throws SQLException {
+        if(config == null) return;
+
+        try {
+            if(connection != null && !connection.isClosed()) return;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        connection = DriverManager.getConnection("jdbc:mysql://" + config.host + ":" + config.port + "/" + config.databaseName ,config.username,config.password);
+        createTables();
+    }
+
     public void disconnect(){
         try {
             if(connection == null || connection.isClosed()) return;
@@ -113,5 +127,16 @@ public class Database {
 
     public Connection getConnection() {
         return connection;
+    }
+
+    @Data
+    public static class DatabaseConfig{
+        public String host;
+        public int port;
+
+        public String username;
+        public String password;
+
+        public String databaseName;
     }
 }
