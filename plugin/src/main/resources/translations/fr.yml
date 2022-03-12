@@ -75,6 +75,7 @@ translations:
       name: 'Habitat naturel'
       description: "&7Vous donne l'&7effet &cregeneration &c%extraStat% tant que vous êtes dans l'eau"
   inventory:
+  name: "&eSmallPets"
     sort:
       name: "&6Sort"
       description: "&cPas encore implémenté!"
@@ -93,3 +94,10 @@ translations:
     level_lowest: "Niveau inférieur"
     type: "Type"
     name: "Nom"
+  commandIsNotForPlayers: "Cette commande n'est pas pour les joueurs"
+  serverMustBeEmpty: "Le serveur doit être vide"
+  convert:
+    success: "&8[&a✓&8]&7 %name% converti avec succès!"
+    failed: "&8[&c✖&8]&7 Échec de conversion de %name% (%uuid%)!"
+    start: "Conversion en cours..."
+    end: "Conversion terminée!"
