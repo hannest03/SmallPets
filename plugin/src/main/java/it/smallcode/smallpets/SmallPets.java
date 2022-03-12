@@ -67,10 +67,13 @@ public class SmallPets extends JavaPlugin {
 
         //SmallPetsCommons.getSmallPetsCommons().setAutoSaveManager(new AutoSaveManager());
         SmallPetsCommons.getSmallPetsCommons().setBackupManager(new BackupManager());
-        SmallPetsCommons.getSmallPetsCommons().setInventoryCache(new InventoryCache());
 
         this.initConfig();
         if(!this.loadConfig()) return;
+
+        SmallPetsCommons.getSmallPetsCommons().setLanguageManager(new LanguageManager(this, getPrefix(), this.getConfig().getString("language")));
+
+        SmallPetsCommons.getSmallPetsCommons().setInventoryCache(new InventoryCache(SmallPetsCommons.getSmallPetsCommons().getLanguageManager()));
 
         //Registering WorldGuard
 
@@ -85,8 +88,6 @@ public class SmallPets extends JavaPlugin {
             Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "Added WorldGuard hook!");
 
         }
-
-        SmallPetsCommons.getSmallPetsCommons().setLanguageManager(new LanguageManager(this, getPrefix(), this.getConfig().getString("language")));
 
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "Loading experience table...");
 
@@ -330,7 +331,6 @@ public class SmallPets extends JavaPlugin {
     }
 
     public boolean loadConfig(){
-
         /*
         if(SmallPetsCommons.getSmallPetsCommons().getAutoSaveManager() != null && this.isEnabled())
             SmallPetsCommons.getSmallPetsCommons().getAutoSaveManager().stop();

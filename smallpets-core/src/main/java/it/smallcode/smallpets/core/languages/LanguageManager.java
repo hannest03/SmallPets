@@ -6,6 +6,7 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.utils.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -48,6 +49,7 @@ public class LanguageManager {
     }
 
     public void loadLanguage(){
+        if(SmallPetsCommons.getSmallPetsCommons().getInventoryCache() != null) SmallPetsCommons.getSmallPetsCommons().getInventoryCache().removeAll();
 
         if(!plugin.getDataFolder().exists())
             plugin.getDataFolder().mkdirs();

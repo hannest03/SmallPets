@@ -75,6 +75,7 @@ translations:
       name: 'Natural habitat'
       description: "&7Gives you a &cregeneration &c%extraStat% &7effect while in water"
   inventory:
+    name: "&eSmallPets"
     sort:
       name: "&6Sort"
       description: "&cNot implemented yet!"
