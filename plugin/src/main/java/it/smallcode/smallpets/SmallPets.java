@@ -65,7 +65,7 @@ public class SmallPets extends JavaPlugin {
 
         SmallPetsCommons.getSmallPetsCommons().setJavaPlugin(this);
 
-        SmallPetsCommons.getSmallPetsCommons().setAutoSaveManager(new AutoSaveManager());
+        //SmallPetsCommons.getSmallPetsCommons().setAutoSaveManager(new AutoSaveManager());
         SmallPetsCommons.getSmallPetsCommons().setBackupManager(new BackupManager());
         SmallPetsCommons.getSmallPetsCommons().setInventoryCache(new InventoryCache());
 
@@ -99,7 +99,7 @@ public class SmallPets extends JavaPlugin {
     @Override
     public void onEnable() {
 
-        SmallPetsCommons.getSmallPetsCommons().getAutoSaveManager().start();
+        //SmallPetsCommons.getSmallPetsCommons().getAutoSaveManager().start();
         SmallPetsCommons.getSmallPetsCommons().getBackupManager().start();
 
         if(getConfig().getBoolean("useProtocolLib")){
@@ -248,8 +248,10 @@ public class SmallPets extends JavaPlugin {
     @Override
     public void onDisable() {
 
+        /*
         if(SmallPetsCommons.getSmallPetsCommons().getAutoSaveManager() != null)
             SmallPetsCommons.getSmallPetsCommons().getAutoSaveManager().stop();
+         */
 
         if(SmallPetsCommons.getSmallPetsCommons().getBackupManager() != null)
             SmallPetsCommons.getSmallPetsCommons().getBackupManager().stop();
@@ -292,8 +294,8 @@ public class SmallPets extends JavaPlugin {
 
         // --- Auto Save
 
-        cfg.addDefault("autosave.enabled", true);
-        cfg.addDefault("autosave.interval", 15);
+        //cfg.addDefault("autosave.enabled", true);
+        //cfg.addDefault("autosave.interval", 15);
 
         // --- Backup
 
@@ -329,8 +331,10 @@ public class SmallPets extends JavaPlugin {
 
     public boolean loadConfig(){
 
+        /*
         if(SmallPetsCommons.getSmallPetsCommons().getAutoSaveManager() != null && this.isEnabled())
             SmallPetsCommons.getSmallPetsCommons().getAutoSaveManager().stop();
+         */
 
         if(SmallPetsCommons.getSmallPetsCommons().getBackupManager() != null && this.isEnabled())
             SmallPetsCommons.getSmallPetsCommons().getBackupManager().stop();
@@ -372,6 +376,7 @@ public class SmallPets extends JavaPlugin {
 
         }
 
+        /*
         if(cfg.getBoolean("autosave.enabled")){
 
             SmallPetsCommons.getSmallPetsCommons().getAutoSaveManager().setInterval(cfg.getLong("autosave.interval"));
@@ -380,6 +385,7 @@ public class SmallPets extends JavaPlugin {
                 SmallPetsCommons.getSmallPetsCommons().getAutoSaveManager().start();
 
         }
+         */
 
         if(cfg.getBoolean("backup.enabled")){
 

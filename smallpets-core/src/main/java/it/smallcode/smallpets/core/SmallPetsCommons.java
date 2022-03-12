@@ -51,7 +51,7 @@ public class SmallPetsCommons {
     private PetMapManager petMapManager;
 
     private UserManager userManager;
-    private AutoSaveManager autoSaveManager;
+    //private AutoSaveManager autoSaveManager;
     private BackupManager backupManager;
 
     private InventoryManager inventoryManager;
