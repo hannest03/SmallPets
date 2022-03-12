@@ -40,6 +40,7 @@ public class CreditsSubCMD extends SubCommand {
         s.sendMessage(prefix + "§7 -Plebexer");
         s.sendMessage(prefix + "§7 -SwiftlyMC");
         s.sendMessage(prefix + "§7 -Settlo");
+        s.sendMessage(prefix + "§7 -LibbyClaW");
         s.sendMessage("");
         s.sendMessage(prefix + "§aDonator§8: ");
         s.sendMessage(prefix + "§7 -Eden");

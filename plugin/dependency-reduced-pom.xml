@@ -4,7 +4,7 @@
   <groupId>it.smallcode</groupId>
   <artifactId>smallpets</artifactId>
   <name>SmallPets</name>
-  <version>beta-6.2.7</version>
+  <version>beta-7</version>
   <description>Adds simple little cute pets with abilities</description>
   <build>
     <resources>
@@ -23,6 +23,7 @@
           <include>translations/vi.yml</include>
           <include>translations/es.yml</include>
           <include>translations/fr.yml</include>
+          <include>translations/hu.yml</include>
         </includes>
       </resource>
       <resource>

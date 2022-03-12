@@ -1,0 +1,96 @@
+translations:
+  noPerms: Ehhez nincs jogod!
+  pets_disabled_world: A háziállítod nincs engedélyezve ebben a világban!
+  convertToItem: '&7Átalakítás tárgyra'
+  inventoryFull: '&7Az inventory tele van'
+  petSpawned: Megidézted a háziállatodat
+  petDespawned: Elküldted a háziállatodat
+  petNotUnlocked: A háziállat nincs feloldva
+  petNotRegistered: A háziállat nincs regisztrálva
+  notInteger: A számnak egésznek kell lennie
+  experienceSummary: §fTapasztalat áttekintés
+  levelupText: '&eA háziállatod szintje &6&l%pet_level%&e!'
+  nextLevel: '&eA háziállatodnak &6%exp_next_level%&6 xp-re van szüksége, hogy &eelérje
+    a &6%pet_next_level%&e szintet'
+  petUnlock: Sikeresen feloldottad %pet_type% háziállatot!
+  clickToSelect: '&6KATTINTS A KIVÁLASZTÁSHOZ '
+  clickToDeselect: '&cKATTINTS A KIVÁLASZTÁS TÖRLÉSÉHEZ'
+  givePetUnlockItemSender: Átadtad %pet_type% feloldó tárgyat neki :%player%!
+  givePetUnlockItemReceiver: Megkaptad %pet_type% feloldó tágyat tőle :%sender%!
+  givePetSender: Átadtad  %pet_type% kisállatot neki :%player%!
+  givePetReceiver: Megkaptad %pet_type% kisállatot tőle :%sender%!
+  removePetSender: A %pet_type% háziállatot elvették tőle :%player%!
+  removePetReceiver: A %pet_type% háziállatodat elvette %sender%!
+  playerIsntOnline: A Játékos nincs online!
+  userDataNotFound: A felhasználó adatait nem sikerült megtalálni!
+  commandIsOnlyForPlayers: Ezt a parancsot csak a játékosok használhatják
+  reloaded: Újratöltve %type%
+  maxLevel: '&d&kS&d MAX SZINT &d&kS'
+  experienceMultiplier: Tapasztalat-szorzó
+  stats: Statisztika
+  experienceBooster: Tapasztalat gyorsító
+  petNameFormat: '&7[%level%&7] &7%player_name%''s '
+  petNameFormatTwoS: '&7[%level%&7] &7%player_name%'' '
+  petNameWithoutOwner: '&7[%level%&7] '
+  savingLanguage: '&7%language% nyelv mentése...'
+  savedLanguage: '&7%language% nyelv elmentve!'
+  visibility:
+    hidePets: '&7Háziállatok elrejtése'
+    showPets: '&7Háziállatok mutatása'
+  pet:
+    all: Összes
+    tiger: Tigris
+    penguin: Pingvin
+    monkey: Majom
+    skeleton: Csontvváz
+    panda: Panda
+    fish: Hal
+    silverfish: Ezüstmoly
+  petType:
+    combat: Harci pet
+    mining: Bányász pet
+    farming: Farmer pet
+    fishing: Horgász pet
+    foraging: Takarmányozás pet
+  ability:
+    damage_ability:
+      description: '&7Okozz &c+%extraStat%%&7 sebzést!'
+    health_ability:
+      description: '&7Szerezz &a+%extraStat%&7 extra életet!'
+    aurelium_skills_health_ability:
+      description: '&7Szerezz &a+%extraStat%&7 extra életet!'
+    water_speed_ability:
+      description: '&7Haladj &a+%extraStat%%&7 gyorsabban a vízben!'
+    speed_in_biome_ability:
+      name: Természetes élőhely
+      description: '&7Megnöveli a sebességed a %biomes% &7biome-ban!'
+    dont_consume_arrow_ability:
+      description: '&c%extraStat%% &7esély, hogy ne használjon nyilakat a lövéshez!'
+    unbreakable_bow_ability:
+      name: Tapasztalat
+      description: '&7Az íjad nem sérül lövés közben!'
+    faster_mining_speed_ability:
+      name: Képzett
+      description: '&7Állandó &Sietség &c%extraStat% &7effektust ad neked!'
+    heal_while_in_water_ability:
+      name: Természetes élőhely
+      description: '&7Amíg vízben vagy &cRegeneráció &c%extraStat% &7effektust kapsz!'
+  inventory:
+    sort:
+      name: '&6Rendezés'
+      description: '&cMég nem valósult meg!'
+    recipebook:
+      name: '&6Recept könyv'
+      description: '&cMég nem valósult meg!'
+    next:
+      name: '&7Következő'
+      description: '&7Átváltás a következő oldalra'
+    previous:
+      name: '&7Előző'
+      description: '&7Átvált az előző oldalra'
+  sort:
+    none: Nincs
+    level_highest: Legmagasabb szint
+    level_lowest: Legalacsonyabb szint
+    type: Típus
+    name: Név

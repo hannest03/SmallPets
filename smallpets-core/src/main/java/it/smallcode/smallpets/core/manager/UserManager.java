@@ -7,10 +7,17 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.core.SmallPetsCommons;
+import it.smallcode.smallpets.core.database.Database;
+import it.smallcode.smallpets.core.database.dao.PetDAO;
+import it.smallcode.smallpets.core.database.dao.SettingsDAO;
+import it.smallcode.smallpets.core.database.dao.UserDAO;
+import it.smallcode.smallpets.core.database.dto.PetDTO;
+import it.smallcode.smallpets.core.database.dto.SettingsDTO;
+import it.smallcode.smallpets.core.database.dto.UserDTO;
 import it.smallcode.smallpets.core.factory.PetFactory;
-import it.smallcode.smallpets.core.languages.LanguageManager;
 import it.smallcode.smallpets.core.manager.types.User;
 import it.smallcode.smallpets.core.pets.Pet;
+import it.smallcode.smallpets.core.utils.UserUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -18,6 +25,7 @@ import org.bukkit.entity.Player;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -32,17 +40,23 @@ public class UserManager {
 
     private boolean useProtocolLib;
 
+    private UserDAO userDAO;
+    private SettingsDAO settingsDAO;
+    private PetDAO petDAO;
+
     /**
      *
      * Creates a user manager object
      *
      */
-    public UserManager(boolean useProtocolLib){
+    public UserManager(Database database){
+        this.userDAO = database.getDao(UserDAO.class);
+        this.settingsDAO = database.getDao(SettingsDAO.class);
+        this.petDAO = database.getDao(PetDAO.class);
 
-        this.useProtocolLib = useProtocolLib;
+        this.useProtocolLib = SmallPetsCommons.getSmallPetsCommons().isUseProtocollib();
 
         users = new ArrayList<>();
-
     }
 
     /**
@@ -51,33 +65,31 @@ public class UserManager {
      * if the file doesn't exist a new user will be created
      *
      * @param uuid - the uuid of the player which should be loaded
-     * @param petMapManager - the petMapManager to check if the pet is registered
      */
     public void loadUser(String uuid){
-
         if(!alreadyLoaded(uuid)) {
+            // TODO: Convert old file to database
+            try {
+                UserDTO userDTO = userDAO.getUser(uuid);
+                SettingsDTO[] settingsDTOs = settingsDAO.getSettings(uuid);
+                PetDTO[] petDTOs = petDAO.getPets(uuid);
 
-            if (!new File(SmallPetsCommons.getSmallPetsCommons().getJavaPlugin().getDataFolder().getPath() + "/users").exists())
-                new File(SmallPetsCommons.getSmallPetsCommons().getJavaPlugin().getDataFolder().getPath() + "/users").mkdirs();
+                if(userDTO == null) {
+                    users.add(new User(uuid, SmallPetsCommons.getSmallPetsCommons().getJavaPlugin()));
 
-            File userFile = new File(SmallPetsCommons.getSmallPetsCommons().getJavaPlugin().getDataFolder().getPath() + "/users", uuid + ".yml");
+                    UserDTO newUser = new UserDTO();
+                    newUser.setUid(uuid);
+                    userDAO.insertUser(newUser);
 
-            if (!userFile.exists()) {
+                    return;
+                }
 
-                users.add(new User(uuid, SmallPetsCommons.getSmallPetsCommons().getJavaPlugin()));
-
-            } else {
-
-                FileConfiguration cfg = YamlConfiguration.loadConfiguration(userFile);
-
-                Map<String, Object> data = cfg.getValues(true);
-
-                users.add(new User(userFile.getName().replaceFirst("[.][^.]+$", ""), data, SmallPetsCommons.getSmallPetsCommons().getPetMapManager(), SmallPetsCommons.getSmallPetsCommons().getJavaPlugin(), useProtocolLib, SmallPetsCommons.getSmallPetsCommons().getLanguageManager()));
-
+                User user = UserUtils.dtoToUser(userDTO, settingsDTOs, petDTOs);
+                users.add(user);
+            } catch (SQLException ex) {
+                ex.printStackTrace();
             }
-
         }
-
     }
 
     /**
@@ -104,49 +116,67 @@ public class UserManager {
      *
      */
     public void saveUsers(){
-
-        if(!new File(SmallPetsCommons.getSmallPetsCommons().getJavaPlugin().getDataFolder().getPath() + "/users").exists())
-            new File(SmallPetsCommons.getSmallPetsCommons().getJavaPlugin().getDataFolder().getPath() + "/users").mkdirs();
-
         for(User user : users){
+            saveUser(user);
+        }
+    }
 
-            File userFile = new File(SmallPetsCommons.getSmallPetsCommons().getJavaPlugin().getDataFolder().getPath() + "/users", user.getUuid() + ".yml");
+    public void saveUser(User user){
+        try{
+            saveUserExceptions(user);
+        }catch (SQLException ex){
+            ex.printStackTrace();
+        }
+    }
 
-            if(!userFile.exists()) {
-
-                try {
-
-                    userFile.createNewFile();
-
-                } catch (IOException ex) {
-
-                    ex.printStackTrace();
-
-                }
-            }
-
-            FileConfiguration cfg = YamlConfiguration.loadConfiguration(userFile);
-
-            Map<String, Object> data = user.serialize();
-
-            for(String key : data.keySet()){
-
-                cfg.set(key, data.get(key));
-
-            }
-
-            try {
-
-                cfg.save(userFile);
-
-            } catch (IOException ex) {
-
-                ex.printStackTrace();
-
-            }
-
+    public void saveUserExceptions(User user) throws SQLException {
+        UserDTO userDTO = UserUtils.userToDTO(user);
+        if(userDAO.existsUser(user.getUuid())) {
+            userDAO.updateUser(userDTO);
+        }else{
+            userDAO.insertUser(userDTO);
         }
 
+        SettingsDTO[] settingsDTOs = UserUtils.settingsToDTO(user.getUuid(), user.getSettings());
+        for(SettingsDTO settingsDTO : settingsDTOs){
+            if(this.settingsDAO.hasSetting(settingsDTO.getUid(), settingsDTO.getSname())){
+                this.settingsDAO.updateSetting(settingsDTO);
+            }else{
+                this.settingsDAO.insertSetting(settingsDTO);
+            }
+        }
+
+        PetDTO[] petDTOs = UserUtils.petsToDTO(user.getPets(), user.getUuid());
+        for(PetDTO petDTO : petDTOs){
+            if(this.petDAO.pidExists(petDTO.getPid())) {
+                this.petDAO.updatePet(petDTO);
+            }else{
+                this.petDAO.insertPet(petDTO);
+            }
+        }
+    }
+
+    public void removeUserPet(User user, Pet pet){
+        PetDTO petDTO = UserUtils.petToDTO(pet);
+        try {
+            this.petDAO.deletePet(petDTO);
+            user.getPets().remove(pet);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void saveUserAndRemoveFromCache(User user){
+        saveUser(user);
+        this.users.remove(user);
+    }
+
+    public void updatePet(Pet pet){
+        try {
+            this.petDAO.updatePet(UserUtils.petToDTO(pet));
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 
     /**
@@ -230,6 +260,13 @@ public class UserManager {
                 Pet pet = PetFactory.createNewPet(type, Bukkit.getPlayer(UUID.fromString(uuid)), exp, useProtocolLib);
                 user.getPets().add(pet);
 
+                PetDTO petDTO = UserUtils.petToDTO(pet);
+                try {
+                    this.petDAO.insertPet(petDTO);
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+
                 return true;
 
             }
@@ -285,7 +322,7 @@ public class UserManager {
                     }
                 }
                 Pet pet = user.getPetFromType(type);
-                user.getPets().remove(pet);
+                removeUserPet(user, pet);
             }
         }
         return true;
@@ -320,8 +357,7 @@ public class UserManager {
                     }
 
                     Pet pet = user.getPetFromType(type);
-
-                    user.getPets().remove(pet);
+                    removeUserPet(user, pet);
 
                     return true;
 
@@ -362,8 +398,7 @@ public class UserManager {
                 }
 
                 Pet pet = user.getPetFromUUID(petUUID);
-
-                user.getPets().remove(pet);
+                removeUserPet(user, pet);
 
                 return true;
 

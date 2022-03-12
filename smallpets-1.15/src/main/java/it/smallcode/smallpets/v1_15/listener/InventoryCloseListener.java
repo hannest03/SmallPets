@@ -18,7 +18,7 @@ public class InventoryCloseListener implements Listener {
     @EventHandler
     public void onClose(InventoryCloseEvent e){
 
-        if(e.getView().getTitle().equals("§eSmallPets")){
+        if(e.getView().getTitle().equals(SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("inventory.name"))){
 
             InventoryManager inventoryManager = SmallPetsCommons.getSmallPetsCommons().getInventoryManager();
 

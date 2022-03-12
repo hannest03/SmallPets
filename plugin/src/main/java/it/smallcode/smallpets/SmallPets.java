@@ -8,6 +8,8 @@ Class created by SmallCode
 
 import it.smallcode.smallpets.cmds.*;
 import it.smallcode.smallpets.core.SmallPetsCommons;
+import it.smallcode.smallpets.core.database.Database;
+import it.smallcode.smallpets.core.database.SaveType;
 import it.smallcode.smallpets.core.worldguard.WorldGuardImp;
 import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventBus;
 import it.smallcode.smallpets.core.abilities.eventsystem.events.ServerShutdownEvent;
@@ -30,6 +32,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
+import java.sql.SQLException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -39,6 +43,7 @@ public class SmallPets extends JavaPlugin {
     public static final String DONATION_LINK = "https://ko-fi.com/smallcode";
 
     private static SmallPets instance;
+    private static Database database;
 
     private double xpMultiplier;
     private boolean registerCraftingRecipes;
@@ -60,12 +65,15 @@ public class SmallPets extends JavaPlugin {
 
         SmallPetsCommons.getSmallPetsCommons().setJavaPlugin(this);
 
-        SmallPetsCommons.getSmallPetsCommons().setAutoSaveManager(new AutoSaveManager());
+        //SmallPetsCommons.getSmallPetsCommons().setAutoSaveManager(new AutoSaveManager());
         SmallPetsCommons.getSmallPetsCommons().setBackupManager(new BackupManager());
-        SmallPetsCommons.getSmallPetsCommons().setInventoryCache(new InventoryCache());
 
         this.initConfig();
         if(!this.loadConfig()) return;
+
+        SmallPetsCommons.getSmallPetsCommons().setLanguageManager(new LanguageManager(this, getPrefix(), this.getConfig().getString("language")));
+
+        SmallPetsCommons.getSmallPetsCommons().setInventoryCache(new InventoryCache(SmallPetsCommons.getSmallPetsCommons().getLanguageManager()));
 
         //Registering WorldGuard
 
@@ -81,8 +89,6 @@ public class SmallPets extends JavaPlugin {
 
         }
 
-        SmallPetsCommons.getSmallPetsCommons().setLanguageManager(new LanguageManager(this, getPrefix(), this.getConfig().getString("language")));
-
         Bukkit.getConsoleSender().sendMessage(getPrefix() + "Loading experience table...");
 
         SmallPetsCommons.getSmallPetsCommons().setExperienceManager(new ExperienceManager(this));
@@ -94,7 +100,7 @@ public class SmallPets extends JavaPlugin {
     @Override
     public void onEnable() {
 
-        SmallPetsCommons.getSmallPetsCommons().getAutoSaveManager().start();
+        //SmallPetsCommons.getSmallPetsCommons().getAutoSaveManager().start();
         SmallPetsCommons.getSmallPetsCommons().getBackupManager().start();
 
         if(getConfig().getBoolean("useProtocolLib")){
@@ -243,8 +249,10 @@ public class SmallPets extends JavaPlugin {
     @Override
     public void onDisable() {
 
+        /*
         if(SmallPetsCommons.getSmallPetsCommons().getAutoSaveManager() != null)
             SmallPetsCommons.getSmallPetsCommons().getAutoSaveManager().stop();
+         */
 
         if(SmallPetsCommons.getSmallPetsCommons().getBackupManager() != null)
             SmallPetsCommons.getSmallPetsCommons().getBackupManager().stop();
@@ -266,6 +274,7 @@ public class SmallPets extends JavaPlugin {
         if(getInventoryCache() != null)
             getInventoryCache().removeAll();
 
+        database.disconnect();
     }
 
     public void initConfig(){
@@ -286,8 +295,8 @@ public class SmallPets extends JavaPlugin {
 
         // --- Auto Save
 
-        cfg.addDefault("autosave.enabled", true);
-        cfg.addDefault("autosave.interval", 15);
+        //cfg.addDefault("autosave.enabled", true);
+        //cfg.addDefault("autosave.interval", 15);
 
         // --- Backup
 
@@ -306,6 +315,14 @@ public class SmallPets extends JavaPlugin {
 
         cfg.addDefault("pet_lore", petLore);
 
+        cfg.addDefault("saveType", SaveType.SQLITE.toString());
+
+        cfg.addDefault("mysql.host", "localhost");
+        cfg.addDefault("mysql.port", 3306);
+        cfg.addDefault("mysql.database", "smallpets");
+        cfg.addDefault("mysql.username", "root");
+        cfg.addDefault("mysql.password", "");
+
         getConfig().options().copyDefaults(true);
 
         saveConfig();
@@ -314,9 +331,10 @@ public class SmallPets extends JavaPlugin {
     }
 
     public boolean loadConfig(){
-
+        /*
         if(SmallPetsCommons.getSmallPetsCommons().getAutoSaveManager() != null && this.isEnabled())
             SmallPetsCommons.getSmallPetsCommons().getAutoSaveManager().stop();
+         */
 
         if(SmallPetsCommons.getSmallPetsCommons().getBackupManager() != null && this.isEnabled())
             SmallPetsCommons.getSmallPetsCommons().getBackupManager().stop();
@@ -358,6 +376,7 @@ public class SmallPets extends JavaPlugin {
 
         }
 
+        /*
         if(cfg.getBoolean("autosave.enabled")){
 
             SmallPetsCommons.getSmallPetsCommons().getAutoSaveManager().setInterval(cfg.getLong("autosave.interval"));
@@ -366,6 +385,7 @@ public class SmallPets extends JavaPlugin {
                 SmallPetsCommons.getSmallPetsCommons().getAutoSaveManager().start();
 
         }
+         */
 
         if(cfg.getBoolean("backup.enabled")){
 
@@ -380,6 +400,45 @@ public class SmallPets extends JavaPlugin {
         if(cfg.getStringList("pet_lore") != null){
             List<String> petLore = cfg.getStringList("pet_lore");
             SmallPetsCommons.getSmallPetsCommons().setPetLore(petLore);
+        }
+
+        SaveType saveType;
+        try {
+            saveType = SaveType.valueOf(cfg.getString("saveType"));
+        }catch (Exception ex){
+            saveType = SaveType.SQLITE;
+        }
+
+        if(database != null){
+            database.disconnect();
+        }else {
+            database = new Database();
+        }
+        switch (saveType){
+            case SQLITE:{
+                try {
+                    database.connect(new File(getDataFolder(), "database.db").getPath());
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                    Bukkit.getPluginManager().disablePlugin(this);
+                }
+                break;
+            }
+            case MYSQL:{
+                Database.DatabaseConfig databaseConfig = new Database.DatabaseConfig();
+                databaseConfig.host = cfg.getString("mysql.host");
+                databaseConfig.port = cfg.getInt("mysql.port");
+                databaseConfig.databaseName = cfg.getString("mysql.database");
+                databaseConfig.username = cfg.getString("mysql.username");
+                databaseConfig.password = cfg.getString("mysql.password");
+
+                try {
+                    database.connect(databaseConfig);
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                    Bukkit.getPluginManager().disablePlugin(this);
+                }
+            }
         }
 
         return true;
@@ -412,6 +471,8 @@ public class SmallPets extends JavaPlugin {
 
         version = version.replace(".v", "");
 
+        SmallPetsCommons.getSmallPetsCommons().setUserManager(new UserManager(database));
+
         if(version.startsWith("1_12")) {
 
             if(SmallPetsCommons.getSmallPetsCommons().isUseProtocollib())
@@ -425,7 +486,6 @@ public class SmallPets extends JavaPlugin {
 
             SmallPetsCommons.getSmallPetsCommons().setPetMapManager(new PetMapManager1_12());
             SmallPetsCommons.getSmallPetsCommons().setInventoryManager(new InventoryManager1_12(xpMultiplier));
-            SmallPetsCommons.getSmallPetsCommons().setUserManager(new UserManager( SmallPetsCommons.getSmallPetsCommons().isUseProtocollib()));
             SmallPetsCommons.getSmallPetsCommons().setListenerManager(new ListenerManager1_12(xpMultiplier, SmallPetsCommons.getSmallPetsCommons().isUseProtocollib()));
 
             SmallPetsCommons.getSmallPetsCommons().setAbilityManager(new AbilityManager1_12());
@@ -443,7 +503,6 @@ public class SmallPets extends JavaPlugin {
 
             SmallPetsCommons.getSmallPetsCommons().setPetMapManager(new PetMapManager1_13());
             SmallPetsCommons.getSmallPetsCommons().setInventoryManager(new InventoryManager1_13(xpMultiplier));
-            SmallPetsCommons.getSmallPetsCommons().setUserManager(new UserManager(SmallPetsCommons.getSmallPetsCommons().isUseProtocollib()));
             SmallPetsCommons.getSmallPetsCommons().setListenerManager(new ListenerManager1_13(xpMultiplier, SmallPetsCommons.getSmallPetsCommons().isUseProtocollib()));
 
             SmallPetsCommons.getSmallPetsCommons().setAbilityManager(new AbilityManager1_13());
@@ -461,7 +520,6 @@ public class SmallPets extends JavaPlugin {
 
             SmallPetsCommons.getSmallPetsCommons().setPetMapManager(new PetMapManager1_15());
             SmallPetsCommons.getSmallPetsCommons().setInventoryManager(new InventoryManager1_15(xpMultiplier));
-            SmallPetsCommons.getSmallPetsCommons().setUserManager(new UserManager( SmallPetsCommons.getSmallPetsCommons().isUseProtocollib()));
             SmallPetsCommons.getSmallPetsCommons().setListenerManager(new ListenerManager1_15(xpMultiplier, SmallPetsCommons.getSmallPetsCommons().isUseProtocollib()));
 
             SmallPetsCommons.getSmallPetsCommons().setAbilityManager(new AbilityManager1_15());
@@ -479,7 +537,6 @@ public class SmallPets extends JavaPlugin {
 
             SmallPetsCommons.getSmallPetsCommons().setPetMapManager(new PetMapManager1_16());
             SmallPetsCommons.getSmallPetsCommons().setInventoryManager(new InventoryManager1_16(xpMultiplier));
-            SmallPetsCommons.getSmallPetsCommons().setUserManager(new UserManager( SmallPetsCommons.getSmallPetsCommons().isUseProtocollib()));
             SmallPetsCommons.getSmallPetsCommons().setListenerManager(new ListenerManager1_16(xpMultiplier, SmallPetsCommons.getSmallPetsCommons().isUseProtocollib()));
 
             SmallPetsCommons.getSmallPetsCommons().setAbilityManager(new AbilityManager1_16());
@@ -497,7 +554,6 @@ public class SmallPets extends JavaPlugin {
 
             SmallPetsCommons.getSmallPetsCommons().setPetMapManager(new PetMapManager1_17());
             SmallPetsCommons.getSmallPetsCommons().setInventoryManager(new InventoryManager1_17(xpMultiplier));
-            SmallPetsCommons.getSmallPetsCommons().setUserManager(new UserManager( SmallPetsCommons.getSmallPetsCommons().isUseProtocollib()));
             SmallPetsCommons.getSmallPetsCommons().setListenerManager(new ListenerManager1_17(xpMultiplier, SmallPetsCommons.getSmallPetsCommons().isUseProtocollib()));
 
             SmallPetsCommons.getSmallPetsCommons().setAbilityManager(new AbilityManager1_17());
@@ -515,7 +571,6 @@ public class SmallPets extends JavaPlugin {
 
             SmallPetsCommons.getSmallPetsCommons().setPetMapManager(new PetMapManager1_18());
             SmallPetsCommons.getSmallPetsCommons().setInventoryManager(new InventoryManager1_18(xpMultiplier));
-            SmallPetsCommons.getSmallPetsCommons().setUserManager(new UserManager( SmallPetsCommons.getSmallPetsCommons().isUseProtocollib()));
             SmallPetsCommons.getSmallPetsCommons().setListenerManager(new ListenerManager1_18(xpMultiplier, SmallPetsCommons.getSmallPetsCommons().isUseProtocollib()));
 
             SmallPetsCommons.getSmallPetsCommons().setAbilityManager(new AbilityManager1_18());
