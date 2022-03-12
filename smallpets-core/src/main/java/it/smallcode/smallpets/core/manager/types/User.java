@@ -87,8 +87,6 @@ public class User {
 
         this.uuid = uuid;
 
-        unserialize(data);
-
     }
 
     /**
@@ -363,107 +361,6 @@ public class User {
      */
     public void setSelectedSafe(Pet selected){
         this.selected = selected;
-    }
-
-    /**
-     *
-     * Serializes the data of the user into a map so that it can be stored.
-     *
-     * @return the serialized data in a map
-     */
-
-    public Map<String, Object> serialize(){
-
-        Map<String, Object> data = new HashMap<>();
-
-        if(selected != null) {
-
-            data.put("selected", selected.getUuid().toString());
-
-        }else {
-
-            data.put("selected", "null");
-
-        }
-
-        data.put("settings", settings.serialize());
-
-        List<Map<String, Object>> petList = new LinkedList<>();
-
-        for(Pet pet : pets){
-
-            petList.add(serializePet(pet));
-
-        }
-
-        data.put("pets", petList);
-
-        return data;
-
-    }
-
-    public void unserialize(Map<String, Object> data){
-
-        if(data.get("settings") != null){
-
-            settings.unserialize(memorySectionToMap((MemorySection) data.get("settings")));
-
-        }
-
-        this.pets = new ArrayList<>();
-
-        List<Map<String, Object>> petDatas = (List<Map<String, Object>>) data.get("pets");
-
-        for(Map<String, Object> petData : petDatas){
-
-            Pet pet = unserializePet(petData);
-
-            if(pet != null)
-                pets.add(pet);
-
-        }
-
-        if(!(data.get("selected")).equals("null")) {
-            try {
-                UUID petUUID = UUID.fromString((String) data.get("selected"));
-                this.selected = getPetFromUUID(petUUID);
-            } catch (IllegalArgumentException ex) {
-                Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "§cInvalid pet uuid found! " + data.get("selected"));
-                Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "§cThis error can be ignored");
-            }
-        }
-
-    }
-
-    private Map<String, Object> memorySectionToMap(MemorySection memorySection){
-
-        Map<String, Object> map = new HashMap<>();
-
-        for(String key : memorySection.getKeys(true))
-            map.put(key, memorySection.get(key));
-
-        return map;
-
-    }
-
-    /**
-     *
-     * Serializes the data of the pet into a map so that it can be stored.
-     *
-     * @param pet - the pet
-     * @return - the serialized data in a map
-     */
-
-    private Map<String, Object> serializePet(Pet pet){
-
-        Map<String, Object> data = new HashMap<>();
-
-        data.put("type", pet.getID());
-        data.put("exp", String.valueOf(pet.getXp()));
-        data.put("uuid", pet.getUuid().toString());
-
-        return data;
-
     }
 
     /**

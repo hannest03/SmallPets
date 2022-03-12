@@ -122,37 +122,36 @@ public class UserManager {
     }
 
     public void saveUser(User user){
-
-        UserDTO userDTO = UserUtils.userToDTO(user);
-        try {
-            userDAO.updateUser(userDTO);
-        } catch (SQLException ex) {
+        try{
+            saveUserExceptions(user);
+        }catch (SQLException ex){
             ex.printStackTrace();
+        }
+    }
+
+    public void saveUserExceptions(User user) throws SQLException {
+        UserDTO userDTO = UserUtils.userToDTO(user);
+        if(userDAO.existsUser(user.getUuid())) {
+            userDAO.updateUser(userDTO);
+        }else{
+            userDAO.insertUser(userDTO);
         }
 
         SettingsDTO[] settingsDTOs = UserUtils.settingsToDTO(user.getUuid(), user.getSettings());
         for(SettingsDTO settingsDTO : settingsDTOs){
-            try {
-                if(this.settingsDAO.hasSetting(settingsDTO.getUid(), settingsDTO.getSname())){
-                    this.settingsDAO.updateSetting(settingsDTO);
-                }else{
-                    this.settingsDAO.insertSetting(settingsDTO);
-                }
-            } catch (SQLException ex) {
-                ex.printStackTrace();
+            if(this.settingsDAO.hasSetting(settingsDTO.getUid(), settingsDTO.getSname())){
+                this.settingsDAO.updateSetting(settingsDTO);
+            }else{
+                this.settingsDAO.insertSetting(settingsDTO);
             }
         }
 
-        PetDTO[] petDTOs = UserUtils.petsToDTO(user.getPets());
+        PetDTO[] petDTOs = UserUtils.petsToDTO(user.getPets(), user.getUuid());
         for(PetDTO petDTO : petDTOs){
-            try{
-                if(this.petDAO.pidExists(petDTO.getPid())) {
-                    this.petDAO.updatePet(petDTO);
-                }else{
-                    this.petDAO.insertPet(petDTO);
-                }
-            }catch(SQLException ex){
-                ex.printStackTrace();
+            if(this.petDAO.pidExists(petDTO.getPid())) {
+                this.petDAO.updatePet(petDTO);
+            }else{
+                this.petDAO.insertPet(petDTO);
             }
         }
     }

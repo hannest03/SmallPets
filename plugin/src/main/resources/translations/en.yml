@@ -93,3 +93,10 @@ translations:
     level_lowest: "Lowest level"
     type: "Type"
     name: "Name"
+  commandIsNotForPlayers: "This command is not for players"
+  serverMustBeEmpty: "The server must be empty"
+  convert:
+    success: "&8[&a✓&8]&7 Successfully converted %name%!"
+    failed: "&8[&c✖&8]&7 Failed to convert %name% (%uuid%)!"
+    start: "Starting conversion..."
+    end: "Finished conversion!"

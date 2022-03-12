@@ -93,14 +93,14 @@ public class UserUtils {
         return pets;
     }
 
-    public static PetDTO[] petsToDTO(List<Pet> pets){
+    public static PetDTO[] petsToDTO(List<Pet> pets, String uuid){
         List<PetDTO> petDTOs = new LinkedList<>();
         for(Pet pet : pets){
             PetDTO petDTO = new PetDTO();
             petDTO.setPid(pet.getUuid().toString());
             petDTO.setPtype(pet.getID());
             petDTO.setPexp(pet.getXp());
-            petDTO.setUid(pet.getOwner().getUniqueId().toString());
+            petDTO.setUid(uuid);
 
             petDTOs.add(petDTO);
         }
@@ -108,7 +108,7 @@ public class UserUtils {
     }
 
     public static PetDTO petToDTO(Pet pet){
-        PetDTO[] pets = petsToDTO(new LinkedList<>(Collections.singletonList(pet)));
+        PetDTO[] pets = petsToDTO(new LinkedList<>(Collections.singletonList(pet)), pet.getOwner().getUniqueId().toString());
         return pets[0];
     }
 
