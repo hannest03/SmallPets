@@ -23,6 +23,7 @@
           <include>translations/vi.yml</include>
           <include>translations/es.yml</include>
           <include>translations/fr.yml</include>
+          <include>translations/hu.yml</include>
         </includes>
       </resource>
       <resource>
