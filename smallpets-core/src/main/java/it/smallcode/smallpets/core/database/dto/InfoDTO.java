@@ -1,4 +1,7 @@
 package it.smallcode.smallpets.core.database.dto;
+
+import lombok.Data;
+
 /*
 
 Class created by SmallCode
@@ -6,8 +9,8 @@ Class created by SmallCode
 
 */
 
+@Data
 public class InfoDTO {
-
-    
-
+    private String iname;
+    private String ivalue;
 }

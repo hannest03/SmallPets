@@ -6,10 +6,8 @@ Class created by SmallCode
 
 */
 
-import it.smallcode.smallpets.core.database.dao.IDAO;
-import it.smallcode.smallpets.core.database.dao.PetDAO;
-import it.smallcode.smallpets.core.database.dao.SettingsDAO;
-import it.smallcode.smallpets.core.database.dao.UserDAO;
+import it.smallcode.smallpets.core.database.dao.*;
+import it.smallcode.smallpets.core.database.dto.InfoDTO;
 import lombok.Data;
 
 import java.io.File;
@@ -21,15 +19,18 @@ import java.sql.SQLException;
 import java.util.HashMap;
 
 public class Database {
+    public static final int VERSION = 1;
+
     private Connection connection;
 
-    private HashMap<Class<IDAO>, IDAO> daos = new HashMap<>();
+    private final HashMap<Class<IDAO>, IDAO> daos = new HashMap<>();
 
     public Database(){
         final Class<IDAO>[] daoList = new Class[]{
                 UserDAO.class,
                 SettingsDAO.class,
-                PetDAO.class
+                PetDAO.class,
+                InfoDAO.class
         };
 
         for(Class<IDAO> clazz : daoList){
@@ -74,7 +75,12 @@ public class Database {
         }
 
         connection = DriverManager.getConnection("jdbc:mysql://" + config.host + ":" + config.port + "/" + config.databaseName ,config.username,config.password);
-        createTables();
+        if(getVersion() == -1) {
+            createTables();
+            setVersion(VERSION);
+        }else{
+            checkVersion();
+        }
     }
 
     public void disconnect(){
@@ -109,6 +115,11 @@ public class Database {
                         "\t\tREFERENCES users(uid)\n" +
                         "\t\tON UPDATE CASCADE\n" +
                         "\t\tON DELETE CASCADE\n" +
+                        ");",
+                "CREATE TABLE IF NOT EXISTS infos (\n" +
+                        "\tiname VARCHAR(100) NOT NULL,\n" +
+                        "\tivalue TEXT,\n" +
+                        "\tPRIMARY KEY(iname)\n" +
                         ");"
         };
 
@@ -117,6 +128,39 @@ public class Database {
             statement.executeUpdate();
             statement.close();
         }
+    }
+
+    public int getVersion(){
+        InfoDAO infoDAO = getDao(InfoDAO.class);
+        try {
+            InfoDTO infoDTO = infoDAO.getInfo("version");
+            if(infoDTO == null || infoDTO.getIvalue() == null) return -1;
+            return Integer.parseInt(infoDTO.getIvalue());
+        } catch (SQLException ex) {
+            return -1;
+        }
+    }
+
+    public void setVersion(int version){
+        InfoDAO infoDAO = getDao(InfoDAO.class);
+
+        InfoDTO infoDTO = new InfoDTO();
+        infoDTO.setIname("version");
+        infoDTO.setIvalue(Integer.toString(version));
+
+        try {
+            if(getVersion() == -1) {
+                infoDAO.insertInfo(infoDTO);
+            }else{
+                infoDAO.updateInfo(infoDTO);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void checkVersion(){
+        // UPDATE DATABASE
     }
 
     public <T extends IDAO> T getDao(Class<T> type){

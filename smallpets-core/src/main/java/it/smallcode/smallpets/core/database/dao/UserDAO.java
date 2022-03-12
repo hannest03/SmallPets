@@ -38,6 +38,16 @@ public class UserDAO implements IDAO {
         return null;
     }
 
+    public boolean existsUser(String uid){
+        try {
+            final UserDTO userDTO = getUser(uid);
+            if(userDTO != null) return true;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
+
     public void updateUser(UserDTO userDTO) throws SQLException {
         final String sql = "UPDATE users SET pselected=? WHERE uid=?";
 
