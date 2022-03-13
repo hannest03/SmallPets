@@ -43,7 +43,7 @@ public class Recipe {
         for(ItemStack item : itemMap.keySet()){
             if(item == null)
                 continue;
-            RecipeChoice recipeChoice = new RecipeChoice.ExactChoice(item);
+            RecipeChoice recipeChoice = new RecipeChoice.MaterialChoice(item.getType());
             recipe.setIngredient(itemMap.get(item), recipeChoice);
         }
         return recipe;

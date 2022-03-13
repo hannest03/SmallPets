@@ -230,6 +230,7 @@ public class Pet {
             itemStack.setItemMeta(itemMeta);
 
             itemStack = SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().addNBTTag(itemStack, "pet", getId());
+            itemStack = SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().addNBTTag(itemStack, "pet.namespace", getNamespace());
 
             if(this.name != null){
                 itemStack = SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().addNBTTag(itemStack, "pet.name", this.name);

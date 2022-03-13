@@ -164,6 +164,7 @@ public class SmallPets extends JavaPlugin {
         getListenerManager().registerListener();
 
         Bukkit.getPluginManager().registerEvents(new BlockInteractListener(), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerCraftingListener(), this);
 
         Bukkit.getPluginManager().registerEvents(new JoinListener(getUserManager(), SmallPetsCommons.getSmallPetsCommons().getPetManager()), this);
         Bukkit.getPluginManager().registerEvents(new QuitListener(getUserManager(), getInventoryCache()), this);

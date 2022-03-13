@@ -66,21 +66,20 @@ public class PetLoader {
 
         if(jsonObject.has("recipe")) {
             JsonObject recipeMap = jsonObject.getAsJsonObject("recipe");
-
-            ItemStack[] itemStacks = new ItemStack[9];
-            for (Map.Entry<String, JsonElement> entry : recipeMap.entrySet()) {
-                int index = Integer.parseInt(entry.getKey());
-                if (index < 0 || index >= itemStacks.length)
-                    continue;
-                Map<String, Object> data = (Map<String, Object>) new Gson().fromJson(entry.getValue(), Map.class);
-                ItemStack itemStack = SmallPetsCommons.getSmallPetsCommons().getItemLoader().load(data);
-                itemStacks[index] = itemStack;
+            if(recipeMap.entrySet().size() != 0) {
+                ItemStack[] itemStacks = new ItemStack[9];
+                for (Map.Entry<String, JsonElement> entry : recipeMap.entrySet()) {
+                    int index = Integer.parseInt(entry.getKey());
+                    if (index < 0 || index >= itemStacks.length)
+                        continue;
+                    Map<String, Object> data = (Map<String, Object>) new Gson().fromJson(entry.getValue(), Map.class);
+                    ItemStack itemStack = SmallPetsCommons.getSmallPetsCommons().getItemLoader().load(data);
+                    itemStacks[index] = itemStack;
+                }
+                //TODO: Implement loading recipe
+                Recipe recipe = new Recipe(itemStacks);
+                pet.setRecipe(recipe);
             }
-
-            //TODO: Implement loading recipe
-            Recipe recipe = new Recipe(itemStacks);
-            pet.setRecipe(recipe);
-
         }
 
         // Load abilities
