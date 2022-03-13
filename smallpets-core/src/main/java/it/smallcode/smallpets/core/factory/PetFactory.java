@@ -7,18 +7,14 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.core.SmallPetsCommons;
-import it.smallcode.smallpets.core.manager.PetManager;
 import it.smallcode.smallpets.core.pets.Pet;
 import it.smallcode.smallpets.core.pets.entityHandler.BukkitEntityHandler;
 import it.smallcode.smallpets.core.pets.entityHandler.ProtocolLibEntityHandler;
 import it.smallcode.smallpets.core.pets.logic.BasicLogic;
-import it.smallcode.smallpets.core.pets.progressbar.DefaultProgressbar;
-import it.smallcode.smallpets.core.pets.progressbar.PercentageProgressbar;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Objects;
 import java.util.UUID;
 
 public class PetFactory {

@@ -59,7 +59,7 @@ public class SmallPetsCommons {
     private PetManager petManager;
 
     private UserManager userManager;
-    private AutoSaveManager autoSaveManager;
+    //private AutoSaveManager autoSaveManager;
     private BackupManager backupManager;
 
     private InventoryManager inventoryManager;

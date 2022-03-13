@@ -41,6 +41,7 @@ public class SmallPetsCMD implements CommandExecutor, TabCompleter {
         subCommands.add(new SetLevelSubCMD("setlevel", "smallpets.setlevel"));
         subCommands.add(new ReloadSubCMD("reload", "smallpets.reload"));
         subCommands.add(new SaveLanguagesCMD("savelanguages", "smallpets.savelanguages"));
+        subCommands.add(new ConvertSubCMD("convert", "smallpets.convert"));
 
         subCommands.add(new TestSignAPISubCMD("testsignapi", "smallpets.debug.testsignapi"));
         subCommands.add(new TestMetaDataSubCMD("testmetadata", "smallpets.debug.testmetadata"));

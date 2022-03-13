@@ -7,19 +7,15 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.core.SmallPetsCommons;
-import it.smallcode.smallpets.core.abilities.Ability;
 import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEvent;
 import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventBus;
 import it.smallcode.smallpets.core.abilities.eventsystem.events.PetDeselectEvent;
 import it.smallcode.smallpets.core.abilities.eventsystem.events.PetSelectEvent;
 import it.smallcode.smallpets.core.events.DespawnPetEvent;
 import it.smallcode.smallpets.core.events.SpawnPetEvent;
-import it.smallcode.smallpets.core.factory.PetFactory;
 import it.smallcode.smallpets.core.pets.Pet;
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.MemorySection;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.*;
 
@@ -80,8 +76,6 @@ public class User {
     public User(String uuid, Map<String, Object> data){
 
         this.uuid = uuid;
-
-        unserialize(data);
 
     }
 
@@ -346,166 +340,13 @@ public class User {
     }
 
     /**
+     * Sets the selected pet without any other action
      *
-     * Serializes the data of the user into a map so that it can be stored.
-     *
-     * @return the serialized data in a map
+     * @param selected - the new selected pet
+     * @return
      */
-
-    public Map<String, Object> serialize(){
-
-        Map<String, Object> data = new HashMap<>();
-
-        if(selected != null) {
-
-            data.put("selected", selected.getUuid().toString());
-
-        }else {
-
-            data.put("selected", "null");
-
-        }
-
-        data.put("settings", settings.serialize());
-
-        List<Map<String, Object>> petList = new LinkedList<>();
-
-        for(Pet pet : pets){
-
-            petList.add(serializePet(pet));
-
-        }
-
-        data.put("pets", petList);
-
-        return data;
-
-    }
-
-    public void unserialize(Map<String, Object> data){
-
-        if(data.get("settings") != null){
-
-            settings.unserialize(memorySectionToMap((MemorySection) data.get("settings")));
-
-        }
-
-        this.pets = new ArrayList<>();
-
-        List<Map<String, Object>> petDatas = (List<Map<String, Object>>) data.get("pets");
-        if(petDatas == null)
-            petDatas = new LinkedList<>();
-
-        for(Map<String, Object> petData : petDatas){
-
-            Pet pet = unserializePet(petData);
-
-            if(pet != null)
-                pets.add(pet);
-
-        }
-
-        if(!(data.get("selected")).equals("null")) {
-            try {
-                UUID petUUID = UUID.fromString((String) data.get("selected"));
-                this.selected = getPetFromUUID(petUUID);
-            } catch (IllegalArgumentException ex) {
-                Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "§cInvalid pet uuid found! " + data.get("selected"));
-                Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "§cThis error can be ignored");
-            }
-        }
-
-    }
-
-    private Map<String, Object> memorySectionToMap(MemorySection memorySection){
-
-        Map<String, Object> map = new HashMap<>();
-
-        for(String key : memorySection.getKeys(true))
-            map.put(key, memorySection.get(key));
-
-        return map;
-
-    }
-
-    /**
-     *
-     * Serializes the data of the pet into a map so that it can be stored.
-     *
-     * @param pet - the pet
-     * @return - the serialized data in a map
-     */
-
-    private Map<String, Object> serializePet(Pet pet){
-
-        Map<String, Object> data = new HashMap<>();
-
-        data.put("namespace", pet.getNamespace());
-        data.put("id", pet.getId());
-        data.put("exp", String.valueOf(pet.getExp()));
-        data.put("uuid", pet.getUuid().toString());
-        if(pet.getRawName() != null)
-            data.put("name", pet.getRawName());
-
-        return data;
-
-    }
-
-    /**
-     *
-     * Unserializes the data of a pet
-     *
-     * @param data - the data
-     * @param petMapManager - the petMapManager with all the registered pettypes
-     * @param uuid - the uuid of the player
-     * @return - the unserialized pet
-     */
-
-    private Pet unserializePet(Map<String, Object> data){
-
-        String id = (String) data.get("id");
-        if(id == null){
-            id = (String) data.get("type");
-        }
-
-        String namespace = (String) data.get("namespace");
-
-        UUID petUUID;
-        if(data.get("uuid") != null)
-            petUUID = UUID.fromString((String) data.get("uuid"));
-        else
-            petUUID = UUID.randomUUID();
-
-        long exp = Long.valueOf((String) data.get("exp"));
-
-        Object pet;
-        if(namespace == null){
-            pet = SmallPetsCommons.getSmallPetsCommons().getPetManager().getPet(id);
-        }else{
-            pet = SmallPetsCommons.getSmallPetsCommons().getPetManager().getPet(namespace, id);
-        }
-
-        String name = null;
-        if(data.get("name") != null){
-            name = (String) data.get("name");
-        }
-
-        if(pet != null){
-            Pet ret;
-            if(namespace == null) {
-                ret = PetFactory.createPet(id, petUUID, Bukkit.getPlayer(UUID.fromString(uuid)), exp);
-            }else{
-                ret = PetFactory.createPet(namespace, id, petUUID, Bukkit.getPlayer(UUID.fromString(uuid)), exp);
-            }
-            if(name != null && ret != null){
-                ret.setName(name);
-            }
-
-            return ret;
-        }
-
-        return null;
-
+    public void setSelectedSafe(Pet selected){
+        this.selected = selected;
     }
 
 }

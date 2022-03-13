@@ -15,12 +15,12 @@ public class Settings {
     private Sort sort = Sort.NONE;
 
     public HashMap<String, Object> serialize(){
-            HashMap<String, Object> data = new HashMap<>();
+        HashMap<String, Object> data = new HashMap<>();
 
-            data.put("showPets", isShowPets());
-            data.put("sort", sort.name());
+        data.put("showPets", isShowPets());
+        data.put("sort", sort.name());
 
-            return data;
+        return data;
     }
 
     public void unserialize(Map<String, Object> data){

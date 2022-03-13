@@ -72,6 +72,7 @@ translations:
   givePetUnlockItemSender: "Dato il %pet_type% unlock item a %player%!"
   petNotRegistered: "Pet non registrato"
   inventory:
+    name: "&eSmallPets"
     recipebook:
       description: '&cNon ancora implementato!'
       name: '&6Ricettario'
@@ -93,3 +94,10 @@ translations:
     level_lowest: "Livello più basso"
     type: "Genere"
     name: "Nome"
+  commandIsNotForPlayers: "Questo comando non è per i giocatori"
+  serverMustBeEmpty: "Il server deve essere vuoto"
+  convert:
+    success: "&8[&a✓&8]&7 %name% convertito con successo!"
+    failed: "&8[&c✖&8]&7 Errore durante la conversione di %name% (%uuid%)!"
+    start: "Iniziare la conversione..."
+    end: "Conversione completata!"

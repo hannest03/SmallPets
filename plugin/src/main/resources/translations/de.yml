@@ -70,6 +70,7 @@ translations:
   inventoryFull: '&7Dein Inventar ist voll!'
   savedLanguage: '&7Gespeichert %language%!'
   inventory:
+    name: "&eSmallPets"
     recipebook:
       description: '&cNicht implementiert!'
       name: '&6Rezeptbuch'
@@ -91,3 +92,10 @@ translations:
     level_lowest: "Niedrigstes Level"
     type: "Typ"
     name: "Name"
+  commandIsNotForPlayers: "Dieser Befehl ist nicht für Spieler"
+  serverMustBeEmpty: "Der Server muss leer sein"
+  convert:
+    success: "&8[&a✓&8]&7 Erfolgreich %name% konvertiert!"
+    failed: "&8[&c✖&8]&7 Fehler beim Konvertieren von %name% (%uuid%)!"
+    start: "Starte Konvertierung..."
+    end: "Konvertierung abgeschlossen!"

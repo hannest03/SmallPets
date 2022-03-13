@@ -9,7 +9,6 @@
 
     <name>SmallPets</name>
     <description>Adds simple little cute pets with abilities</description>
-
     <version>1.0.0-dev</version>
 
     <repositories>
@@ -154,6 +153,8 @@
                     <include>translations/vi.yml</include>
                     <include>translations/es.yml</include>
                     <include>translations/fr.yml</include>
+                    <include>translations/hu.yml</include>
+
                     <include>pets/fish.json</include>
                     <include>pets/monkey.json</include>
                     <include>pets/panda.json</include>

@@ -6,6 +6,7 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.core.languages.LanguageManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -19,6 +20,7 @@ import java.util.HashMap;
  */
 public class InventoryCache {
 
+    private final LanguageManager LANGUAGE_MANAGER;
     private HashMap<Player, Inventory> inventoryHashMap;
 
     /**
@@ -27,7 +29,8 @@ public class InventoryCache {
      *
      */
 
-    public InventoryCache(){
+    public InventoryCache(LanguageManager languageManager){
+        this.LANGUAGE_MANAGER = languageManager;
 
         inventoryHashMap = new HashMap<>();
 
@@ -46,7 +49,7 @@ public class InventoryCache {
 
         if(!inventoryHashMap.containsKey(p)){
 
-            Inventory inv = Bukkit.createInventory(p, 9*6, "§eSmallPets");
+            Inventory inv = Bukkit.createInventory(p, 9*6, LANGUAGE_MANAGER.getLanguage().getStringFormatted("inventory.name"));
 
             inventoryHashMap.put(p, inv);
 

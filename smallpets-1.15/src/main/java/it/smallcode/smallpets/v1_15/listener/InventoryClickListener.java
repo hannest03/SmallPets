@@ -33,7 +33,7 @@ public class InventoryClickListener implements Listener {
     @EventHandler
     public void onClick(InventoryClickEvent e){
 
-        if(e.getView().getTitle().equals("§eSmallPets")){
+        if(e.getView().getTitle().equals(SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("inventory.name"))){
 
             Player p = (Player) e.getWhoClicked();
 

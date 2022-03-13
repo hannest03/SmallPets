@@ -124,6 +124,9 @@ public class Pet {
             if(this.exp < 0)
                 this.exp = 0;
         }
+
+        SmallPetsCommons.getSmallPetsCommons().getUserManager().updatePet(this);
+
         if(level != getLevel()){
             //LEVEL UP
             AbilityEventBus.post(new it.smallcode.smallpets.core.abilities.eventsystem.events.PetLevelUpEvent(SmallPetsCommons.getSmallPetsCommons().getUserManager().getUser(getOwner().getUniqueId().toString()), this, level));
@@ -273,7 +276,7 @@ public class Pet {
     }
 
     public String getCustomName(){
-
+        if(owner == null) return "";
         String name = "";
 
         if(owner.getName().endsWith("s")){
