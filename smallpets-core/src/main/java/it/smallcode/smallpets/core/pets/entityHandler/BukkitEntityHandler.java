@@ -74,15 +74,12 @@ public class BukkitEntityHandler implements EntityHandler{
 
     @Override
     public boolean isEntity(int entityId) {
-        return armorStand.getEntityId() == entityId;
+        return armorStand != null && armorStand.getEntityId() == entityId;
     }
 
     private ArmorStand createArmorStand(Location loc){
-
         ArmorStand armorStand = (ArmorStand) loc.getWorld().spawnEntity(loc, EntityType.ARMOR_STAND);
-
         return armorStand;
-
     }
 
     private void loadChunks(Location loc){

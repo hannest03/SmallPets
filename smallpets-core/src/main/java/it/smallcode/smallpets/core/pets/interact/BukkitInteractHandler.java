@@ -8,14 +8,12 @@ Class created by SmallCode
 
 import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.manager.types.User;
-import it.smallcode.smallpets.core.pets.Pet;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 
-import java.util.Optional;
 import java.util.function.Consumer;
 
 public class BukkitInteractHandler implements PetInteractHandler.Handler, Listener {
@@ -32,11 +30,9 @@ public class BukkitInteractHandler implements PetInteractHandler.Handler, Listen
         int entityId = e.getRightClicked().getEntityId();
         Player p = e.getPlayer();
         User user = SmallPetsCommons.getSmallPetsCommons().getUserManager().getUser(p.getUniqueId().toString());
-        if(user != null){
-            Optional<Pet> optPet = user.getPets().stream().filter(pet -> pet.isEntity(entityId)).findFirst();
-            if(optPet.isPresent()){
-                consumer.accept(new PetInteractHandler.InteractEvent(p, optPet.get()));
-            }
+        if(user != null && user.getSelected().isEntity(entityId)){
+            e.setCancelled(true);
+            consumer.accept(new PetInteractHandler.InteractEvent(p, user.getSelected()));
         }
     }
 }
