@@ -149,7 +149,7 @@ public class InventoryManager1_12 extends InventoryManager {
     }
 
     @Override
-    public void openRecipe(String petID, Player p) {
+    public void openRecipe(String petID, Player p, int index) {
 
     }
 

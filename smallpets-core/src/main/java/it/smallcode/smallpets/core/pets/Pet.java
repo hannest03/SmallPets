@@ -49,7 +49,7 @@ public class Pet {
     private long exp;
     private boolean activated;
 
-    private Recipe recipe;
+    private Recipe[] recipes;
 
     private Player owner;
     private Location location;
@@ -141,22 +141,28 @@ public class Pet {
     }
 
     public void registerRecipe(){
-        if(this.recipe == null)
+        if(this.recipes.length == 0)
             return;
         ItemStack item = getUnlockItem();
-        NamespacedKey key = new NamespacedKey(SmallPetsCommons.getSmallPetsCommons().getJavaPlugin(), "pet_" + getNamespace() + "_" + getId());
-        ShapedRecipe recipe = new ShapedRecipe(key, item);
-        recipe = this.recipe.fillShape(recipe);
-        Bukkit.addRecipe(recipe);
+        for(int i = 0; i < recipes.length; i++) {
+            final Recipe recipe = recipes[i];
+            if(recipe == null) continue;
+            NamespacedKey key = new NamespacedKey(SmallPetsCommons.getSmallPetsCommons().getJavaPlugin(), "pet_" + getNamespace() + "_" + getId() + "_" + i);
+            ShapedRecipe shapedRecipe = new ShapedRecipe(key, item);
+            shapedRecipe = recipe.fillShape(shapedRecipe);
+            Bukkit.addRecipe(shapedRecipe);
+        }
     }
 
     public void removeRecipe(){
-        NamespacedKey key = new NamespacedKey(SmallPetsCommons.getSmallPetsCommons().getJavaPlugin(), "pet_" + getNamespace() + "_" + getId());
-        Bukkit.removeRecipe(key);
+        for(int i = 0; i < recipes.length; i++) {
+            NamespacedKey key = new NamespacedKey(SmallPetsCommons.getSmallPetsCommons().getJavaPlugin(), "pet_" + getNamespace() + "_" + getId() + "_" + i);
+            Bukkit.removeRecipe(key);
+        }
     }
 
     public boolean hasAbility(String abilityID){
-        return abilities.stream().filter(ability -> ability.getID().equals(abilityID)).findFirst().isPresent();
+        return abilities.stream().anyMatch(ability -> ability.getID().equals(abilityID));
     }
 
     public ItemStack getItem(){
@@ -351,5 +357,9 @@ public class Pet {
     public void setName(String name) {
         this.name = name;
         setCustomName(getCustomName());
+    }
+
+    public void setRecipe(Recipe recipe){
+        this.recipes = new Recipe[] { recipe };
     }
 }

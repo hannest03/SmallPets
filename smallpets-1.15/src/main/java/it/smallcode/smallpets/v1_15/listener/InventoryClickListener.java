@@ -227,7 +227,7 @@ public class InventoryClickListener implements Listener {
                         if (e.getCurrentItem().getType() == Material.PLAYER_HEAD) {
                             if(SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().hasNBTTag(e.getCurrentItem(), "pet")){
                                 String petId = SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().getNBTTagValue(e.getCurrentItem(), "pet");
-                                SmallPetsCommons.getSmallPetsCommons().getInventoryManager().openRecipe(petId, p);
+                                SmallPetsCommons.getSmallPetsCommons().getInventoryManager().openRecipe(petId, p, 0);
                             }
                         }
                     }
@@ -235,6 +235,24 @@ public class InventoryClickListener implements Listener {
                 }
 
                 case "recipe":{
+                    final ItemStack itemStack = e.getInventory().getItem(0);
+                    final String petId = SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().getNBTTagValue(itemStack, "invPetType");
+                    if(SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().hasNBTTag(e.getCurrentItem(), "inv.action")){
+                        String action = SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().getNBTTagValue(e.getCurrentItem(), "inv.action");
+                        int recipeIndex = 0;
+
+                        if(itemStack == null)
+                            return;
+
+                        if(SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().hasNBTTag(itemStack, "invRecipe"))
+                            recipeIndex = Integer.parseInt(SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().getNBTTagValue(itemStack, "invRecipe"));
+
+                        if(action.equals("next")){
+                            SmallPetsCommons.getSmallPetsCommons().getInventoryManager().openRecipe(petId,p,recipeIndex+1);
+                        }else if(action.equals("prev")){
+                            SmallPetsCommons.getSmallPetsCommons().getInventoryManager().openRecipe(petId,p,recipeIndex-1);
+                        }
+                    }
                     if(e.getCurrentItem() != null && e.getCurrentItem().getItemMeta() != null && e.getCurrentItem().getItemMeta().getDisplayName() != null) {
                         if(e.getCurrentItem().getItemMeta().getDisplayName().equals(SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("inventory.back.name"))){
                             SmallPetsCommons.getSmallPetsCommons().getInventoryManager().openRecipeBook(0, p);

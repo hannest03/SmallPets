@@ -29,7 +29,7 @@ public abstract class InventoryManager {
      *
      * Creates a inventory manager object
      *
-     * @param inventoryCache - the inventoryCache
+     * @param xpMultiplier - the current xp multiplier
      */
 
     public InventoryManager(double xpMultiplier){
@@ -44,14 +44,14 @@ public abstract class InventoryManager {
      *
      * Opens the pet menu
      *
-     * @param pets - a list of all the pets of a player
+     * @param page - the page which is currently being viewed
      * @param p - the player
      */
 
     public abstract void openPetsMenu(int page, Player p);
 
     public abstract void openRecipeBook(int page, Player p);
-    public abstract void openRecipe(String petID, Player p);
+    public abstract void openRecipe(String petID, Player p, int index);
 
     public void setXpMultiplier(double xpMultiplier) {
         this.xpMultiplier = xpMultiplier;

@@ -1,4 +1,4 @@
-package it.smallcode.smallpets.core.pets;
+package it.smallcode.smallpets.core.pets.interact;
 /*
 
 Class created by SmallCode
@@ -6,57 +6,32 @@ Class created by SmallCode
 
 */
 
-import com.comphenix.protocol.PacketType;
-import com.comphenix.protocol.ProtocolLibrary;
-import com.comphenix.protocol.events.PacketAdapter;
-import com.comphenix.protocol.events.PacketEvent;
 import it.smallcode.smallpets.core.SmallPetsCommons;
-import it.smallcode.smallpets.core.manager.types.User;
+import it.smallcode.smallpets.core.pets.Pet;
 import it.smallcode.smallpets.core.signgui.SignGUI;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 
 import java.util.Arrays;
-import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public class PetInteractHandler implements Listener {
 
     public static void setup(){
-        if(SmallPetsCommons.getSmallPetsCommons().isUseProtocollib()){
-            ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(SmallPetsCommons.getSmallPetsCommons().getJavaPlugin(), PacketType.Play.Client.USE_ENTITY) {
-                @Override
-                public void onPacketReceiving(PacketEvent event) {
-                    int entityId = event.getPacket().getIntegers().readSafely(0);
-                    Player p = event.getPlayer();
-                    User user = SmallPetsCommons.getSmallPetsCommons().getUserManager().getUser(p.getUniqueId().toString());
-                    if(user != null){
-                        Optional<Pet> optPet = user.getPets().stream().filter(pet -> pet.isEntity(entityId)).findFirst();
-                        if(optPet.isPresent()){
-                            interactPet(p, optPet.get());
-                        }
-                    }
-                }
-            });
-        }else{
-            Bukkit.getPluginManager().registerEvents(new PetInteractHandler(), SmallPetsCommons.getSmallPetsCommons().getJavaPlugin());
-        }
-    }
+        final Consumer<InteractEvent> consumer = interactEvent -> {
+            if(interactEvent == null) return;
+            interactPet(interactEvent.p, interactEvent.pet);
+        };
 
-    @EventHandler
-    public void onInteract(PlayerInteractAtEntityEvent e){
-        int entityId = e.getRightClicked().getEntityId();
-        Player p = e.getPlayer();
-        User user = SmallPetsCommons.getSmallPetsCommons().getUserManager().getUser(p.getUniqueId().toString());
-        if(user != null){
-            Optional<Pet> optPet = user.getPets().stream().filter(pet -> pet.isEntity(entityId)).findFirst();
-            if(optPet.isPresent()){
-                interactPet(p, optPet.get());
-            }
+        if(SmallPetsCommons.getSmallPetsCommons().isUseProtocollib()){
+            new ProtocolLibInteractHandler().setup(consumer);
+        }else{
+            new BukkitInteractHandler().setup(consumer);
         }
     }
 
@@ -86,6 +61,17 @@ public class PetInteractHandler implements Listener {
                 signGUI.open();
             }, 1L);
         }
+    }
+
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class InteractEvent{
+        public Player p;
+        public Pet pet;
+    }
+
+    public interface Handler{
+        void setup(Consumer<InteractEvent> consumer);
     }
 
 }

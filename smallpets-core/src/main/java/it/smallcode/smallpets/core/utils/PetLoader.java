@@ -65,20 +65,20 @@ public class PetLoader {
         }
 
         if(jsonObject.has("recipe")) {
-            JsonObject recipeMap = jsonObject.getAsJsonObject("recipe");
-            if(recipeMap.entrySet().size() != 0) {
-                ItemStack[] itemStacks = new ItemStack[9];
-                for (Map.Entry<String, JsonElement> entry : recipeMap.entrySet()) {
-                    int index = Integer.parseInt(entry.getKey());
-                    if (index < 0 || index >= itemStacks.length)
-                        continue;
-                    Map<String, Object> data = (Map<String, Object>) new Gson().fromJson(entry.getValue(), Map.class);
-                    ItemStack itemStack = SmallPetsCommons.getSmallPetsCommons().getItemLoader().load(data);
-                    itemStacks[index] = itemStack;
+            JsonElement jsonElement = jsonObject.get("recipe");
+            if(jsonElement.isJsonObject()){
+                JsonObject recipeMap = jsonElement.getAsJsonObject();
+                Recipe recipe = loadRecipe(recipeMap);
+                if(recipe != null) pet.setRecipe(recipe);
+            }else if(jsonElement.isJsonArray()){
+                JsonArray jsonArray = jsonElement.getAsJsonArray();
+                List<Recipe> recipes = new LinkedList<>();
+                for(JsonElement element : jsonArray) {
+                   if(!element.isJsonObject()) continue;
+                   Recipe recipe = loadRecipe(element.getAsJsonObject());
+                   if(recipe != null) recipes.add(recipe);
                 }
-                //TODO: Implement loading recipe
-                Recipe recipe = new Recipe(itemStacks);
-                pet.setRecipe(recipe);
+                pet.setRecipes(recipes.toArray(new Recipe[0]));
             }
         }
 
@@ -86,6 +86,23 @@ public class PetLoader {
         pet.setAbilities(loadAbilitiesList(jsonObject.get("abilities").getAsJsonArray()));
 
         return pet;
+    }
+
+    private static Recipe loadRecipe(JsonObject jsonObject){
+        if(jsonObject.entrySet().size() != 0) {
+            ItemStack[] itemStacks = new ItemStack[9];
+            for (Map.Entry<String, JsonElement> entry : jsonObject.entrySet()) {
+                int index = Integer.parseInt(entry.getKey());
+                if (index < 0 || index >= itemStacks.length)
+                    continue;
+                Map<String, Object> data = (Map<String, Object>) new Gson().fromJson(entry.getValue(), Map.class);
+                ItemStack itemStack = SmallPetsCommons.getSmallPetsCommons().getItemLoader().load(data);
+                itemStacks[index] = itemStack;
+            }
+            Recipe recipe = new Recipe(itemStacks);
+            return recipe;
+        }
+        return null;
     }
 
     public static boolean validatePet(JsonObject jsonObject){

@@ -9,13 +9,10 @@ Class created by SmallCode
 import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.factory.PetFactory;
 import it.smallcode.smallpets.core.manager.InventoryManager;
-import it.smallcode.smallpets.core.manager.SortManager;
-import it.smallcode.smallpets.core.manager.types.Sort;
 import it.smallcode.smallpets.core.manager.types.User;
 import it.smallcode.smallpets.core.pets.Pet;
 import it.smallcode.smallpets.core.pets.recipe.Recipe;
 import org.bukkit.Material;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -164,7 +161,7 @@ public class InventoryManager1_15 extends InventoryManager {
         List<Pet> allPets = SmallPetsCommons.getSmallPetsCommons().getPetManager().getPetMap().keySet()
                 .stream()
                 .map(namespaceKey -> PetFactory.createPet(namespaceKey.getNamespace(), namespaceKey.getId(), null, null, 0L))
-                .filter(pet -> pet.getRecipe() != null)
+                .filter(pet -> pet.getRecipes().length != 0)
                 .collect(Collectors.toList());
         List<Pet> pets = new LinkedList<>();
 
@@ -210,7 +207,7 @@ public class InventoryManager1_15 extends InventoryManager {
     }
 
     @Override
-    public void openRecipe(String petID, Player p) {
+    public void openRecipe(String petID, Player p, int index) {
         Inventory inventory = SmallPetsCommons.getSmallPetsCommons().getInventoryCache().getInventory(p);
         inventory.clear();
         for(int i = 0; i < 54; i++){
@@ -219,11 +216,33 @@ public class InventoryManager1_15 extends InventoryManager {
 
         ItemStack first = createItem("§8 ", Material.BLACK_STAINED_GLASS_PANE);
         first = SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().addNBTTag(first, "invType", "recipe");
+        first = SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().addNBTTag(first, "invPetType", petID);
+        first = SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().addNBTTag(first, "invRecipe", String.valueOf(index));
         inventory.setItem(0, first);
 
-        Pet pet = PetFactory.createPet(petID, null, null, 0L);
-        inventory = fillRecipe(pet.getRecipe(), inventory);
-        inventory.setItem(24, pet.getUnlockItem());
+        final String[] id = petID.split(":");
+        Pet pet;
+        if(id.length == 2) {
+            pet = PetFactory.createPet(id[0], id[1], null, null, 0L);
+        }else{
+            pet = PetFactory.createPet(petID, null, null, 0L);
+        }
+        if(index >= 0 && pet.getRecipes().length > index) {
+            inventory = fillRecipe(pet.getRecipes()[index], inventory);
+            inventory.setItem(24, pet.getUnlockItem());
+        }
+
+        if(index > 0){
+            ItemStack prevItemStack = createItem(SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("inventory.previous.name"), Material.ARROW, SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("inventory.previous.description"));
+            prevItemStack = SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().addNBTTag(prevItemStack, "inv.action", "prev");
+            inventory.setItem(47, prevItemStack);
+        }
+
+        if(index < pet.getRecipes().length-1){
+            ItemStack nextItemStack = createItem(SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("inventory.next.name"), Material.ARROW, SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("inventory.next.description"));
+            nextItemStack = SmallPetsCommons.getSmallPetsCommons().getINBTTagEditor().addNBTTag(nextItemStack, "inv.action", "next");
+            inventory.setItem(51, nextItemStack);
+        }
 
         inventory.setItem(49, createItem(
                 SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("inventory.back.name"),
@@ -232,7 +251,6 @@ public class InventoryManager1_15 extends InventoryManager {
         ));
 
         p.openInventory(inventory);
-
     }
 
     private Inventory fillRecipe(Recipe recipe, Inventory inventory){

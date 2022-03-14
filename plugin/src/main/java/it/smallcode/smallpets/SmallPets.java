@@ -10,7 +10,7 @@ import it.smallcode.smallpets.cmds.*;
 import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.conditions.BasicCondition;
 import it.smallcode.smallpets.core.conditions.DateCondition;
-import it.smallcode.smallpets.core.pets.PetInteractHandler;
+import it.smallcode.smallpets.core.pets.interact.PetInteractHandler;
 import it.smallcode.smallpets.core.pets.experience.ExponentialGrowthFormula;
 import it.smallcode.smallpets.core.pets.progressbar.DefaultProgressbar;
 import it.smallcode.smallpets.core.pets.progressbar.PercentageProgressbar;

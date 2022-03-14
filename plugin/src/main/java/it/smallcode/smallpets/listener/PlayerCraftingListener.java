@@ -9,6 +9,7 @@ Class created by SmallCode
 import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.factory.PetFactory;
 import it.smallcode.smallpets.core.pets.Pet;
+import it.smallcode.smallpets.core.pets.recipe.Recipe;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
@@ -35,24 +36,34 @@ public class PlayerCraftingListener implements Listener {
             pet = PetFactory.createNewPet(id, null, 0L);
         }
 
-        boolean correct = true;
+        boolean correct = false;
 
-        final ItemStack[] items = pet.getRecipe().getItems();
-        for(int i = 0; i < 9; i++) {
-            if(items[i] == null || e.getInventory().getMatrix()[i] == null){
-                if((items[i] != null && e.getInventory().getMatrix()[i] == null) || (items[i] == null && e.getInventory().getMatrix()[i] != null)){
-                    correct = false;
-                }
-                continue;
-            }
-            if(!items[i].equals(e.getInventory().getMatrix()[i])){
-                correct = false;
+        final Recipe[] recipes = pet.getRecipes();
+        final ItemStack[] actualItems = e.getInventory().getMatrix();
+        for(Recipe recipe : recipes) {
+            final ItemStack[] items = recipe.getItems();
+            if(correctRecipe(items, actualItems)) {
+                correct = true;
+                break;
             }
         }
         if(!correct){
             e.getInventory().setResult(null);
-        }else{
-            e.getInventory().setResult(result);
         }
+    }
+
+    private boolean correctRecipe(ItemStack[] expectedItems, ItemStack[] actualItems){
+        for (int i = 0; i < 9; i++) {
+            if (expectedItems[i] == null || actualItems[i] == null) {
+                if ((expectedItems[i] != null && actualItems[i] == null) || (expectedItems[i] == null && actualItems[i] != null)) {
+                    return false;
+                }
+                continue;
+            }
+            if (!expectedItems[i].equals(actualItems[i])) {
+                return false;
+            }
+        }
+        return true;
     }
 }
