@@ -11,7 +11,6 @@ import it.smallcode.smallpets.core.database.dao.*;
 import it.smallcode.smallpets.core.database.dto.InfoDTO;
 import it.smallcode.smallpets.core.database.versions.DV1;
 import it.smallcode.smallpets.core.database.versions.DV2;
-import it.smallcode.smallpets.core.database.versions.DV3;
 import lombok.Data;
 import org.bukkit.Bukkit;
 
@@ -54,8 +53,7 @@ public class Database {
 
         databaseVersions = new DatabaseVersion[]{
                 new DV1(),
-                new DV2(),
-                new DV3()
+                new DV2()
         };
     }
 

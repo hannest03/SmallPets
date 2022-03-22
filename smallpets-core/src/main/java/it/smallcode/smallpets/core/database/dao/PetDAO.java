@@ -30,7 +30,9 @@ public class PetDAO implements IDAO{
         while(result.next()){
             PetDTO petDTO = new PetDTO();
             petDTO.setPid(result.getString("pid"));
+            petDTO.setPnamespace(result.getString("pnamespace"));
             petDTO.setPtype(result.getString("ptype"));
+            petDTO.setPname(result.getString("pname"));
             petDTO.setPexp(result.getLong("pexp"));
             petDTO.setUid(result.getString("uid"));
 
@@ -44,24 +46,28 @@ public class PetDAO implements IDAO{
     }
 
     public void insertPet(PetDTO petDTO) throws SQLException {
-        final String sql = "INSERT INTO pets (pid, ptype, pexp, uid) VALUES (?,?,?,?);";
+        final String sql = "INSERT INTO pets (pid, pnamespace, ptype, pname, pexp, uid) VALUES (?,?,?,?);";
         PreparedStatement statement = database.getConnection().prepareStatement(sql);
         statement.setString(1, petDTO.getPid());
-        statement.setString(2, petDTO.getPtype());
-        statement.setLong(3, petDTO.getPexp());
-        statement.setString(4, petDTO.getUid());
+        statement.setString(2, petDTO.getPnamespace());
+        statement.setString(3, petDTO.getPtype());
+        statement.setString(4, petDTO.getPname());
+        statement.setLong(5, petDTO.getPexp());
+        statement.setString(6, petDTO.getUid());
 
         statement.executeUpdate();
         statement.close();
     }
 
     public void updatePet(PetDTO petDTO) throws SQLException {
-        final String sql = "UPDATE pets SET ptype = ?, pexp = ? WHERE pid = ? AND uid = ?;";
+        final String sql = "UPDATE pets SET pnamespace = ?, ptype = ?, pname = ?, pexp = ? WHERE pid = ? AND uid = ?;";
         PreparedStatement statement = database.getConnection().prepareStatement(sql);
-        statement.setString(1, petDTO.getPtype());
-        statement.setLong(2, petDTO.getPexp());
-        statement.setString(3, petDTO.getPid());
-        statement.setString(4, petDTO.getUid());
+        statement.setString(1, petDTO.getPnamespace());
+        statement.setString(2, petDTO.getPtype());
+        statement.setString(3, petDTO.getPname());
+        statement.setLong(4, petDTO.getPexp());
+        statement.setString(5, petDTO.getPid());
+        statement.setString(6, petDTO.getUid());
 
         statement.executeUpdate();
         statement.close();

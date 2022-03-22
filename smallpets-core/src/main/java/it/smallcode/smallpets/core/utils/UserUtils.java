@@ -6,6 +6,7 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.database.dto.PetDTO;
 import it.smallcode.smallpets.core.database.dto.SettingsDTO;
 import it.smallcode.smallpets.core.database.dto.UserDTO;
@@ -79,25 +80,21 @@ public class UserUtils {
         List<Pet> pets = new LinkedList<>();
 
         for(PetDTO petDTO : petDTOs){
-            Pet pet;
-
-            String[] type = petDTO.getPtype().split(":");
-            if(type.length == 2){
-                pet = PetFactory.createPet(
-                        type[0], // Namespace
-                        type[1], // ID
-                        UUID.fromString(petDTO.getPid()),
-                        Bukkit.getPlayer(UUID.fromString(petDTO.getUid())),
-                        petDTO.getPexp()
-                );
-            }else {
-                pet = PetFactory.createPet(
-                        petDTO.getPtype(),
-                        UUID.fromString(petDTO.getPid()),
-                        Bukkit.getPlayer(UUID.fromString(petDTO.getUid())),
-                        petDTO.getPexp()
-                );
+            String namespace = petDTO.getPnamespace();
+            if(namespace == null){
+                namespace = SmallPetsCommons.getSmallPetsCommons().getPetManager().getPetNamespace(petDTO.getPtype());
             }
+
+            Pet pet = PetFactory.createPet(
+                    namespace, // Namespace
+                    petDTO.getPtype(), // ID
+                    UUID.fromString(petDTO.getPid()),
+                    Bukkit.getPlayer(UUID.fromString(petDTO.getUid())),
+                    petDTO.getPexp()
+            );
+            if(pet == null) continue;
+            if(petDTO.getPname() != null) pet.setName(petDTO.getPname());
+
             pets.add(pet);
         }
         return pets;
@@ -108,7 +105,9 @@ public class UserUtils {
         for(Pet pet : pets){
             PetDTO petDTO = new PetDTO();
             petDTO.setPid(pet.getUuid().toString());
-            petDTO.setPtype(pet.getNamespace() + ":" + pet.getId());
+            petDTO.setPnamespace(pet.getNamespace());
+            petDTO.setPtype(pet.getId());
+            petDTO.setPname(pet.getRawName());
             petDTO.setPexp(pet.getExp());
             petDTO.setUid(uuid);
 
