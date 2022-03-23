@@ -129,7 +129,7 @@ public class Database {
         Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "Upgraded database!");
 
         if(getVersion() > VERSION){
-            Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "§WARN: §7Database version higher than plugins");
+            Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "§cWARN: §7Database version higher than plugins");
         }
     }
 
