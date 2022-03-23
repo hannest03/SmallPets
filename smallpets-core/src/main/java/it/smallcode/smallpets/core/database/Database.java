@@ -6,24 +6,33 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.database.dao.*;
 import it.smallcode.smallpets.core.database.dto.InfoDTO;
+import it.smallcode.smallpets.core.database.versions.DV1;
+import it.smallcode.smallpets.core.database.versions.DV2;
 import lombok.Data;
+import org.bukkit.Bukkit;
 
 import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Database {
-    public static final int VERSION = 1;
+    private final int VERSION = 2;
 
     private Connection connection;
 
     private final HashMap<Class<IDAO>, IDAO> daos = new HashMap<>();
+
+    private DatabaseVersion[] databaseVersions;
 
     public Database(){
         final Class<IDAO>[] daoList = new Class[]{
@@ -43,6 +52,11 @@ public class Database {
                 ex.printStackTrace();
             }
         }
+
+        databaseVersions = new DatabaseVersion[]{
+                new DV1(),
+                new DV2()
+        };
     }
 
     public void connect(String filePath) throws SQLException{
@@ -62,7 +76,8 @@ public class Database {
             }
         }
         connection = DriverManager.getConnection("jdbc:sqlite:" + file);
-        createTables();
+
+        checkVersion();
     }
 
     public void connect(DatabaseConfig config) throws SQLException {
@@ -73,14 +88,9 @@ public class Database {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-
         connection = DriverManager.getConnection("jdbc:mysql://" + config.host + ":" + config.port + "/" + config.databaseName ,config.username,config.password);
-        if(getVersion() == -1) {
-            createTables();
-            setVersion(VERSION);
-        }else{
-            checkVersion();
-        }
+
+        checkVersion();
     }
 
     public void disconnect(){
@@ -92,41 +102,34 @@ public class Database {
         }
     }
 
-    private void createTables() throws SQLException {
-        final String[] sqls = new String[]{
-                "CREATE TABLE IF NOT EXISTS users (\n" +
-                        "\tuid VARCHAR(36) NOT NULL,\n" +
-                        "\tpselected VARCHAR(36),\n" +
-                        "\tPRIMARY KEY(uid)\n" +
-                        ");",
-                "CREATE TABLE IF NOT EXISTS settings (\n" +
-                        "\tsname VARCHAR(100) NOT NULL,\n" +
-                        "\tuid VARCHAR(36) NOT NULL,\n" +
-                        "\tsvalue TEXT,\n" +
-                        "\tPRIMARY KEY(sname, uid)\n" +
-                        ");",
-                "CREATE TABLE IF NOT EXISTS pets (\n" +
-                        "\tpid VARCHAR(36) NOT NULL,\n" +
-                        "\tptype TINYTEXT NOT NULL,\n" +
-                        "\tpexp BIGINT DEFAULT 0,\n" +
-                        "\tuid VARCHAR(36) NOT NULL,\n" +
-                        "\tPRIMARY KEY(pid),\n" +
-                        "\tFOREIGN KEY(uid)\n" +
-                        "\t\tREFERENCES users(uid)\n" +
-                        "\t\tON UPDATE CASCADE\n" +
-                        "\t\tON DELETE CASCADE\n" +
-                        ");",
-                "CREATE TABLE IF NOT EXISTS infos (\n" +
-                        "\tiname VARCHAR(100) NOT NULL,\n" +
-                        "\tivalue TEXT,\n" +
-                        "\tPRIMARY KEY(iname)\n" +
-                        ");"
-        };
+    private void checkVersion(){
+        int currentVersion = getVersion();
+        List<DatabaseVersion> databaseVersions = Arrays.stream(this.databaseVersions)
+                .filter(version -> version.getVersion() > currentVersion )
+                .sorted(Comparator.comparing(DatabaseVersion::getVersion)).collect(Collectors.toList());
 
-        for(String sql: sqls){
-            PreparedStatement statement = getConnection().prepareStatement(sql);
-            statement.executeUpdate();
-            statement.close();
+        if(databaseVersions.size() == 0) return;
+
+        Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "Upgrading database...");
+
+        // EXECUTE EACH VERSION UPGRADE
+        for(DatabaseVersion databaseVersion : databaseVersions){
+            Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "Upgrading to version " + databaseVersion.getVersion() + "...");
+            try {
+                databaseVersion.execute(this);
+                setVersion(databaseVersion.getVersion());
+
+                Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "Upgraded to version " + databaseVersion.getVersion() + "!");
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+                Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "Failed to upgrade to version " + databaseVersion.getVersion() + "!");
+                return;
+            }
+        }
+        Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "Upgraded database!");
+
+        if(getVersion() > VERSION){
+            Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "§cWARN: §7Database version higher than plugins");
         }
     }
 
@@ -141,7 +144,7 @@ public class Database {
         }
     }
 
-    public void setVersion(int version){
+    public void setVersion(int version) {
         InfoDAO infoDAO = getDao(InfoDAO.class);
 
         InfoDTO infoDTO = new InfoDTO();
@@ -149,18 +152,14 @@ public class Database {
         infoDTO.setIvalue(Integer.toString(version));
 
         try {
-            if(getVersion() == -1) {
+            if (getVersion() == -1) {
                 infoDAO.insertInfo(infoDTO);
-            }else{
+            } else {
                 infoDAO.updateInfo(infoDTO);
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-    }
-
-    private void checkVersion(){
-        // UPDATE DATABASE
     }
 
     public <T extends IDAO> T getDao(Class<T> type){

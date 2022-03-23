@@ -11,7 +11,9 @@ import lombok.Data;
 @Data
 public class PetDTO {
     private String pid;
+    private String pnamespace;
     private String ptype;
+    private String pname;
     private long pexp;
     private String uid;
 }
