@@ -26,6 +26,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Database {
+    private final int VERSION = 2;
+
     private Connection connection;
 
     private final HashMap<Class<IDAO>, IDAO> daos = new HashMap<>();
@@ -112,9 +114,7 @@ public class Database {
 
         // EXECUTE EACH VERSION UPGRADE
         for(DatabaseVersion databaseVersion : databaseVersions){
-            //TODO: Add translations
             Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "Upgrading to version " + databaseVersion.getVersion() + "...");
-
             try {
                 databaseVersion.execute(this);
                 setVersion(databaseVersion.getVersion());
@@ -127,6 +127,10 @@ public class Database {
             }
         }
         Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "Upgraded database!");
+
+        if(getVersion() > VERSION){
+            Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "§WARN: §7Database version higher than plugins");
+        }
     }
 
     public int getVersion(){
