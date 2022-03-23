@@ -46,7 +46,7 @@ public class PetDAO implements IDAO{
     }
 
     public void insertPet(PetDTO petDTO) throws SQLException {
-        final String sql = "INSERT INTO pets (pid, pnamespace, ptype, pname, pexp, uid) VALUES (?,?,?,?);";
+        final String sql = "INSERT INTO pets (pid, pnamespace, ptype, pname, pexp, uid) VALUES (?,?,?,?,?,?);";
         PreparedStatement statement = database.getConnection().prepareStatement(sql);
         statement.setString(1, petDTO.getPid());
         statement.setString(2, petDTO.getPnamespace());

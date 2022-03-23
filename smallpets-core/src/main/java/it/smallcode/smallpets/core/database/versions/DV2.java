@@ -63,7 +63,10 @@ public class DV2 implements DatabaseVersion {
                 updateStatement.setString(3, pid);
                 updateStatement.setString(4, uid);
                 updateStatement.executeUpdate();
+                updateStatement.close();
             }
         }
+        result.close();
+        statement.close();
     }
 }
