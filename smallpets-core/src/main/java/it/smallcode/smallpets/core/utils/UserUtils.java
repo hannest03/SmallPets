@@ -93,7 +93,7 @@ public class UserUtils {
                     petDTO.getPexp()
             );
             if(pet == null) continue;
-            if(petDTO.getPname() != null) pet.setName(petDTO.getPname());
+            if(petDTO.getPname() != null) pet.setName(petDTO.getPname(), false);
 
             pets.add(pet);
         }

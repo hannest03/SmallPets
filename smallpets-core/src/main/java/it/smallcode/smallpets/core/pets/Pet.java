@@ -354,9 +354,15 @@ public class Pet {
         return entityHandler.isEntity(entityId);
     }
 
-    public void setName(String name) {
+    public void setName(String name, boolean update) {
         this.name = name;
         setCustomName(getCustomName());
+
+        if(update) SmallPetsCommons.getSmallPetsCommons().getUserManager().updatePet(this);
+    }
+
+    public void setName(String name){
+        this.setName(name, true);
     }
 
     public void setRecipe(Recipe recipe){
