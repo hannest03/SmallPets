@@ -12,6 +12,7 @@ translations:
   petUnlock: Sbloccato %pet_type% pet!
   clickToSelect: '&6CLICCA PER SELEZIONARE'
   clickToDeselect: '&cCLICCA PER DESELEZIONARE'
+  rightClickToUnlock: '&6CLICK DESTRO PER SBLOCCARE'
   givePetSender: Dato il %pet_type% pet a %player%!
   givePetReceiver: Hai ricevuto il %pet_type% pet da %sender%!
   removePetSender: Il %pet_type% pet è stato preso da %player%!
