@@ -796,7 +796,7 @@ public class Pet {
         List<String> lore = itemMeta.getLore();
 
         lore.add("");
-        lore.add("§6RIGHT CLICK TO UNLOCK");
+        lore.add(SmallPetsCommons.getSmallPetsCommons().getLanguageManager().getLanguage().getStringFormatted("rightClickToUnlock"));
 
         itemMeta.setLore(lore);
 

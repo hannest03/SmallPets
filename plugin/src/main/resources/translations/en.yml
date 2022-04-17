@@ -14,6 +14,7 @@ translations:
   petUnlock: 'Unlocked %pet_type% pet!'
   clickToSelect: '&6CLICK TO SELECT'
   clickToDeselect: '&cCLICK TO DESELECT'
+  rightClickToUnlock: '&6RIGHT CLICK TO UNLOCK'
   givePetUnlockItemSender: 'Gave the %pet_type% unlock item to %player%!'
   givePetUnlockItemReceiver: 'You received the %pet_type% unlock item from %sender%!'
   givePetSender: 'Gave the %pet_type% pet to %player%!'
