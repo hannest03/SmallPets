@@ -58,15 +58,17 @@ public class PetManager {
                 loadDirectory(file);
                 continue;
             }
-           logger.println("Loading " + file.getName() + "...");
-            Pet pet = PetLoader.loadPet(FileUtils.loadToJson(file));
-            if(pet == null){
-                logger.error("Couldn't load " + file.getName() + "!");
-                continue;
-            }
 
-            logger.println("Loaded " + pet.getNamespace() + ":" + pet.getId() + " pet!");
-            petMap.put(new NamespaceKey(pet.getNamespace(), pet.getId()), pet);
+            final String space = "  ";
+
+            try {
+                Pet pet = PetLoader.loadPet(FileUtils.loadToJson(file));
+                logger.println(space + "§8[§a✓§8]§7 Loaded " + pet.getNamespace() + ":" + pet.getId() + " pet!");
+                petMap.put(new NamespaceKey(pet.getNamespace(), pet.getId()), pet);
+            }catch(Exception ex){
+                logger.println(space + "§8[§c✕§8]§7 Couldn't load " + file.getName() + "!");
+                logger.error(ex.getMessage());
+            }
         }
     }
 
