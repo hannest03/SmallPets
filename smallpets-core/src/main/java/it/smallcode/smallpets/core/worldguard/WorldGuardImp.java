@@ -18,12 +18,15 @@ import com.sk89q.worldguard.protection.regions.RegionContainer;
 import com.sk89q.worldguard.protection.regions.RegionQuery;
 import com.sk89q.worldguard.session.SessionManager;
 import it.smallcode.smallpets.core.SmallPetsCommons;
+import it.smallcode.smallpets.core.logger.Logger;
 import it.smallcode.smallpets.core.worldguard.handlers.AllowAbilitiesHandler;
 import it.smallcode.smallpets.core.worldguard.handlers.ShowPetsHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 public class WorldGuardImp {
+
+    private Logger logger = SmallPetsCommons.getSmallPetsCommons().getLogger();
 
     public WorldGuardImp(){
 
@@ -37,7 +40,7 @@ public class WorldGuardImp {
             sessionManager.registerHandler(ShowPetsHandler.FACTORY, null);
             sessionManager.registerHandler(AllowAbilitiesHandler.FACTORY, null);
         }catch (NullPointerException ex){
-            Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "§4ERROR§8: §7" + ex.getMessage());
+            logger.error(ex.getMessage());
         }
     }
 

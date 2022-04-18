@@ -7,12 +7,15 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.core.SmallPetsCommons;
+import it.smallcode.smallpets.core.logger.Logger;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
 public class AutoSaveManager {
+
+    private final Logger logger = SmallPetsCommons.getSmallPetsCommons().getLogger();
 
     private long interval = 10;
     private int processID;
@@ -23,19 +26,19 @@ public class AutoSaveManager {
             @Override
             public void run() {
 
-                Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "Auto Save: Starting save...");
+                logger.println("Auto Save: Starting save...");
 
                 UserManager userManager = SmallPetsCommons.getSmallPetsCommons().getUserManager();
 
                 userManager.saveUsers();
                 userManager.getUsers().removeIf(user -> !Bukkit.getOfflinePlayer(UUID.fromString(user.getUuid())).isOnline());
 
-                Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "Auto Save: Finished saving!");
+                logger.println("Auto Save: Finished saving!");
 
             }
         }, 20*60*interval, 20*60*interval);
 
-        Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "Auto Save: Started process");
+        logger.println("Auto Save: Started process");
 
     }
 
@@ -45,7 +48,7 @@ public class AutoSaveManager {
 
             Bukkit.getScheduler().cancelTask(processID);
 
-            Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "Auto Save: Stopped process");
+            logger.println("Auto Save: Stopped process");
 
         }
 

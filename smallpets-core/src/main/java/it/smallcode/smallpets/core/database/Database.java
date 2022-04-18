@@ -11,6 +11,7 @@ import it.smallcode.smallpets.core.database.dao.*;
 import it.smallcode.smallpets.core.database.dto.InfoDTO;
 import it.smallcode.smallpets.core.database.versions.DV1;
 import it.smallcode.smallpets.core.database.versions.DV2;
+import it.smallcode.smallpets.core.logger.Logger;
 import lombok.Data;
 import org.bukkit.Bukkit;
 
@@ -27,6 +28,7 @@ import java.util.stream.Collectors;
 
 public class Database {
     private final int VERSION = 2;
+    private final Logger logger = SmallPetsCommons.getSmallPetsCommons().getLogger();
 
     private Connection connection;
 
@@ -110,26 +112,26 @@ public class Database {
 
         if(databaseVersions.size() == 0) return;
 
-        Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "Upgrading database...");
+        logger.info("Upgrading database...");
 
         // EXECUTE EACH VERSION UPGRADE
         for(DatabaseVersion databaseVersion : databaseVersions){
-            Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "Upgrading to version " + databaseVersion.getVersion() + "...");
+            logger.println("Upgrading to version " + databaseVersion.getVersion() + "...");
             try {
                 databaseVersion.execute(this);
                 setVersion(databaseVersion.getVersion());
 
-                Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "Upgraded to version " + databaseVersion.getVersion() + "!");
+                logger.println("Upgraded to version " + databaseVersion.getVersion() + "!");
             } catch (SQLException ex) {
                 ex.printStackTrace();
-                Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "Failed to upgrade to version " + databaseVersion.getVersion() + "!");
+                logger.error("Failed to upgrade to version " + databaseVersion.getVersion() + "!");
                 return;
             }
         }
-        Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "Upgraded database!");
+        logger.info("Upgraded database!");
 
         if(getVersion() > VERSION){
-            Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "§cWARN: §7Database version higher than plugins");
+            logger.warn("Database version higher than plugins");
         }
     }
 

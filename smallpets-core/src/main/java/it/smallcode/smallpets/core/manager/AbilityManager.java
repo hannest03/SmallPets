@@ -6,6 +6,7 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.abilities.Ability;
 import it.smallcode.smallpets.core.abilities.eventsystem.AbilityEventBus;
 
@@ -50,6 +51,7 @@ public abstract class AbilityManager {
                 ex.printStackTrace();
             }
         }
+        SmallPetsCommons.getSmallPetsCommons().getLogger().warn("Ability with id " + id + " not found!");
         return null;
     }
 

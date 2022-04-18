@@ -8,6 +8,7 @@ Class created by SmallCode
 
 import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.factory.PetFactory;
+import it.smallcode.smallpets.core.logger.Logger;
 import it.smallcode.smallpets.core.manager.types.Settings;
 import it.smallcode.smallpets.core.manager.types.User;
 import it.smallcode.smallpets.core.pets.Pet;
@@ -21,6 +22,8 @@ import java.util.*;
 import java.util.function.Consumer;
 
 public class ConversionManager {
+
+    private static final Logger logger = SmallPetsCommons.getSmallPetsCommons().getLogger();
 
     public static void convertFromFile(Consumer<ConversionResult> consumer){
         final File dir = new File(SmallPetsCommons.getSmallPetsCommons().getJavaPlugin().getDataFolder().getPath() + "/users");
@@ -71,8 +74,8 @@ public class ConversionManager {
                 UUID petUUID = UUID.fromString((String) data.get("selected"));
                 user.setSelectedSafe(user.getPetFromUUID(petUUID));
             } catch (IllegalArgumentException ex) {
-                Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "§cInvalid pet uuid found! " + data.get("selected"));
-                Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "§cThis error can be ignored");
+                logger.warn("Invalid pet uuid found! " + data.get("selected"));
+                logger.warn("This error can be ignored");
             }
         }
 

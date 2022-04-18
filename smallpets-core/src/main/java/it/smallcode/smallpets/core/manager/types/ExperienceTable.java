@@ -6,6 +6,8 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.core.SmallPetsCommons;
+import it.smallcode.smallpets.core.logger.Logger;
 import it.smallcode.smallpets.core.pets.PetType;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
@@ -13,6 +15,8 @@ import org.bukkit.configuration.ConfigurationSection;
 import java.util.HashMap;
 
 public class ExperienceTable {
+
+    private final Logger logger = SmallPetsCommons.getSmallPetsCommons().getLogger();
 
     private PetType petType;
 
@@ -73,7 +77,7 @@ public class ExperienceTable {
 
             }
 
-            Bukkit.getConsoleSender().sendMessage("§c§lCouldn't load " + id + " exp table!");
+            logger.error("Couldn't load " + id + " exp table!");
 
         }
 

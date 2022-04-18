@@ -9,17 +9,18 @@ Class created by SmallCode
 import it.smallcode.smallpets.api.exceptions.NoSuchPetTypeException;
 import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.factory.PetFactory;
+import it.smallcode.smallpets.core.logger.Logger;
 import it.smallcode.smallpets.core.manager.types.User;
 import it.smallcode.smallpets.core.pets.Pet;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 public class SmallPetsAPI {
+
+    private static final Logger logger = SmallPetsCommons.getSmallPetsCommons().getLogger();
 
     /**
      *
@@ -122,7 +123,7 @@ public class SmallPetsAPI {
 
     public static boolean createAbility(String abilityID, Class clazz){
         if(SmallPetsCommons.getSmallPetsCommons().getAbilityManager().hasID(abilityID)){
-            Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "§bAPI§8: §7Ability with this id already registered!");
+            logger.error("§bAPI§8: §7Ability with this id already registered!");
             return false;
         }
         SmallPetsCommons.getSmallPetsCommons().getAbilityManager().registerAbility(abilityID, clazz);

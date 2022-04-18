@@ -7,6 +7,7 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.core.SmallPetsCommons;
+import it.smallcode.smallpets.core.logger.Logger;
 import it.smallcode.smallpets.core.utils.ZipUtils;
 import org.bukkit.Bukkit;
 
@@ -19,6 +20,8 @@ import java.util.Date;
 
 public class BackupManager {
 
+    private final Logger logger = SmallPetsCommons.getSmallPetsCommons().getLogger();
+
     private long backupLifetimeInMinutes = 43200;
 
     private long interval = 60;
@@ -30,7 +33,7 @@ public class BackupManager {
             @Override
             public void run() {
 
-                Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "Backup: Starting save...");
+                logger.println("Backup: Starting save...");
 
                 String folder = SmallPetsCommons.getSmallPetsCommons().getJavaPlugin().getDataFolder().toString();
 
@@ -50,9 +53,9 @@ public class BackupManager {
                 //Export to zip file and save
                 zipUtils.exportZip(folder + "/backups/" + formatter.format(now) + ".bak.zip", new String[]{ folder + File.separator});
 
-                Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "Backup: Finished saving!");
+                logger.println("Backup: Finished saving!");
 
-                Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "Backup: Deleting old files...");
+                logger.println("Backup: Deleting old files...");
 
                 //Loop through all backup files
                 for(File file : new File(folder + "/backups/").listFiles()){
@@ -82,12 +85,12 @@ public class BackupManager {
 
                 }
 
-                Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "Backup: Deleted old files!");
+                logger.println("Backup: Deleted old files!");
 
             }
         }, 20*60*interval, 20*60*interval);
 
-        Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "Backup: Started process");
+        logger.println("Backup: Started process");
 
     }
 
@@ -97,7 +100,7 @@ public class BackupManager {
 
             Bukkit.getScheduler().cancelTask(processID);
 
-            Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "Backup: Stopped process");
+            logger.println("Backup: Stopped process");
 
         }
 
