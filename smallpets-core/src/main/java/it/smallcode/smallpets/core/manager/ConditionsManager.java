@@ -6,6 +6,7 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.conditions.Condition;
 
 import java.lang.reflect.Constructor;
@@ -36,6 +37,7 @@ public class ConditionsManager {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
+        SmallPetsCommons.getSmallPetsCommons().getLogger().warn("Condition with id " + id + " not found!");
         return null;
     }
 

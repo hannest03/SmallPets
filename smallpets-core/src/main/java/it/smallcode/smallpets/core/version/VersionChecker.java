@@ -30,7 +30,7 @@ public class VersionChecker {
                 return version.bigger(currentVersion);
             }
         } catch (Exception exception) {
-            System.out.println("SmallPets | ERROR: Cannot look for updates: " + exception.getMessage());
+            SmallPetsCommons.getSmallPetsCommons().getLogger().error( "Cannot look for updates: " + exception.getMessage());
         }
         return false;
     }

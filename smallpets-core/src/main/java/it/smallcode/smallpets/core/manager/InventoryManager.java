@@ -6,13 +6,9 @@ Class created by SmallCode
 
 */
 
-import it.smallcode.smallpets.core.languages.LanguageManager;
-import it.smallcode.smallpets.core.pets.Pet;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  *

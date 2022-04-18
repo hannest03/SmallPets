@@ -10,6 +10,7 @@ import it.smallcode.smallpets.cmds.*;
 import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.conditions.BasicCondition;
 import it.smallcode.smallpets.core.conditions.DateCondition;
+import it.smallcode.smallpets.core.logger.LoggerFactory;
 import it.smallcode.smallpets.core.pets.interact.PetInteractHandler;
 import it.smallcode.smallpets.core.pets.experience.ExponentialGrowthFormula;
 import it.smallcode.smallpets.core.pets.progressbar.DefaultProgressbar;
@@ -72,6 +73,8 @@ public class SmallPets extends JavaPlugin {
 
         SmallPetsCommons.getSmallPetsCommons().setJavaPlugin(this);
 
+        SmallPetsCommons.getSmallPetsCommons().setLogger(LoggerFactory.create());
+
         //SmallPetsCommons.getSmallPetsCommons().setAutoSaveManager(new AutoSaveManager());
         SmallPetsCommons.getSmallPetsCommons().setBackupManager(new BackupManager());
 
@@ -86,21 +89,21 @@ public class SmallPets extends JavaPlugin {
 
         if(Bukkit.getPluginManager().getPlugin("WorldGuard") != null && !is1_12()){
 
-            Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "Adding WorldGuard hook...");
+            SmallPetsCommons.getSmallPetsCommons().getLogger().println("Adding WorldGuard hook...");
 
             worldGuardImp = new WorldGuardImp();
 
             SmallPetsCommons.getSmallPetsCommons().setUseWorldGuard(true);
 
-            Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "Added WorldGuard hook!");
+            SmallPetsCommons.getSmallPetsCommons().getLogger().println("Added WorldGuard hook!");
 
         }
 
-        Bukkit.getConsoleSender().sendMessage(getPrefix() + "Loading experience table...");
+        SmallPetsCommons.getSmallPetsCommons().getLogger().println("Loading experience table...");
 
         SmallPetsCommons.getSmallPetsCommons().setExperienceManager(new ExperienceManager(this));
 
-        Bukkit.getConsoleSender().sendMessage(getPrefix() + "Experience table loaded!");
+        SmallPetsCommons.getSmallPetsCommons().getLogger().println("Experience table loaded!");
 
     }
 
@@ -116,7 +119,7 @@ public class SmallPets extends JavaPlugin {
 
                 SmallPetsCommons.getSmallPetsCommons().setUseProtocollib(true);
 
-                Bukkit.getConsoleSender().sendMessage(getPrefix() + "Found ProtocolLib, now using it.");
+                SmallPetsCommons.getSmallPetsCommons().getLogger().println("Found ProtocolLib, now using it.");
 
             }
 
@@ -129,37 +132,37 @@ public class SmallPets extends JavaPlugin {
         if(!selectRightVersion())
             return;
 
-        Bukkit.getConsoleSender().sendMessage(getPrefix() + "Registering abilities...");
+        SmallPetsCommons.getSmallPetsCommons().getLogger().println("Registering abilities...");
 
         getAbilityManager().registerAbilities();
 
-        Bukkit.getConsoleSender().sendMessage(getPrefix() + "Registered abilities");
+        SmallPetsCommons.getSmallPetsCommons().getLogger().println("Registered abilities");
 
-        Bukkit.getConsoleSender().sendMessage(getPrefix() + "Registering pet classes...");
+        SmallPetsCommons.getSmallPetsCommons().getLogger().println("Registering pet classes...");
 
         SmallPetsCommons.getSmallPetsCommons().getPetManager().registerPetClasses();
 
-        Bukkit.getConsoleSender().sendMessage(getPrefix() + "Registered pet classes");
+        SmallPetsCommons.getSmallPetsCommons().getLogger().println("Registered pet classes");
 
-        Bukkit.getConsoleSender().sendMessage(getPrefix() + "Loading pet configs...");
+        SmallPetsCommons.getSmallPetsCommons().getLogger().println("Loading pet configs...");
 
         SmallPetsCommons.getSmallPetsCommons().getPetManager().loadConfigPets();
 
-        Bukkit.getConsoleSender().sendMessage(getPrefix() + "Loaded pet configs");
+        SmallPetsCommons.getSmallPetsCommons().getLogger().println("Loaded pet configs");
 
         if(SmallPetsCommons.getSmallPetsCommons().isRegisterCraftingRecipes()) {
 
-            Bukkit.getConsoleSender().sendMessage(getPrefix() + "Registering crafting recipes...");
+            SmallPetsCommons.getSmallPetsCommons().getLogger().println("Registering crafting recipes...");
 
             SmallPetsCommons.getSmallPetsCommons().getPetManager().registerCraftingRecipe();
 
-            Bukkit.getConsoleSender().sendMessage(getPrefix() + "Registered crafting recipes!");
+            SmallPetsCommons.getSmallPetsCommons().getLogger().println("Registered crafting recipes!");
 
         }
 
         //Registering all listeners
 
-        Bukkit.getConsoleSender().sendMessage(getPrefix() + "Registering listeners...");
+        SmallPetsCommons.getSmallPetsCommons().getLogger().println("Registering listeners...");
 
         getListenerManager().registerListener();
 
@@ -177,7 +180,7 @@ public class SmallPets extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new UnlockListener(), this);
         Bukkit.getPluginManager().registerEvents(new PetChangedWorldListener(), this);
 
-        Bukkit.getConsoleSender().sendMessage(getPrefix() + "Registered listeners!");
+        SmallPetsCommons.getSmallPetsCommons().getLogger().println("Registered listeners!");
 
         //Registering all commands
 
@@ -192,17 +195,17 @@ public class SmallPets extends JavaPlugin {
 
         if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null){
 
-            Bukkit.getConsoleSender().sendMessage(getPrefix() + "Registering PlaceholderAPI expansion...");
+            SmallPetsCommons.getSmallPetsCommons().getLogger().println("Registering PlaceholderAPI expansion...");
 
             new SmallPetsExpansion().register();
 
-            Bukkit.getConsoleSender().sendMessage(getPrefix() + "Registered PlaceholderAPI expansion!");
+            SmallPetsCommons.getSmallPetsCommons().getLogger().println("Registered PlaceholderAPI expansion!");
 
         }
 
         //Registering bStats
 
-        Bukkit.getConsoleSender().sendMessage(getPrefix() + "Starting metrics...");
+        SmallPetsCommons.getSmallPetsCommons().getLogger().println("Starting metrics...");
 
         Metrics metrics = new Metrics(this, 8071);
 
@@ -232,7 +235,7 @@ public class SmallPets extends JavaPlugin {
 
         metrics.addCustomChart(new Metrics.SimplePie("languages", () -> getLanguageManager().getLanguage().getLanguageName()));
 
-        Bukkit.getConsoleSender().sendMessage(getPrefix() + "Metrics started!");
+        SmallPetsCommons.getSmallPetsCommons().getLogger().println("Metrics started!");
 
         //Loading the users which are online
 
@@ -244,14 +247,14 @@ public class SmallPets extends JavaPlugin {
 
         Bukkit.getPluginManager().registerEvents(new WorldSaveListener(), this);
 
-        Bukkit.getConsoleSender().sendMessage("");
+        SmallPetsCommons.getSmallPetsCommons().getLogger().println("");
 
-        Bukkit.getConsoleSender().sendMessage(getPrefix() + "Consider joining the discord server for news and test versions!");
-        Bukkit.getConsoleSender().sendMessage(getPrefix() + "You can join with this link: " + DISCORD_LINK);
+        SmallPetsCommons.getSmallPetsCommons().getLogger().println("Consider joining the discord server for news and test versions!");
+        SmallPetsCommons.getSmallPetsCommons().getLogger().println("You can join with this link: " + DISCORD_LINK);
 
-        Bukkit.getConsoleSender().sendMessage("");
+        SmallPetsCommons.getSmallPetsCommons().getLogger().println("");
 
-        Bukkit.getConsoleSender().sendMessage(getPrefix() + "One time donations are also appreciated: " + DONATION_LINK);
+        SmallPetsCommons.getSmallPetsCommons().getLogger().println("One time donations are also appreciated: " + DONATION_LINK);
 
         Bukkit.getScheduler().scheduleAsyncDelayedTask(this, new Runnable() {
             @Override
@@ -500,7 +503,7 @@ public class SmallPets extends JavaPlugin {
 
         version = version.replace(".v", "");
 
-        System.out.println(version);
+        SmallPetsCommons.getSmallPetsCommons().getLogger().info(version);
         //TODO: Select dynamically
         SmallPetsCommons.getSmallPetsCommons().setItemLoader(new ItemLoader1_15());
 
@@ -610,7 +613,7 @@ public class SmallPets extends JavaPlugin {
 
         }else{
 
-            Bukkit.getConsoleSender().sendMessage(getPrefix() + "§cNot supported version");
+            SmallPetsCommons.getSmallPetsCommons().getLogger().error("§cNot supported version");
 
             Bukkit.getPluginManager().disablePlugin(this);
 
@@ -618,7 +621,7 @@ public class SmallPets extends JavaPlugin {
 
         }
 
-        Bukkit.getConsoleSender().sendMessage(getPrefix() + "Loaded version " + version + "!");
+        SmallPetsCommons.getSmallPetsCommons().getLogger().info("Loaded version " + version + "!");
 
         return true;
 

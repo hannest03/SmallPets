@@ -9,6 +9,8 @@ Class created by SmallCode
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import com.mojang.authlib.properties.PropertyMap;
+import it.smallcode.smallpets.core.SmallPetsCommons;
+import it.smallcode.smallpets.core.logger.Logger;
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -17,6 +19,8 @@ import java.lang.reflect.Field;
 import java.util.UUID;
 
 public abstract class SkullCreator {
+
+    private final Logger logger = SmallPetsCommons.getSmallPetsCommons().getLogger();
 
     public abstract ItemStack createHeadItem(String texture);
 
@@ -61,7 +65,7 @@ public abstract class SkullCreator {
 
             }catch(Exception ex){
 
-                Bukkit.getConsoleSender().sendMessage("Error!");
+                logger.error("Error while setting head texture!");
 
             }
 

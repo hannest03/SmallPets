@@ -8,6 +8,7 @@ Class created by SmallCode
 
 import it.smallcode.smallpets.core.SmallPetsCommons;
 import it.smallcode.smallpets.core.factory.PetFactory;
+import it.smallcode.smallpets.core.logger.Logger;
 import it.smallcode.smallpets.core.pets.Pet;
 import it.smallcode.smallpets.core.utils.FileUtils;
 import it.smallcode.smallpets.core.utils.PetLoader;
@@ -22,6 +23,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class PetManager {
+
+    private final Logger logger = SmallPetsCommons.getSmallPetsCommons().getLogger();
 
     private static final String[] configPets = new String[]{
             "fish",
@@ -55,14 +58,14 @@ public class PetManager {
                 loadDirectory(file);
                 continue;
             }
-            Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "Loading " + file.getName() + "...");
+           logger.println("Loading " + file.getName() + "...");
             Pet pet = PetLoader.loadPet(FileUtils.loadToJson(file));
             if(pet == null){
-                Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "§cERROR §7Couldn't load " + file.getName() + "!");
+                logger.error("Couldn't load " + file.getName() + "!");
                 continue;
             }
 
-            Bukkit.getConsoleSender().sendMessage(SmallPetsCommons.getSmallPetsCommons().getPrefix() + "Loaded " + pet.getNamespace() + ":" + pet.getId() + " pet!");
+            logger.println("Loaded " + pet.getNamespace() + ":" + pet.getId() + " pet!");
             petMap.put(new NamespaceKey(pet.getNamespace(), pet.getId()), pet);
         }
     }

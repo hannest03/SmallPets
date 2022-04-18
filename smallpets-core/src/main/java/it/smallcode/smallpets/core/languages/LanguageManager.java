@@ -7,6 +7,7 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.core.SmallPetsCommons;
+import it.smallcode.smallpets.core.logger.Logger;
 import it.smallcode.smallpets.core.utils.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -18,6 +19,7 @@ import java.util.Objects;
 public class LanguageManager {
 
     private static final String[] languages = { "en", "de", "it", "pl", "tr", "zh", "vi", "es", "fr", "hu" };
+    private final Logger logger = SmallPetsCommons.getSmallPetsCommons().getLogger();
 
     private JavaPlugin plugin;
     private String prefix;
@@ -59,7 +61,7 @@ public class LanguageManager {
         if(!dir.exists())
             dir.mkdirs();
 
-        Bukkit.getConsoleSender().sendMessage(prefix + "Loading language " + selectedLanguage + " ...");
+        logger.println("Loading language " + selectedLanguage + " ...");
 
         for(String lang : languages){
 
@@ -87,13 +89,13 @@ public class LanguageManager {
 
         if(language == null){
 
-            Bukkit.getConsoleSender().sendMessage(prefix + "Language " + selectedLanguage + " not found! Using english!");
+            logger.error("Language " + selectedLanguage + " not found! Using english!");
 
             language = new Language(new File(dir.getAbsolutePath(), "en.yml"));
 
         }
 
-        Bukkit.getConsoleSender().sendMessage(prefix + "Language set to " + language.getLanguageName() + "!");
+        logger.info("Language set to " + language.getLanguageName() + "!");
 
     }
 

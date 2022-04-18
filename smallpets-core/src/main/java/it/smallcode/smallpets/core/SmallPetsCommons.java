@@ -7,6 +7,8 @@ Class created by SmallCode
 */
 
 import it.smallcode.smallpets.core.languages.LanguageManager;
+import it.smallcode.smallpets.core.logger.Logger;
+import it.smallcode.smallpets.core.logger.LoggerFactory;
 import it.smallcode.smallpets.core.manager.*;
 import it.smallcode.smallpets.core.pets.experience.LevelingFormula;
 import it.smallcode.smallpets.core.pets.experience.ExponentialGrowthFormula;
@@ -28,9 +30,7 @@ public class SmallPetsCommons {
     public static final boolean DEBUG = false;
 
     static {
-        
         smallPetsCommons = new SmallPetsCommons();
-        
     }
 
     private SmallPetsCommons(){}
@@ -51,6 +51,8 @@ public class SmallPetsCommons {
     private boolean showUnlockMessage = true;
     private boolean registerCraftingRecipes = true;
     private boolean activateParticles = true;
+
+    private Logger logger = LoggerFactory.create(System.out);
 
     private List<String> disabledWorlds = new LinkedList<>();
 

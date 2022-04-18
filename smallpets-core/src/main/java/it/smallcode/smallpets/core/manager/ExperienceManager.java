@@ -6,6 +6,9 @@ Class created by SmallCode
 
 */
 
+import it.smallcode.smallpets.core.SmallPetsCommons;
+import it.smallcode.smallpets.core.logger.Logger;
+import it.smallcode.smallpets.core.logger.LoggerFactory;
 import it.smallcode.smallpets.core.manager.types.ExperienceTable;
 import it.smallcode.smallpets.core.pets.PetType;
 import org.bukkit.configuration.ConfigurationSection;
@@ -22,6 +25,7 @@ import java.util.Set;
 public class ExperienceManager {
 
     private static final String fileName = "experienceTable";
+    private final Logger logger = SmallPetsCommons.getSmallPetsCommons().getLogger();
 
     private JavaPlugin plugin;
 
